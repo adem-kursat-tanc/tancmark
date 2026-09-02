@@ -120,9 +120,9 @@ function readRepositoryDocuments(checkRoot) {
   });
 }
 
-function assertPlaceholderTransition(documents, expected, remoteCount) {
+function assertPlaceholderTransition(documents, expected, remoteCount, environmentExpected) {
   const placeholderDocuments = documents.filter(({ text }) => text.includes(PUBLIC_REPOSITORY_PLACEHOLDER));
-  if (remoteCount === 0 && !expected) {
+  if (remoteCount === 0 && !environmentExpected && placeholderDocuments.length === documents.length) {
     if (placeholderDocuments.length !== documents.length) fail("PRE_PUSH_REPOSITORY_URL_PLACEHOLDER_MISSING");
     return "PRE_PUSH_REPOSITORY_URL_OWNER_STEP";
   }
@@ -133,6 +133,23 @@ function assertPlaceholderTransition(documents, expected, remoteCount) {
   return "POST_REMOTE_REAL_REPOSITORY_URL_VERIFIED";
 }
 
+function markerPublicRepositoryUrl(marker) {
+  return {
+    ...canonicalizePublicGithubRepositoryUrl(marker.publicRepositoryUrl, "PUBLIC_EXPORT_MARKER_REPOSITORY_URL"),
+    source: "PUBLIC_EXPORT_MARKER",
+  };
+}
+
+function assertArchiveRepositoryDocuments(documents, expected) {
+  if (documents.some(({ text }) => text.includes(PUBLIC_REPOSITORY_PLACEHOLDER))) {
+    fail("REPOSITORY_URL_MISMATCH");
+  }
+  if (documents.some(({ text }) => !text.includes(expected.canonicalUrl))) {
+    fail("REPOSITORY_URL_MISMATCH");
+  }
+  return "ARCHIVE_PUBLIC_REPOSITORY_URL_VERIFIED";
+}
+
 export function inspectPublicRepositoryRemotePolicy(checkRoot, environment = process.env) {
   const markerPath = path.join(checkRoot, "reports", "PUBLIC_EXPORT_MARKER.json");
   assert.equal(fs.existsSync(markerPath), true, "PUBLIC_REPOSITORY_PUBLIC_EXPORT_MARKER_MISSING");
@@ -141,19 +158,24 @@ export function inspectPublicRepositoryRemotePolicy(checkRoot, environment = pro
   if (marker.privateHistoryIncluded !== false) fail("PRIVATE_HISTORY_INCLUDED");
 
   const documents = readRepositoryDocuments(checkRoot);
-  const expected = expectedPublicRepositoryUrl(environment);
+  const environmentExpected = expectedPublicRepositoryUrl(environment);
+  const markerExpected = markerPublicRepositoryUrl(marker);
+  if (environmentExpected && environmentExpected.comparisonKey !== markerExpected.comparisonKey) {
+    fail("EXPECTED_REPOSITORY_SOURCES_DISAGREE");
+  }
+  const expected = environmentExpected ?? markerExpected;
   const gitMetadata = fs.existsSync(path.join(checkRoot, ".git"));
   if (!gitMetadata) {
-    const placeholderStatus = assertPlaceholderTransition(documents, expected, 0);
+    const placeholderStatus = assertArchiveRepositoryDocuments(documents, markerExpected);
     return {
-      repositoryState: expected ? "ARCHIVE_WITH_VERIFIED_REPOSITORY_URL" : "PRE_PUSH_LOCAL_ARCHIVE",
+      repositoryState: "ARCHIVE_WITH_VERIFIED_PUBLIC_REPOSITORY_URL",
       placeholderStatus,
       commitCount: null,
       rootCommitHasParent: null,
       remoteCount: 0,
       remoteName: null,
-      remoteUrl: expected?.canonicalUrl ?? null,
-      expectedRepositorySource: expected?.source ?? null,
+      remoteUrl: markerExpected.canonicalUrl,
+      expectedRepositorySource: markerExpected.source,
       publicExport: true,
       privateHistoryIncluded: false,
     };
@@ -163,10 +185,25 @@ export function inspectPublicRepositoryRemotePolicy(checkRoot, environment = pro
   assert.equal(path.resolve(repositoryRoot), path.resolve(checkRoot), "PUBLIC_REPOSITORY_NESTED_IN_OTHER_REPOSITORY");
   const commitCount = Number(git(checkRoot, ["rev-list", "--count", "HEAD"]));
   const headParents = git(checkRoot, ["rev-list", "--parents", "-n", "1", "HEAD"]).split(/\s+/u).filter(Boolean);
-  const rootCommitHasParent = headParents.length !== 1;
+  const headHasParent = headParents.length !== 1;
+  const rootCommits = git(checkRoot, ["rev-list", "--max-parents=0", "HEAD"]).split(/\r?\n/u).filter(Boolean);
+  if (rootCommits.length !== 1) fail("SINGLE_PARENTLESS_PUBLIC_ROOT_REQUIRED");
+  const rootCommit = rootCommits[0];
+  const rootParents = git(checkRoot, ["rev-list", "--parents", "-n", "1", rootCommit]).split(/\s+/u).filter(Boolean);
+  const rootCommitHasParent = rootParents.length !== 1;
   const historyFailures = [];
-  if (commitCount !== 1) historyFailures.push("SINGLE_ROOT_COMMIT_COUNT_REQUIRED");
   if (rootCommitHasParent) historyFailures.push("HEAD_PARENT_PRESENT");
+  if (commitCount === 1 && headHasParent) historyFailures.push("HEAD_PARENT_PRESENT");
+  if (commitCount > 1) {
+    if (marker.publicHistoryPolicy !== "VERIFIED_PARENTLESS_PUBLIC_ROOT_WITH_NORMAL_DESCENDANT_COMMITS") {
+      historyFailures.push("PUBLIC_HISTORY_POLICY_MISSING");
+    }
+    if (!/^[0-9a-f]{40}$/u.test(marker.publicHistoryRootCommit ?? "")) {
+      historyFailures.push("PUBLIC_HISTORY_ROOT_COMMIT_INVALID");
+    } else if (rootCommit !== marker.publicHistoryRootCommit) {
+      historyFailures.push("PUBLIC_HISTORY_ROOT_COMMIT_MISMATCH");
+    }
+  }
   if (historyFailures.length > 0) fail(historyFailures.join("+"));
 
   const remoteNames = git(checkRoot, ["remote"]).split(/\r?\n/u).filter(Boolean);
@@ -184,7 +221,7 @@ export function inspectPublicRepositoryRemotePolicy(checkRoot, environment = pro
     if (remote.comparisonKey !== expected.comparisonKey) fail("REMOTE_REPOSITORY_MISMATCH");
   }
 
-  const placeholderStatus = assertPlaceholderTransition(documents, expected, remoteNames.length);
+  const placeholderStatus = assertPlaceholderTransition(documents, expected, remoteNames.length, environmentExpected);
   const githubActions = environment.GITHUB_ACTIONS === "true" && expected?.source === "GITHUB_ACTIONS_ENVIRONMENT";
   return {
     repositoryState: remoteNames.length === 0
@@ -192,6 +229,9 @@ export function inspectPublicRepositoryRemotePolicy(checkRoot, environment = pro
       : githubActions ? "GITHUB_ACTIONS_CHECKOUT" : "GITHUB_REMOTE_CONFIGURED_PRE_PUSH_TEST",
     placeholderStatus,
     commitCount,
+    historyMode: commitCount === 1 ? "SINGLE_PARENTLESS_PUBLIC_ROOT" : "VERIFIED_PUBLIC_ROOT_WITH_NORMAL_DESCENDANT_COMMITS",
+    rootCommit,
+    headHasParent,
     rootCommitHasParent,
     remoteCount: remoteNames.length,
     remoteName: remoteNames[0] ?? null,

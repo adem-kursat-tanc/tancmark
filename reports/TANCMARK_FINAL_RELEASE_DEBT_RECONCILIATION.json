@@ -13,7 +13,10 @@
   "finalLiveRepeatabilityEvidence": "reports/PUBLIC_CLEAN_CLONE_LIVE_REPEATABILITY_RESULT_20260828.json",
   "finalC2paEvidence": "reports/C2PA_NEGATIVE_TEST_RESULTS.json",
   "privateSecurityDetailEvidence": "OWNER_ONLY_RECONCILIATION_REDACTED_IN_PUBLIC_SUMMARY",
-  "currentReleaseStatus": "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12",
+  "currentReleaseStatus": "TANCMARK_GITHUB_PUBLIC_RELEASE_READY_WITH_EXPERIMENTAL_LOCAL_DEMO_20260903",
+  "hostedCodespacesDemo": "CURRENTLY_UNAVAILABLE_NON_BLOCKING",
+  "experimentalLocalDemo": "AVAILABLE_WITH_OPERATOR_CONTROL",
+  "paidPrebuild": "NOT_ENABLED_BY_OWNER_DECISION",
   "rules": "Every reviewed item has exactly one allowed classification; external configuration and deployment are not local source gaps.",
   "items": [
     { "area": "Text", "classification": "CLOSED_CANONICAL" },

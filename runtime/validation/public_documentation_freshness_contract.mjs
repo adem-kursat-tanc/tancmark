@@ -22,7 +22,7 @@ const staleCount = structuredClone(current);
 staleCount.license.dependencyPackageCount = 1145;
 assert(evaluateCurrentReleaseDocumentation(staleCount).includes("LICENSE_INVENTORY_MISMATCH:dependencyPackageCount"));
 const staleDocs = structuredClone(current);
-staleDocs.docs.operatorGuide = staleDocs.docs.operatorGuide.replace("Current V13 inventory covers", "Historical inventory covered");
+staleDocs.docs.operatorGuide = staleDocs.docs.operatorGuide.replace("Current clean-install inventory covers", "Historical inventory covered");
 assert(evaluateCurrentReleaseDocumentation(staleDocs).includes("CURRENT_V13_INVENTORY_SENTENCE_MISSING:operatorGuide"));
 assert.deepEqual(evaluateDetailedPublicDocumentation(), []);
 

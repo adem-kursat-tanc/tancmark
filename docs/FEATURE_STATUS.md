@@ -7,6 +7,7 @@
 | Audio seal/recover | IMPLEMENTED_AND_TESTED | Audio-layer authority only |
 | Video Primary | IMPLEMENTED_AND_TESTED | Canonical path preserved; two advanced cells fail closed |
 | Local protected Live | IMPLEMENTED_AND_TESTED | Local protected Live and final exact verification passed the frozen clean-clone repeatability gate 3/3. Historical HTTP 500/409 sub-details were not retained and remain a non-blocking historical evidence limit. |
+| Experimental local demo | EXPERIMENTAL_LOCAL_DEMO | Real synthetic-fixture Text/Image/Audio/Video/Live/Registry/C2PA execution; GitHub-hosted Codespaces launch currently unavailable |
 | DNA / Chief Brain | IMPLEMENTED_AND_TESTED | Advisory only; `autoApply=false` |
 | Registry and ML-DSA signatures | IMPLEMENTED_AND_TESTED | Exact tenant-bound authority chain |
 | Canonical seal authorization | IMPLEMENTED_AND_TESTED | Server-verified API client or registry-resolved administrator; anonymous, spoofed and null-tenant canonical writes rejected |
@@ -24,7 +25,7 @@
 
 The accepted Live closure does not reopen or change the canonical Live watermark algorithm, thresholds, identities, registry, signature, ownership, or VAULT decisions.
 
-Current V13 inventory covers 1,188 dependencies: 677 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.
+Current clean-install inventory covers 1,115 dependencies: 604 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.
 
 V8 closes V7-SEC-001 and V7-SEC-002 without changing watermark algorithms,
 thresholds, exact-ID, registry/signature, ownership, VAULT, Live, DNA, or Chief

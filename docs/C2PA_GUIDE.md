@@ -38,3 +38,5 @@ Local RSA-PSS signing is disabled in product mode. Production signing should
 use ES256 locally or an external KMS/HSM/subprocess signer. A test-only
 RSA-PSS path, if exercised, requires the existing explicit test-signing gate
 and is never a product configuration.
+
+Demo availability does not change this C2PA boundary. The real synthetic-fixture C2PA demonstration remains available through the operator-controlled `EXPERIMENTAL_LOCAL_DEMO`; GitHub-hosted Codespaces launch is currently unavailable and is not a product release gate.

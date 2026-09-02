@@ -31,7 +31,7 @@ const docs = {
   security: "docs/SECURITY_DEPLOYMENT_GUIDE.md",
   changelog: "CHANGELOG.md",
 };
-const CURRENT_INVENTORY_SENTENCE = "Current V13 inventory covers 1,188 dependencies: 677 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.";
+const CURRENT_INVENTORY_SENTENCE = "Current clean-install inventory covers 1,115 dependencies: 604 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.";
 const LEGACY_TR_V1_PRODUCT_BLOB_MANIFEST_SHA256 = "e256584b9f7f86129a6282580ca60430410ec045128e605681513e5e9fafa66b";
 const ACCEPTED_V8_PRODUCT_BLOB_MANIFEST_SHA256 = "a67c71b81c79d0345d641155a9ed523a324ac7a48420c5cc096524f5ccba77b8";
 const CURRENT_PRODUCT_BLOB_MANIFEST_SHA256 = "9f155563591a7869a9747bc1844a34f6eea97487f029ab98d76a332e94aa352a";
@@ -66,10 +66,10 @@ export function evaluateCurrentReleaseDocumentation(documents) {
   }
   const finalInventory = documents.finalRelease?.currentInventory ?? {};
   const expected = {
-    dependencyPackageCount: 1188,
-    javascriptDependencyPackageCount: 677,
+    dependencyPackageCount: 1115,
+    javascriptDependencyPackageCount: 604,
     nativeRustDependencyPackageCount: 511,
-    declaredLicensePackageCount: 1188,
+    declaredLicensePackageCount: 1115,
     documentedSourceLicenseResolutionCount: 0,
     unresolvedLicenseCount: 0,
   };
@@ -540,7 +540,7 @@ export function loadCurrentReleaseDocumentation(checkRoot = root) {
       featureStatus: readFileSync(path.join(checkRoot, docs.feature), "utf8"),
       operatorGuide: readFileSync(path.join(checkRoot, docs.operator), "utf8"),
     },
-    finalRelease: JSON.parse(readFileSync(path.join(checkRoot, "reports/PUBLIC_FINAL_RELEASE_RESULT_20260831.json"), "utf8")),
+    finalRelease: JSON.parse(readFileSync(path.join(checkRoot, "reports/PUBLIC_FINAL_RELEASE_RESULT_20260903.json"), "utf8")),
     license: JSON.parse(readFileSync(path.join(checkRoot, "reports/PUBLIC_LICENSE_SCAN.json"), "utf8")),
     toolchain: JSON.parse(readFileSync(path.join(checkRoot, "reports/TOOLCHAIN_SUPPLY_CHAIN_CLOSURE_20260831.json"), "utf8")),
   };
@@ -558,7 +558,7 @@ export function assertDocumentationFreshness(changedFiles) {
   const detailedFailures = evaluateDetailedPublicDocumentation();
   assert.deepEqual(detailedFailures, [], `PUBLIC_DETAILED_DOCUMENTATION_GATE:${detailedFailures.join(",")}`);
   result.currentReleaseMetadata = "V13_SECURITY_REMEDIATION_CURRENT";
-  result.currentDependencyPackageCount = 1188;
+  result.currentDependencyPackageCount = 1115;
   result.detailedDocumentation = "PASSED";
   const sourceDigests = calculatePublicSourceClassDigests();
   result.productSourceBlobManifestSha256 = sourceDigests.productEngineDigest;

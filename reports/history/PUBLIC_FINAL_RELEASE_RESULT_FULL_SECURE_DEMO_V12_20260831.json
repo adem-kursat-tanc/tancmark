@@ -1,9 +1,8 @@
 {
   "schemaVersion": "tancmark-public-final-release-result-v3",
   "asOf": "2026-09-02",
-  "historical": true,
-  "currentReleaseAuthority": false,
-  "supersededBy": "reports/PUBLIC_FINAL_RELEASE_RESULT_20260903.json",
+  "historical": false,
+  "currentReleaseAuthority": true,
   "productEvidenceAuthority": "V4_BEHAVIOUR_EVIDENCE_CARRIED_FORWARD_BY_V8_SECURITY_CLOSURE_V12_PLATFORM_REGRESSION_AND_V13_SECURITY_REMEDIATION_REGRESSION",
   "toolchainEvidenceAuthority": "V6_BASE_CARRIED_FORWARD_BY_V13_SECURITY_REMEDIATION_CURRENT",
   "validatedProductCode": {

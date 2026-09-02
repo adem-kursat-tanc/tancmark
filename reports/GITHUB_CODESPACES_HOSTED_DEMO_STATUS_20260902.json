@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "tancmark-github-codespaces-hosted-demo-status-v1",
+  "measuredAt": "2026-09-02",
+  "status": "GITHUB_CODESPACES_HOSTED_DEMO_CURRENTLY_UNAVAILABLE",
+  "releaseGateRequired": false,
+  "localDemoClassification": "EXPERIMENTAL_LOCAL_DEMO",
+  "basePublicCommit": "e857732ab5612d516260a5408cbce02ae6d4c420",
+  "hostedTest": {
+    "machine": "2-core / 8GB RAM / 32GB",
+    "firstCreationStartedAt": "2026-09-02T22:04:12+03:00",
+    "imageAndContainerReportedSuccessAt": "2026-09-02T22:38:39+03:00",
+    "codespacesPlatformFailureAt": "2026-09-02T22:38:43+03:00",
+    "firstResult": "FAILED_RECOVERY_MODE",
+    "cachedRebuildObservedSeconds": 674,
+    "cachedRebuildResult": "NOT_READY_AFTER_11M14S",
+    "demoEndpointVerified": false,
+    "rootCauseClassification": "NOT_IDENTIFIED_BEYOND_GITHUB_PLATFORM_CONTAINER_CREATION_FAILURE"
+  },
+  "failedCodespaceDeleted": true,
+  "remainingCodespaceCount": 0,
+  "paidPrebuildEnabled": false,
+  "paidMachineEnabled": false,
+  "paymentMethodChanged": false,
+  "codespacesBadgePublished": false,
+  "codespacesQuickstartPublished": false,
+  "localDockerEvidence": {
+    "functionalSecurityAndMediaEvidencePreserved": true,
+    "preparedImageLifecycleMeanMs": 292.333,
+    "preparedImageLifecycleP95NearestRankMs": 303,
+    "evidence": "reports/CODESPACES_PREBUILD_LOCAL_FAST_START_20260902.json",
+    "claimBoundary": "Local prepared-image timing only; no GitHub-hosted startup claim"
+  },
+  "productScope": {
+    "watermarkAlgorithmsChanged": false,
+    "thresholdsChanged": false,
+    "identityRegistrySignatureOrVaultRulesChanged": false,
+    "textImageAudioVideoLiveOrC2paEnginesChanged": false,
+    "demoSourceDeleted": false
+  },
+  "publicationDecision": "REMOVE_HOSTED_CODESPACES_CLAIMS_KEEP_EXPERIMENTAL_LOCAL_DEMO"
+}

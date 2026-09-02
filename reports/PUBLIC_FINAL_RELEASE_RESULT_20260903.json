@@ -1,9 +1,28 @@
 {
-  "schemaVersion": "tancmark-public-final-release-result-v3",
-  "asOf": "2026-09-02",
-  "historical": true,
-  "currentReleaseAuthority": false,
-  "supersededBy": "reports/PUBLIC_FINAL_RELEASE_RESULT_20260903.json",
+  "schemaVersion": "tancmark-public-final-release-result-v4",
+  "asOf": "2026-09-03",
+  "historical": false,
+  "currentReleaseAuthority": true,
+  "releaseScope": {
+    "productReleaseReady": true,
+    "hostedCodespacesDemoAvailable": false,
+    "hostedDemoReleaseGateRequired": false,
+    "localDemoClassification": "EXPERIMENTAL_LOCAL_DEMO",
+    "localDockerDemoEvidencePreserved": true,
+    "codespacesBadgePublished": false,
+    "codespacesQuickstartPublished": false,
+    "paidPrebuildEnabled": false,
+    "productEngineChangedByHostedDemoWithdrawal": false,
+    "publicApiBehaviorChanged": false,
+    "dependencyGraphChanged": false,
+    "lockfileChanged": false
+  },
+  "historicalDemoEvidence": {
+    "classification": "PRESERVED_LOCAL_DOCKER_FUNCTIONAL_EVIDENCE_NOT_CURRENT_HOSTED_AVAILABILITY",
+    "byteExactCopy": "reports/history/PUBLIC_FINAL_RELEASE_RESULT_FULL_SECURE_DEMO_V12_20260831.json",
+    "byteExactCopySha256": "9d97985e9a20dd457d1a9397170ddd15007c9b15a60d6c6b48e976c2c37082a6",
+    "currentReleaseAuthority": false
+  },
   "productEvidenceAuthority": "V4_BEHAVIOUR_EVIDENCE_CARRIED_FORWARD_BY_V8_SECURITY_CLOSURE_V12_PLATFORM_REGRESSION_AND_V13_SECURITY_REMEDIATION_REGRESSION",
   "toolchainEvidenceAuthority": "V6_BASE_CARRIED_FORWARD_BY_V13_SECURITY_REMEDIATION_CURRENT",
   "validatedProductCode": {
@@ -81,7 +100,7 @@
     "buildProduct": "PASSED",
     "publicTests": "PASSED",
     "documentation": "PASSED",
-    "releaseStateConsistency": "PASSED_V12_FULL_SECURE_DEMO_CURRENT",
+    "releaseStateConsistency": "PASSED_EXPERIMENTAL_LOCAL_DEMO_CURRENT",
     "workflowPins": "PASSED_3_WORKFLOWS_8_EXTERNAL_USES",
     "workflowOfficialReleaseOrigin": "PASSED_4_OF_4",
     "actionPinFromOfficialReleaseTag": true,
@@ -90,7 +109,7 @@
     "licenseInventory": "PASSED_1115_TOTAL_1115_DECLARED_0_DOCUMENTED_UNRESOLVED_0",
     "canonicalSealSecurity": "PASSED_15_OF_15_MIDDLEWARE_AND_15_OF_15_POSTGRES_MUTATING",
     "c2paLocalRsaPssProductPolicy": "PASSED_PRODUCT_PS256_PS384_PS512_REJECTED_BEFORE_KEY_READ",
-    "finalAuditEvidenceConsistency": "FINAL_AUDIT_EVIDENCE_CONSISTENCY_GATE_V13_SECURITY_REMEDIATION_CURRENT",
+    "finalAuditEvidenceConsistency": "FINAL_AUDIT_EVIDENCE_CONSISTENCY_GATE_EXPERIMENTAL_LOCAL_DEMO_CURRENT",
     "fullSecureDemoFunctional": "PASSED_3_OF_3",
     "fullSecureDemoBrowser": "PASSED_3_OF_3_INDEPENDENT_SERVER_STARTS",
     "fullSecureDemoC2pa": "PASSED_3_OF_3",
@@ -120,6 +139,10 @@
     ,"forgedAuditActor": 0
     ,"registrySignatureBypass": 0
     ,"privateKeyDisclosure": 0
+    ,"productEngineSourceChangedByHostedDemoWithdrawal": false
+    ,"publicApiBehaviorChangedByHostedDemoWithdrawal": false
+    ,"dependencyGraphChangedByHostedDemoWithdrawal": false
+    ,"lockfileChangedByHostedDemoWithdrawal": false
   },
   "privacyScan": {
     "secretPatterns": 0,
@@ -156,7 +179,7 @@
     "rawScannerFindingsRetained": true,
     "platformAdapterClosure": "reports/PUBLIC_V12_DEMO_PLATFORM_ADAPTER_CLOSURE_20260902.json"
   },
-  "currentReleaseStatus": "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12",
+  "currentReleaseStatus": "TANCMARK_GITHUB_PUBLIC_RELEASE_READY_WITH_EXPERIMENTAL_LOCAL_DEMO_20260903",
   "finalAuditEvidence": {
     "productAuthority": "reports/final-audit-v4",
     "toolchainAuthority": "reports/TOOLCHAIN_SUPPLY_CHAIN_CLOSURE_20260831.json",

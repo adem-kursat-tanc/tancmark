@@ -62,8 +62,10 @@ if (fs.existsSync(gitDirectory)) {
   const repositoryRoot = execFileSync("git", ["rev-parse", "--show-toplevel"], { cwd: root, encoding: "utf8", windowsHide: true }).trim();
   assert.equal(path.resolve(repositoryRoot), path.resolve(root), "public_export_nested_in_other_repository");
   publicHistoryCommitCount = Number(execFileSync("git", ["rev-list", "--count", "HEAD"], { cwd: root, encoding: "utf8", windowsHide: true }).trim());
-  assert.equal(publicHistoryCommitCount, 1, "public_export_must_have_single_public_commit");
+  assert(publicHistoryCommitCount >= 1, "public_export_must_have_public_history");
   repositoryRemotePolicy = inspectPublicRepositoryRemotePolicy(root);
+  assert.equal(repositoryRemotePolicy.commitCount, publicHistoryCommitCount, "public_history_policy_count_mismatch");
+  assert.equal(repositoryRemotePolicy.rootCommitHasParent, false, "public_history_root_must_be_parentless");
 }
 const forbiddenDirectories = new Set([".local", "node_modules", "dist", "dist-product", "__pycache__"]);
 const forbiddenExtensions = new Set([".mp4", ".mov", ".mkv", ".webm", ".wav", ".mp3", ".flac", ".exe", ".dll", ".onnx", ".db", ".sqlite"]);

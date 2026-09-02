@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,8 +10,11 @@ const setupPath = path.join(root, ".devcontainer", "setup-demo.sh");
 const verifyPath = path.join(root, ".devcontainer", "verify-demo-ready.sh");
 const startPath = path.join(root, ".devcontainer", "start-demo.sh");
 const readmePath = path.join(root, "README.md");
+const englishGuidePath = path.join(root, "docs", "DEMO_GUIDE.md");
+const turkishGuidePath = path.join(root, "docs", "DEMO_GUIDE_TR.md");
+const statusReportPath = path.join(root, "reports", "GITHUB_CODESPACES_HOSTED_DEMO_STATUS_20260902.json");
 
-for (const required of [devcontainerPath, setupPath, verifyPath, startPath, readmePath]) {
+for (const required of [devcontainerPath, setupPath, verifyPath, startPath, readmePath, englishGuidePath, turkishGuidePath, statusReportPath]) {
   assert.equal(existsSync(required), true, `codespaces_prebuild_required_file_missing:${path.relative(root, required)}`);
 }
 
@@ -46,34 +48,31 @@ for (const forbidden of ["GITHUB_TOKEN", "GH_TOKEN", "printenv", "set -x"]) {
   assert.equal(`${setup}\n${verify}\n${start}`.includes(forbidden), false, `codespaces_secret_boundary_weakened:${forbidden}`);
 }
 
-const readme = readFileSync(readmePath, "utf8");
-let remoteUrl = "";
-try {
-  remoteUrl = execFileSync("git", ["remote", "get-url", "origin"], {
-    cwd: root,
-    encoding: "utf8",
-    windowsHide: true,
-    stdio: ["ignore", "pipe", "ignore"],
-  }).trim();
-} catch {}
-const placeholder = "<GITHUB_CODESPACES_DEMO_URL>";
-if (!remoteUrl) {
-  assert(readme.includes(placeholder), "codespaces_url_placeholder_required_before_first_push");
-} else {
-  const match = remoteUrl.match(/github\.com[/:]([^/]+)\/([^/.]+)(?:\.git)?$/i);
-  assert(match, "codespaces_origin_must_be_github_repository");
-  const expected = `https://codespaces.new/${match[1]}/${match[2]}?quickstart=1`;
-  assert.equal(readme.includes(placeholder), false, "codespaces_url_placeholder_forbidden_after_remote_exists");
-  assert(readme.includes(expected), `codespaces_quickstart_url_missing:${expected}`);
-  assert(readme.includes("https://github.com/codespaces/badge.svg"), "codespaces_badge_missing");
+const publicationDocuments = [readmePath, englishGuidePath, turkishGuidePath]
+  .map((documentPath) => readFileSync(documentPath, "utf8"));
+for (const document of publicationDocuments) {
+  assert(document.includes("EXPERIMENTAL_LOCAL_DEMO"), "experimental_local_demo_status_missing");
+  assert(document.includes("GitHub Codespaces hosted demo currently unavailable"), "codespaces_unavailable_notice_missing");
+  assert.equal(document.includes("https://codespaces.new/"), false, "codespaces_quickstart_must_not_be_published");
+  assert.equal(document.includes("https://github.com/codespaces/badge.svg"), false, "codespaces_badge_must_not_be_published");
 }
+const statusReport = JSON.parse(readFileSync(statusReportPath, "utf8"));
+assert.equal(statusReport.status, "GITHUB_CODESPACES_HOSTED_DEMO_CURRENTLY_UNAVAILABLE");
+assert.equal(statusReport.releaseGateRequired, false);
+assert.equal(statusReport.localDemoClassification, "EXPERIMENTAL_LOCAL_DEMO");
+assert.equal(statusReport.paidPrebuildEnabled, false);
+assert.equal(statusReport.paidMachineEnabled, false);
+assert.equal(statusReport.paymentMethodChanged, false);
+assert.equal(statusReport.failedCodespaceDeleted, true);
 
 process.stdout.write(`${JSON.stringify({
-  gate: "TANCMARK_CODESPACES_PREBUILD_AND_FAST_START",
+  gate: "TANCMARK_EXPERIMENTAL_LOCAL_DEMO_NO_HOSTED_CODESPACES",
   status: "PASSED",
-  heavySetupLifecycle: "updateContentCommand",
-  userStartLifecycle: ["postCreateCommand", "postStartCommand"],
+  localDemoClassification: "EXPERIMENTAL_LOCAL_DEMO",
+  hostedCodespacesDemo: "UNAVAILABLE",
+  releaseGateRequired: false,
+  paidPrebuildEnabled: false,
+  publishedCodespacesBadge: false,
   forwardedPort: 4173,
   portVisibility: "private",
-  repositoryUrlState: remoteUrl ? "REAL_REMOTE_REQUIRED" : "PRE_PUSH_PLACEHOLDER",
 }, null, 2)}\n`);
