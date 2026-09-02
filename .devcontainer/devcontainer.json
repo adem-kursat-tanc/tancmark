@@ -1,0 +1,38 @@
+{
+  "name": "TancMark secure multimodal demo",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "tancmark",
+  "containerUser": "tancmark",
+  "overrideCommand": false,
+  "forwardPorts": [4173],
+  "portsAttributes": {
+    "4173": {
+      "label": "TancMark Interactive Demo",
+      "onAutoForward": "openPreview",
+      "visibility": "private"
+    }
+  },
+  "runArgs": [
+    "--init",
+    "--cap-drop=ALL",
+    "--security-opt=no-new-privileges",
+    "--pids-limit=256"
+  ],
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "8gb",
+    "storage": "32gb"
+  },
+  "updateContentCommand": "bash .devcontainer/setup-demo.sh",
+  "postCreateCommand": "bash .devcontainer/verify-demo-ready.sh",
+  "postStartCommand": "bash .devcontainer/start-demo.sh",
+  "shutdownAction": "stopContainer",
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["docs/DEMO_GUIDE.md"]
+    }
+  }
+}

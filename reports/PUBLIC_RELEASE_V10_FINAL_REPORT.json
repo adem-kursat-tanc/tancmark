@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "tancmark-public-release-v10-final-report-v1",
+  "asOf": "2026-09-01",
+  "status": "PASSED",
+  "scope": "RELEASE_REPRODUCIBILITY_VALIDATION_ONLY",
+  "toolchain": {
+    "node": "v24.19.0",
+    "pnpm": "10.34.5",
+    "frozenInstall": "PASSED"
+  },
+  "product": {
+    "productEngineFileCount": 386,
+    "productEngineFileSetExact": true,
+    "productEngineFileSetSha256": "f528b5c69f34690613f385ae5f07b3f55c1b4fcba252a2a01a877dc7949a0ce2",
+    "currentUtf8BytewiseDigest": "a67c71b81c79d0345d641155a9ed523a324ac7a48420c5cc096524f5ccba77b8",
+    "legacyTurkishLocaleDigest": "e256584b9f7f86129a6282580ca60430410ec045128e605681513e5e9fafa66b",
+    "legacyDigestHistorical": true,
+    "productFileContentsChanged": false,
+    "apiBehaviorChanged": false,
+    "dependencyGraphChanged": false,
+    "lockfileChanged": false,
+    "watermarkOrDecisionRuleChanged": false,
+    "wrongOwnership": 0
+  },
+  "gates": {
+    "crossLocaleReleaseBytes": "PASSED_3_OF_3",
+    "historyFreeSingleCommitRepository": "PASSED_24_OF_24_PLUS_2_NEGATIVES",
+    "publicSourceContract": "PASSED",
+    "publicExportSurface": "PASSED",
+    "documentationFreshness": "PASSED",
+    "guidesApiLinksAndParity": "PASSED",
+    "releaseStateConsistency": "PASSED",
+    "auditEvidenceConsistency": "PASSED",
+    "workflowPinsAndOfficialOrigins": "PASSED",
+    "typecheck": "PASSED",
+    "normalBuild": "PASSED",
+    "productBuild": "PASSED",
+    "publicTests": "PASSED",
+    "normalAndProductRouteSmoke": "PASSED",
+    "canonicalReaderScope": "PASSED",
+    "c2pa": "PASSED",
+    "generatedCodeRepeatability": "PASSED",
+    "sbomAndLicenseRepeatability": "PASSED",
+    "unresolvedLicenseCount": 0,
+    "secretPersonalPathPrivateMedia": 0
+  },
+  "heavyRealMediaTests": {
+    "rerun": false,
+    "reason": "The task forbids unnecessary heavy-media reruns and accepts exact hashed carry-forward evidence.",
+    "acceptedV9PublicArchiveSha256": "a0d7d1ce6710bad79f748aed084ab614c480a14ade1b65d04965f23a040e2ae3",
+    "acceptedDocumentationEvidenceSha256": "654be9aa9c2e392fa3705dbc86b929ecb45ad57a26e7841791b8473128b0aca3",
+    "acceptedProductHashScopeEvidenceSha256": "1698c837de93b1aea3fd0b7fc8bb447ac0505ecefa10df9ea8387d94fa29d7a0"
+  },
+  "expectedFinalManifestEntryCount": 1104,
+  "publicRepository": {
+    "commitIdentity": "RECORDED_EXTERNALLY_IN_GIT_AND_ZIP_COMMENT",
+    "commitCount": 1,
+    "remoteCount": 0,
+    "privateHistoryIncluded": false,
+    "license": "AGPL-3.0-only",
+    "claPresent": true
+  },
+  "githubHostedRunnerExecution": "NOT_RUN_PUSH_PROHIBITED",
+  "pushTagReleaseDeployPerformed": false,
+  "finalDecisionAuthority": "Adem Kürşat Tanç"
+}

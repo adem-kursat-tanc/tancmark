@@ -1,0 +1,4 @@
+**
+!.devcontainer/
+!.devcontainer/Dockerfile
+!.devcontainer/install-demo-runtime.sh

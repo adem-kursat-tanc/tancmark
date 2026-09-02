@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "tancmark-product-runtime-locale-ordering-review-v1",
+  "asOf": "2026-09-01",
+  "status": "PRODUCT_RUNTIME_LOCALE_ORDERING_REVIEW_CANDIDATE",
+  "blocking": false,
+  "securityEffectProven": false,
+  "productSourceChanged": false,
+  "releaseArtifactOrderingUsagesChanged": 0,
+  "reviewedProductRuntimeLocaleCompareOccurrences": 12,
+  "candidate": {
+    "path": "artifacts/api-server/src/live/liveProductStore.ts",
+    "line": 1181,
+    "purpose": "runtime artifact presentation order",
+    "reason": "Relative-path ordering is locale-sensitive, but no ownership, tenant, signature, VAULT, manifest, checksum, SBOM or release-evidence security effect was proven. Product behavior was therefore left unchanged."
+  },
+  "decision": "OWNER_REVIEW_CANDIDATE_NON_BLOCKING"
+}

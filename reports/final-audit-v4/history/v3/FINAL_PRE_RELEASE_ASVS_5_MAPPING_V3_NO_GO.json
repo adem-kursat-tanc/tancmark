@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "standard": "OWASP Application Security Verification Standard 5.0.0",
+  "usage": "test checklist only; no certification or formal compliance claim",
+  "overall": "PARTIAL_WITH_RELEASE_BLOCKERS",
+  "mapping": [
+    {"area": "Architecture and threat model", "status": "EVIDENCED", "evidence": ["FINAL_PRE_RELEASE_THREAT_MODEL.md", "frozen exact commit and trust boundaries"]},
+    {"area": "Authentication", "status": "EVIDENCED_BY_CONTRACTS", "evidence": ["unauthenticated C2PA=401", "Live cryptographic token/grant boundary", "admin-before-tenant route order"]},
+    {"area": "Session and token management", "status": "EVIDENCED_BY_CONTRACTS", "evidence": ["cookie-only exchange", "grant replay/revoke", "stale/revoked token negatives"]},
+    {"area": "Access control and tenant isolation", "status": "EVIDENCED_BY_CONTRACTS", "evidence": ["wrong tenant rejected", "forwarded identity ignored", "wrongOwnership=0"]},
+    {"area": "Validation and encoding", "status": "FAILED_DEPENDENCY_BOUNDARY", "evidence": ["hostile input tests pass", "Multer 2.1.1 reachable high advisory", "Sharp 0.34.5 reachable high advisory"]},
+    {"area": "Stored cryptography", "status": "EVIDENCED_BY_CONTRACTS_AND_REVIEW", "evidence": ["ML-DSA verification", "registry digest", "wrong signature/tamper rejected", "private key disclosure=0"]},
+    {"area": "Error handling and logging", "status": "PARTIAL", "evidence": ["path/secret redaction tests pass", "database audit persistence NOT_MEASURED_DATABASE_NOT_CONFIGURED"]},
+    {"area": "Data protection and privacy", "status": "PASSED", "evidence": ["secret/personal/private media/fingerprint/path disclosure all zero"]},
+    {"area": "Communications", "status": "PRODUCTION_DEPLOYMENT_DEFERRED", "evidence": ["loopback plaintext accepted", "non-loopback plaintext rejected", "external provider configuration fail-closed"]},
+    {"area": "Malicious code and supply chain", "status": "FAILED", "evidence": ["lock unchanged and action pins pass", "reachable high Multer/Sharp advisories"]},
+    {"area": "Business logic", "status": "EVIDENCED_BY_CONTRACTS", "evidence": ["exact+registry+tenant+signature decision", "partial not promoted", "C2PA cannot open VAULT", "DNA autoApply=false"]},
+    {"area": "Files and resources", "status": "PARTIAL_FAILED_CLEANUP", "evidence": ["zero/truncated/oversized/path/symlink/hardlink tests", "seven stale Live temporary roots"]},
+    {"area": "API and web services", "status": "PARTIAL", "evidence": ["OpenAPI and route smokes", "lab/direct readers=410", "multipart and image dependency blockers"]},
+    {"area": "Configuration", "status": "FAILED_DOCUMENTED_RUNTIME_SETUP", "evidence": ["published absolute FFmpeg environment-only setup fails 3/3", "verified process-PATH setup passes 3/3"]}
+  ],
+  "notMeasuredOrExternal": [
+    "Production TLS termination and reverse-proxy configuration",
+    "Production database audit persistence",
+    "GitHub-native CodeQL/secret scanning/push protection/rulesets before repository push",
+    "Formal ASVS verification or certification"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "tancmark-public-documentation-v9-smoke-evidence-v1",
+  "generatedAtUtc": "2026-09-01T12:24:25.965Z",
+  "status": "PASSED",
+  "evidenceMode": "REPEATED_AFTER_FINAL_DOCUMENTATION_EDITS",
+  "contract": "runtime/validation/public_product_build_route_smoke.mjs",
+  "productEngineSourceManifestSha256": "e256584b9f7f86129a6282580ca60430410ec045128e605681513e5e9fafa66b",
+  "health": 200,
+  "live": 200,
+  "wrongTenant": 404,
+  "videoLabProduct": 410,
+  "audioLabProduct": 410,
+  "directCanonicalReader": 410,
+  "directCanonicalReaderOwnership": false,
+  "c2paSignEmbedReadVerify": "PASSED",
+  "c2paCanOpenVault": false,
+  "wrongOwnership": 0,
+  "aegisSecretRequirement": "EXPECTED_FAIL_CLOSED_WITHOUT_SECRET_AND_PASSED_WITH_CONFIGURED_SECRET",
+  "sourceHashScopeNegativeTests": {
+    "validationChangeMisclassifiedAsProduct": false,
+    "validationToolingDigestChanged": true,
+    "sourceManifestChangedForValidation": true,
+    "realProductChangeDetected": true,
+    "documentationChangeMisclassifiedAsProduct": false,
+    "documentationDigestChanged": true,
+    "runtimeImportedValidationFileCount": 0
+  }
+}

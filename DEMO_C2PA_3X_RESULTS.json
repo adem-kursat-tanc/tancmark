@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "tancmark-codespaces-c2pa-demo-3x-v1",
+  "status": "PASSED",
+  "repeats": 3,
+  "runs": [
+    {
+      "schemaVersion": "tancmark-codespaces-c2pa-demo-functional-v1",
+      "status": "PASSED",
+      "result": {
+        "module": "c2pa",
+        "status": "DEMO_EXACT_VERIFIED",
+        "demoOnly": true,
+        "initialInspection": "NO_C2PA",
+        "signEmbed": true,
+        "rereadSignatureValid": true,
+        "rereadAssetIntegrityValid": true,
+        "tamperDetected": true,
+        "c2paCanOpenVault": false,
+        "registryMatch": true,
+        "signatureVerified": true,
+        "remoteManifestFetch": false,
+        "productionRsaPssEnabled": false,
+        "productionOwnership": false,
+        "productionVault": false,
+        "recordHandle": "303615c0afabaf15",
+        "durationMs": 193.533
+      }
+    },
+    {
+      "schemaVersion": "tancmark-codespaces-c2pa-demo-functional-v1",
+      "status": "PASSED",
+      "result": {
+        "module": "c2pa",
+        "status": "DEMO_EXACT_VERIFIED",
+        "demoOnly": true,
+        "initialInspection": "NO_C2PA",
+        "signEmbed": true,
+        "rereadSignatureValid": true,
+        "rereadAssetIntegrityValid": true,
+        "tamperDetected": true,
+        "c2paCanOpenVault": false,
+        "registryMatch": true,
+        "signatureVerified": true,
+        "remoteManifestFetch": false,
+        "productionRsaPssEnabled": false,
+        "productionOwnership": false,
+        "productionVault": false,
+        "recordHandle": "ee63192eeb497f86",
+        "durationMs": 213.653
+      }
+    },
+    {
+      "schemaVersion": "tancmark-codespaces-c2pa-demo-functional-v1",
+      "status": "PASSED",
+      "result": {
+        "module": "c2pa",
+        "status": "DEMO_EXACT_VERIFIED",
+        "demoOnly": true,
+        "initialInspection": "NO_C2PA",
+        "signEmbed": true,
+        "rereadSignatureValid": true,
+        "rereadAssetIntegrityValid": true,
+        "tamperDetected": true,
+        "c2paCanOpenVault": false,
+        "registryMatch": true,
+        "signatureVerified": true,
+        "remoteManifestFetch": false,
+        "productionRsaPssEnabled": false,
+        "productionOwnership": false,
+        "productionVault": false,
+        "recordHandle": "3d47e252fa276226",
+        "durationMs": 386.829
+      }
+    }
+  ],
+  "allSignEmbed": true,
+  "allRereadSignatureValid": true,
+  "allAssetIntegrityValid": true,
+  "allTamperDetected": true,
+  "c2paCanOpenVault": false,
+  "productionVault": false,
+  "remoteManifestFetch": false
+}

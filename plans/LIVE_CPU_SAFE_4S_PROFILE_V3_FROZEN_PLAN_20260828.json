@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "tancmark-live-cpu-safe-profile-v3-frozen-plan-v1",
+  "frozenBeforeV3Results": true,
+  "profile": "CPU_SAFE_4000MS_CMAF",
+  "reason": {
+    "v1_1000ms": "FAILED_P95",
+    "v2_2000ms_short": "VARIABLE_PASS_AND_FAIL",
+    "v2_2000ms_real_7m44": {
+      "watermarkP95Ms": 2543,
+      "maximumBacklogFragments": 39,
+      "gatePassed": false
+    }
+  },
+  "frozenParameters": {
+    "fragmentTargetMs": 4000,
+    "targetFrameRate": 20,
+    "channelAPlacementsPerFragment": 2,
+    "channelBPlacementsPerFragment": 2,
+    "periodicVerificationEveryFragments": 3,
+    "videoPrimaryAlgorithmChanged": false,
+    "watermarkStrengthChanged": false,
+    "readerThresholdChanged": false,
+    "adapterCChanged": false,
+    "gpuUsed": false,
+    "aiUsed": false
+  },
+  "acceptance": {
+    "watermarkP95NotGreaterThanFragmentP95": true,
+    "maximumPacedBacklogFragments": 0,
+    "backlogAtEnd": 0,
+    "lostFrames": 0,
+    "cumulativeDriftTicks": 0,
+    "audioPacketPayloadExact": true,
+    "wrongOwnership": 0,
+    "finalVerdict": "VIDEO_LAYER_VAULT"
+  },
+  "tradeoff": "PLAYER_RECEIVES_NEW_AUTHORITATIVE_PROTECTED_FRAGMENT_AT_A_4_SECOND_MEDIA_CADENCE",
+  "preQualificationPackagingFinding": {
+    "status": "FAIL_CLOSED_BEFORE_OUTPUT",
+    "code": "LIVE_WORKER_SINGLE_MOOF_REQUIRED",
+    "cause": "FRAG_KEYFRAME_CREATED_MULTIPLE_MOOF_BOXES_INSIDE_ONE_4S_ATOMIC_INPUT_FRAGMENT",
+    "remediation": "REMOVE_FRAG_KEYFRAME_AND_SET_A_BOUNDED_60S_MUX_FRAGMENT_DURATION_SO_EACH_AT_MOST_4S_INPUT_CLOSES_AS_ONE_OUTPUT_MOOF",
+    "adapterCChanged": false,
+    "watermarkOrThresholdChanged": false
+  },
+  "selectionPolicy": "ONE_SHORT_QUALIFICATION_THEN_ONE_7M44_RUN_NO_BEST_RUN_SELECTION"
+}

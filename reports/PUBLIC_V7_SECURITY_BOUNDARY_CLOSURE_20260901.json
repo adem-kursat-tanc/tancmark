@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "tancmark-public-v7-security-boundary-closure-v1",
+  "asOf": "2026-09-01",
+  "historical": false,
+  "currentReleaseAuthority": true,
+  "baseline": {
+    "publicCommit": "029fe4eb566c9ab8ddb5959a918f476339c5d736",
+    "publicTree": "87fb2a4004df5cdc36c08ff9e63069f796e7bb4f",
+    "publicArchiveSha256": "b59578f0fd2124fdac0fc49a6d2468572b4d76f0ca9c6bb313ff85c8b7a11966",
+    "privateAuditArchiveSha256": "5b5409de449a187eb47299bb542ded89837d88d20379ae8a7363f886ca0f5552",
+    "sourceManifest": "1064/1064",
+    "sha256sums": "1064/1064",
+    "commitCount": 1,
+    "remoteCount": 0
+  },
+  "frozenAudit": {
+    "plan": "FINAL_PRE_RELEASE_V7_FROZEN_TEST_PLAN.json",
+    "criteriaChanged": false,
+    "fixturesThresholdsAttacksOrDecisionRulesChanged": false,
+    "status": "PASSED_AFTER_DESIGNATED_SECURITY_BOUNDARY_FIX"
+  },
+  "findings": {
+    "V7-SEC-001": {
+      "status": "FIXED_AND_REGRESSION_TESTED",
+      "middlewareContract": "15/15 PASSED",
+      "isolatedPostgresMutatingContract": "15/15 PASSED",
+      "isolatedPostgresHttpResults": "20/20 PASSED",
+      "productionOrCustomerDatabaseUsed": false
+    },
+    "V7-SEC-002": {
+      "status": "PRODUCT_RSA_PSS_DISABLED_AND_VERIFIED",
+      "defaultLocalAlgorithm": "es256",
+      "productPs256RejectedBeforePrivateKeyRead": true,
+      "productPs384RejectedBeforePrivateKeyRead": true,
+      "productPs512RejectedBeforePrivateKeyRead": true
+    },
+    "V7-SEC-003": "LOW_PRODUCTION_LOG_SERIALIZER_HARDENING_DEBT",
+    "V7-SEC-004": "LOW_CONTROLLED_APPLY_FINAL_SYMLINK_LSTAT_REALPATH_HARDENING_DEBT",
+    "V7-SEC-005": "CLOSED_ROLLBACK_PATCH_AND_DRY_RUN_VERIFIED",
+    "V7-SEC-006": "INFORMATIONAL_AUDIT_SMOKE_RESIDUE_NOT_PRODUCT_RUNTIME",
+    "V7-SEC-007": "INFORMATIONAL_WINDOWS_TESTED_LINUX_POST_PUSH_MACOS_NOT_TESTED",
+    "V7-SEC-008": "INFORMATIONAL_GITHUB_NATIVE_SECURITY_OWNER_POST_PUSH_STEP"
+  },
+  "requiredOutcomes": {
+    "anonymousCanonicalSealAccepted": 0,
+    "callerSelectedIdentityAccepted": 0,
+    "nullTenantCanonicalWrites": 0,
+    "crossTenantAnchorOverwrite": 0,
+    "crossTenantLeak": 0,
+    "forgedAuditActor": 0,
+    "registrySignatureBypass": 0,
+    "wrongOwnership": 0,
+    "privateKeyDisclosure": 0,
+    "c2paCanOpenVault": false,
+    "deniedRequestsReachedCanonicalWrites": 0
+  },
+  "canonicalSeal": {
+    "principal": "SERVER_VERIFIED_API_CLIENT_OR_REGISTRY_RESOLVED_ADMINISTRATOR",
+    "denyByDefault": true,
+    "bodyQueryHeaderIdentityAuthority": false,
+    "newCanonicalTenantMayBeNull": false,
+    "legacyNullTenantPolicy": "LEGACY_NULL_TENANT_QUARANTINED_READ_ONLY",
+    "cloakImageVerifiedPrincipalPropagation": "PASSED"
+  },
+  "regression": {
+    "frozenInstall": "PASSED_PNPM_10_34_5_LOCKFILE_UNCHANGED",
+    "typecheck": "PASSED",
+    "normalBuild": "PASSED",
+    "productBuild": "PASSED",
+    "publicTests": "PASSED",
+    "c2paArchiveNegative": "33/33 PASSED",
+    "c2paGenerated": "9/9 PASSED",
+    "c2paCore": "18/18 PASSED",
+    "c2paHttp": "PASSED",
+    "generatedCodeRepeatability": "PASSED_186_OF_186_DIFFERENCES_0",
+    "workflowPins": "PASSED_3_WORKFLOWS_8_EXTERNAL_USES",
+    "workflowOfficialOrigin": "PASSED_4_OF_4",
+    "sbomAndDeclaredLicenseInventory": "PASSED_1129_TOTAL_1129_DECLARED_0_UNRESOLVED"
+  },
+  "protectedComponentGitObjects": [
+    { "path": "lib/aegis-core", "v7": "b1ab1a14303e5cf2509253d39d2b97722e082e9b", "v8": "b1ab1a14303e5cf2509253d39d2b97722e082e9b" },
+    { "path": "artifacts/api-server/src/text", "v7": "43e9fc037f52c82e5be1c5d89fd704c2d0b699b0", "v8": "43e9fc037f52c82e5be1c5d89fd704c2d0b699b0" },
+    { "path": "artifacts/api-server/src/visual", "v7": "a406853ac5baf1e80f369216cab61a6e43cf7a46", "v8": "a406853ac5baf1e80f369216cab61a6e43cf7a46" },
+    { "path": "artifacts/api-server/src/video", "v7": "2305b621e3e51a85f6c9c08527891bb2bc16d31c", "v8": "2305b621e3e51a85f6c9c08527891bb2bc16d31c" },
+    { "path": "artifacts/api-server/src/live", "v7": "79f1b59d84399c82e8d85bfa09786a72ad17f0b4", "v8": "79f1b59d84399c82e8d85bfa09786a72ad17f0b4" },
+    { "path": "artifacts/api-server/src/dna", "v7": "9f0a1e642e981eaa8e7eaf68560f11ba0cb7c21b", "v8": "9f0a1e642e981eaa8e7eaf68560f11ba0cb7c21b" },
+    { "path": "artifacts/api-server/src/aiSeal", "v7": "99b029df0a205470e9e46c9fb695d088135fa242", "v8": "99b029df0a205470e9e46c9fb695d088135fa242" },
+    { "path": "runtime/live", "v7": "d713c8179d70bbfd8f082d98f7ff8977dc9e05d7", "v8": "d713c8179d70bbfd8f082d98f7ff8977dc9e05d7" },
+    { "path": "runtime/product-runtime", "v7": "36a209c5a6ab61b23cf55ab27d6d0fe3e1033e99", "v8": "36a209c5a6ab61b23cf55ab27d6d0fe3e1033e99" },
+    { "path": "runtime/build", "v7": "e16952d27a79597ca5520c37ee831f5694177db3", "v8": "e16952d27a79597ca5520c37ee831f5694177db3" },
+    { "path": "artifacts/api-server/src/c2pa/C2paProductPolicy.ts", "v7": "84cdfb3fac2e3c6c2137ec340b4e51637ec5b041", "v8": "84cdfb3fac2e3c6c2137ec340b4e51637ec5b041" }
+  ],
+  "unchangedDecisions": {
+    "watermarkAlgorithms": true,
+    "thresholds": true,
+    "exactIdRule": true,
+    "registrySignatureRule": true,
+    "vaultDecision": true,
+    "c2paManifestShape": true,
+    "liveAlgorithm": true,
+    "dnaAutoApply": false,
+    "chiefBrainCanSelfApprove": false
+  },
+  "releaseDecision": {
+    "releaseBlockersRemaining": 0,
+    "knownReleaseBlockersRemaining": 0,
+    "lowOrInformationalItemsRemain": true,
+    "status": "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12",
+    "pushTagReleaseDeployPerformed": false,
+    "ownerDecisionRequired": true
+  }
+}

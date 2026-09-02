@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "tancmark-public-security-exclusion-reconciliation-v1",
+  "asOf": "2026-08-29",
+  "ownerOnlyLedgerReviewed": true,
+  "reviewedSecurityDetailRecords": 1,
+  "classificationCounts": {
+    "HISTORICAL_SUPERSEDED": 1,
+    "NON_PRODUCT_UNREACHABLE": 0,
+    "FIXED_AND_VERIFIED": 0,
+    "FALSE_POSITIVE_WITH_EVIDENCE": 0,
+    "REACHABLE_UNRESOLVED_RELEASE_SECURITY_ISSUE": 0
+  },
+  "unresolvedReachableSecurityDetail": 0,
+  "privatePathDisclosed": false,
+  "privateHashDisclosed": false,
+  "exploitDetailDisclosed": false,
+  "releaseBlocker": false,
+  "currentReleaseAuthority": true,
+  "status": "TANCMARK_PRIVATE_SECURITY_DETAIL_RECONCILED"
+}

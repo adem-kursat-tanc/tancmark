@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "auditVersion": "V4",
+  "status": "PASSED",
+  "rootLicense": "AGPL-3.0-only",
+  "claPreserved": true,
+  "dependencyPackageCount": 1145,
+  "javascriptPackages": 634,
+  "rustPackages": 511,
+  "declaredLicenseFound": 1144,
+  "documentedSourceLicenseEvidence": 1,
+  "unresolvedLicense": 0,
+  "legalApprovalClaimed": false,
+  "unknownNativeProvenance": 0,
+  "ffmpegPolicy": "LGPL_DYNAMIC_DISABLE_GPL_NONFREE_NETWORK",
+  "sharp": {
+    "version": "0.35.4",
+    "libvips": "8.18.6",
+    "nativeProvenance": "VERIFIED"
+  },
+  "c2paNative": {
+    "source": "PINNED_OFFICIAL_GITHUB_RELEASE",
+    "archiveSha256": "e7f7fb615390878f9c65a3a60641136f1d4ca1aab51202b874c44ab8f0264a19",
+    "binarySha256": "dcfdf252a2bd3e6e048e209b0d8ca1733cb3ced0c2462da242906a31b9c941ce"
+  },
+  "uncontrolledGitDependencies": 0
+}

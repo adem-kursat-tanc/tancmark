@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "auditVersion": "V4",
+  "status": "PASSED_REACHABLE_CRITICAL_HIGH_ZERO",
+  "pnpmAudit": {
+    "critical": 0,
+    "highRaw": 24,
+    "moderateRaw": 16,
+    "lowRaw": 3,
+    "info": 0,
+    "multerAdvisories": 0,
+    "sharpAdvisories": 0
+  },
+  "osvLockAudit": {
+    "coordinates": 675,
+    "affectedPackages": 20,
+    "records": 43
+  },
+  "reachabilityDecision": {
+    "reachableCritical": 0,
+    "reachableHigh": 0,
+    "rawHighClassifiedProductionUnreachable": true,
+    "classificationEvidence": "DEPENDENCY_AUDIT_REACHABILITY_AFTER.json"
+  },
+  "releaseBlockers": {
+    "multerHighAdvisoryReachable": false,
+    "sharpHighAdvisoryReachable": false,
+    "unresolvedLicense": 0,
+    "unknownNativeProvenance": 0,
+    "uncontrolledGitDependency": 0,
+    "lockfileDrift": 0
+  },
+  "rawEvidence": {
+    "pnpmAuditSha256": "951c8b165ae57312d05483cfab733be124a0b55056a113b2387c4db14bf20e91",
+    "osvLockAuditSha256": "612dba5288a915f1f0eeaab0a362215554555ee49f1a052f6039dab180764b81"
+  }
+}

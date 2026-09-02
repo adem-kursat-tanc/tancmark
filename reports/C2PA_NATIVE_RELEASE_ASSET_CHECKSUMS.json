@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "tancmark-c2pa-native-release-assets-v1",
+  "verifiedAt": "2026-08-28",
+  "sourceRepository": "https://github.com/contentauth/c2pa-js",
+  "releaseTag": "@contentauth/c2pa-node@0.9.1",
+  "verification": "GitHub official release API digest matched locally downloaded archive; each archive contained exactly index.node and its inner SHA-256 and size were measured.",
+  "dependencyPostinstallAllowed": false,
+  "installer": "runtime/c2pa/install-verified-native.mjs",
+  "offlineArchiveEnv": "TANCMARK_C2PA_NATIVE_ARCHIVE",
+  "legalApprovalClaimed": false,
+  "assets": [
+    {
+      "platform": "darwin-arm64",
+      "name": "c2pa-node_aarch64-apple-darwin-v0.9.1.zip",
+      "archiveBytes": 13666364,
+      "archiveSha256": "1e09598bb9c6cac51eb44cc7db4e7e8278ac59f1ded6795fa9f84f5a6055c700",
+      "binaryBytes": 38891728,
+      "binarySha256": "689f7327631e036533131b36bae7896736adb7aaab0e6a9644555c8a8a073d4b"
+    },
+    {
+      "platform": "linux-arm64",
+      "name": "c2pa-node_aarch64-unknown-linux-gnu-v0.9.1.zip",
+      "archiveBytes": 15189032,
+      "archiveSha256": "a73c401fdb1a1a9a1f4b811422cd1260e006aec2215bcf949caecf9c239caf3a",
+      "binaryBytes": 43261704,
+      "binarySha256": "f7fd592f0e3dab3a82675ea7c9c52df35af73cfda550e3d286774936ffc39729"
+    },
+    {
+      "platform": "darwin-x64",
+      "name": "c2pa-node_x86_64-apple-darwin-v0.9.1.zip",
+      "archiveBytes": 15364629,
+      "archiveSha256": "b6d1780d3fee2cd9d84e42ff936943f179d0ffabbb785c65531bd6765b595dd8",
+      "binaryBytes": 45438668,
+      "binarySha256": "3d846fac4a140f35481324ca4d6809b059aa986ebb3beec5681541743480e19f"
+    },
+    {
+      "platform": "win32-x64",
+      "name": "c2pa-node_x86_64-pc-windows-msvc-v0.9.1.zip",
+      "archiveBytes": 14118846,
+      "archiveSha256": "e7f7fb615390878f9c65a3a60641136f1d4ca1aab51202b874c44ab8f0264a19",
+      "binaryBytes": 41728000,
+      "binarySha256": "dcfdf252a2bd3e6e048e209b0d8ca1733cb3ced0c2462da242906a31b9c941ce"
+    },
+    {
+      "platform": "linux-x64",
+      "name": "c2pa-node_x86_64-unknown-linux-gnu-v0.9.1.zip",
+      "archiveBytes": 16940149,
+      "archiveSha256": "eb679c2f38575df622d105b7fac0c39e128473394b1e4475a1c1a9ecba11b2fd",
+      "binaryBytes": 49538192,
+      "binarySha256": "36864ff24670e6c58132748a783465674f3e8bcd92e9c85e54f3ce7ebce4846c"
+    }
+  ]
+}

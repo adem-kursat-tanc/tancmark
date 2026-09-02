@@ -1,0 +1,53 @@
+{
+  "name": "tancmark",
+  "version": "0.1.0-rc.1",
+  "description": "Deterministic blind watermarking for text, images, audio, and video.",
+  "license": "AGPL-3.0-only",
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "postinstall": "node runtime/c2pa/install-verified-native.mjs",
+    "build": "pnpm run typecheck && node runtime/public-build.mjs",
+    "build:product": "pnpm --filter @workspace/api-server run build:product",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
+    "test": "pnpm run test:public && pnpm run test:built",
+    "test:public": "tsx runtime/validation/public_core_smoke.ts && node runtime/validation/public_source_contract.mjs && node runtime/validation/public_codespaces_prebuild_contract.mjs && tsx runtime/validation/live_external_provider_configuration_contract.ts && tsx runtime/validation/public_multipart_upload_security_contract.ts && pnpm run test:seal-security && pnpm run test:c2pa-rsa-policy && pnpm run test:audit-evidence",
+    "test:codespaces-prebuild": "node runtime/validation/public_codespaces_prebuild_contract.mjs",
+    "test:seal-security": "tsx runtime/validation/public_canonical_seal_principal_contract.ts",
+    "test:seal-security:db": "tsx runtime/validation/public_canonical_seal_postgres_contract.mts",
+    "test:c2pa-rsa-policy": "tsx runtime/validation/public_c2pa_rsa_pss_product_policy_contract.ts",
+    "test:built": "tsx runtime/validation/live_local_product_core_route_contract.ts",
+    "test:normal-built": "node runtime/validation/public_product_build_route_smoke.mjs --normal",
+    "test:product-built": "node runtime/validation/public_product_build_route_smoke.mjs",
+    "test:canonical-reader-scope": "tsx runtime/validation/public_canonical_reader_live_scope_contract.ts",
+    "test:live-core": "tsx runtime/validation/live_local_product_core_contract.ts",
+    "test:media-runtime": "node runtime/validation/public_media_runtime_preflight.mjs && pnpm run test:media-runtime-resolver",
+    "test:media-runtime-resolver": "tsx runtime/validation/public_media_runtime_path_resolver_contract.ts",
+    "test:physical-text-image": "tsx runtime/validation/public_physical_text_image_contract.ts",
+    "test:physical-audio": "tsx runtime/validation/public_physical_audio_contract.ts",
+    "test:clean-live": "tsx runtime/validation/public_clean_clone_live_http_contract.ts",
+    "test:c2pa": "node runtime/validation/public_c2pa_archive_security_contract.mjs && tsx runtime/validation/public_c2pa_generated_contract.ts && tsx runtime/validation/public_c2pa_contract.ts && tsx runtime/validation/public_c2pa_http_contract.ts",
+    "test:c2pa-archive-security": "node runtime/validation/public_c2pa_archive_security_contract.mjs",
+    "test:package-manager-security": "node runtime/validation/public_package_manager_security_gate.mjs",
+    "test:toolchain-supply-chain": "pnpm run test:package-manager-security && pnpm run test:c2pa-archive-security",
+    "test:documentation": "node runtime/validation/public_documentation_freshness_contract.mjs && node runtime/validation/public_documentation_freshness_gate.mjs",
+    "test:release-consistency": "node runtime/validation/public_release_state_consistency_contract.mjs && node runtime/validation/public_release_state_consistency_gate.mjs",
+    "test:workflow-pins": "node runtime/validation/public_workflow_sha_pinning_contract.mjs",
+    "test:workflow-upstream": "node runtime/validation/public_workflow_upstream_origin_verification.mjs",
+    "test:audit-evidence": "node runtime/validation/final_audit_evidence_consistency_gate.mjs",
+    "sbom": "node runtime/validation/generate-public-sbom.mjs",
+    "manifest": "node runtime/validation/generate-public-manifest.mjs"
+  },
+  "private": true,
+  "dependencies": {
+    "unzipper": "0.12.5"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2",
+    "prettier": "^3.8.1",
+    "tsx": "4.21.0"
+  }
+}

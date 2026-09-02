@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "status": "PASSED",
+  "baselineCommit": "346c0fb8f29e72eb816df7f55864649a37b14f55",
+  "integrationCommit": "8d6c71ccb85227b5b6c5c765d3e3ae4da688ca5a",
+  "commitTitle": "fix(security): close final dependency and runtime release blockers",
+  "committedFileCount": 28,
+  "targetOutsideScopeCount": 0,
+  "preExistingWorkingRecordsBefore": 905,
+  "preExistingWorkingRecordsAfter": 905,
+  "stagedFilesAfterCommit": 0,
+  "preExistingOverlappingFilesPreservedUnstaged": [
+    "artifacts/api-server/src/routes/aegis.ts",
+    "artifacts/api-server/src/routes/audioLab.ts"
+  ],
+  "backupTargetCount": 28,
+  "backupHashVerifiedCount": 28,
+  "typecheck": "PASSED",
+  "normalBuild": "PASSED",
+  "productBuild": "PASSED",
+  "narrowSmoke": "PASSED",
+  "push": false,
+  "tag": false,
+  "release": false,
+  "deploy": false
+}

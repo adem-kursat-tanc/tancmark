@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "tancmark-public-documentation-v9-gate-v1",
+  "releaseDate": "2026-09-01",
+  "status": "PASSED",
+  "gate": "PUBLIC_OPERATOR_GUIDE_ACCURACY_GATE",
+  "englishRequiredTopics": 26,
+  "turkishRequiredTopics": 27,
+  "documentedCommandCount": 19,
+  "documentationCommandFailure": 0,
+  "missingTopics": []
+}

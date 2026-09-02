@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="TancMark icon">
+  <title>TancMark ikon</title>
+  <rect x="0" y="0" width="120" height="120" rx="26" fill="#13243a"/>
+  <g transform="translate(60,62)">
+    <path d="M-30 -24 L30 -24 L24 -15 L-24 -15 Z" fill="#1fd6e0"/>
+    <path d="M-5 -15 L5 -15 L5 28 L-5 28 Z" fill="#1fd6e0"/>
+    <path d="M-24 -5 L-35 8 L-19 3 Z" fill="#16a8b0"/>
+    <path d="M24 -5 L35 8 L19 3 Z" fill="#16a8b0"/>
+    <circle cx="0" cy="6" r="6.5" fill="#ff3b6b"/>
+  </g>
+</svg>

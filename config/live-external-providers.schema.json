@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tancmark:schema:live-external-providers:v1",
+  "title": "TancMark Live external provider adapter configuration",
+  "type": "object",
+  "required": ["provider", "endpoint", "credentialReference"],
+  "additionalProperties": false,
+  "properties": {
+    "provider": {
+      "enum": ["custom_rtmp", "youtube", "twitch", "facebook", "tiktok", "instagram", "webhook", "cdn"]
+    },
+    "endpoint": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 2048,
+      "pattern": "^(rtmps|https)://"
+    },
+    "credentialReference": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 256,
+      "pattern": "^(vault|env|secretref|aws-secrets|azure-keyvault|gcp-secret|k8s-secret)://[A-Za-z0-9][A-Za-z0-9._:/-]+$"
+    }
+  },
+  "description": "User-supplied adapter configuration. Raw OAuth tokens, stream keys, API keys and passwords are forbidden; credentialReference must point to an operator-owned secret store."
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@workspace/tancmark-demo",
+  "version": "0.1.0-rc.1",
+  "private": true,
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "scripts": {
+    "build": "node ./build.mjs",
+    "start": "node --enable-source-maps ./dist/server.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:functional": "tsx src/testFunctional.ts",
+    "test:c2pa": "tsx src/testC2pa.ts",
+    "test:live": "tsx src/testLive.ts",
+    "test:security": "tsx src/testSecurity.ts"
+  },
+  "dependencies": {
+    "@contentauth/c2pa-node": "0.9.1",
+    "@workspace/aegis-core": "workspace:*",
+    "hls.js": "1.7.1",
+    "sharp": "0.35.4"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "esbuild": "0.28.2",
+    "tsx": "catalog:",
+    "typescript": "~5.9.2"
+  }
+}

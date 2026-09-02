@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "tancmark-public-documentation-v9-gate-v1",
+  "releaseDate": "2026-09-01",
+  "status": "PASSED",
+  "gate": "PUBLIC_BILINGUAL_DOCUMENT_PARITY_GATE",
+  "pairsChecked": 5,
+  "englishTurkishStatusContradiction": 0
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "auditVersion": "V4",
+  "decision": "GO_FOR_OWNER_PUSH_REVIEW",
+  "status": "TANCMARK_FINAL_PRE_RELEASE_AUDIT_PASSED",
+  "knownLocalReleaseBlockers": 0,
+  "wrongOwnership": 0,
+  "crossTenantLeak": 0,
+  "inventedId": 0,
+  "partialPromotedToExact": 0,
+  "remainingTemp": 0,
+  "remainingWorkers": 0,
+  "remainingPorts": 0,
+  "reachableCritical": 0,
+  "reachableHigh": 0,
+  "unresolvedLicense": 0,
+  "unknownNativeProvenance": 0,
+  "publicArchiveSha256EntriesExact": "1038/1038",
+  "externalOwnerOrOperatorSteps": [
+    "POST_PUSH_GITHUB_NATIVE_SECURITY_ACTIVATION_AND_VERIFICATION_REQUIRED",
+    "PRODUCTION_SECURITY_CONFIGURATION_OPERATOR_REQUIRED",
+    "OFFICIAL_C2PA_TRUST_AND_CONFORMANCE_OPERATOR_STEP",
+    "EXTERNAL_PROVIDER_INTEGRATIONS_USER_CONFIGURED",
+    "GITHUB_SPONSORS_PROFILE_AND_FUNDING_OWNER_STEP"
+  ],
+  "ownerDecisionAuthority": "Adem Kürşat Tanç"
+}

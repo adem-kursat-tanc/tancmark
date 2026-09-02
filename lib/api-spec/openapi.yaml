@@ -1,0 +1,2316 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: aegis
+    description: Aegis Data-Shield operations
+  - name: audit
+    description: Audit log operations
+  - name: live-local-management
+    description: Tenant-bound single-node Live product-core management. Transport evidence is support-only.
+  - name: live-local-playback
+    description: Cryptographically authorized same-origin Live and stopped-VOD playback.
+  - name: c2pa
+    description: Tenant-bound C2PA provenance support. C2PA never grants ownership or opens VAULT.
+paths:
+  /tancmark/live/local/v1/management-console:
+    get:
+      operationId: liveLocalManagementConsole
+      tags: [live-local-management]
+      security: []
+      summary: No-data local management shell
+      description: The page persists no credentials. Every API request still requires the admin token and a server-verified tenant.
+      responses:
+        "200": { description: Same-origin HTML management shell, content: { text/html: { schema: { type: string } } } }
+
+  /tancmark/live/local/v1/status:
+    get:
+      operationId: liveLocalStatus
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Storage, lease, keyring and measured local-gate status
+      responses: { "200": { $ref: "#/components/responses/LiveJson" }, "401": { $ref: "#/components/responses/Unauthorized" }, "503": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/debt:
+    get:
+      operationId: liveLocalDebt
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Explicit external, provider and operational debt; no deferred item is reported as complete
+      responses: { "200": { $ref: "#/components/responses/LiveJson" }, "401": { $ref: "#/components/responses/Unauthorized" } }
+
+  /tancmark/live/local/v1/console:
+    get:
+      operationId: liveLocalAuthenticatedConsole
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Authenticated compatibility redirect to the single functional management shell
+      responses: { "303": { description: Redirect, headers: { Location: { schema: { type: string }, description: Same-origin management-console path } } }, "401": { $ref: "#/components/responses/Unauthorized" } }
+
+  /tancmark/live/local/v1/sessions:
+    get:
+      operationId: liveLocalListSessions
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Paginated tenant sessions
+      parameters: [{ $ref: "#/components/parameters/LiveLimit" }, { $ref: "#/components/parameters/LiveCursor" }]
+      responses: { "200": { $ref: "#/components/responses/LiveJson" }, "401": { $ref: "#/components/responses/Unauthorized" } }
+    post:
+      operationId: liveLocalCreateSession
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Create a server-owned protected session by default
+      description: Body tenant, account, raw ID, registry and signature fields are never identity authority.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LiveCreateSessionRequest" }
+            examples: { default: { value: { legalHold: false, protectionMode: PROTECTED_TANCMARK } } }
+      responses: { "201": { $ref: "#/components/responses/LiveSessionEnvelope" }, "400": { $ref: "#/components/responses/LiveError" }, "401": { $ref: "#/components/responses/Unauthorized" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}:
+    get:
+      operationId: liveLocalGetSession
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }]
+      responses: { "200": { $ref: "#/components/responses/LiveSessionEnvelope" }, "404": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/init:
+    post:
+      operationId: liveLocalUploadInit
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Idempotently upload a validated AVC fMP4 initialization segment
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { $ref: "#/components/parameters/LiveIdempotencyKey" }, { $ref: "#/components/parameters/LiveContentSha256" }]
+      requestBody: { required: true, content: { application/octet-stream: { schema: { type: string, format: binary } } } }
+      responses: { "200": { $ref: "#/components/responses/LiveInitUpload" }, "201": { $ref: "#/components/responses/LiveInitUpload" }, "400": { $ref: "#/components/responses/LiveError" }, "409": { $ref: "#/components/responses/LiveError" }, "413": { $ref: "#/components/responses/LiveError" }, "507": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/start:
+    post:
+      operationId: liveLocalStartSession
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { $ref: "#/components/parameters/LiveIdempotencyKey" }]
+      requestBody: { $ref: "#/components/requestBodies/LiveExpectedRevision" }
+      responses: { "200": { $ref: "#/components/responses/LiveStart" }, "409": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/segments:
+    post:
+      operationId: liveLocalAppendSegment
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Append one validated CMAF fragment; arbitrary bytes are rejected
+      parameters:
+        - { $ref: "#/components/parameters/LiveSessionId" }
+        - { $ref: "#/components/parameters/LiveIdempotencyKey" }
+        - { $ref: "#/components/parameters/LiveContentSha256" }
+        - { name: x-segment-sequence, in: header, required: true, schema: { type: integer, minimum: 0 } }
+        - { name: x-segment-duration-ms, in: header, required: true, description: Cross-checked against parsed track sample durations; the parsed duration is authoritative., schema: { type: integer, minimum: 1, maximum: 60000 } }
+      requestBody: { required: true, content: { application/octet-stream: { schema: { type: string, format: binary } } } }
+      responses: { "200": { $ref: "#/components/responses/LiveSegmentAppend" }, "201": { $ref: "#/components/responses/LiveSegmentAppend" }, "400": { $ref: "#/components/responses/LiveError" }, "409": { $ref: "#/components/responses/LiveError" }, "413": { $ref: "#/components/responses/LiveError" }, "507": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/stop:
+    post:
+      operationId: liveLocalStopSession
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Revoke existing grants then idempotently finalize LL-HLS VOD, recording and evidence
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { $ref: "#/components/parameters/LiveIdempotencyKey" }]
+      requestBody: { $ref: "#/components/requestBodies/LiveExpectedRevision" }
+      responses: { "200": { $ref: "#/components/responses/LiveStop" }, "409": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/health:
+    get:
+      operationId: liveLocalSessionHealth
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Revalidate initialization, fragments, timelines, hash chains, manifest and recording
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }]
+      responses: { "200": { $ref: "#/components/responses/LiveJson" }, "409": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/events:
+    get:
+      operationId: liveLocalSessionEvents
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Paginated redacted, tamper-evident event chain
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { $ref: "#/components/parameters/LiveLimit" }, { $ref: "#/components/parameters/LiveCursor" }]
+      responses: { "200": { $ref: "#/components/responses/LiveJson" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/metrics:
+    get:
+      operationId: liveLocalSessionMetrics
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }]
+      responses: { "200": { $ref: "#/components/responses/LiveJson" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/evidence:
+    get:
+      operationId: liveLocalSessionEvidence
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Support-only transport and storage evidence; all generic authority flags remain false
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }]
+      responses: { "200": { $ref: "#/components/responses/LiveJson" }, "409": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/advisory-event:
+    get:
+      operationId: liveLocalAdvisoryEvent
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Redacted advisory feed item; autoApply and authority are always false
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }]
+      responses: { "200": { $ref: "#/components/responses/LiveJson" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/access-token:
+    post:
+      operationId: liveLocalIssueAccessToken
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Issue a single-use signed exchange token for RUNNING or STOPPED playback
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: "#/components/schemas/LiveAccessTokenRequest" } } } }
+      responses: { "201": { $ref: "#/components/responses/LiveAccessToken" }, "400": { $ref: "#/components/responses/LiveError" }, "409": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/access/exchange:
+    post:
+      operationId: liveLocalExchangeAccessToken
+      tags: [live-local-playback]
+      security: []
+      summary: Atomically consume a signed exchange token and set only an HttpOnly, session-specific opaque cookie
+      requestBody: { required: true, content: { application/json: { schema: { type: object, required: [token], properties: { token: { type: string } }, additionalProperties: false } } } }
+      responses:
+        "201":
+          description: Metadata only; the grant secret is available exclusively in Set-Cookie
+          headers: { Set-Cookie: { description: HttpOnly and SameSite=Strict, schema: { type: string } } }
+          content: { application/json: { schema: { $ref: "#/components/schemas/LiveExchangeResponse" } } }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "409": { $ref: "#/components/responses/LiveError" }
+
+  /tancmark/live/local/v1/player/{sessionId}:
+    get:
+      operationId: liveLocalPlayer
+      tags: [live-local-playback]
+      security: [{ LivePlaybackGrantCookie: [] }]
+      summary: Self-contained same-origin MediaSource player with native-HLS fallback and support-only warning
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }]
+      responses: { "200": { description: HTML player, content: { text/html: { schema: { type: string } } } }, "401": { $ref: "#/components/responses/Unauthorized" } }
+
+  /tancmark/live/local/v1/playback/{sessionId}/manifest.m3u8:
+    get:
+      operationId: liveLocalManifest
+      tags: [live-local-playback]
+      security: [{ LivePlaybackGrantCookie: [] }]
+      summary: Standard LL-HLS while RUNNING and finalized HLS VOD when STOPPED
+      description: Emits PART-INF, SERVER-CONTROL and PART URIs. Bounded blocking reload is supported with strict msn/part/skip validation.
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { $ref: "#/components/parameters/LiveIfNoneMatch" }, { $ref: "#/components/parameters/LiveHlsMsn" }, { $ref: "#/components/parameters/LiveHlsPart" }, { $ref: "#/components/parameters/LiveHlsSkip" }]
+      responses: { "200": { description: LL-HLS or stopped VOD playlist, content: { application/vnd.apple.mpegurl: { schema: { type: string } } } }, "304": { description: Not modified }, "400": { $ref: "#/components/responses/LiveError" }, "401": { $ref: "#/components/responses/Unauthorized" } }
+
+  /tancmark/live/local/v1/playback/{sessionId}/init.mp4:
+    get:
+      operationId: liveLocalPlaybackInit
+      tags: [live-local-playback]
+      security: [{ LivePlaybackGrantCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { $ref: "#/components/parameters/LiveIfNoneMatch" }]
+      responses: { "200": { description: Validated fMP4 initialization bytes, content: { video/mp4: { schema: { type: string, format: binary } } } }, "304": { description: Not modified }, "401": { $ref: "#/components/responses/Unauthorized" } }
+
+  /tancmark/live/local/v1/playback/{sessionId}/media.json:
+    get:
+      operationId: liveLocalMediaInventory
+      tags: [live-local-playback]
+      security: [{ LivePlaybackGrantCookie: [] }]
+      summary: Pollable MediaSource fragment inventory with exact RFC codec string
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }]
+      responses: { "200": { $ref: "#/components/responses/LiveMediaInventory" }, "401": { $ref: "#/components/responses/Unauthorized" } }
+
+  /tancmark/live/local/v1/playback/{sessionId}/segments/{segmentId}:
+    get:
+      operationId: liveLocalPlaybackSegment
+      tags: [live-local-playback]
+      security: [{ LivePlaybackGrantCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { $ref: "#/components/parameters/LiveSegmentId" }, { $ref: "#/components/parameters/LiveIfNoneMatch" }]
+      responses: { "200": { description: Validated CMAF fragment, content: { video/iso.segment: { schema: { type: string, format: binary } } } }, "304": { description: Not modified }, "401": { $ref: "#/components/responses/Unauthorized" } }
+
+  /tancmark/live/local/v1/playback/{sessionId}/recording.mp4:
+    get:
+      operationId: liveLocalRecording
+      tags: [live-local-playback]
+      security: [{ LivePlaybackGrantCookie: [] }]
+      summary: Server-assembled STOPPED VOD recording; requires the dedicated recording scope
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { $ref: "#/components/parameters/LiveIfNoneMatch" }]
+      responses: { "200": { description: MP4 recording, content: { video/mp4: { schema: { type: string, format: binary } } } }, "304": { description: Not modified }, "401": { $ref: "#/components/responses/Unauthorized" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/grants/{grantId}/revoke:
+    post:
+      operationId: liveLocalRevokeGrant
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { name: grantId, in: path, required: true, schema: { type: string, format: uuid } }]
+      responses: { "200": { $ref: "#/components/responses/LiveGrantRevoked" }, "404": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/revoke:
+    post:
+      operationId: liveLocalRevokeSessionGrants
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Increment access revision and token epoch and revoke every existing grant
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }]
+      requestBody: { $ref: "#/components/requestBodies/LiveExpectedRevision" }
+      responses: { "200": { $ref: "#/components/responses/LiveSessionRevoked" }, "409": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/cleanup/plan:
+    post:
+      operationId: liveLocalCleanupPlan
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Idempotent exact managed-media inventory and confirmation digest
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { $ref: "#/components/parameters/LiveIdempotencyKey" }]
+      requestBody: { $ref: "#/components/requestBodies/LiveExpectedRevision" }
+      responses: { "200": { $ref: "#/components/responses/LiveCleanupPlan" }, "201": { $ref: "#/components/responses/LiveCleanupPlan" }, "409": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/cleanup/execute:
+    post:
+      operationId: liveLocalCleanupExecute
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Idempotently purge managed media only; metadata, evidence and audit remain
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }, { $ref: "#/components/parameters/LiveIdempotencyKey" }, { name: If-Match, in: header, required: true, schema: { type: string } }]
+      requestBody: { $ref: "#/components/requestBodies/LiveExpectedRevision" }
+      responses: { "200": { $ref: "#/components/responses/LiveCleanupExecute" }, "409": { $ref: "#/components/responses/LiveError" } }
+
+  /tancmark/live/local/v1/sessions/{sessionId}/verify-exact-id:
+    post:
+      operationId: liveLocalVerifyExactId
+      tags: [live-local-management]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Return the already completed automatic STOPPED-VOD exact verification
+      description: No expected ID or ownership authority is accepted from the request body. The server-owned session binding, registry, tenant/account and signature chain are authoritative.
+      parameters: [{ $ref: "#/components/parameters/LiveSessionId" }]
+      requestBody: { required: false, content: { application/json: { schema: { type: object, additionalProperties: false } } } }
+      responses: { "200": { $ref: "#/components/responses/LiveExactIdentity" }, "400": { $ref: "#/components/responses/LiveError" }, "404": { $ref: "#/components/responses/LiveError" }, "409": { $ref: "#/components/responses/LiveError" } }
+
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /aegis/protect-text:
+    post:
+      operationId: protectText
+      tags: [aegis]
+      summary: Apply per-client linguistic shuffling to text
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProtectTextRequest"
+      responses:
+        "200":
+          description: Protected text
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProtectTextResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /aegis/analyze-text:
+    post:
+      operationId: analyzeText
+      tags: [aegis]
+      summary: Forensic attribution — match suspect text to a client
+      description: Admin-gated. Requires `x-admin-token` header.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnalyzeTextRequest"
+      responses:
+        "200":
+          description: Forensic result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalyzeTextResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /aegis/generate-report:
+    post:
+      operationId: generateReport
+      tags: [aegis]
+      summary: Generate a forensic PDF report
+      description: Admin-gated. Requires `x-admin-token` header. Returns a PDF document.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateReportRequest"
+      responses:
+        "200":
+          description: PDF report
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /forensic-notes:
+    get:
+      operationId: listForensicNotes
+      tags: [audit]
+      summary: List recent expert notes
+      description: Admin-gated. Requires `x-admin-token` header.
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1, maximum: 200 }
+      responses:
+        "200":
+          description: Notes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  notes:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ForensicNote"
+                required: [notes]
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      operationId: createForensicNote
+      tags: [audit]
+      summary: Persist an expert commentary note
+      description: Admin-gated. Requires `x-admin-token` header.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateForensicNoteRequest"
+      responses:
+        "200":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForensicNote"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /bot-traps:
+    get:
+      operationId: listBotTraps
+      tags: [audit]
+      summary: List recently served honeytokens (Bot-Trap Pulse)
+      description: Admin-gated. Requires `x-admin-token` header.
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1, maximum: 500 }
+        - in: query
+          name: onlyUsed
+          schema: { type: boolean }
+      responses:
+        "200":
+          description: Recent honeytoken servings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/BotTrapEvent"
+                  stats:
+                    $ref: "#/components/schemas/BotTrapStats"
+                required: [events, stats]
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /audit:
+    get:
+      operationId: listAudit
+      tags: [audit]
+      summary: List recent audit events
+      description: Admin-gated. Requires `x-admin-token` header.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+        - in: query
+          name: kind
+          schema:
+            $ref: "#/components/schemas/AuditKind"
+        - in: query
+          name: userId
+          schema: { type: string }
+        - in: query
+          name: ip
+          schema: { type: string }
+        - in: query
+          name: clientId
+          schema: { type: integer }
+        - in: query
+          name: sinceMs
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Events + stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuditListResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /audit/stats:
+    get:
+      operationId: auditStats
+      tags: [audit]
+      summary: Aggregate counts of audit events by kind
+      description: Admin-gated. Requires `x-admin-token` header.
+      responses:
+        "200":
+          description: Stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuditStats"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  # ---------------------------------------------------------------------------
+  # Visual Lab (admin-gated) — geliştirme test arenası.
+  # Runtime endpoint'leri burada sözleşme amaçlı belgelenmiştir; algoritma,
+  # eşik, verdict veya skor mantığı bu spec ile değiştirilmez.
+  # ---------------------------------------------------------------------------
+  /aegis/visual-lab/jobs:
+    post:
+      operationId: visualLabCreateJob
+      tags: [visualLab]
+      summary: Görsel üzerinde 8 saldırı senaryosunu sırayla koşan iş başlatır
+      description: |
+        Admin-gated. `x-admin-token` zorunlu. Multipart form `photo` alanıyla
+        JPEG/PNG/WebP yüklenir. Yanıt 202 + jobId döner; ilerleme
+        `GET /aegis/visual-lab/jobs/{id}` ile takip edilir.
+
+        Ekran fotoğrafı tespit edilirse (substrate.isScreenshot=true) senaryo
+        bütçesi `timeoutPerScenarioSec` yerine `screenshotTimeoutPerScenarioSec`
+        olarak uygulanır.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  description: Binary file content (multipart upload — JPEG/PNG/WebP)
+              required: [image]
+      responses:
+        "202":
+          description: İş kuyruğa alındı
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VisualLabJobCreated"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /aegis/visual-lab/jobs/{id}:
+    get:
+      operationId: visualLabGetJob
+      tags: [visualLab]
+      summary: İş durumu + senaryo sonuçları
+      description: Admin-gated. `x-admin-token` zorunlu.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: İş durumu
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VisualLabJobStatus"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: İş bulunamadı
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  # ---------------------------------------------------------------------------
+  # Video Lab (admin-gated) — video L1 anchor MVP.
+  # ---------------------------------------------------------------------------
+  /aegis/video-lab/encode:
+    post:
+      operationId: videoLabEncode
+      tags: [videoLab]
+      summary: Bir video buffer'ına 32-byte ID mührünü gömer (L1 ring, MKV/FFV1)
+      description: |
+        Admin-gated. `x-admin-token` zorunlu. Multipart `video` (giriş) + `id`
+        (32 byte hex) alır. Geri dönüş `application/octet-stream` mühürlenmiş
+        video (lossless FFV1 zorunlu — MP4 desteklemez).
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                video:
+                  type: string
+                  description: Binary video content (multipart upload)
+                id:
+                  type: string
+                  description: 32 byte (64 hex char) ID — opsiyonel, verilmezse rastgele UUID kullanılır
+                stampCount:
+                  type: string
+                  description: Mühürlenecek frame sayısı (default "8")
+              required: [video]
+      responses:
+        "200":
+          description: Mühürlenmiş video binary (octet-stream — FFV1/MKV)
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                description: Binary video stream
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /aegis/video-lab/decode:
+    post:
+      operationId: videoLabDecode
+      tags: [videoLab]
+      summary: Bir video'dan L1 mühür payload'ını okur (A1→A5 ladder)
+      description: |
+        Admin-gated. Multipart `video` + zorunlu `id` (32 byte / 64 hex char).
+        Yanıt verdict (`VAULT`/`WEAK_SIGNAL`/`NOT_FOUND`) + per-stage telemetri.
+
+        Karar katmanları: A1 (3 frame) → A2 (8) → A3 (20) → A4 (56) frame
+        extraction + A5 (temporal aggregation, A1-A4 vault eşiği geçmezse
+        tüm okunan frame byte'ları beklenen ID byte'ına karşı sayılır).
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                video:
+                  type: string
+                  description: Binary video content (multipart upload)
+                id:
+                  type: string
+                  description: 32 byte (64 hex char) veya string ID — bit-exact karşılaştırma için zorunlu
+              required: [video, id]
+      responses:
+        "200":
+          description: Decode sonucu
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VideoLabDecodeResult"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /aegis/dna/registry:
+    get:
+      operationId: getCanonicalDnaRegistry
+      tags: [dna]
+      summary: 16 DNA kanonik kaydini salt okunur gosterir
+      description: Admin token zorunludur. Chief Brain ve Research Library DNA sayilmaz.
+      responses:
+        "200":
+          description: Kanonik 16 DNA registry
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CanonicalDnaReadOnlyResponse" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /aegis/dna/health:
+    get:
+      operationId: getCanonicalDnaHealth
+      tags: [dna]
+      summary: DNA saglik ve tazelik ozeti
+      responses:
+        "200":
+          description: Salt okunur saglik ozeti
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CanonicalDnaReadOnlyResponse" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /aegis/dna/summary:
+    get:
+      operationId: getChiefBrainSummary
+      tags: [dna]
+      summary: Chief Brain advisory ozeti
+      description: Sahiplik veya VAULT karari vermez; kendi onerisini onaylayamaz.
+      responses:
+        "200":
+          description: Advisory summary
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CanonicalDnaReadOnlyResponse" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /aegis/dna/proposals:
+    get:
+      operationId: listCanonicalDnaProposals
+      tags: [dna]
+      summary: Insan onayi bekleyen onerileri listeler
+      responses:
+        "200":
+          description: Oneri listesi
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CanonicalDnaReadOnlyResponse" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /aegis/dna/jobs:
+    get:
+      operationId: getCanonicalDnaQueueHealth
+      tags: [dna]
+      summary: Queue ve worker sagligini salt okunur gosterir
+      responses:
+        "200":
+          description: Queue health
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CanonicalDnaReadOnlyResponse" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /aegis/dna/research:
+    get:
+      operationId: getCanonicalResearchLibraryHealth
+      tags: [dna]
+      summary: Research Library freshness ve karantina ozeti
+      responses:
+        "200":
+          description: Research Library health
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CanonicalDnaReadOnlyResponse" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /aegis/dna/audit:
+    get:
+      operationId: getCanonicalDnaAuditSummary
+      tags: [dna]
+      summary: Ozel kanit acmadan anonim audit sayaclari
+      responses:
+        "200":
+          description: Redacted audit summary
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CanonicalDnaReadOnlyResponse" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /aegis/dna/proposals/{proposalId}/apply:
+    post:
+      operationId: applyCanonicalDnaProposal
+      tags: [dna]
+      summary: Exact hashli oneriyi dry-run ve owner onayi kapisindan gecirir
+      description: Auto-apply kapali; high/forbidden islemler ve stale/cross-tenant approvals reddedilir.
+      parameters:
+        - in: path
+          name: proposalId
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CanonicalDnaApplyRequest" }
+      responses:
+        "200":
+          description: Dry-run veya kontrollu advisory apply kaydi
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CanonicalDnaReadOnlyResponse" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "403":
+          description: Owner approval, tenant, stale veya risk kapisi reddi
+
+  /tancmark/c2pa/v1/inspect:
+    post:
+      operationId: inspectC2pa
+      tags: [c2pa]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Read embedded C2PA provenance without remote-manifest network access
+      description: Returns a redacted provenance result. Plain HTTP is accepted only from the actual loopback socket; remote access requires an actually encrypted TLS socket. Forwarded headers are not transport authority. It never returns an asset path, private registry data, an exact TancMark ID, a certificate body, or key material and never grants ownership.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/C2paInspectRequest" }
+      responses:
+        "200": { $ref: "#/components/responses/C2paResult" }
+        "400": { $ref: "#/components/responses/C2paError" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "403": { description: Non-loopback plaintext transport rejected before credentials are evaluated }
+        "404": { description: Verified tenant does not match the configured tenant boundary }
+
+  /tancmark/c2pa/v1/verify:
+    post:
+      operationId: verifyC2pa
+      tags: [c2pa]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Verify an embedded C2PA manifest and asset binding
+      description: Cryptographic validity and public trust are reported separately. Plain HTTP is loopback-only and remote access requires an actually encrypted TLS socket. A valid result remains provenance support only.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/C2paInspectRequest" }
+      responses:
+        "200": { $ref: "#/components/responses/C2paResult" }
+        "400": { $ref: "#/components/responses/C2paError" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "403": { description: Non-loopback plaintext transport rejected before credentials are evaluated }
+        "404": { description: Verified tenant does not match the configured tenant boundary }
+
+  /tancmark/c2pa/v1/sign-embed:
+    post:
+      operationId: signAndEmbedC2pa
+      tags: [c2pa]
+      security: [{ LiveAdminToken: [], LiveVerifiedTenant: [] }]
+      summary: Sign a working copy and embed a C2PA manifest
+      description: Uses an operator-configured tenant signing profile. Builder intent is never guessed; CREATE requires an explicit allowed digitalSourceType while EDIT and UPDATE forbid it. Plain HTTP is loopback-only and remote access requires an actually encrypted TLS socket. Raw keys and certificates are forbidden in the request body, the input is never overwritten, and remote manifest access stays disabled.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/C2paSignEmbedRequest" }
+      responses:
+        "201": { $ref: "#/components/responses/C2paSignResult" }
+        "400": { $ref: "#/components/responses/C2paError" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "403": { description: Non-loopback plaintext transport rejected before credentials are evaluated }
+        "404": { description: Verified tenant does not match the configured tenant boundary }
+
+components:
+  securitySchemes:
+    LiveAdminToken:
+      type: apiKey
+      in: header
+      name: x-admin-token
+    LiveVerifiedTenant:
+      type: apiKey
+      in: header
+      name: x-tancmark-live-tenant-id
+      description: Exact single-tenant fallback only; authenticated apiClient.id remains the primary tenant authority.
+    LivePlaybackGrantCookie:
+      type: apiKey
+      in: cookie
+      name: tmlg_session_hash
+      description: The actual HttpOnly cookie name is deterministically session-specific.
+  parameters:
+    LiveSessionId: { name: sessionId, in: path, required: true, schema: { type: string, format: uuid } }
+    LiveSegmentId: { name: segmentId, in: path, required: true, schema: { type: string, format: uuid } }
+    LiveIdempotencyKey: { name: x-idempotency-key, in: header, required: true, schema: { type: string, minLength: 8, maxLength: 200 } }
+    LiveContentSha256: { name: x-content-sha256, in: header, required: true, schema: { type: string, pattern: "^[0-9a-f]{64}$" } }
+    LiveIfNoneMatch: { name: If-None-Match, in: header, required: false, schema: { type: string } }
+    LiveLimit: { name: limit, in: query, required: false, schema: { type: integer, minimum: 1, maximum: 100, default: 25 } }
+    LiveCursor: { name: cursor, in: query, required: false, schema: { type: integer, minimum: 0 } }
+    LiveHlsMsn:
+      name: _HLS_msn
+      in: query
+      required: false
+      description: Bounded blocking-reload media sequence. Values too far ahead fail closed.
+      schema: { type: integer, minimum: 0, maximum: 9999999999 }
+    LiveHlsPart:
+      name: _HLS_part
+      in: query
+      required: false
+      description: Requires _HLS_msn. This one-part-per-fragment contract accepts part zero only.
+      schema: { type: integer, enum: [0] }
+    LiveHlsSkip:
+      name: _HLS_skip
+      in: query
+      required: false
+      description: Strictly validated compatibility query; accepted values do not currently delta-skip output.
+      schema: { type: string, enum: [YES, v2] }
+  requestBodies:
+    LiveExpectedRevision:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [expectedRevision]
+            properties: { expectedRevision: { type: integer, minimum: 0 } }
+            additionalProperties: false
+  responses:
+    C2paResult:
+      description: Redacted C2PA provenance result; never a TancMark ownership decision
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/C2paResultEnvelope" }
+    C2paSignResult:
+      description: A new signed working copy was created and re-verified
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/C2paSignResultEnvelope" }
+    C2paError:
+      description: C2PA request rejected without exposing a path, secret, registry row, or key material
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ok, error]
+            properties:
+              ok: { type: boolean, const: false }
+              error: { type: string, pattern: "^c2pa_[a-z0-9_]+$" }
+            additionalProperties: false
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    LiveJson:
+      description: Tenant-bound JSON response with no absolute filesystem paths or raw decoder objects.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveJsonObject" } } }
+    LiveSessionEnvelope:
+      description: Exact public session envelope.
+      content: { application/json: { schema: { type: object, required: [session], properties: { session: { $ref: "#/components/schemas/LiveSession" } }, additionalProperties: false } } }
+    LiveInitUpload:
+      description: Exact initialization upload result.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveInitUploadResponse" } } }
+    LiveStart:
+      description: Exact start result and idempotency receipt.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveStartResponse" } } }
+    LiveSegmentAppend:
+      description: Exact parsed CMAF fragment append result.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveSegmentAppendResponse" } } }
+    LiveStop:
+      description: Exact stop result with support-only evidence.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveStopResponse" } } }
+    LiveAccessToken:
+      description: Short-lived signed exchange token. Never returned by the browser exchange endpoint.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveAccessTokenResponse" } } }
+    LiveMediaInventory:
+      description: Exact same-origin MediaSource inventory.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveMediaInventoryResponse" } } }
+    LiveGrantRevoked:
+      description: Exact grant revocation result.
+      content: { application/json: { schema: { type: object, required: [revoked], properties: { revoked: { type: boolean, enum: [true] } }, additionalProperties: false } } }
+    LiveSessionRevoked:
+      description: Exact session grant revocation result.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveSessionRevokedResponse" } } }
+    LiveCleanupPlan:
+      description: Exact managed-media-only cleanup plan.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveCleanupPlanResponse" } } }
+    LiveCleanupExecute:
+      description: Exact cleanup receipt and PURGED session.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveCleanupExecuteResponse" } } }
+    LiveExactIdentity:
+      description: Redacted automatic final exact verification; raw identity and decoder records are excluded.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveAutomaticFinalVerification" } } }
+    LiveError:
+      description: Fail-closed error. Wrong tenant is intentionally 404; state, replay and integrity conflicts are 409; disk gates are 507.
+      content: { application/json: { schema: { $ref: "#/components/schemas/LiveError" } } }
+  schemas:
+    C2paInspectRequest:
+      type: object
+      required: [assetName]
+      properties:
+        assetName: { type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._-]{0,179}$" }
+      additionalProperties: false
+    C2paSignEmbedRequest:
+      description: Explicit discriminated intent contract. CREATE requires digitalSourceType; EDIT and UPDATE forbid it.
+      oneOf:
+        - type: object
+          required: [assetName, outputName, intent, digitalSourceType, registryRecordId, recordVersion, algorithmVersion, createdAt]
+          properties:
+            assetName: { type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._-]{0,179}$" }
+            outputName: { type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._-]{0,179}$" }
+            intent: { type: string, enum: [CREATE], description: Explicit Builder CREATE intent. }
+            digitalSourceType:
+              type: string
+              enum:
+                - http://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture
+                - http://cv.iptc.org/newscodes/digitalsourcetype/digitalCreation
+                - http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia
+                - http://cv.iptc.org/newscodes/digitalsourcetype/composite
+            registryRecordId: { type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._:-]{0,255}$" }
+            recordVersion: { type: string, minLength: 1, maxLength: 64 }
+            algorithmVersion: { type: string, minLength: 1, maxLength: 64 }
+            createdAt: { type: string, pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$', maxLength: 24 }
+            publicVerificationUrl: { type: string, format: uri, maxLength: 512 }
+          additionalProperties: false
+        - type: object
+          required: [assetName, outputName, intent, registryRecordId, recordVersion, algorithmVersion, createdAt]
+          properties:
+            assetName: { type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._-]{0,179}$" }
+            outputName: { type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._-]{0,179}$" }
+            intent: { type: string, enum: [EDIT], description: Explicit Builder EDIT intent. }
+            registryRecordId: { type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._:-]{0,255}$" }
+            recordVersion: { type: string, minLength: 1, maxLength: 64 }
+            algorithmVersion: { type: string, minLength: 1, maxLength: 64 }
+            createdAt: { type: string, pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$', maxLength: 24 }
+            publicVerificationUrl: { type: string, format: uri, maxLength: 512 }
+          additionalProperties: false
+        - type: object
+          required: [assetName, outputName, intent, registryRecordId, recordVersion, algorithmVersion, createdAt]
+          properties:
+            assetName: { type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._-]{0,179}$" }
+            outputName: { type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._-]{0,179}$" }
+            intent: { type: string, enum: [UPDATE], description: Explicit Builder UPDATE intent. }
+            registryRecordId: { type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._:-]{0,255}$" }
+            recordVersion: { type: string, minLength: 1, maxLength: 64 }
+            algorithmVersion: { type: string, minLength: 1, maxLength: 64 }
+            createdAt: { type: string, pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$', maxLength: 24 }
+            publicVerificationUrl: { type: string, format: uri, maxLength: 512 }
+          additionalProperties: false
+    C2paPublicInspection:
+      type: object
+      required: [status, message, manifestPresent, manifestEmbedded, cryptographicallyValid, assetIntegrityValid, trustStatus, claimGenerator, claimVersion, assertions, ingredients, actions, signingInformation, assetBinding, manifestStore, tancmarkAssertion, provenanceAvailable, safety]
+      properties:
+        status: { type: string, enum: [NO_C2PA, VALID_BUT_UNTRUSTED, VALID_AND_TRUSTED, VALID_AND_TRUSTED_TEST_CONTEXT, INVALID_SIGNATURE, ASSET_TAMPERED, MALFORMED_MANIFEST, UNSUPPORTED_FORMAT, REMOTE_MANIFEST_BLOCKED, TRUST_STATUS_NOT_MEASURED] }
+        message: { type: string }
+        manifestPresent: { type: boolean }
+        manifestEmbedded: { type: boolean }
+        cryptographicallyValid: { type: boolean }
+        assetIntegrityValid: { type: boolean }
+        trustStatus: { type: string }
+        claimGenerator: { type: array, items: { type: string } }
+        claimVersion: { type: [integer, "null"] }
+        assertions: { type: array, items: { type: string } }
+        ingredients: { type: object, required: [count], properties: { count: { type: integer, minimum: 0 } }, additionalProperties: false }
+        actions: { type: array, items: { type: string } }
+        signingInformation: { type: object, required: [signatureVerified, trustVerified], properties: { signatureVerified: { type: boolean }, trustVerified: { type: boolean } }, additionalProperties: false }
+        assetBinding: { type: string, enum: [VALID, INVALID_OR_NOT_VERIFIED, NOT_PRESENT] }
+        manifestStore: { type: string, enum: [PRESENT_REDACTED, NOT_PRESENT] }
+        tancmarkAssertion:
+          oneOf:
+            - type: "null"
+            - type: object
+              required: [schemaVersion, publicRegistryReference, recordVersion, algorithmVersion, createdAt, supportOnly]
+              properties:
+                schemaVersion: { type: string, const: "1" }
+                publicRegistryReference: { type: string }
+                recordVersion: { type: string }
+                algorithmVersion: { type: string }
+                createdAt: { type: string, format: date-time }
+                publicVerificationUrl: { type: string, format: uri }
+                supportOnly: { type: boolean, enum: [true] }
+              additionalProperties: false
+        provenanceAvailable: { type: boolean }
+        safety:
+          type: object
+          required: [supportOnly, c2paCanOpenVault, ownership, confirmed, final, rawExpectedIdDisclosed, privateRegistryDisclosed, privateMapDisclosed, filePathDisclosed, certificateContentsDisclosed, privateKeyDisclosed]
+          properties:
+            supportOnly: { type: boolean, enum: [true] }
+            c2paCanOpenVault: { type: boolean, enum: [false] }
+            ownership: { type: boolean, enum: [false] }
+            confirmed: { type: boolean, enum: [false] }
+            final: { type: boolean, enum: [false] }
+            rawExpectedIdDisclosed: { type: boolean, enum: [false] }
+            privateRegistryDisclosed: { type: boolean, enum: [false] }
+            privateMapDisclosed: { type: boolean, enum: [false] }
+            filePathDisclosed: { type: boolean, enum: [false] }
+            certificateContentsDisclosed: { type: boolean, enum: [false] }
+            privateKeyDisclosed: { type: boolean, enum: [false] }
+          additionalProperties: false
+      additionalProperties: false
+    C2paResultEnvelope:
+      type: object
+      required: [ok, c2pa]
+      properties:
+        ok: { type: boolean }
+        c2pa: { $ref: "#/components/schemas/C2paPublicInspection" }
+      additionalProperties: false
+    C2paSignResultEnvelope:
+      type: object
+      required: [ok, signedAndEmbedded, c2pa, safety]
+      properties:
+        ok: { type: boolean, enum: [true] }
+        signedAndEmbedded: { type: boolean, enum: [true] }
+        c2pa: { $ref: "#/components/schemas/C2paPublicInspection" }
+        safety:
+          type: object
+          required: [c2paCanOpenVault, ownership, privateKeyDisclosed, outputPathDisclosed, externalNetworkCalls]
+          properties:
+            c2paCanOpenVault: { type: boolean, enum: [false] }
+            ownership: { type: boolean, enum: [false] }
+            privateKeyDisclosed: { type: boolean, enum: [false] }
+            outputPathDisclosed: { type: boolean, enum: [false] }
+            externalNetworkCalls: { type: integer, enum: [0] }
+          additionalProperties: false
+      additionalProperties: false
+    LiveJsonObject:
+      type: object
+      additionalProperties: true
+    LiveStopReceipt:
+      type: object
+      required: [receiptId, stoppedAt, sessionRevision, evidenceId, manifestId]
+      properties:
+        receiptId: { type: string }
+        stoppedAt: { type: string, format: date-time }
+        sessionRevision: { type: integer, minimum: 0 }
+        evidenceId: { type: string }
+        manifestId: { type: string }
+      additionalProperties: false
+    LiveSession:
+      type: object
+      required: [sessionId, status, revision, accessRevision, tokenEpoch, legalHold, protectionMode, watermarkState, watermarkWorkerHealth, liveVerificationState, finalVerificationState, registryBindingState, signedMapState, protectedOutputReady, transportOnlyWarning, bindingId, expectedIdProvided, identityAuthorityMode, segmentCount, totalBytes, totalDurationMs, initSha256, chainHeadSha256, manifestId, manifestSha256, evidenceId, recordingSha256, stopReceipt, createdAt, readyAt, startedAt, stoppedAt, updatedAt, supportOnly, ownership, vault, confirmed, final, exactIdDisclosed]
+      properties:
+        sessionId: { type: string, format: uuid }
+        status: { type: string, enum: [CREATED, READY, RUNNING, STOPPING, STOPPED, FAILED, CLEANUP_PENDING, PURGED] }
+        revision: { type: integer, minimum: 0 }
+        accessRevision: { type: integer, minimum: 0 }
+        tokenEpoch: { type: integer, minimum: 0 }
+        legalHold: { type: boolean }
+        protectionMode: { type: string, enum: [PROTECTED_TANCMARK, TRANSPORT_ONLY] }
+        watermarkState: { type: string, enum: [WATERMARK_PENDING, WATERMARK_ACTIVE, LIVE_SAMPLE_EXACT_VERIFIED, LIVE_SAMPLE_PARTIAL, LIVE_SAMPLE_NOT_FOUND, LIVE_VERIFICATION_FAILED, FINAL_EXACT_VERIFIED, WATERMARK_DISABLED, LIVE_WATERMARKING_FAILED_FAIL_CLOSED] }
+        watermarkWorkerHealth: { type: string, enum: [NOT_STARTED, READY, HEALTHY, FAILED, STOPPED, NOT_APPLICABLE] }
+        liveVerificationState: { type: string, enum: [NOT_STARTED, PENDING, EXACT_VERIFIED, PARTIAL, NOT_FOUND, FAILED, NOT_APPLICABLE] }
+        finalVerificationState: { type: string, enum: [NOT_STARTED, PENDING, EXACT_VERIFIED, FAILED, NOT_APPLICABLE] }
+        registryBindingState: { type: string, enum: [PENDING, ACTIVE, REVOKED, FAILED, NOT_APPLICABLE] }
+        signedMapState: { type: string, enum: [PENDING, ROLLING, FINALIZED, INVALID, NOT_APPLICABLE] }
+        protectedOutputReady: { type: boolean }
+        transportOnlyWarning: { type: boolean }
+        bindingId: { type: [string, "null"], format: uuid }
+        expectedIdProvided: { type: boolean }
+        identityAuthorityMode: { type: string, enum: [SERVER_OWNED_SIGNED_EXACT, TRANSPORT_SUPPORT_ONLY, TARGETED_EXPECTED_ID_SUPPORT_ONLY] }
+        segmentCount: { type: integer, minimum: 0 }
+        totalBytes: { type: integer, minimum: 0 }
+        totalDurationMs: { type: integer, minimum: 0 }
+        initSha256: { type: [string, "null"], pattern: "^[0-9a-f]{64}$" }
+        chainHeadSha256: { type: string, pattern: "^[0-9a-f]{64}$" }
+        manifestId: { type: [string, "null"] }
+        manifestSha256: { type: [string, "null"], pattern: "^[0-9a-f]{64}$" }
+        evidenceId: { type: [string, "null"] }
+        recordingSha256: { type: [string, "null"], pattern: "^[0-9a-f]{64}$" }
+        stopReceipt: { oneOf: [{ $ref: "#/components/schemas/LiveStopReceipt" }, { type: "null" }] }
+        createdAt: { type: string, format: date-time }
+        readyAt: { type: [string, "null"], format: date-time }
+        startedAt: { type: [string, "null"], format: date-time }
+        stoppedAt: { type: [string, "null"], format: date-time }
+        updatedAt: { type: string, format: date-time }
+        supportOnly: { type: boolean }
+        ownership: { type: boolean }
+        vault: { type: boolean }
+        confirmed: { type: boolean }
+        final: { type: boolean }
+        exactIdDisclosed: { type: boolean, enum: [false] }
+      additionalProperties: false
+    LiveInitUploadResponse:
+      type: object
+      required: [init, duplicate, session]
+      properties:
+        init:
+          type: object
+          required: [sha256, byteLength, codecs, relativeUrl, privateIngestOnly]
+          properties:
+            sha256: { type: string, pattern: "^[0-9a-f]{64}$" }
+            byteLength: { type: integer, minimum: 1 }
+            codecs: { type: array, minItems: 1, uniqueItems: true, items: { type: string, pattern: "^(avc1|avc3)\\.[0-9a-f]{6}$|^mp4a\\.40\\.2$" } }
+            relativeUrl: { type: [string, "null"], pattern: "^/api/tancmark/live/local/v1/" }
+            privateIngestOnly: { type: boolean }
+          additionalProperties: false
+        duplicate: { type: boolean }
+        session: { $ref: "#/components/schemas/LiveSession" }
+      additionalProperties: false
+    LiveStartResponse:
+      type: object
+      required: [session, receipt, replayed]
+      properties:
+        session: { $ref: "#/components/schemas/LiveSession" }
+        receipt: { type: object, required: [receiptId, startedAt], properties: { receiptId: { type: string }, startedAt: { type: string, format: date-time } }, additionalProperties: false }
+        replayed: { type: boolean }
+      additionalProperties: false
+    LiveSegmentAppendResponse:
+      type: object
+      required: [segment, duplicate, session]
+      properties:
+        segment:
+          type: object
+          required: [segmentId, sequence, durationMs, byteLength, sha256, chainSha256, relativeUrl]
+          properties:
+            segmentId: { type: string, format: uuid }
+            sequence: { type: integer, minimum: 0 }
+            durationMs: { type: integer, minimum: 1 }
+            byteLength: { type: integer, minimum: 1 }
+            sha256: { type: string, pattern: "^[0-9a-f]{64}$" }
+            chainSha256: { type: string, pattern: "^[0-9a-f]{64}$" }
+            relativeUrl: { type: string, pattern: "^/api/tancmark/live/local/v1/" }
+          additionalProperties: false
+        duplicate: { type: boolean }
+        session: { $ref: "#/components/schemas/LiveSession" }
+      additionalProperties: false
+    LiveProductEvidence:
+      type: object
+      required: [schemaVersion, evidenceId, sessionId, tenantBindingSha256, sessionRevision, statusAtFinalization, segmentCount, totalBytes, firstSegmentSha256, lastSegmentSha256, byteHashChainHeadSha256, manifest, init, recording, protectionMode, expectedIdProvided, identityAuthorityMode, registryBindingState, signedMapState, finalVerificationState, generatedAt, transportStorageEvidenceOnly, supportOnly, ownership, vault, canOpenVault, confirmed, final]
+      properties:
+        schemaVersion: { type: string, enum: [tancmark-live-local-evidence-v1] }
+        evidenceId: { type: string }
+        sessionId: { type: string, format: uuid }
+        tenantBindingSha256: { type: string, pattern: "^[0-9a-f]{64}$" }
+        sessionRevision: { type: integer, minimum: 0 }
+        statusAtFinalization: { type: string, enum: [STOPPING] }
+        segmentCount: { type: integer, minimum: 1 }
+        totalBytes: { type: integer, minimum: 1 }
+        firstSegmentSha256: { type: [string, "null"], pattern: "^[0-9a-f]{64}$" }
+        lastSegmentSha256: { type: [string, "null"], pattern: "^[0-9a-f]{64}$" }
+        byteHashChainHeadSha256: { type: string, pattern: "^[0-9a-f]{64}$" }
+        manifest: { type: object, required: [manifestId, sha256, relativeUrl], properties: { manifestId: { type: string }, sha256: { type: string, pattern: "^[0-9a-f]{64}$" }, relativeUrl: { type: string } }, additionalProperties: false }
+        init: { type: object, required: [sha256, byteLength], properties: { sha256: { type: string, pattern: "^[0-9a-f]{64}$" }, byteLength: { type: integer, minimum: 1 } }, additionalProperties: false }
+        recording: { type: object, required: [recordingId, sha256, byteLength, relativeUrl], properties: { recordingId: { type: string }, sha256: { type: string, pattern: "^[0-9a-f]{64}$" }, byteLength: { type: integer, minimum: 1 }, relativeUrl: { type: string } }, additionalProperties: false }
+        protectionMode: { type: string, enum: [PROTECTED_TANCMARK, TRANSPORT_ONLY] }
+        expectedIdProvided: { type: boolean }
+        identityAuthorityMode: { type: string, enum: [SERVER_OWNED_SIGNED_EXACT, TRANSPORT_SUPPORT_ONLY, TARGETED_EXPECTED_ID_SUPPORT_ONLY] }
+        registryBindingState: { type: string, enum: [PENDING, ACTIVE, REVOKED, FAILED, NOT_APPLICABLE] }
+        signedMapState: { type: string, enum: [PENDING, ROLLING, FINALIZED, INVALID, NOT_APPLICABLE] }
+        finalVerificationState: { type: string, enum: [NOT_STARTED, PENDING, EXACT_VERIFIED, FAILED, NOT_APPLICABLE] }
+        generatedAt: { type: string, format: date-time }
+        transportStorageEvidenceOnly: { type: boolean }
+        supportOnly: { type: boolean }
+        ownership: { type: boolean }
+        vault: { type: boolean }
+        canOpenVault: { type: boolean }
+        confirmed: { type: boolean }
+        final: { type: boolean }
+      additionalProperties: false
+    LiveStopResponse:
+      type: object
+      required: [session, receipt, evidence, finalVerification, replayed]
+      properties:
+        session: { $ref: "#/components/schemas/LiveSession" }
+        receipt: { $ref: "#/components/schemas/LiveStopReceipt" }
+        evidence: { $ref: "#/components/schemas/LiveProductEvidence" }
+        finalVerification: { oneOf: [{ $ref: "#/components/schemas/LiveAutomaticFinalVerification" }, { type: "null" }] }
+        replayed: { type: boolean }
+      additionalProperties: false
+    LiveAutomaticFinalVerification:
+      type: object
+      required: [schemaVersion, sessionId, bindingId, verdict, reason, exactIdVerified, registryVerified, signatureVerified, tenantVerified, accountVerified, uniqueRecord, physicalVideoIdVerified, ownership, vault, confirmed, final, verifiedAt, exactIdDisclosed, privateMapDisclosed, registryContentsDisclosed, decoderDetailsDisclosed]
+      properties:
+        schemaVersion: { type: string, enum: [tancmark-live-automatic-final-verification-v1] }
+        sessionId: { type: string, format: uuid }
+        bindingId: { type: string, format: uuid }
+        verdict: { type: string, enum: [VIDEO_LAYER_VAULT, CANDIDATE_SUPPORT_ONLY, MANUAL_REVIEW, NOT_FOUND] }
+        reason: { type: string }
+        exactIdVerified: { type: boolean }
+        registryVerified: { type: boolean }
+        signatureVerified: { type: boolean }
+        tenantVerified: { type: boolean }
+        accountVerified: { type: boolean }
+        uniqueRecord: { type: boolean }
+        physicalVideoIdVerified: { type: boolean }
+        ownership: { type: boolean }
+        vault: { type: boolean }
+        confirmed: { type: boolean }
+        final: { type: boolean }
+        verifiedAt: { type: string, format: date-time }
+        exactIdDisclosed: { type: boolean, enum: [false] }
+        privateMapDisclosed: { type: boolean, enum: [false] }
+        registryContentsDisclosed: { type: boolean, enum: [false] }
+        decoderDetailsDisclosed: { type: boolean, enum: [false] }
+      additionalProperties: false
+    LiveAccessTokenResponse:
+      type: object
+      required: [exchangeToken, kid, expiresAt, exchangeUrl]
+      properties:
+        exchangeToken: { type: string, minLength: 32, writeOnly: true }
+        kid: { type: string }
+        expiresAt: { type: string, format: date-time }
+        exchangeUrl: { type: string, enum: [/api/tancmark/live/local/v1/access/exchange] }
+      additionalProperties: false
+    LiveExchangeResponse:
+      type: object
+      required: [grantId, sessionId, scopes, expiresAt]
+      properties:
+        grantId: { type: string, format: uuid }
+        sessionId: { type: string, format: uuid }
+        scopes: { type: array, minItems: 1, uniqueItems: true, items: { $ref: "#/components/schemas/LivePlaybackScope" } }
+        expiresAt: { type: string, format: date-time }
+      additionalProperties: false
+    LivePlaybackScope:
+      type: string
+      enum: [init, manifest, media-json, player, recording, segment]
+    LiveMediaInventoryResponse:
+      type: object
+      required: [mimeCodec, ended, segments]
+      properties:
+        mimeCodec: { type: string, pattern: '^video/mp4; codecs="[^"]+"$' }
+        ended: { type: boolean }
+        segments:
+          type: array
+          items: { type: object, required: [sequence, url, sha256, byteLength], properties: { sequence: { type: integer, minimum: 0 }, url: { type: string, pattern: "^/api/tancmark/live/local/v1/" }, sha256: { type: string, pattern: "^[0-9a-f]{64}$" }, byteLength: { type: integer, minimum: 1 } }, additionalProperties: false }
+      additionalProperties: false
+    LiveSessionRevokedResponse:
+      type: object
+      required: [session, revokedGrantCount]
+      properties: { session: { $ref: "#/components/schemas/LiveSession" }, revokedGrantCount: { type: integer, minimum: 0 } }
+      additionalProperties: false
+    LiveCleanupArtifact:
+      type: object
+      required: [relativePath, byteLength, sha256]
+      properties: { relativePath: { type: string }, byteLength: { type: integer, minimum: 0 }, sha256: { type: string, pattern: "^[0-9a-f]{64}$" } }
+      additionalProperties: false
+    LiveCleanupPlanRecord:
+      type: object
+      required: [planId, sessionId, sessionRevision, confirmationDigest, mediaOnly, metadataEvidenceAuditRetained, fileCount, totalBytes, artifacts, createdAt, expiresAt]
+      properties:
+        planId: { type: string, format: uuid }
+        sessionId: { type: string, format: uuid }
+        sessionRevision: { type: integer, minimum: 0 }
+        confirmationDigest: { type: string, pattern: "^[0-9a-f]{64}$" }
+        mediaOnly: { type: boolean, enum: [true] }
+        metadataEvidenceAuditRetained: { type: boolean, enum: [true] }
+        fileCount: { type: integer, minimum: 0 }
+        totalBytes: { type: integer, minimum: 0 }
+        artifacts: { type: array, items: { $ref: "#/components/schemas/LiveCleanupArtifact" } }
+        createdAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+      additionalProperties: false
+    LiveCleanupPlanResponse:
+      type: object
+      required: [plan, replayed]
+      properties: { plan: { $ref: "#/components/schemas/LiveCleanupPlanRecord" }, replayed: { type: boolean } }
+      additionalProperties: false
+    LiveCleanupReceipt:
+      type: object
+      required: [receiptId, planId, sessionId, purgedAt, deletedFileCount, deletedBytes]
+      properties:
+        receiptId: { type: string }
+        planId: { type: string, format: uuid }
+        sessionId: { type: string, format: uuid }
+        purgedAt: { type: string, format: date-time }
+        deletedFileCount: { type: integer, minimum: 0 }
+        deletedBytes: { type: integer, minimum: 0 }
+      additionalProperties: false
+    LiveCleanupExecuteResponse:
+      type: object
+      required: [session, receipt, replayed, deleted, metadataEvidenceAuditRetained]
+      properties: { session: { $ref: "#/components/schemas/LiveSession" }, receipt: { $ref: "#/components/schemas/LiveCleanupReceipt" }, replayed: { type: boolean }, deleted: { type: string, enum: [managed_media_only] }, metadataEvidenceAuditRetained: { type: boolean, enum: [true] } }
+      additionalProperties: false
+    LiveError:
+      type: object
+      required: [error]
+      properties: { error: { type: string, example: live_session_revision_conflict } }
+      additionalProperties: false
+    LiveCreateSessionRequest:
+      type: object
+      properties:
+        legalHold: { type: boolean, default: false }
+        protectionMode: { type: string, enum: [PROTECTED_TANCMARK, TRANSPORT_ONLY], default: PROTECTED_TANCMARK }
+      additionalProperties: false
+      description: Tenant, account, raw ID, registry and signature authority fields are forbidden; all authority is server-derived.
+    LiveAccessTokenRequest:
+      type: object
+      required: [viewerSubject]
+      properties:
+        viewerSubject: { type: string, minLength: 1, maxLength: 200 }
+        ttlSeconds: { type: integer, minimum: 1, maximum: 300 }
+        resourceScopes:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items: { $ref: "#/components/schemas/LivePlaybackScope" }
+      additionalProperties: false
+    CanonicalDnaReadOnlyResponse:
+      type: object
+      additionalProperties: true
+      description: Ozel icerik veya exact kimlik tasimayan salt-okunur DNA yonetim cevabi.
+    CanonicalDnaApplyRequest:
+      type: object
+      properties:
+        tenantScope: { type: string, minLength: 1, maxLength: 180 }
+        operations:
+          type: array
+          maxItems: 32
+          items:
+            type: object
+            properties:
+              operationId: { type: string }
+              type:
+                type: string
+                enum: [record_advisory, update_read_only_label, patch_docs_external_executor, patch_helper_external_executor]
+              description: { type: string, maxLength: 800 }
+              rollback: { type: string, maxLength: 800 }
+            required: [operationId, type, description, rollback]
+        approval:
+          oneOf:
+            - $ref: "#/components/schemas/CanonicalDnaOwnerApprovalToken"
+            - { type: "null" }
+        dryRun: { type: boolean }
+      required: [tenantScope, operations, approval, dryRun]
+    CanonicalDnaOwnerApprovalToken:
+      type: object
+      additionalProperties: false
+      properties:
+        approvalPhrase: { type: string, enum: [APPROVE_CHIEF_BRAIN_SAFE_ACTION] }
+        approvalVersion: { type: string, enum: [tancmark-controlled-apply-v1] }
+        proposalId: { type: string, minLength: 1, maxLength: 180 }
+        proposalVersion: { type: string, minLength: 1, maxLength: 180 }
+        proposalDigest: { type: string, pattern: "^[a-fA-F0-9]{64}$" }
+        operationDigest: { type: string, pattern: "^[a-fA-F0-9]{64}$" }
+        tenantScope: { type: string, minLength: 1, maxLength: 180 }
+        approvedOperationTypes:
+          type: array
+          minItems: 1
+          maxItems: 4
+          items:
+            type: string
+            enum: [record_advisory, update_read_only_label, patch_docs_external_executor, patch_helper_external_executor]
+        approvedAt: { type: string, format: date-time }
+        expiresAt: { type: string, format: date-time }
+        nonce: { type: string, minLength: 16, maxLength: 180 }
+        approvedByRole: { type: string, enum: [OWNER_ADEM_KURSAT_TANC] }
+      required: [approvalPhrase, approvalVersion, proposalId, proposalVersion, proposalDigest, operationDigest, tenantScope, approvedOperationTypes, approvedAt, expiresAt, nonce, approvedByRole]
+    HealthStatus:
+      type: object
+      properties:
+        status: { type: string }
+      required: [status]
+
+    ErrorResponse:
+      type: object
+      properties:
+        error: { type: string }
+      required: [error]
+
+    VisualLabJobCreated:
+      type: object
+      properties:
+        jobId: { type: string }
+        total: { type: integer }
+        scenarios:
+          type: array
+          items:
+            type: object
+            properties:
+              name: { type: string }
+              label: { type: string }
+            required: [name, label]
+        timeoutPerScenarioSec: { type: number }
+        screenshotTimeoutPerScenarioSec: { type: number }
+        timeoutNote: { type: string }
+      required: [jobId, total, scenarios, timeoutPerScenarioSec]
+
+    VisualLabJobStatus:
+      type: object
+      description: Detaylı şema runtime'da; bu sözleşme yalnız üst-düzey alanları belgeler.
+      properties:
+        id: { type: string }
+        status:
+          type: string
+          enum: [queued, running, done, error]
+        current: { type: integer }
+        total: { type: integer }
+        totalSec: { type: number }
+        error: { type: string, nullable: true }
+      required: [id, status, current, total]
+
+    VideoLabDecodeResult:
+      type: object
+      description: Detayli per-stage telemetri runtime'da; bu sozlesme yalniz ust-duzey alanlari belgeler.
+      properties:
+        verdict:
+          type: string
+          enum: [VAULT, WEAK_SIGNAL, NOT_FOUND]
+        vaultFrames: { type: integer }
+        strongFrames: { type: integer }
+        attemptedFrames: { type: integer }
+        stages:
+          type: string
+          description: "A1 -> A2 -> ... ladder izi"
+        twoTierDecision:
+          $ref: "#/components/schemas/TwoTierDecision"
+      required: [verdict]
+
+    DnaConfirmedDecision:
+      type: object
+      description: KESIN dogrulama. matched yalniz ID DECODED AND ID MATCHED ise true. Hicbir DNA sinyali, aday skoru veya kurtarma ipucu bu alani true yapamaz.
+      properties:
+        matched:
+          type: boolean
+        decodedIdHex:
+          type: string
+          nullable: true
+        expectedIdHex:
+          type: string
+          nullable: true
+        rule:
+          type: string
+      required: [matched, decodedIdHex, expectedIdHex, rule]
+
+    DnaCandidateConfidenceContributors:
+      type: object
+      description: Her bir 0..1 alan aday skora katki verir; conflictPenalty negatif ceza.
+      properties:
+        dnaSimilarity:
+          type: number
+          format: float
+        sealMapMatch:
+          type: number
+          format: float
+        layerSignals:
+          type: number
+          format: float
+        structuralFingerprint:
+          type: number
+          format: float
+        recoveryHints:
+          type: number
+          format: float
+        crossModuleConsistency:
+          type: number
+          format: float
+        conflictPenalty:
+          type: number
+          format: float
+
+    DnaCandidateConfidence:
+      type: object
+      description: ADAY skor. ID okunamazsa/uyusmazsa DNA izlerinden 0..1 yuzdeli guven. Bu skor KESIN KARAR DEGILDIR (neverFinal true). Mahkemelik kesin karar yalniz DnaConfirmedDecision uzerinden verilir.
+      properties:
+        score:
+          type: number
+          format: float
+        tier:
+          type: string
+          enum: [none, weak, medium, strong]
+        contributors:
+          $ref: "#/components/schemas/DnaCandidateConfidenceContributors"
+        neverFinal:
+          type: boolean
+        authority:
+          type: string
+        notes:
+          type: string
+      required: [score, tier, contributors, neverFinal, authority]
+
+    TwoTierDecision:
+      type: object
+      description: AEGIS iki seviyeli karar projeksiyonu (v0.7.1/v0.7.2). ADDITIVE, opsiyonel. Ana karar mantigi (found / VAULT / verdict / visualVaultConfirmed / aggregatedVault) bu alandan ETKILENMEZ. T6_CANDIDATE/T6_VAULT ana VAULT yerine gecmez; yalniz candidateConfidence.contributors.recoveryHints katkisi verir.
+      properties:
+        confirmed:
+          $ref: "#/components/schemas/DnaConfirmedDecision"
+        candidateConfidence:
+          $ref: "#/components/schemas/DnaCandidateConfidence"
+        notes:
+          type: string
+      required: [confirmed, candidateConfidence, notes]
+
+    AuditKind:
+      type: string
+      enum:
+        - request
+        - auth_failed
+        - rate_limit_exceeded
+        - canary_hit
+        - canary_scan
+        - anomaly
+        - Linguistic_DNA
+        - Homoglyph_Layer
+        - ZeroWidth_Layer
+        - forensic_scan
+        - Report_Generated
+        - Bot_Trap_Served
+        - Bot_Trap_Triggered
+        - Cloak_Text
+        - Cloak_Scan
+        - Cloak_Report
+        - Radar_Scan
+        - Radar_Hit
+        - Timestamp_Submit
+        - Timestamp_Verify
+        - Entanglement_Scan
+        - Beacon_Embedded
+        - Content_Distribution_Detected
+        - Breach_Signal
+        - ChannelIntegrityProfile_Computed
+        - Semantic_Mark_Embedded
+        - Semantic_Mark_Verified
+        - Timestamp_Anchored
+        - Timestamp_Sweep_Run
+        - Layer_Mid_Applied
+        - Decoy_Emitted
+        - Decoy_Matched
+        - Decoy_Stripped
+        - Decoy_DocMismatch
+        - Vault_Anchored
+        - Vault_Verified
+        - Vault_Ots_Submitted
+        - Vault_Ots_Anchored
+        - Image_Ocr_Performed
+        - Image_Analyzed
+        - Visual_L1_Embedded
+        - Visual_L1_Detected
+        - Visual_L2_Embedded
+        - Visual_L2_Detected
+        - Visual_L3_Embedded
+        - Visual_L3_Detected
+        - Visual_Vault_Confirmed
+        - Visual_Vault_Embedded
+        - Visual_Sync_Markers_Stamped
+        - Visual_Sync_Markers_Detected
+        - Visual_Vault_Verdict
+        - Ownership_Declaration_Recorded
+        - Exif_Metadata_Extracted
+        - Visual_Vault_Stripes_Embedded
+        - Visual_Vault_Stripes_Recovered
+        - Visual_Vault_Stripes_Verified
+        - Learning_Memory
+
+    ShuffleReplacement:
+      type: object
+      properties:
+        index: { type: integer }
+        original: { type: string }
+        replacement: { type: string }
+        groupId: { type: integer }
+      required: [index, original, replacement, groupId]
+
+    BehaviorSignals:
+      type: object
+      description: Optional client-side telemetry — mouse activity, dwell time, request cadence — used by the bot detector.
+      properties:
+        mouseEvents: { type: integer, minimum: 0 }
+        dwellMs: { type: integer, minimum: 0 }
+        requestIntervalMs: { type: number, minimum: 0 }
+        requestIntervalStddevMs: { type: number, minimum: 0 }
+
+    ProtectTextRequest:
+      type: object
+      properties:
+        aiTrapMode:
+          type: string
+          enum: [auto, force-bot, force-human, off]
+          description: Override the bot detector. `auto` (default) uses request signals; `off` disables honeytoken injection entirely.
+        behavior:
+          $ref: "#/components/schemas/BehaviorSignals"
+        text: { type: string }
+        clientId:
+          oneOf: [{ type: string }, { type: integer }]
+        userId: { type: string }
+      required: [text]
+
+    ProtectionLayerSummary:
+      type: object
+      properties:
+        synonym:
+          type: object
+          properties:
+            replacementCount: { type: integer }
+            variantHash: { type: string }
+          required: [replacementCount, variantHash]
+        homoglyph:
+          type: object
+          properties:
+            carrierCount: { type: integer }
+            flippedCount: { type: integer }
+            density: { type: number }
+          required: [carrierCount, flippedCount, density]
+        zeroWidth:
+          type: object
+          properties:
+            bitCount: { type: integer }
+            present: { type: boolean }
+          required: [bitCount, present]
+      required: [synonym, homoglyph, zeroWidth]
+
+    ProtectTextResponse:
+      type: object
+      properties:
+        protectedText: { type: string }
+        variantHash: { type: string }
+        protectionHash: { type: string }
+        replacementCount: { type: integer }
+        replacements:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShuffleReplacement"
+        layers:
+          $ref: "#/components/schemas/ProtectionLayerSummary"
+        botDetection:
+          $ref: "#/components/schemas/BotDetectionResult"
+        honeytokens:
+          type: object
+          description: |
+            Present only when bot-trap layer fired (verdict == "bot"). Token
+            details (`fakeValue`, `position`) are intentionally NOT returned
+            in this response — only the count, broken down by kind. Full
+            per-token records are admin-only via `GET /bot-traps`.
+          properties:
+            injected: { type: integer }
+            byKind:
+              type: object
+              additionalProperties: { type: integer }
+            density: { type: number, description: "Effective adaptive density used (0..1)." }
+          required: [injected]
+      required: [protectedText, variantHash, replacementCount, replacements]
+
+    AnalyzeTextRequest:
+      type: object
+      properties:
+        text: { type: string }
+        candidateClientIds:
+          type: array
+          items:
+            oneOf: [{ type: string }, { type: integer }]
+        minMatches: { type: integer, minimum: 1 }
+        scanHoneytokens: { type: boolean, default: true }
+      required: [text]
+
+    ChannelScore:
+      type: object
+      properties:
+        matched: { type: integer }
+        total: { type: integer }
+        score: { type: number }
+        present: { type: boolean }
+      required: [matched, total, score]
+
+    ChannelBreakdown:
+      type: object
+      properties:
+        synonym: { $ref: "#/components/schemas/ChannelScore" }
+        homoglyph: { $ref: "#/components/schemas/ChannelScore" }
+        zeroWidth: { $ref: "#/components/schemas/ChannelScore" }
+      required: [synonym, homoglyph, zeroWidth]
+
+    CandidateMatch:
+      type: object
+      properties:
+        clientId: { type: string }
+        matchedTokens: { type: integer }
+        totalTokens: { type: integer }
+        confidenceScore: { type: number }
+        combinedScore: { type: number }
+        channels: { $ref: "#/components/schemas/ChannelBreakdown" }
+      required: [clientId, matchedTokens, totalTokens, confidenceScore]
+
+    GenerateReportRequest:
+      type: object
+      properties:
+        suspectText: { type: string }
+        protectedText: { type: string }
+        suspectedClientId:
+          oneOf: [{ type: integer }, { type: string }, { type: "null" }]
+        confidenceScore: { type: number }
+        matchedTokens: { type: integer }
+        totalTokens: { type: integer }
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/CandidateMatch"
+        channelBreakdown:
+          $ref: "#/components/schemas/ChannelBreakdown"
+        stylometry:
+          $ref: "#/components/schemas/StylometricMetrics"
+        diffSummary:
+          $ref: "#/components/schemas/DiffSummary"
+        spatialVariance:
+          $ref: "#/components/schemas/SpatialVarianceReport"
+        expertNotes: { type: string, maxLength: 8000 }
+        userId: { type: string }
+        absoluteBreach:
+          type: boolean
+          description: |
+            True when analyze-text returned a single-client honeytoken hit.
+            Drives the PDF's top-line verdict to "Güçlü teknik eşleşme".
+        multiSuspect:
+          type: boolean
+          description: |
+            True when ≥2 clients have decisive trap evidence in the same
+            suspect text. Drives the PDF's top-line verdict to "Birden
+            fazla kaynak izi — kesin tek kaynak yok".
+        suspectedClients:
+          type: array
+          description: |
+            All clients with decisive trap evidence (mirrors analyze-text's
+            response). Required when multiSuspect=true to render the list.
+          items:
+            type: object
+            properties:
+              clientId: { type: string }
+              confidenceScore: { type: number }
+            required: [clientId, confidenceScore]
+      required: [suspectText, protectedText, confidenceScore, matchedTokens, totalTokens]
+
+    AnalyzeTextResponse:
+      type: object
+      properties:
+        suspectedClientId:
+          oneOf: [{ type: string }, { type: "null" }]
+        confidenceScore: { type: number }
+        combinedScore: { type: number }
+        matchedTokens: { type: integer }
+        totalTokens: { type: integer }
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/CandidateMatch"
+        channelBreakdown:
+          oneOf:
+            - $ref: "#/components/schemas/ChannelBreakdown"
+            - { type: "null" }
+        stylometry:
+          $ref: "#/components/schemas/StylometricMetrics"
+        absoluteBreach: { type: boolean }
+        breachEvidence:
+          type: object
+          description: Present only on a honeytoken hit — confidence is forced to 1.0.
+          properties:
+            kind: { type: string }
+            fakeValue: { type: string }
+            matchedClientId: { type: string }
+            honeytokenId: { type: integer }
+            keyVersion: { type: string }
+            servedAt: { type: string, format: date-time }
+            position: { type: integer }
+          required: [kind, fakeValue, matchedClientId, honeytokenId, servedAt, position]
+        multiSuspect:
+          type: boolean
+          description: True when ≥2 distinct clients have decisive trap evidence in the same suspect text. Each entry in `suspectedClients` is independently confirmed.
+        suspectedClients:
+          type: array
+          description: All clients with decisive trap evidence, sorted by evidence count.
+          items:
+            type: object
+            properties:
+              clientId: { type: string }
+              confidenceScore: { type: number }
+              evidenceCount: { type: integer }
+              patternHits: { type: integer }
+              jitterHits: { type: integer }
+              kinds:
+                type: array
+                items: { type: string }
+            required: [clientId, confidenceScore, evidenceCount, patternHits, jitterHits, kinds]
+        warning:
+          type: string
+          description: Human-readable note attached when `multiSuspect=true`.
+        cascadeIntegrity:
+          $ref: "#/components/schemas/CascadeIntegrityReport"
+        channelIntegrityProfile:
+          type: array
+          description: |
+            Faz 3 — best aday için per-channel tier sınıflandırması (T0/T1/T2/AUX).
+            Yardımcı analiz; legacy `suspectedClientId/absoluteBreach/multiSuspect`
+            kararlarına girmez. Honeytoken yolunda T0 kanalı `score=1` döner.
+          items:
+            $ref: "#/components/schemas/ChannelProfileEntry"
+        tieredVerdict:
+          $ref: "#/components/schemas/TieredVerdictBlock"
+        semanticPositionalVerification:
+          $ref: "#/components/schemas/SemanticVerificationResult"
+        vaultVerification:
+          $ref: "#/components/schemas/VaultVerificationResult"
+        primarySuspect:
+          $ref: "#/components/schemas/PrimarySuspect"
+        forensicParaphraseWarning:
+          type: boolean
+          description: |
+            Faz 4 — best aday için signalScore ≥ 0.70 ve lexicalOverlap ≤ 0.50
+            ise true. Anlamsal mühür hayatta ama yüzeysel kelimeler büyük
+            ölçüde değişmiş → sadık paraphrase saldırısı sinyali. Yardımcı
+            uyarıdır; legacy attribution ladder'ını ezmez.
+      required: [suspectedClientId, confidenceScore, matchedTokens, totalTokens, candidates]
+
+    VaultVerificationResult:
+      type: object
+      description: |
+        v4.1 Step 3 Bölüm 2 — Vault PQC verify roundtrip raporu. Yalnızca
+        `status="vault-confirmed"` durumunda `primarySuspect.matchConfidence`
+        `"preliminary" → "vault-confirmed"` (kriptografik kesinlik) seviyesine
+        yükseltilir. Tampering veya not-found durumunda `"preliminary"` kalır.
+      properties:
+        status:
+          type: string
+          enum: [vault-confirmed, signature-mismatch, not-found]
+        algorithm: { type: string, description: "ml-dsa-65" }
+        keyDerivation: { type: string, description: "hkdf-v1" }
+        payloadDigestSha256: { type: string }
+        signedAt: { type: string, format: date-time }
+        version: { type: integer }
+        docId: { type: string }
+      required: [status]
+
+    PrimarySuspect:
+      type: object
+      description: |
+        v4.1 Step 2.5 + Step 3 Bölüm 2 — birincil şüpheli özet kararı.
+        `matchConfidence` default `"preliminary"` (ön bulgu); vault verify
+        roundtrip'i başarılıysa `"vault-confirmed"`a yükseltilir.
+      properties:
+        source:
+          type: string
+          enum: [multi-channel, decoy, none]
+        clientId:
+          oneOf: [{ type: string }, { type: "null" }]
+        decoyViewerId: { type: string }
+        matchConfidence:
+          type: string
+          enum: [preliminary, vault-confirmed]
+      required: [source, clientId, matchConfidence]
+
+    SemanticVerificationResult:
+      type: object
+      description: |
+        Faz 4 — Semantic Positional Watermarking verify raporu (best aday).
+        Yardımcı kanıttır; T2 corroborator olarak kanal profiline iliştirilir
+        ama tek başına STRONG karar veremez (R2 sadece linguisticDna'yı T2
+        olarak değerlendirir).
+      properties:
+        clientId: { type: string }
+        docId: { type: string }
+        cloakId: { type: string }
+        signalScore:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: 1 - p_value (Binomial test, p=0.5).
+        matchedBits: { type: integer, minimum: 0 }
+        totalBits: { type: integer, minimum: 0 }
+        pValue: { type: number, minimum: 0, maximum: 1 }
+        lexicalOverlap:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Per-cümle Jaccard ortalaması (orijinal vs suspect tokens).
+        alignedSentences: { type: integer, minimum: 0 }
+        forensicParaphraseWarning: { type: boolean }
+        verifyTimeMs: { type: number, minimum: 0 }
+      required:
+        [clientId, docId, cloakId, signalScore, matchedBits, totalBits,
+         pValue, lexicalOverlap, alignedSentences,
+         forensicParaphraseWarning, verifyTimeMs]
+
+    CascadeIntegrityReport:
+      type: object
+      description: |
+        Faz 2 — Cascade Hash verifier raporu. Yardımcı kanıttır;
+        `suspectedClientId`/`absoluteBreach`/`multiSuspect` kararlarını ezmez.
+      properties:
+        clientId: { type: string }
+        docId: { type: string }
+        cloakId: { type: string }
+        keyDerivation:
+          type: string
+          enum: [global, "hkdf-v1"]
+          description: |
+            Persisted chain'in türetilme şeması. `global` legacy Faz 2 ilk
+            drop satırlarıdır; `hkdf-v1` v4.0.1 yamasından sonra üretilen
+            tenant-türetilmiş anahtar kullanır.
+        integrityScore: { type: number, minimum: 0, maximum: 1 }
+        brokenAtIndex:
+          oneOf: [{ type: integer, minimum: 0 }, { type: "null" }]
+        deletedIndices:
+          type: array
+          items: { type: integer, minimum: 0 }
+        modifiedIndices:
+          type: array
+          items: { type: integer, minimum: 0 }
+        reorderedDetected: { type: boolean }
+        insertedCount: { type: integer, minimum: 0 }
+        totalStored: { type: integer, minimum: 0 }
+        totalCandidate: { type: integer, minimum: 0 }
+      required:
+        [clientId, docId, cloakId, integrityScore, deletedIndices,
+         modifiedIndices, reorderedDetected, insertedCount,
+         totalStored, totalCandidate]
+
+    ChannelProfileEntry:
+      type: object
+      description: |
+        Faz 3 — Bir tek kanalın tier'ı, normalize skoru (0..1) ve "decay"
+        (1 − score). `vital=true` skor VITAL_THRESHOLDS eşiğini aştığında.
+      properties:
+        name:
+          type: string
+          enum: [honeytoken, zeroWidth, homoglyph, linguisticDna, semanticPositional, cascadeHash]
+        tier:
+          type: string
+          enum: [T0, T1, T2, AUX]
+        score: { type: number, minimum: 0, maximum: 1 }
+        decay: { type: number, minimum: 0, maximum: 1 }
+        vital: { type: boolean }
+        present: { type: boolean }
+      required: [name, tier, score, decay, vital, present]
+
+    TieredVerdictCandidateSummary:
+      type: object
+      properties:
+        clientId: { type: string }
+        combinedScore: { type: number }
+        channelScores:
+          type: object
+          additionalProperties: { type: number }
+        passesStrong: { type: boolean }
+      required: [clientId, combinedScore, channelScores, passesStrong]
+
+    TieredVerdictBlock:
+      type: object
+      description: |
+        Faz 3 — Tiered verdict aggregator çıktısı. **Yardımcı katmandır**;
+        `FEATURE_DECAY_VERDICT=false` iken `advisoryOnly=true` döner ve
+        legacy attribution kararı (suspectedClientId/absoluteBreach/multiSuspect)
+        otoriter kalır. `FEATURE_DECAY_VERDICT=true` (default) durumunda da
+        legacy alanlar ezilmez — bu blok karar gerekçesini surface eder.
+      properties:
+        verdict:
+          type: string
+          enum: [STRONG, AMBIGUOUS, INSUFFICIENT]
+        attributedClientIds:
+          type: array
+          items: { type: string }
+        reasons:
+          type: array
+          items: { type: string }
+        marginGuardDemoted: { type: boolean }
+        multiSuspectDemoted: { type: boolean }
+        margin:
+          oneOf: [{ type: number }, { type: "null" }]
+        strongCandidateCount: { type: integer, minimum: 0 }
+        channelProfile:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChannelProfileEntry"
+        candidateSummaries:
+          type: array
+          items:
+            $ref: "#/components/schemas/TieredVerdictCandidateSummary"
+        advisoryOnly:
+          type: boolean
+          description: |
+            `true` iken FEATURE_DECAY_VERDICT=false — bu blok yalnızca
+            raporlama amaçlıdır, attribution legacy ladder'dan gelir.
+        ruleApplied:
+          type: string
+          description: |
+            Verdict'i belirleyen ilk kural (örn. "T0_decisive",
+            "T1_double_strong", "T1_T2_combo", "margin_guard_demote",
+            "multi_suspect_demote", "ambiguous_floor", "insufficient_floor").
+      required:
+        [verdict, attributedClientIds, reasons, marginGuardDemoted,
+         multiSuspectDemoted, strongCandidateCount, channelProfile,
+         candidateSummaries]
+
+    ChannelIntegrityProfileAuditDetails:
+      type: object
+      description: |
+        `ChannelIntegrityProfile_Computed` audit kind'ı için `details` payload.
+      properties:
+        docId:
+          oneOf: [{ type: string }, { type: "null" }]
+        suspectedClientId:
+          oneOf: [{ type: string }, { type: "null" }]
+        verdict:
+          type: string
+          enum: [STRONG, AMBIGUOUS, INSUFFICIENT]
+        ruleApplied: { type: string }
+        multiSuspect: { type: boolean }
+        marginGap:
+          oneOf: [{ type: number }, { type: "null" }]
+        profile:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChannelProfileEntry"
+        path:
+          type: string
+          enum: [honeytoken-shortcut, multi-channel]
+        featureDecayVerdict: { type: boolean }
+      required: [verdict, ruleApplied, multiSuspect, profile, path, featureDecayVerdict]
+
+    BotDetectionResult:
+      type: object
+      properties:
+        verdict:
+          type: string
+          enum: [human, suspected, bot]
+        score: { type: number }
+        signals:
+          type: array
+          items: { type: string }
+      required: [verdict, score, signals]
+
+    ProtectHoneytoken:
+      type: object
+      properties:
+        id: { type: integer }
+        kind:
+          type: string
+          enum: [email, phone, amount, percent, date, org, jitter]
+        fakeValue: { type: string }
+        position: { type: integer }
+      required: [id, kind, fakeValue, position]
+
+    BotTrapEvent:
+      type: object
+      properties:
+        id: { type: integer }
+        createdAt: { type: string, format: date-time }
+        clientId: { type: string }
+        keyVersion: { type: string }
+        kind: { type: string }
+        fakeValue: { type: string }
+        sourceIp:
+          oneOf: [{ type: string }, { type: "null" }]
+        userAgent:
+          oneOf: [{ type: string }, { type: "null" }]
+        botScore:
+          oneOf: [{ type: number }, { type: "null" }]
+        botVerdict:
+          oneOf: [{ type: string }, { type: "null" }]
+        botSignals:
+          oneOf: [{ type: string }, { type: "null" }]
+        protectionHash:
+          oneOf: [{ type: string }, { type: "null" }]
+        used: { type: boolean }
+        detectedAt:
+          oneOf: [{ type: string, format: date-time }, { type: "null" }]
+      required: [id, createdAt, clientId, kind, fakeValue, used]
+
+    BotTrapClientBucket:
+      type: object
+      properties:
+        clientId: { type: string }
+        served: { type: integer }
+        used: { type: integer }
+        kinds:
+          type: object
+          additionalProperties: { type: integer }
+      required: [clientId, served, used]
+
+    BotTrapDocumentBucket:
+      type: object
+      description: Per-carrier-document (per `protectionHash`) trap density. Only documents with ≥1 trap are listed.
+      properties:
+        protectionHash: { type: string }
+        served: { type: integer }
+        used: { type: integer }
+        clientId: { type: string }
+        lastSeenAt: { type: string, format: date-time }
+      required: [protectionHash, served, used, clientId, lastSeenAt]
+
+    BotTrapStats:
+      type: object
+      properties:
+        total: { type: integer }
+        used: { type: integer }
+        byKind:
+          type: object
+          additionalProperties: { type: integer }
+        byVerdict:
+          type: object
+          additionalProperties: { type: integer }
+        byClient:
+          type: array
+          items:
+            $ref: "#/components/schemas/BotTrapClientBucket"
+        byDocument:
+          type: array
+          description: Top recent carrier documents by served trap count.
+          items:
+            $ref: "#/components/schemas/BotTrapDocumentBucket"
+      required: [total, used, byKind, byVerdict, byClient, byDocument]
+
+    StylometricStopWord:
+      type: object
+      properties:
+        word: { type: string }
+        count: { type: integer }
+      required: [word, count]
+
+    StylometricMetrics:
+      type: object
+      description: Surface-level style fingerprint (Stylometric_DNA channel).
+      properties:
+        wordCount: { type: integer }
+        uniqueWordCount: { type: integer }
+        sentenceCount: { type: integer }
+        avgSentenceLength: { type: number }
+        lexicalDiversity: { type: number }
+        stopWordCount: { type: integer }
+        stopWordRatio: { type: number }
+        avgWordLength: { type: number }
+        stopWordDistribution:
+          type: array
+          items:
+            $ref: "#/components/schemas/StylometricStopWord"
+      required:
+        - wordCount
+        - uniqueWordCount
+        - sentenceCount
+        - avgSentenceLength
+        - lexicalDiversity
+        - stopWordCount
+        - stopWordRatio
+        - avgWordLength
+        - stopWordDistribution
+
+    DiffEntry:
+      type: object
+      properties:
+        op:
+          type: string
+          enum: [equal, add, remove]
+        text: { type: string }
+      required: [op, text]
+
+    DiffSummary:
+      type: object
+      properties:
+        added: { type: integer }
+        removed: { type: integer }
+        unchanged: { type: integer }
+        similarity: { type: number }
+        sample:
+          type: array
+          items:
+            $ref: "#/components/schemas/DiffEntry"
+      required: [added, removed, unchanged, similarity]
+
+    SpatialPoint:
+      type: object
+      properties:
+        index: { type: integer }
+        col: { type: integer }
+        row: { type: integer }
+        microX: { type: number }
+        microY: { type: number }
+        char: { type: string }
+        codepoint: { type: string }
+        carrier: { type: boolean }
+      required: [index, col, row, microX, microY, char, codepoint, carrier]
+
+    SpatialVarianceReport:
+      type: object
+      properties:
+        totalChars: { type: integer }
+        wrap: { type: integer }
+        carriers: { type: integer }
+        microXVariance: { type: number }
+        microYVariance: { type: number }
+        points:
+          type: array
+          items:
+            $ref: "#/components/schemas/SpatialPoint"
+      required: [totalChars, wrap, carriers, microXVariance, microYVariance, points]
+
+    ForensicNote:
+      type: object
+      properties:
+        id: { type: integer }
+        createdAt: { type: string, format: date-time }
+        suspectedClientId:
+          oneOf: [{ type: string }, { type: "null" }]
+        confidenceScore:
+          oneOf: [{ type: string }, { type: "null" }]
+        author:
+          oneOf: [{ type: string }, { type: "null" }]
+        content: { type: string }
+      required: [id, createdAt, content]
+
+    CreateForensicNoteRequest:
+      type: object
+      properties:
+        content: { type: string, minLength: 1, maxLength: 8000 }
+        author: { type: string, maxLength: 120 }
+        suspectedClientId:
+          oneOf:
+            - { type: string, minLength: 1, maxLength: 64 }
+            - { type: integer, minimum: 0 }
+            - { type: "null" }
+          description: |
+            Müşteri kimliği. String ("client-A", "agency-client-001"),
+            numeric legacy ("777" veya 777) veya null kabul edilir.
+            Server-side `String(value)` ile string'e normalize edilir.
+        confidenceScore: { type: string, maxLength: 32 }
+      required: [content]
+
+    AuditEvent:
+      type: object
+      properties:
+        id: { type: integer }
+        ts: { type: string, format: date-time }
+        ip: { type: string }
+        route: { type: string }
+        kind: { $ref: "#/components/schemas/AuditKind" }
+        clientId:
+          oneOf: [{ type: integer }, { type: "null" }]
+        userId:
+          oneOf: [{ type: string }, { type: "null" }]
+        details:
+          type: object
+          additionalProperties: true
+          nullable: true
+      required: [id, ts, ip, route, kind]
+
+    AuditStats:
+      type: object
+      properties:
+        total: { type: integer }
+        byKind:
+          type: object
+          additionalProperties:
+            type: integer
+      required: [total, byKind]
+
+    AuditListResponse:
+      type: object
+      properties:
+        stats:
+          $ref: "#/components/schemas/AuditStats"
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/AuditEvent"
+      required: [stats, events]

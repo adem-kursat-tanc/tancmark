@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "tancmark-windows-canonical-regression-v1",
+  "profile": "WINDOWS_CANONICAL_PRODUCT_PROFILE",
+  "measuredAtUtc": "2026-09-02T17:11:03.3066073Z",
+  "repositoryHeadBefore": "a5be2f1295f20dcf2e63b9fc862f94796c560bae",
+  "repositoryHeadAfter": "a5be2f1295f20dcf2e63b9fc862f94796c560bae",
+  "repositoryHeadChanged": false,
+  "trackedAndUntrackedStatusChangedByTests": false,
+  "runtime": {
+    "nodeVersion": "v24.19.0",
+    "pnpmVersion": "10.34.5",
+    "ffmpegSha256": "6b22601b72c358b3b41bdb8480964b178b5a2bfd1849fb24991f460d2f85a946",
+    "ffprobeSha256": "e540d5392a3981ddfa4cfcccba0becf07fb612a53bf0771e4bc61f4840182a68",
+    "mediaRuntimeProfileEnvironment": "unset (canonical Windows default)"
+  },
+  "invariants": {
+    "linuxDemoProfileSelectedDuringWindowsRegression": false,
+    "canonicalFfmpegHashPreserved": true,
+    "canonicalFfprobeHashPreserved": true
+  },
+  "gates": [
+    {
+      "name": "typecheck",
+      "script": "typecheck",
+      "exitCode": 0,
+      "durationMs": 38796.674,
+      "logPath": "windows-regression-logs/typecheck.log",
+      "logSha256": "aab7c82147d0438341040adc313f19f177d1157cdb18e8e872d514fe379e2861",
+      "logBytes": 714,
+      "status": "PASSED"
+    },
+    {
+      "name": "normal-build",
+      "script": "build",
+      "exitCode": 0,
+      "durationMs": 55933.091,
+      "logPath": "windows-regression-logs/normal-build.log",
+      "logSha256": "7856d3930b81b1bc9651e2d7b0c3dd7ca957a278892ba3686925645773ed957f",
+      "logBytes": 3289,
+      "status": "PASSED"
+    },
+    {
+      "name": "product-build",
+      "script": "build:product",
+      "exitCode": 0,
+      "durationMs": 3796.012,
+      "logPath": "windows-regression-logs/product-build.log",
+      "logSha256": "bb3ea4d40b380217dfce662d32ef96b37a63e126b159dd7c23acad32a98284ba",
+      "logBytes": 532,
+      "status": "PASSED"
+    },
+    {
+      "name": "public-tests",
+      "script": "test:public",
+      "exitCode": 0,
+      "durationMs": 21284.861,
+      "logPath": "windows-regression-logs/public-tests.log",
+      "logSha256": "b83fd18f453609e42b5e03e9519a61d6d47a5e06ed072773e1918645048fdd68",
+      "logBytes": 5742,
+      "status": "PASSED"
+    },
+    {
+      "name": "built-route-contract",
+      "script": "test:built",
+      "exitCode": 0,
+      "durationMs": 1823.982,
+      "logPath": "windows-regression-logs/built-route-contract.log",
+      "logSha256": "9e0a422af2544fa88d14b7b3c3c0e045b5c7fd0db27c36d6310c4e0a28e5d60c",
+      "logBytes": 824,
+      "status": "PASSED"
+    },
+    {
+      "name": "normal-built-smoke",
+      "script": "test:normal-built",
+      "exitCode": 0,
+      "durationMs": 8542.073,
+      "logPath": "windows-regression-logs/normal-built-smoke.log",
+      "logSha256": "130245498ce62d31993f5dc5e3022e38ab4e8a87adbf4fa0ab7aa4d4c4edbda5",
+      "logBytes": 817,
+      "status": "PASSED"
+    },
+    {
+      "name": "product-built-smoke",
+      "script": "test:product-built",
+      "exitCode": 0,
+      "durationMs": 11316.545,
+      "logPath": "windows-regression-logs/product-built-smoke.log",
+      "logSha256": "c6d60b3383ef96f7125f9c847b0beb0f7127679a38e382fdb182cac7b87dd4d4",
+      "logBytes": 818,
+      "status": "PASSED"
+    },
+    {
+      "name": "canonical-reader-scope",
+      "script": "test:canonical-reader-scope",
+      "exitCode": 0,
+      "durationMs": 7577.105,
+      "logPath": "windows-regression-logs/canonical-reader-scope.log",
+      "logSha256": "120697198e3f17d73d648da534207556597dcc50ccb242d492ffec27e830fbee",
+      "logBytes": 562,
+      "status": "PASSED"
+    },
+    {
+      "name": "media-runtime-resolver",
+      "script": "test:media-runtime-resolver",
+      "exitCode": 0,
+      "durationMs": 5063.416,
+      "logPath": "windows-regression-logs/media-runtime-resolver.log",
+      "logSha256": "edb3bd0ada9d2f3ab155b3f1d1b47a8d6a3d1ffa064364c4bfbf3992ff81d5d4",
+      "logBytes": 623,
+      "status": "PASSED"
+    },
+    {
+      "name": "physical-text-image",
+      "script": "test:physical-text-image",
+      "exitCode": 0,
+      "durationMs": 6899.187,
+      "logPath": "windows-regression-logs/physical-text-image.log",
+      "logSha256": "3f1db925cd0c6d0966ea853c610a804d99cb0c27a50844d681268a05b86e4a75",
+      "logBytes": 854,
+      "status": "PASSED"
+    },
+    {
+      "name": "physical-audio",
+      "script": "test:physical-audio",
+      "exitCode": 0,
+      "durationMs": 6848.741,
+      "logPath": "windows-regression-logs/physical-audio.log",
+      "logSha256": "e22169a0a124415a625b50e4f48da983a2b275246602dfed426283cd1878c2dc",
+      "logBytes": 629,
+      "status": "PASSED"
+    },
+    {
+      "name": "clean-live",
+      "script": "test:clean-live",
+      "exitCode": 0,
+      "durationMs": 38842.74,
+      "logPath": "windows-regression-logs/clean-live.log",
+      "logSha256": "8819dbb0aa60c8576e99c366af7536c97be50e8c3052de71bd97744df8f5de16",
+      "logBytes": 1341,
+      "status": "PASSED"
+    },
+    {
+      "name": "c2pa",
+      "script": "test:c2pa",
+      "exitCode": 0,
+      "durationMs": 23510.382,
+      "logPath": "windows-regression-logs/c2pa.log",
+      "logSha256": "7f949c4de8d03e490ddb9e6733aa05e3a22a8c6c75be8ef56925dd1dc0ef9f20",
+      "logBytes": 8443,
+      "status": "PASSED"
+    }
+  ],
+  "failedGates": [],
+  "status": "PASSED"
+}

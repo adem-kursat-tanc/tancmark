@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "auditVersion": "V4",
+  "standard": "OWASP Application Security Verification Standard 5.0.0",
+  "usage": "test and evidence mapping only; no certification or formal compliance claim",
+  "candidateCommit": "57bc782beedd45c49f1cebd840148774240b263e",
+  "overall": "EVIDENCED_LOCAL_RELEASE_GATE_PASSED_WITH_EXTERNAL_OPERATOR_STEPS",
+  "mapping": [
+    {"area": "Architecture and threat model", "status": "EVIDENCED", "evidence": ["FINAL_PRE_RELEASE_THREAT_MODEL_V4.md", "exact V4 baselines and trust boundaries"]},
+    {"area": "Authentication, session and tokens", "status": "EVIDENCED_BY_CONTRACTS", "evidence": ["signed Live scope", "grant replay/revoke negatives", "3/3 clean Live exact verification"]},
+    {"area": "Access control and tenant isolation", "status": "EVIDENCED_BY_CONTRACTS", "evidence": ["wrong ID/no ID/wrong tenant rejected", "wrongOwnership=0", "crossTenantLeak=0"]},
+    {"area": "Validation and encoding", "status": "EVIDENCED_PASSED_LOCAL_RELEASE_GATE", "evidence": ["Multer 2.2.0", "fieldNestingDepth=0", "Sharp 0.35.4", "libvips 8.18.6", "hostile-input contracts passed"]},
+    {"area": "Stored cryptography and ownership", "status": "EVIDENCED_BY_CONTRACTS", "evidence": ["exact ID plus registry, tenant and signature", "C2PA cannot open VAULT", "partial and locator results cannot open ownership"]},
+    {"area": "Error handling, logging and privacy", "status": "NOT_MEASURED_DATABASE_NOT_CONFIGURED", "evidence": ["source-level redaction and privacy gates passed", "production database audit persistence was not measured and is not a GitHub source-release blocker"]},
+    {"area": "Communications", "status": "PRODUCTION_OPERATOR_STEP", "evidence": ["non-loopback plaintext rejected", "external providers fail closed until configured"]},
+    {"area": "Malicious code and supply chain", "status": "EVIDENCED_PASSED_REACHABLE_CRITICAL_HIGH_ZERO", "evidence": ["reachable critical/high=0", "unresolved license=0", "unknown native provenance=0", "immutable action pins", "1038/1038 archive integrity"]},
+    {"area": "Files and resources", "status": "EVIDENCED_PASSED_ZERO_VERIFIED_LIVE_RESIDUE", "evidence": ["remaining temporary roots/workers/ports=0", "path/symlink/hardlink/overwrite contracts"]},
+    {"area": "API and web services", "status": "PASSED_MEASURED_SCOPE", "evidence": ["public lab/direct reader routes disabled", "canonical reader internal signed Live exact scope only"]},
+    {"area": "Configuration", "status": "EVIDENCED_PASSED_EXPLICIT_RUNTIME_PATH", "evidence": ["explicit FFmpeg resolver passed without system PATH mutation", "documentation/runtime parity passed"]}
+  ],
+  "notMeasuredOrExternal": [
+    "Production TLS termination and reverse-proxy configuration",
+    "Production database audit persistence",
+    "GitHub-native security controls before repository push",
+    "Official C2PA trust-list and conformance operation",
+    "Formal ASVS verification or certification"
+  ],
+  "releaseDecision": "TANCMARK_FINAL_PRE_RELEASE_AUDIT_PASSED"
+}

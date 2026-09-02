@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "tancmark-historical-report-metadata-v1",
+  "historical": true,
+  "preIntegrationBaseline": true,
+  "currentReleaseAuthority": false,
+  "originalSha256": "939eb8c8302cadc2af7fade82eb30b07735cd1908fc2c10cca9396f5887076e8",
+  "supersededBy": "reports/C2PA_NEGATIVE_TEST_RESULTS.json",
+  "currentResult": "TANCMARK_C2PA_READ_VERIFY_SIGN_EMBED_TESTED"
+}

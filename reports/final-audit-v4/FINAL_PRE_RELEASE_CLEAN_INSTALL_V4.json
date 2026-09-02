@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "auditVersion": "V4",
+  "status": "PASSED",
+  "source": "exact git archive of 57bc782beedd45c49f1cebd840148774240b263e",
+  "freshDirectory": true,
+  "emptyStoreBeforeInstall": true,
+  "pnpmVersion": "10.23.0",
+  "nodeVersion": "24.19.0",
+  "frozenLockfile": true,
+  "resolvedPackages": 634,
+  "reusedPackages": 0,
+  "downloadedPackages": 634,
+  "c2paPostinstall": "PASSED_INSTALLED_VERIFIED",
+  "typecheck": "PASSED",
+  "normalBuild": "PASSED",
+  "productBuild": "PASSED",
+  "publicTests": "PASSED",
+  "builtTests": "PASSED",
+  "normalAndProductRouteSmoke": "PASSED",
+  "explicitMediaRuntimeWithoutFfmpegInPath": "PASSED"
+}

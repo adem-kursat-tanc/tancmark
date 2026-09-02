@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "tancmark-public-export-test-scope-alignment-v1",
+  "generatedAtUtc": "2026-09-01T10:23:35Z",
+  "status": "PASSED",
+  "appliesToMainCommit": "a0b5089d6785edc5a22eb0090302214381e71908",
+  "publicBaseCommit": "a774c91b114b02784eb264d46ce50d3ae3b33037",
+  "changedFileCount": 10,
+  "patchSha256": "754b9a600a67c7d4a4802bb75893e5c9bf9473ab13719a58cca46864ff29b5bf",
+  "rollbackPatchSha256": "2e8662938dc9573c8b9738dfc9b4a23adb73b533430059f18c29ccf5e8f43ad2",
+  "productEngineSourceChanged": false,
+  "publicApiBehaviorChanged": false,
+  "dependencyGraphChanged": false,
+  "lockfileChanged": false,
+  "tests": {
+    "publicSourceDefaultMarkerRoot": "PASSED",
+    "publicSourceExplicitRoot": "PASSED",
+    "privateMainWithoutExplicitRoot": "PUBLIC_EXPORT_ROOT_REQUIRED",
+    "publicExportSurfaceConsistency": "PASSED",
+    "privateMainTypecheck": "PASSED_AFTER_FORCED_CLEAN_TYPESCRIPT_OUTPUT_REGENERATION",
+    "privateMainBuild": "PASSED_WITH_REQUIRED_PORT_AND_BASE_PATH_ENV",
+    "privateMainBuildProduct": "PASSED",
+    "publicPhysicalTextImage": "PASSED",
+    "publicCleanLive": "PASSED",
+    "publicTests": "PASSED",
+    "wrongOwnership": 0,
+    "externalNetworkCalls": 0
+  },
+  "files": [
+    {
+      "path": "CLA.md",
+      "scope": "PRIVATE_MAIN_AND_PUBLIC_EXPORT_VALIDATION",
+      "operation": "add",
+      "beforeSha256": null,
+      "afterSha256": "cef54307e3289eb4ca54cf5ec92bdbf0383f137b65bc711c061ade839b8c28a9",
+      "sourceV8Blob": "5ada3b782af69396467e3035289571e14d456949",
+      "sourceV8Sha256": "cef54307e3289eb4ca54cf5ec92bdbf0383f137b65bc711c061ade839b8c28a9",
+      "reason": "Exact verified public contributor agreement from V8",
+      "testResult": "PASSED"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "scope": "PRIVATE_MAIN_AND_PUBLIC_EXPORT_VALIDATION",
+      "operation": "add",
+      "beforeSha256": null,
+      "afterSha256": "e6188fb56d01f94ef5e5e1b3abcffad57b495151b5a6411e93efcedd95bd69cc",
+      "sourceV8Blob": "58d352afdd32d3f6c988d9f22e8114466d18d31d",
+      "sourceV8Sha256": "e6188fb56d01f94ef5e5e1b3abcffad57b495151b5a6411e93efcedd95bd69cc",
+      "reason": "Exact verified public contribution policy from V8",
+      "testResult": "PASSED"
+    },
+    {
+      "path": "docs/robustness/text.md",
+      "scope": "PRIVATE_MAIN_AND_PUBLIC_EXPORT_VALIDATION",
+      "operation": "add",
+      "beforeSha256": null,
+      "afterSha256": "69e354b1988463231d52c81ee8c797e8d3b93aa8fe079b3476cc7420134f1bd7",
+      "sourceV8Blob": "90a76c7c8e2a1b98eb039f5fc51ce3a13edc7242",
+      "sourceV8Sha256": "69e354b1988463231d52c81ee8c797e8d3b93aa8fe079b3476cc7420134f1bd7",
+      "reason": "Exact verified public robustness documentation from V8",
+      "testResult": "PASSED"
+    },
+    {
+      "path": "docs/robustness/image.md",
+      "scope": "PRIVATE_MAIN_AND_PUBLIC_EXPORT_VALIDATION",
+      "operation": "add",
+      "beforeSha256": null,
+      "afterSha256": "5252a5d82c31352328a4ee62b92ca3bd4ab2adaa91e6f3250c4f5614fb8ea56f",
+      "sourceV8Blob": "f8181e88050930a68261543ae7697ab097063c28",
+      "sourceV8Sha256": "5252a5d82c31352328a4ee62b92ca3bd4ab2adaa91e6f3250c4f5614fb8ea56f",
+      "reason": "Exact verified public robustness documentation from V8",
+      "testResult": "PASSED"
+    },
+    {
+      "path": "docs/robustness/audio.md",
+      "scope": "PRIVATE_MAIN_AND_PUBLIC_EXPORT_VALIDATION",
+      "operation": "add",
+      "beforeSha256": null,
+      "afterSha256": "79d96097b90b21eecb44a746cdefcf9c0c1963b527b37b312cf9b3fbcaf925d4",
+      "sourceV8Blob": "089d027a028b86030bd576c9b75bac9666cd4a8f",
+      "sourceV8Sha256": "79d96097b90b21eecb44a746cdefcf9c0c1963b527b37b312cf9b3fbcaf925d4",
+      "reason": "Exact verified public robustness documentation from V8",
+      "testResult": "PASSED"
+    },
+    {
+      "path": "docs/robustness/video.md",
+      "scope": "PRIVATE_MAIN_AND_PUBLIC_EXPORT_VALIDATION",
+      "operation": "add",
+      "beforeSha256": null,
+      "afterSha256": "1e3fe413d90253e6875264704b425fe6cc833a2435c4b42404c5f5bb262eb49d",
+      "sourceV8Blob": "a887fb4a70849e74cc29f7c6207b5779145a519c",
+      "sourceV8Sha256": "1e3fe413d90253e6875264704b425fe6cc833a2435c4b42404c5f5bb262eb49d",
+      "reason": "Exact verified public robustness documentation from V8",
+      "testResult": "PASSED"
+    },
+    {
+      "path": "runtime/validation/public_source_contract.mjs",
+      "scope": "PRIVATE_MAIN_AND_PUBLIC_EXPORT_VALIDATION",
+      "operation": "add",
+      "beforeSha256": null,
+      "afterSha256": "25ad699db833f1833ad63387cd82af857830768aecff853c0fcc80037b87fa54",
+      "sourceV8Blob": "4cce90bf44c85c4fd322047f78e460d5121af6d7",
+      "sourceV8Sha256": "76120b7e619a0ab9766ce92eacce60e5c4b8806ae5428729e6c408bfcc01ec5e",
+      "reason": "Scope public-source validation to an explicit marker-verified public export root",
+      "testResult": "PASSED"
+    },
+    {
+      "path": "runtime/validation/public_export_surface_consistency_gate.mjs",
+      "scope": "PRIVATE_MAIN_AND_PUBLIC_EXPORT_VALIDATION",
+      "operation": "add",
+      "beforeSha256": null,
+      "afterSha256": "083c96d79659f0d04567033c896840496ac74b5d9236c959f5ca7d5fd9783eb8",
+      "sourceV8Blob": null,
+      "sourceV8Sha256": null,
+      "reason": "Compare only classified public export surface against the private main base",
+      "testResult": "PASSED"
+    },
+    {
+      "path": "reports/PUBLIC_AND_PRIVATE_REPOSITORY_ROLE_CONTRACT.json",
+      "scope": "PRIVATE_MAIN_AND_PUBLIC_EXPORT_VALIDATION",
+      "operation": "add",
+      "beforeSha256": null,
+      "afterSha256": "f721db18b32eb2181780549be8139143928fda4c57f2557b4923b6aa6c69bb39",
+      "sourceV8Blob": null,
+      "sourceV8Sha256": null,
+      "reason": "Machine-readable separation of private development and clean public export roles",
+      "testResult": "PASSED"
+    },
+    {
+      "path": "reports/PUBLIC_EXPORT_SURFACE_CONTRACT.json",
+      "scope": "PRIVATE_MAIN_AND_PUBLIC_EXPORT_VALIDATION",
+      "operation": "add",
+      "beforeSha256": null,
+      "afterSha256": "baf854b005d6d93da3d20aef402b6c33145179722696a5248f261910f6e7a181",
+      "sourceV8Blob": null,
+      "sourceV8Sha256": null,
+      "reason": "Machine-readable shared export surface, exclusions, hashes and product comparison rules",
+      "testResult": "PASSED"
+    }
+  ]
+}

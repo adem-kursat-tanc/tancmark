@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "tancmark-public-clean-clone-test-v1",
+  "measuredAtUtc": "2026-08-28T01:18:00Z",
+  "status": "PASSED",
+  "scope": "HISTORICAL_SINGLE_RUN_NOT_A_REPEATABILITY_CLAIM",
+  "repeatabilityClaimed": false,
+  "supersededForFinalReleaseDecisionBy": "reports/PUBLIC_CLEAN_CLONE_LIVE_REPEATABILITY_RESULT_20260828.json",
+  "source": {
+    "separateCleanDirectory": true,
+    "initialSourceFileCount": 953,
+    "reparsePointCount": 0,
+    "privateMediaUsed": false,
+    "privateRepositoryHistoryUsed": false,
+    "nodeModulesReusedFromSourceCandidate": false,
+    "builtArtifactsReusedFromSourceCandidate": false
+  },
+  "sourcePrivacy": {
+    "status": "passed",
+    "binaryOrMediaCount": 0,
+    "personalPathCount": 0,
+    "secretPatternCount": 0,
+    "symlinkCount": 0
+  },
+  "core": {
+    "install": "passed",
+    "typecheck": "passed",
+    "build": "passed",
+    "publicCoreSmoke": "passed",
+    "routeAndOpenApiParity": "passed",
+    "liveCore": "passed",
+    "externalProviderConfiguration": "passed"
+  },
+  "physicalMedia": {
+    "textFileSealRead": "passed",
+    "textWrongCandidateAccepted": false,
+    "imageFileFormat": "PPM_P6",
+    "imagePayloadBytesExact": "4/4",
+    "imageReadMode": "INFORMED_REFERENCE_PATCH",
+    "imageWrongKeyPerfectFinderCount": 0,
+    "imageLocatorAloneVault": false,
+    "audioPhysicalSealRead": "passed",
+    "audioIndependentTracesMatched": 2,
+    "audioWrongPayloadAccepted": false,
+    "audioUnsealedAccepted": false,
+    "videoPhysicalH264Watermarking": "passed",
+    "videoFragmentsUploaded": 10,
+    "videoAutomaticFinalExactVerification": "passed",
+    "videoFinalVault": true
+  },
+  "localLive": {
+    "httpServerStarted": true,
+    "loopbackOnlyPlaintext": true,
+    "nonLoopbackPlaintextRejected": true,
+    "wrongTenantRejected": true,
+    "clientSuppliedExactIdRejected": true,
+    "protectedPlaybackAndVod": true,
+    "cleanShutdown": true,
+    "externalNetworkCalls": 0
+  },
+  "externalMediaRuntime": {
+    "required": true,
+    "bundledInRepository": false,
+    "explicitAbsolutePathsOnly": true,
+    "userPathLookupUsed": false,
+    "stagedOutsideRepositoryForTest": true,
+    "stagingMethod": "LOSSLESS_COPY_OF_FROZEN_VERIFIED_REFERENCE_RUNTIME_FOR_OPERATOR_TEST",
+    "publicSourceRebuildExecutedDuringThisGate": false,
+    "publicRebuildInstructionsIncluded": true,
+    "python": "3.14.7",
+    "pyav": "18.0.0",
+    "numpy": "2.5.2",
+    "ffmpeg": "8.1.2",
+    "gplDisabled": true,
+    "nonfreeDisabled": true,
+    "networkDisabled": true,
+    "libx264Absent": true,
+    "libx265Absent": true
+  },
+  "unmeasured": [
+    "PUBLIC_MEDIA_RUNTIME_SOURCE_REBUILD_ON_A_SECOND_MACHINE",
+    "EXTERNAL_PROVIDER_DELIVERY"
+  ],
+  "finalReleaseDecision": "DO_NOT_USE_THIS_SINGLE_RUN_AS_A_REPEATABILITY_GATE"
+}

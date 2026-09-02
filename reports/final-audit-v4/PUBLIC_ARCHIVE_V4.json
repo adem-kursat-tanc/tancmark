@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "status": "PASSED",
+  "path": "TM_TANCMARK_GITHUB_PUBLIC_RELEASE_OWNER_PUSH_READY_V4.zip",
+  "sha256": "6ac1fb39878b030d758e5ac76c69b7cb2a7889fb2bc5a4c4bbec3f18da5f11dd",
+  "bytes": 2325553,
+  "commit": "57bc782beedd45c49f1cebd840148774240b263e",
+  "commitCount": 1,
+  "remoteCount": 0,
+  "gitArchiveCommentMatchesCommit": true,
+  "entryCount": 1118,
+  "fileCount": 1040,
+  "directoryEntryCount": 78,
+  "crc": "PASSED",
+  "rawBytesEqualToIndependentRegeneration": true,
+  "extractedTreesEqual": true,
+  "sha256Sums": "1038/1038",
+  "sourceManifest": "1038/1038",
+  "jsonParse": "50/50",
+  "yamlParse": "8/8",
+  "symlinks": 0,
+  "unsafePaths": 0
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "tancmark-public-physical-media-test-v1",
+  "status": "PASSED",
+  "text": {
+    "sourceKind": "GENERATED_TEXT_FILE",
+    "physicalFileRoundTrip": true,
+    "blindCandidateRead": true,
+    "wrongCandidateAccepted": false
+  },
+  "image": {
+    "sourceKind": "GENERATED_PPM_P6_FILE",
+    "physicalFileRoundTrip": true,
+    "payloadBytesExact": "4/4",
+    "readMode": "INFORMED_REFERENCE_PATCH",
+    "wrongKeyPerfectFinderCount": 0,
+    "locatorBytesMayMatchUnderWrongKey": true,
+    "wrongKeyVault": false
+  },
+  "audio": {
+    "sourceKind": "GENERATED_PCM_WAV",
+    "physicalSeal": true,
+    "physicalRead": true,
+    "matchedIndependentTraces": 2,
+    "wrongPayloadAccepted": false,
+    "unsealedAccepted": false
+  },
+  "video": {
+    "sourceKind": "GENERATED_STRUCTURAL_H264_FMP4",
+    "physicalWatermarking": true,
+    "fragmentCount": 10,
+    "protectedFrameCount": 40,
+    "channelAFrameCount": 20,
+    "channelBFrameCount": 20,
+    "sampleExact": "3/3",
+    "automaticFinalExactVerification": true,
+    "verdict": "VIDEO_LAYER_VAULT",
+    "wrongTenantAccepted": false,
+    "clientSuppliedExactIdAccepted": false
+  },
+  "privateMediaUsed": false,
+  "pathOrMediaHashDisclosed": false,
+  "externalNetworkCalls": 0
+}

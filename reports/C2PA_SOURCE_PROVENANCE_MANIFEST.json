@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "tancmark-c2pa-source-provenance-v1",
+  "verifiedAt": "2026-08-28",
+  "sdk": {
+    "package": "@contentauth/c2pa-node",
+    "version": "0.9.1",
+    "licenseDeclared": "MIT",
+    "nodeRequirement": ">=22",
+    "sourceRepository": "https://github.com/contentauth/c2pa-js",
+    "sourceTag": "@contentauth/c2pa-node@0.9.1",
+    "sourceTagObject": "e04abe0f",
+    "sourceCommit": "1fbf8439c19434ef087925cdf29cdf857e96f42a",
+    "sourceArchiveSha256": "28a2926a7b345eeb100ac6d37def3ab7145e9170f50d69fbba8e1da32a027ee2",
+    "cargoLockSha256": "f877b42d87529510ee6ece47fd105eb0b1d4a4151addca958f82d6d1de24368c",
+    "npmTarball": "https://registry.npmjs.org/@contentauth/c2pa-node/-/c2pa-node-0.9.1.tgz",
+    "npmTarballSha256": "53ee85ed7d0ca50f048a9d214a12b7a1ffab3d416bb8d9201ac6d9fcd76681a6",
+    "npmTarballBytes": 16431106,
+    "nativeBinary": true,
+    "windowsReleaseAssetSha256": "e7f7fb615390878f9c65a3a60641136f1d4ca1aab51202b874c44ab8f0264a19",
+    "installedWindowsNativeSha256": "dcfdf252a2bd3e6e048e209b0d8ca1733cb3ced0c2462da242906a31b9c941ce",
+    "specificationVersion": "2.4"
+  },
+  "types": {
+    "package": "@contentauth/c2pa-types",
+    "version": "0.7.3",
+    "licenseDeclared": "MIT"
+  },
+  "nativeDependencyInventory": {
+    "path": "reports/C2PA_NATIVE_RUST_DEPENDENCIES.json",
+    "scope": "TRANSITIVE_CARGO_LOCK_CLOSURE_FROM_C2PA_NODE_CONSERVATIVE",
+    "dependencyPackageCount": 511,
+    "unresolvedLicenseCount": 0,
+    "legalApprovalClaimed": false
+  },
+  "nativeReleaseAssetVerification": {
+    "path": "reports/C2PA_NATIVE_RELEASE_ASSET_CHECKSUMS.json",
+    "dependencyPostinstallAllowed": false,
+    "hashGatedInstaller": "runtime/c2pa/install-verified-native.mjs",
+    "offlineArchiveSupported": true
+  },
+  "distribution": "SDK source/package is MIT-declared; exact dependency versions and native provenance are recorded in lockfile, the Rust/Cargo declared-license inventory, SBOM, notices, and this manifest",
+  "measuredPlatform": "Windows x86_64",
+  "otherPlatforms": "SDK project documents Windows, Linux and macOS variants; this closure measured only Windows x86_64 locally and CI source/build gates on Ubuntu",
+  "officialTrustAndConformance": "OFFICIAL_C2PA_TRUST_AND_CONFORMANCE_OPERATOR_STEP"
+}

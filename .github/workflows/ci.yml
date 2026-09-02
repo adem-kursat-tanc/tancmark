@@ -1,0 +1,68 @@
+name: public-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: corepack enable
+      - run: corepack prepare pnpm@10.34.5 --activate
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run test:package-manager-security
+      - run: pnpm run test:c2pa-archive-security
+      - run: pnpm run typecheck
+      - run: pnpm run test:canonical-reader-scope
+      - run: pnpm run build
+      - run: pnpm run test:normal-built
+      - run: pnpm run build:product
+      - run: pnpm run test:product-built
+      - run: pnpm run test:public
+      - run: pnpm run test:built
+      - run: pnpm run test:c2pa
+      - run: pnpm run test:workflow-pins
+      - run: pnpm run test:workflow-upstream
+      - name: Documentation freshness contract
+        run: node runtime/validation/public_documentation_freshness_contract.mjs
+      - name: Documentation freshness for pull request
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: node runtime/validation/public_documentation_freshness_gate.mjs --base "$BASE_SHA"
+      - name: Documentation freshness for push
+        if: github.event_name == 'push'
+        run: node runtime/validation/public_documentation_freshness_gate.mjs
+      - name: Cross-locale release evidence determinism
+        run: node runtime/validation/public_cross_locale_reproducibility_contract.mjs
+      - name: History-free single-commit public repository
+        run: node runtime/validation/public_history_free_repository_contract.mjs
+      - name: GitHub remote and shallow-checkout compatibility
+        run: node runtime/validation/public_github_remote_compatibility_contract.mjs
+      - name: Public release-state consistency
+        run: pnpm run test:release-consistency
+      - run: pnpm run sbom
+      - run: git diff --exit-code -- SBOM.spdx.json reports/PUBLIC_LICENSE_SCAN.json
+      - run: pnpm run manifest
+      - run: git diff --exit-code -- SHA256SUMS reports/PUBLIC_SOURCE_MANIFEST.json
+      - name: Verify every source checksum
+        shell: bash
+        run: sha256sum -c SHA256SUMS
+      - name: External provider tests
+        run: echo SKIPPED_EXTERNAL_CONFIGURATION_REQUIRED
+      - name: Generated code repeatability
+        run: pnpm --filter @workspace/api-spec codegen && git diff --exit-code
+      - name: Package checksum
+        shell: bash
+        run: sha256sum SHA256SUMS reports/PUBLIC_SOURCE_MANIFEST.json

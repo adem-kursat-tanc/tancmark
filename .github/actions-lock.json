@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "tancmark-github-actions-lock-v1",
+  "actions": [
+    {
+      "repository": "actions/checkout",
+      "version": "v6.0.2",
+      "commitSha": "de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+      "verificationMethod": "git-ls-remote-official-tag-and-dereference",
+      "verifiedAt": "2026-08-29",
+      "officialRepository": "https://github.com/actions/checkout",
+      "tagRefSha": "de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+      "tagResolvedCommit": "de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+      "actionPinFromOfficialReleaseTag": true
+    },
+    {
+      "repository": "actions/setup-node",
+      "version": "v6.5.0",
+      "commitSha": "249970729cb0ef3589644e2896645e5dc5ba9c38",
+      "verificationMethod": "git-ls-remote-official-tag-and-dereference",
+      "verifiedAt": "2026-08-29",
+      "officialRepository": "https://github.com/actions/setup-node",
+      "tagRefSha": "249970729cb0ef3589644e2896645e5dc5ba9c38",
+      "tagResolvedCommit": "249970729cb0ef3589644e2896645e5dc5ba9c38",
+      "actionPinFromOfficialReleaseTag": true
+    },
+    {
+      "repository": "actions/dependency-review-action",
+      "version": "v5.0.0",
+      "commitSha": "a1d282b36b6f3519aa1f3fc636f609c47dddb294",
+      "verificationMethod": "git-ls-remote-official-tag-and-dereference",
+      "verifiedAt": "2026-08-29",
+      "officialRepository": "https://github.com/actions/dependency-review-action",
+      "tagRefSha": "a1d282b36b6f3519aa1f3fc636f609c47dddb294",
+      "tagResolvedCommit": "a1d282b36b6f3519aa1f3fc636f609c47dddb294",
+      "actionPinFromOfficialReleaseTag": true
+    },
+    {
+      "repository": "github/codeql-action",
+      "version": "v4.36.0",
+      "commitSha": "7211b7c8077ea37d8641b6271f6a365a22a5fbfa",
+      "verificationMethod": "git-ls-remote-official-tag-and-dereference",
+      "verifiedAt": "2026-08-29",
+      "officialRepository": "https://github.com/github/codeql-action",
+      "tagRefSha": "f52b05f4acaaa234e44466e66d29050e135ea9ef",
+      "tagResolvedCommit": "7211b7c8077ea37d8641b6271f6a365a22a5fbfa",
+      "actionPinFromOfficialReleaseTag": true
+    }
+  ]
+}

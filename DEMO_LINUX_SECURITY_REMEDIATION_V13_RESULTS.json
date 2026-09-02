@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "tancmark-linux-demo-security-remediation-v13-v1",
+  "profile": "CODESPACES_LINUX_DEMO_PROFILE_V1",
+  "measuredAtUtc": "2026-09-02T17:26:12.0049688Z",
+  "sourceState": "V13_SECURITY_REMEDIATION_STAGED_TREE",
+  "sourceStagedTree": "9f841b577b61956ffdd0387ab98aa0b2b8e4615c",
+  "containerImage": {
+    "reference": "tancmark-codespaces-demo-v12:show",
+    "digest": "sha256:ac55f9223089ae985decbc09bdddc95dc12e2028229b07e5bc1f6688d9663a6d"
+  },
+  "runtime": {
+    "nodeVersion": "v24.19.0",
+    "pnpmVersion": "10.34.5",
+    "pyavVersion": "18.0.0",
+    "adapter": "UNIFIED_PTS_WATERMARK_ADAPTER_C"
+  },
+  "repeats": {
+    "requested": 3,
+    "completed": 3,
+    "functionalPassed": 3,
+    "sourceSecurityPassed": 3,
+    "httpSecurityPassed": 3,
+    "c2paPassed": 3,
+    "livePassed": 3
+  },
+  "functionalScope": [
+    "text",
+    "image",
+    "audio-44100",
+    "audio-48000",
+    "video",
+    "registry-signature",
+    "c2pa",
+    "live"
+  ],
+  "liveMeasurements": {
+    "runs": 3,
+    "processedFramesEachRun": 384,
+    "expectedFramesEachRun": 384,
+    "vaultFramesEachRun": 8,
+    "droppedFramesTotal": 0,
+    "wrongOwnershipTotal": 0,
+    "wrongTenantOwnershipTotal": 0,
+    "unwatermarkedInjectionOwnershipTotal": 0,
+    "remainingWorkersAfterEachRun": 0,
+    "remainingPortsAfterEachRun": 0,
+    "remainingTemporaryDirectoriesAfterEachRun": 0
+  },
+  "invariants": {
+    "wrongOwnership": 0,
+    "productionOwnership": 0,
+    "productionVault": 0,
+    "externalNetworkCallsBySourceSecurityTest": 0,
+    "c2paCanOpenVault": false,
+    "remoteC2paManifestFetch": false
+  },
+  "rawEvidence": {
+    "localOnlyFileCount": 15,
+    "aggregateSha256": "a65f8649fde3e811d629d996ef7ef3ef9d2305dfa1fa4d7bbc0a874682903463",
+    "functionalRuns": "3/3 PASSED",
+    "sourceSecurityRuns": "3/3 PASSED",
+    "httpSecurityRuns": "3/3 PASSED",
+    "c2paRuns": "3/3 PASSED",
+    "liveRuns": "3/3 PASSED"
+  },
+  "browserVisibility": {
+    "status": "NOT_MEASURED_BY_THIS_TERMINAL_RETEST",
+    "reason": "Browser visibility is a separate interactive gate; this run measured the real Live pipeline and HLS manifest only.",
+    "historicalAuthority": "V12_BROWSER_3_OF_3_PASSED"
+  },
+  "cleanup": {
+    "testContainerRemoved": true,
+    "testVolumeRemoved": true,
+    "remainingTestContainerProcesses": 0,
+    "remainingTestContainerPorts": 0,
+    "remainingTestContainers": 0,
+    "remainingTestVolumes": 0
+  },
+  "failedRuns": 0,
+  "status": "PASSED"
+}

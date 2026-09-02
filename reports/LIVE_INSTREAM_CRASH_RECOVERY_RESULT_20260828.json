@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "tancmark-live-instream-crash-recovery-result-v1",
+  "status": "PASSED",
+  "checks": {
+    "workerMidStreamExitFailClosed": true,
+    "nodeProcessRestartSafeContinue": true,
+    "temporaryDiskFullFailClosed": true,
+    "halfFragmentRolledBack": true,
+    "outputWrittenReceiptMissingRolledBack": true,
+    "receiptWrittenSessionCommitRecovered": true,
+    "stopProcessDeathRecoveredExactlyOnce": true,
+    "finalVerificationProcessDeathRecoveredExactlyOnce": true
+  },
+  "duplicateProtectedFragments": 0,
+  "duplicateRegistryDecisions": 0,
+  "unwatermarkedProtectedPlayback": 0,
+  "wrongOwnership": 0,
+  "sourceWorkingCopiesPreserved": true,
+  "externalNetworkCalls": 0,
+  "gatePassed": true
+}

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "tancmark-historical-report-metadata-v1",
+  "historical": true,
+  "currentReleaseAuthority": false,
+  "originalSha256": "9a7cb6d8c26452a60fe127dd203d455eccd721583aeede51dc65722eec041b32",
+  "supersededBy": "reports/PUBLIC_CLEAN_CLONE_LIVE_REPEATABILITY_RESULT_20260828.json",
+  "historicalResult": "TANCMARK_ONE_PROVEN_LOCAL_RELEASE_GAP_REMAINS",
+  "currentResult": "TANCMARK_LIVE_REPEATABILITY_GAP_CLOSED"
+}

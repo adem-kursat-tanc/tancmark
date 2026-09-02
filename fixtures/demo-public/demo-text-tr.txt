@@ -1,0 +1,1 @@
+TancMark kamuya açık yapay demo metni. Bu belirlenebilir örnek hiçbir kişisel, müşteri veya üretim bilgisi içermez. Yalnız gerçek metin mühürleme ve okuma motorunu çalıştırmak için vardır.

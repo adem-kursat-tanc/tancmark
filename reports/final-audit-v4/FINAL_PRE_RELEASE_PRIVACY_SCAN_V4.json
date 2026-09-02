@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "auditVersion": "V4",
+  "status": "PASSED",
+  "publicArchive": {
+    "secretMatches": 0,
+    "personalPathMatches": 0,
+    "privateMediaFiles": 0,
+    "privateMediaFingerprints": 0,
+    "learningDataFiles": 0,
+    "forbiddenPaths": 0,
+    "symlinks": 0,
+    "unsafeArchivePaths": 0,
+    "duplicateArchiveNames": 0,
+    "caseCollisions": 0,
+    "unicodeNormalizedCollisions": 0
+  },
+  "privateRealMediaManifestIncludedInPublicArchive": false,
+  "absoluteLocalMediaPathDisclosed": false
+}

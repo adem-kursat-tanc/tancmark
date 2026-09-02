@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "tancmark-demo-public-fixtures-v1",
+  "deterministicSeed": "tancmark-demo-public-synthetic-v1",
+  "publicSafeDeclaration": "All files are programmatically generated. No customer, private, copyrighted stock, camera, microphone, or production data is used.",
+  "generator": "runtime/demo/generate-public-fixtures.mjs",
+  "ffmpeg": {
+    "version": "8.1.2-tancmark-codespaces-linux-demo-v1",
+    "sha256": "69274076177abb5a998133711361addcd347d446327655ef0be1dbc751e62c11"
+  },
+  "files": [
+    {
+      "name": "demo-text-en.txt",
+      "kind": "text",
+      "language": "en",
+      "characters": 178,
+      "bytes": 193,
+      "sha256": "1d67d369b2e90a5f08b2284a3d9e9914d2252a619a5049f89c946972d8217904",
+      "deterministicSeed": "tancmark-demo-public-synthetic-v1",
+      "publicSafe": true,
+      "provenance": "Generated locally by TancMark from mathematical text, color-bar, shape, and multi-tone functions.",
+      "license": "AGPL-3.0-only"
+    },
+    {
+      "name": "demo-text-tr.txt",
+      "kind": "text",
+      "language": "tr",
+      "characters": 179,
+      "bytes": 208,
+      "sha256": "d784633faf872ce2f41dbd94069fd6b00edcb3cda4194481ad30985adeb353f5",
+      "deterministicSeed": "tancmark-demo-public-synthetic-v1",
+      "publicSafe": true,
+      "provenance": "Generated locally by TancMark from mathematical text, color-bar, shape, and multi-tone functions.",
+      "license": "AGPL-3.0-only"
+    },
+    {
+      "name": "demo-image.png",
+      "kind": "image",
+      "width": 512,
+      "height": 512,
+      "format": "PNG",
+      "bytes": 23666,
+      "sha256": "060ec84c555e8644e4d73ba69936613687d2b3603b97c992cf62712e45dbe5ec",
+      "deterministicSeed": "tancmark-demo-public-synthetic-v1",
+      "publicSafe": true,
+      "provenance": "Generated locally by TancMark from mathematical text, color-bar, shape, and multi-tone functions.",
+      "license": "AGPL-3.0-only"
+    },
+    {
+      "name": "demo-audio-44100.wav",
+      "kind": "audio",
+      "sampleRate": 44100,
+      "channels": 2,
+      "durationSec": 10,
+      "format": "PCM_S16LE_WAV",
+      "bytes": 1764078,
+      "sha256": "84e16360d5a1c0fbddd1fb23b6c64ebcbc1ca7cc8950c0dbf3e9cb2f5f67ac11",
+      "deterministicSeed": "tancmark-demo-public-synthetic-v1",
+      "publicSafe": true,
+      "provenance": "Generated locally by TancMark from mathematical text, color-bar, shape, and multi-tone functions.",
+      "license": "AGPL-3.0-only"
+    },
+    {
+      "name": "demo-audio-48000.wav",
+      "kind": "audio",
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSec": 10,
+      "format": "PCM_S16LE_WAV",
+      "bytes": 1920078,
+      "sha256": "8023d077a1a01ef2bd2d5ac75b3036cd16efb93b6b3b0a405c67979dc679772d",
+      "deterministicSeed": "tancmark-demo-public-synthetic-v1",
+      "publicSafe": true,
+      "provenance": "Generated locally by TancMark from mathematical text, color-bar, shape, and multi-tone functions.",
+      "license": "AGPL-3.0-only"
+    },
+    {
+      "name": "demo-video-source.mkv",
+      "kind": "video",
+      "width": 640,
+      "height": 360,
+      "fps": 24,
+      "durationSec": 8,
+      "format": "FFV1_PCM_MATROSKA",
+      "bytes": 4693404,
+      "sha256": "9073a2a0fddc1edc9decb728617a53c8efa1c7d0367e025cd3da228b2d95b754",
+      "deterministicSeed": "tancmark-demo-public-synthetic-v1",
+      "publicSafe": true,
+      "provenance": "Generated locally by TancMark from mathematical text, color-bar, shape, and multi-tone functions.",
+      "license": "AGPL-3.0-only"
+    },
+    {
+      "name": "demo-live-source.mkv",
+      "kind": "live-source",
+      "width": 640,
+      "height": 360,
+      "fps": 24,
+      "durationSec": 16,
+      "format": "FFV1_PCM_MATROSKA",
+      "bytes": 9384073,
+      "sha256": "058913f2e01745a335857bdf85466ade198816d6e5041ed4a435b20ef9949367",
+      "deterministicSeed": "tancmark-demo-public-synthetic-v1",
+      "publicSafe": true,
+      "provenance": "Generated locally by TancMark from mathematical text, color-bar, shape, and multi-tone functions.",
+      "license": "AGPL-3.0-only"
+    }
+  ]
+}

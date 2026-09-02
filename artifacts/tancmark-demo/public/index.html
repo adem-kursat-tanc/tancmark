@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="csrf-token" content="__CSRF_TOKEN__">
+  <title>TancMark Interactive Demo</title>
+  <link rel="stylesheet" href="/demo/styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <nav class="language-switcher" aria-label="Language / Dil">
+        <span>Language / Dil</span>
+        <button type="button" data-language="en" aria-pressed="false">English</button>
+        <button type="button" data-language="tr" aria-pressed="false">Türkçe</button>
+      </nav>
+      <p class="eyebrow">CODESPACES_LINUX_DEMO_PROFILE_V1 · DEMO_ONLY</p>
+      <h1>TancMark Interactive Demo</h1>
+      <p data-i18n="intro">Try real deterministic watermarking with public synthetic examples. Nothing in this demo is a real ownership claim.</p>
+      <button id="run-all" type="button" data-i18n="runAll">RUN ALL DEMOS</button>
+      <button id="reset-demo" type="button" data-i18n="reset">RESET DEMO DATA</button>
+    </header>
+    <aside data-i18n="privacy">Do not paste confidential, personal, or customer text. No file uploads, URLs, camera, or microphone access are accepted.</aside>
+    <section class="grid" id="cards">
+      <article data-module="text"><h2 data-i18n="moduleText">Text</h2><textarea maxlength="2000" aria-label="Demo text">TancMark public synthetic demo text. This example contains no personal or customer data.</textarea><button data-run="text" type="button" data-i18n="run">Run</button><pre>Ready</pre></article>
+      <article data-module="image"><h2 data-i18n="moduleImage">Image</h2><button data-run="image" type="button" data-i18n="run">Run</button><div class="preview"></div><pre>Ready</pre></article>
+      <article data-module="audio"><h2 data-i18n="moduleAudio">Audio</h2><button data-run="audio" type="button" data-i18n="runAudio">Run 44.1/48 kHz</button><pre>Ready</pre></article>
+      <article data-module="video"><h2 data-i18n="moduleVideo">Video</h2><button data-run="video" type="button" data-i18n="run">Run</button><div class="preview"></div><pre>Ready</pre></article>
+      <article data-module="live"><h2 data-i18n="moduleLive">Live</h2><button data-run="live" type="button" data-i18n="runLive">Run 16s Live</button><div class="preview"><video id="live-player" controls muted playsinline></video></div><pre>Ready</pre></article>
+      <article data-module="registry"><h2 data-i18n="moduleRegistry">Registry &amp; Signature</h2><button data-run="registry" type="button" data-i18n="run">Run</button><pre>Ready</pre></article>
+      <article data-module="c2pa"><h2>C2PA</h2><button data-run="c2pa" type="button" data-i18n="run">Run</button><pre>Ready</pre></article>
+    </section>
+  </main>
+  <script src="/demo/hls.min.js" defer></script>
+  <script src="/demo/app.js" defer></script>
+</body>
+</html>

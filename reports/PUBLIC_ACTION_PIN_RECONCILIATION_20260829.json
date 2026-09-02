@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "tancmark-public-action-pin-reconciliation-v1",
+  "asOf": "2026-08-29",
+  "scope": "GITHUB_ACTIONS_SUPPLY_CHAIN_ONLY",
+  "baseline": {
+    "publicArchiveSha256": "8d0b271f01b2e6a415c9f471a17878291756cb6210ba30cf5648398c11dc3bc2",
+    "publicCommit": "f34936c3fadd13a058fc2b430e190adee6be5a58",
+    "publicArchiveChecksums": "1031/1031 PASSED",
+    "reconciliationEvidenceSha256": "0979cd15c7fc9aada376ed45cd6d966721f396173db9c22b00251e363fb56856",
+    "reconciliationEvidenceChecksums": "28/28 PASSED"
+  },
+  "officialUpstreamVerification": {
+    "method": "git ls-remote against each official GitHub repository tag and dereferenced annotated tag",
+    "networkAvailable": true,
+    "verifiedActionFamilies": "4/4",
+    "actions": [
+      {
+        "repository": "actions/checkout",
+        "version": "v6.0.2",
+        "tagRefSha": "de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+        "tagResolvedCommit": "de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+        "workflowCommitSha": "de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+        "actionPinFromOfficialReleaseTag": true
+      },
+      {
+        "repository": "actions/setup-node",
+        "version": "v6.5.0",
+        "tagRefSha": "249970729cb0ef3589644e2896645e5dc5ba9c38",
+        "tagResolvedCommit": "249970729cb0ef3589644e2896645e5dc5ba9c38",
+        "workflowCommitSha": "249970729cb0ef3589644e2896645e5dc5ba9c38",
+        "actionPinFromOfficialReleaseTag": true
+      },
+      {
+        "repository": "actions/dependency-review-action",
+        "version": "v5.0.0",
+        "tagRefSha": "a1d282b36b6f3519aa1f3fc636f609c47dddb294",
+        "tagResolvedCommit": "a1d282b36b6f3519aa1f3fc636f609c47dddb294",
+        "workflowCommitSha": "a1d282b36b6f3519aa1f3fc636f609c47dddb294",
+        "actionPinFromOfficialReleaseTag": true
+      },
+      {
+        "repository": "github/codeql-action",
+        "version": "v4.36.0",
+        "tagRefSha": "f52b05f4acaaa234e44466e66d29050e135ea9ef",
+        "tagResolvedCommit": "7211b7c8077ea37d8641b6271f6a365a22a5fbfa",
+        "workflowCommitSha": "7211b7c8077ea37d8641b6271f6a365a22a5fbfa",
+        "actionPinFromOfficialReleaseTag": true
+      }
+    ]
+  },
+  "validation": {
+    "workflowCount": 3,
+    "externalUsesCount": 8,
+    "unpinnedAction": 0,
+    "versionCommentMismatch": 0,
+    "officialTagMismatch": 0,
+    "forkOnlyOrImpostorCommit": 0,
+    "movingTagOrBranch": 0,
+    "pullRequestTarget": 0,
+    "yamlParseFailure": 0,
+    "typecheck": "PASSED",
+    "normalBuild": "PASSED",
+    "productBuild": "PASSED",
+    "publicTests": "PASSED",
+    "generatedCodeRepeatability": "PASSED_186_OF_186",
+    "sbom": "SPDX_2_3_PASSED",
+    "dependencyLicenseInventory": "1144_DECLARED_OR_DOCUMENTED_UNRESOLVED_0_NO_LEGAL_APPROVAL_CLAIM",
+    "wrongOwnership": 0
+  },
+  "product": {
+    "productSourceAggregateSha256Before": "09db7eadc35300e6c9e95539aa1aa29f10a5607799b8f8f7e204ecbf9f78542c",
+    "productSourceAggregateSha256After": "09db7eadc35300e6c9e95539aa1aa29f10a5607799b8f8f7e204ecbf9f78542c",
+    "productSourceChanged": false
+  },
+  "pushTagReleaseDeployPerformed": false,
+  "status": "TANCMARK_GITHUB_ACTIONS_TAG_SHA_MAPPING_VERIFIED"
+}

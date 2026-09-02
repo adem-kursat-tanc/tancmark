@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "tancmark-public-final-release-result-v3",
+  "asOf": "2026-09-02",
+  "historical": false,
+  "currentReleaseAuthority": true,
+  "productEvidenceAuthority": "V4_BEHAVIOUR_EVIDENCE_CARRIED_FORWARD_BY_V8_SECURITY_CLOSURE_V12_PLATFORM_REGRESSION_AND_V13_SECURITY_REMEDIATION_REGRESSION",
+  "toolchainEvidenceAuthority": "V6_BASE_CARRIED_FORWARD_BY_V13_SECURITY_REMEDIATION_CURRENT",
+  "validatedProductCode": {
+    "productSourceAuthorityCommitRecordedInV4Evidence": "ee1e46f277d242039344431a46cdc8d49f689fef",
+    "productSourceAggregateSha256": "09db7eadc35300e6c9e95539aa1aa29f10a5607799b8f8f7e204ecbf9f78542c",
+    "reconciliationChangedProductCode": true,
+    "authorizedSecurityBoundarySourceChanged": true,
+    "designatedSecurityBoundaryFileCount": 15,
+    "productEngineSourceChanged": true,
+    "watermarkAlgorithmOrThresholdChanged": false
+  },
+  "productEvidenceChain": {
+    "method": "V4_BEHAVIOUR_EVIDENCE_CARRIED_BY_V8_SECURITY_CLOSURE_WITH_V12_PLATFORM_AND_V13_SECURITY_REMEDIATION_REGRESSIONS",
+    "v4ProductSourceAggregateSha256": "09db7eadc35300e6c9e95539aa1aa29f10a5607799b8f8f7e204ecbf9f78542c",
+    "v6ProductSourceAggregateSha256": "09db7eadc35300e6c9e95539aa1aa29f10a5607799b8f8f7e204ecbf9f78542c",
+    "aggregateExactMatchAtV6Closure": true,
+    "v6ExactGitTreeObjects": {
+      "lib": "dc3a6ac64e2ee2f3b050074b572465136c43577e",
+      "artifacts": "f2ef0fac588caeaa024ae214b18e11a5eef11acb",
+      "scripts": "00b869c3513217d47d2475a5a3c178f88882a0df",
+      "runtimeLive": "d713c8179d70bbfd8f082d98f7ff8977dc9e05d7",
+      "runtimeProduct": "36a209c5a6ab61b23cf55ab27d6d0fe3e1033e99",
+      "runtimeBuild": "e16952d27a79597ca5520c37ee831f5694177db3"
+    },
+    "v6HistoricalClosureAllProductTreesMatchBaseline": true,
+    "currentV8FullProductTreeMatchesV6Baseline": false,
+    "reason": "The designated V8 security-boundary files changed, V12 added six bounded platform I/O, codec and child-environment adapter changes, and V13 removed four CodeQL findings, documented reviewed false positives and remediated dependency advisories. Watermark algorithms, thresholds, exact-ID, registry, signature and VAULT decisions remain unchanged; V13 passed the recorded Windows 13/13 and Linux demo 3/3 regression gates.",
+    "v8SecurityClosureEvidence": "reports/PUBLIC_V7_SECURITY_BOUNDARY_CLOSURE_20260901.json",
+    "v12PlatformAdapterClosureEvidence": "reports/PUBLIC_V12_DEMO_PLATFORM_ADAPTER_CLOSURE_20260902.json",
+    "v13SecurityRemediationClosureEvidence": "reports/PUBLIC_V13_SECURITY_REMEDIATION_CLOSURE_20260902.json"
+  },
+  "v4ProductEvidenceHashes": [
+    { "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_ASVS_5_MAPPING_V4.json", "sha256": "ecb4a0da08654e6d27e454952b2c4606c1746a0f3a284f841d6000251a7f0eb5" },
+    { "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_AUDIT_V4_TR.md", "sha256": "ec34e85c8d9d79ef37f2117c6d3913c54466f69efa02ae1a489f23bc82f29b8e" },
+    { "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_CLEAN_INSTALL_V4.json", "sha256": "24512c7cb537a0e08d1219524fa108a82bc3c2980a87b991ba55b2084f185e11" },
+    { "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_DEPENDENCY_ADVISORY_REPORT_V4.json", "sha256": "4fabf29b0778016df6e666e9e1bab78737278675c7a5c54e728a43efef134711" },
+    { "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_FUNCTIONAL_RESULTS_V4.json", "sha256": "4267ed49227c8d7c843c8fb53b49920e8b2071c6c25e4918d71fc560846abca3" },
+    { "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_GO_NO_GO_V4.json", "sha256": "2fba0256cc1a656d88b05e3c1346a623333eabd8198552a786002f22bb27762d" },
+    { "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_PRIVACY_SCAN_V4.json", "sha256": "0f61c64450f0c982fde9fd87cd7b8ab7c9038896635b54b484bd75581399a763" },
+    { "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_SSDF_EVIDENCE_V4.json", "sha256": "2a9751be3f90803c79c0770d09227233ffffe244f1f8e46004f174e92398e08b" },
+    { "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_SUPPLY_CHAIN_V4.json", "sha256": "c16420163d5ebba8a3255003247aa64f7b42d8a1cfd71ad7d0d579e882c0a6f1" },
+    { "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_THREAT_MODEL_V4.md", "sha256": "d0cca8b7a7384ec5b1848fef1ac0ad381aced84e16063279c3ce666f96b0f48b" },
+    { "path": "reports/final-audit-v4/FOUR_BLOCKER_FINAL_RESULTS.json", "sha256": "cd1c9b8329f04061b7457af1315b3db665d6d62fbb57edb4f95a384eb743bbce" },
+    { "path": "reports/final-audit-v4/MAIN_PRODUCT_INTEGRATION_V4.json", "sha256": "2c64f5e4b3820eaf02c53bd713fd88f8e3c92d7b649d983a7f4551ea86b3944b" },
+    { "path": "reports/final-audit-v4/PUBLIC_ARCHIVE_V4.json", "sha256": "e06dc89dba690019899a88477631e0acfface71038d46f38c0e335e9e7529dc7" }
+  ],
+  "validatedLiveRepeatabilityEvidence": "reports/PUBLIC_CLEAN_CLONE_LIVE_REPEATABILITY_RESULT_20260828.json",
+  "liveRepeatability": {
+    "frozenRuns": "3/3 PASSED",
+    "repeatabilityGapClosed": true,
+    "historicalDiagnosticDetail": "HISTORICAL_DIAGNOSTIC_DETAIL_NOT_RECORDED_NON_BLOCKING"
+  },
+  "c2pa": {
+    "generatedContract": "9/9 PASSED",
+    "coreContract": "18/18 PASSED",
+    "readVerifySignEmbed": "PASSED",
+    "archiveNegativeTests": "33/33 PASSED",
+    "c2paCanOpenVault": false
+  },
+  "currentInventory": {
+    "packageManager": "pnpm@10.34.5",
+    "unzipper": "0.12.5",
+    "dependencyPackageCount": 1188,
+    "javascriptDependencyPackageCount": 677,
+    "nativeRustDependencyPackageCount": 511,
+    "declaredLicensePackageCount": 1188,
+    "documentedSourceLicenseResolutionCount": 0,
+    "unresolvedLicenseCount": 0,
+    "packageManagerSelectedCriticalHighAdvisoryCount": 0,
+    "unzipperSelectedCriticalHighAdvisoryCount": 0
+  },
+  "gates": {
+    "typecheck": "PASSED",
+    "build": "PASSED",
+    "buildProduct": "PASSED",
+    "publicTests": "PASSED",
+    "documentation": "PASSED",
+    "releaseStateConsistency": "PASSED_V12_FULL_SECURE_DEMO_CURRENT",
+    "workflowPins": "PASSED_3_WORKFLOWS_8_EXTERNAL_USES",
+    "workflowOfficialReleaseOrigin": "PASSED_4_OF_4",
+    "actionPinFromOfficialReleaseTag": true,
+    "generatedCodeRepeatability": "PASSED_186_OF_186",
+    "sbom": "PASSED",
+    "licenseInventory": "PASSED_1188_TOTAL_1188_DECLARED_0_DOCUMENTED_UNRESOLVED_0",
+    "canonicalSealSecurity": "PASSED_15_OF_15_MIDDLEWARE_AND_15_OF_15_POSTGRES_MUTATING",
+    "c2paLocalRsaPssProductPolicy": "PASSED_PRODUCT_PS256_PS384_PS512_REJECTED_BEFORE_KEY_READ",
+    "finalAuditEvidenceConsistency": "FINAL_AUDIT_EVIDENCE_CONSISTENCY_GATE_V13_SECURITY_REMEDIATION_CURRENT",
+    "fullSecureDemoFunctional": "PASSED_3_OF_3",
+    "fullSecureDemoBrowser": "PASSED_3_OF_3_INDEPENDENT_SERVER_STARTS",
+    "fullSecureDemoC2pa": "PASSED_3_OF_3",
+    "fullSecureDemoHttpSecurity": "PASSED_45_CHECKS",
+    "windowsCanonicalTargetedRegression": "PASSED_13_OF_13",
+    "v13CodespacesLinuxDemoRegression": "PASSED_3_OF_3",
+    "v13CodeqlUnsuppressed": 0,
+    "v13DependencyAuditCriticalHigh": 0
+  },
+  "requiredOutcomes": {
+    "productEngineSourceChanged": true,
+    "wrongOwnership": 0,
+    "crossTenantLeak": 0,
+    "secretDisclosure": 0,
+    "privateMediaDisclosure": 0,
+    "privateFingerprintDisclosure": 0,
+    "learningDataDisclosure": 0,
+    "releaseStateContradiction": 0,
+    "currentDependencyCountContradiction": 0,
+    "currentLicenseCountContradiction": 0,
+    "historicalReportPresentedAsCurrent": 0,
+    "unresolvedReachableSecurityDetail": 0
+    ,"anonymousCanonicalSealAccepted": 0
+    ,"callerSelectedIdentityAccepted": 0
+    ,"nullTenantCanonicalWrites": 0
+    ,"crossTenantAnchorOverwrite": 0
+    ,"forgedAuditActor": 0
+    ,"registrySignatureBypass": 0
+    ,"privateKeyDisclosure": 0
+  },
+  "privacyScan": {
+    "secretPatterns": 0,
+    "personalPaths": 0,
+    "privateMediaOrFingerprint": 0,
+    "dnaOrChiefBrainLearningData": 0
+  },
+  "packageIntegrity": {
+    "sourceManifestExact": true,
+    "sha256sumExact": true,
+    "failed": 0,
+    "zipCrc": "PASSED",
+    "commitIdentity": "RECORDED_EXTERNALLY_IN_GIT_AND_ZIP_COMMENT"
+  },
+  "realLocalReleaseGaps": [],
+  "operatorStatuses": [
+    "OFFICIAL_C2PA_TRUST_AND_CONFORMANCE_OPERATOR_STEP",
+    "PRODUCTION_SECURITY_CONFIGURATION_OPERATOR_REQUIRED",
+    "EXTERNAL_PROVIDER_INTEGRATIONS_USER_CONFIGURED"
+  ],
+  "currentPublicCommitRecordedExternally": true,
+  "currentPublicCommitIdentitySource": "GIT_COMMIT_AND_ZIP_COMMENT_EXTERNAL_TO_TRACKED_CONTENT",
+  "fullSecureDemoV12": {
+    "profile": "CODESPACES_LINUX_DEMO_PROFILE_V1",
+    "functionalRuns": "3/3 PASSED",
+    "browserRuns": "3/3 PASSED",
+    "c2paRuns": "3/3 PASSED",
+    "httpSecurityChecks": "45/45 PASSED",
+    "windowsCanonicalTargetedRegression": "13/13 PASSED",
+    "wrongOwnership": 0,
+    "productionVaultOpenedByDemo": 0,
+    "reachableCriticalInBoundedDemoProductionClosure": 0,
+    "reachableHighInBoundedDemoProductionClosure": 0,
+    "rawScannerFindingsRetained": true,
+    "platformAdapterClosure": "reports/PUBLIC_V12_DEMO_PLATFORM_ADAPTER_CLOSURE_20260902.json"
+  },
+  "currentReleaseStatus": "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12",
+  "finalAuditEvidence": {
+    "productAuthority": "reports/final-audit-v4",
+    "toolchainAuthority": "reports/TOOLCHAIN_SUPPLY_CHAIN_CLOSURE_20260831.json",
+    "licenseAuthority": "reports/PUBLIC_LICENSE_SCAN.json",
+    "securityBoundaryAuthority": "reports/PUBLIC_V7_SECURITY_BOUNDARY_CLOSURE_20260901.json",
+    "securityRemediationAuthority": "reports/PUBLIC_V13_SECURITY_REMEDIATION_CLOSURE_20260902.json",
+    "historicalV3Authority": false
+  },
+  "legalApprovalClaimed": false,
+  "pushTagReleaseDeployPerformed": false
+}

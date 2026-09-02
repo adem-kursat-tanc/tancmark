@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "tancmark-public-documentation-v9-validation-summary-v1",
+  "generatedAtUtc": "2026-09-01T12:24:25.965Z",
+  "status": "PASSED",
+  "documentationGates": {
+    "PUBLIC_USER_GUIDE_ACCURACY_GATE": "PASSED",
+    "PUBLIC_OPERATOR_GUIDE_ACCURACY_GATE": "PASSED",
+    "PUBLIC_API_EXAMPLE_SMOKE_GATE": "PASSED",
+    "PUBLIC_DOCUMENT_LINK_GATE": "PASSED",
+    "PUBLIC_BILINGUAL_DOCUMENT_PARITY_GATE": "PASSED",
+    "PUBLIC_DOCUMENTATION_FRESHNESS_GATE": "PASSED",
+    "PUBLIC_PRODUCT_ENGINE_HASH_SCOPE_GATE": "PASSED",
+    "PUBLIC_SOURCE_CLASS_NEGATIVE_GATE": "PASSED"
+  },
+  "releaseAndBuildGates": {
+    "releaseStateConsistency": "PASSED",
+    "finalAuditEvidenceConsistency": "PASSED",
+    "workflowPinVerification": "PASSED",
+    "typecheck": "PASSED",
+    "normalBuild": "PASSED",
+    "productBuild": "PASSED",
+    "publicTests": "PASSED",
+    "generatedCodeRepeatability": "PASSED",
+    "sbomAndLicenseInventory": "PASSED_1129_DECLARED_UNRESOLVED_0",
+    "secretPrivacyPathMediaScan": "PASSED_ZERO_FINDINGS"
+  },
+  "requiredZeroes": {
+    "documentationCommandFailure": 0,
+    "brokenRelativeLinks": 0,
+    "inventedCommands": 0,
+    "inventedRoutes": 0,
+    "englishTurkishStatusContradiction": 0,
+    "secretDisclosure": 0,
+    "privatePathDisclosure": 0,
+    "productEngineSourceChanged": false,
+    "wrongOwnership": 0,
+    "validationChangeMisclassifiedAsProduct": false,
+    "documentationChangeMisclassifiedAsProduct": false,
+    "runtimeImportedValidationFileCount": 0
+  },
+  "heavyRealMediaTestsRepeated": false,
+  "heavyRealMediaEvidence": "CARRIED_FORWARD_BY_EXACT_HASHED_EVIDENCE",
+  "sourceHashClasses": {
+    "productEngineDigest": "e256584b9f7f86129a6282580ca60430410ec045128e605681513e5e9fafa66b",
+    "productEngineFileCount": 386,
+    "productEngineFileSetSha256": "f528b5c69f34690613f385ae5f07b3f55c1b4fcba252a2a01a877dc7949a0ce2",
+    "validationToolingDigest": "0c7456df63dbf10e38356dbc7b7b1a96bc7904aa4ee684fa993ba438934fbcc6",
+    "validationToolingDigestRecorded": true,
+    "validationChangeMisclassifiedAsProduct": false,
+    "validationToolingDigestChanged": true,
+    "sourceManifestChangedForValidation": true,
+    "realProductChangeDetected": true,
+    "documentationChangeMisclassifiedAsProduct": false,
+    "documentationDigestChanged": true,
+    "runtimeImportedValidationFileCount": 0
+  }
+}

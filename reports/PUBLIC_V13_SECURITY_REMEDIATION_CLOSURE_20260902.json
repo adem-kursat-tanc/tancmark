@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "tancmark-public-v13-security-remediation-closure-v1",
+  "status": "CODEQL_AND_DEPENDENCY_GATES_PASSED",
+  "scope": "GITHUB_NATIVE_SECURITY_REMEDIATION_BEFORE_PUBLICATION",
+  "basePublicCommit": "a5be2f1295f20dcf2e63b9fc862f94796c560bae",
+  "historicalProductEvidencePreserved": true,
+  "productBehaviourAuthority": "V4_BEHAVIOUR_EVIDENCE_CARRIED_FORWARD_BY_V8_SECURITY_CLOSURE_V12_PLATFORM_REGRESSION_AND_V13_SECURITY_REMEDIATION_REGRESSION",
+  "classification": "BOUNDED_SECURITY_AND_CROSS_PLATFORM_CI_REMEDIATION",
+  "measurements": {
+    "dependencyPackagesAudited": 645,
+    "dependencyAuditInfo": 0,
+    "dependencyAuditLow": 0,
+    "dependencyAuditModerate": 0,
+    "dependencyAuditHigh": 0,
+    "dependencyAuditCritical": 0,
+    "codeqlJavascriptTypescriptFilesScanned": 968,
+    "codeqlGithubActionsFilesScanned": 3,
+    "codeqlPotentialResults": 20,
+    "codeqlInSourceSuppressedWithRationale": 20,
+    "codeqlUnsuppressedResults": 0,
+    "codeqlRealFindingsRemovedByCodeChange": 4
+  },
+  "currentInventory": {
+    "dependencyPackageCount": 1188,
+    "javascriptDependencyPackageCount": 677,
+    "nativeRustDependencyPackageCount": 511,
+    "declaredLicensePackageCount": 1188,
+    "documentedSourceLicenseResolutionCount": 0,
+    "unresolvedLicenseCount": 0,
+    "inventorySha256": "b3bc51e17faf3a3817edf7ac9586ec74b8568b766de4d8a601dd1fe6a65a2c05"
+  },
+  "latePublishedAdvisoryRemediation": {
+    "detectedAtFinalFrozenInstall": true,
+    "package": "orval",
+    "previousResolvedVersion": "8.5.3",
+    "selectedResolvedVersion": "8.22.0",
+    "minimumFullyPatchedVersion": "8.22.0",
+    "advisories": [
+      { "id": "GHSA-cxq5-97v7-87j8", "severity": "high", "publishedAtUtc": "2026-09-02T14:54:48Z" },
+      { "id": "GHSA-p4cg-3328-rvfg", "severity": "critical", "publishedAtUtc": "2026-09-02T14:53:14Z" },
+      { "id": "GHSA-6mr6-jvcr-2f25", "severity": "critical", "publishedAtUtc": "2026-09-02T14:52:56Z" }
+    ],
+    "postRemediationAudit": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    }
+  },
+  "generatedCodeRemediation": {
+    "orvalVersion": "8.22.0",
+    "zodOutputCompatibilityVersion": 3,
+    "generatedAndPublicBarrelFileCount": 188,
+    "firstAggregateSha256": "85914d7ac301aa1582b3b6252f626e782c670a8e265400c4abd2c05b41765be1",
+    "secondAggregateSha256": "85914d7ac301aa1582b3b6252f626e782c670a8e265400c4abd2c05b41765be1",
+    "byteRepeatability": "PASSED",
+    "gitWhitespaceCheck": "PASSED"
+  },
+  "codeql": {
+    "cliVersion": "2.26.4",
+    "javascriptQueriesVersion": "2.4.4",
+    "sarifSha256": "8e7888d9ff53576efb90ece389e574a68fdcd4db361906c9dcbd0ccaade8c4d9",
+    "sarifBytes": 1033126,
+    "sarifIncludedInPublicArchive": false,
+    "suppressionPolicy": "ONLY_DATAFLOW_REVIEWED_FALSE_POSITIVES_WITH_ADJACENT_SOURCE_RATIONALE"
+  },
+  "realSourceFixes": [
+    {
+      "path": "artifacts/api-server/src/lib/svgXmlTancmarkEngine.ts",
+      "finding": "REDOS_AND_INCOMPLETE_SANITIZATION",
+      "afterSha256": "0de2867be3e2704cbfe37a5d133262edb9820831c8e2c142f440c499d844631f"
+    },
+    {
+      "path": "lib/aegis-core/src/stylometricAnalyzer.ts",
+      "finding": "POLYNOMIAL_REGULAR_EXPRESSION",
+      "afterSha256": "df5ef331181702158cc98065a174603acd24c16ae3e5cfc18a67593851c23772"
+    },
+    {
+      "path": "lib/api-client-react/src/custom-fetch.ts",
+      "finding": "POLYNOMIAL_REGULAR_EXPRESSION",
+      "afterSha256": "2d8d533d16649a2cd80a971433823377a581cfb8fafd658cf8a87670fff0dca0"
+    },
+    {
+      "path": "runtime/validation/public_product_build_route_smoke.mjs",
+      "finding": "LINUX_CI_POWERSHELL_EXECUTABLE_NAME",
+      "afterSha256": "399c62ed268550b96614705137f825a099d092bef27a313b63784b30350c8af6"
+    }
+  ],
+  "currentChangedFiles": [
+    { "path": "artifacts/api-server/package.json", "sha256": "e7f483063401323cf9f25afa1886b11e927059bd86d2a94b952e5e3d105b5491", "gitBlob": "1f24bb68aba1130da526ba0c9711f31473ea5dff" },
+    { "path": "artifacts/api-server/src/lib/apiKeyHashing.ts", "sha256": "d1d2e4f5eadb320ac64242b44b63dd1f0b45512032614ba8113f4aa493648f90", "gitBlob": "906734da72505fdbeef22c3d1ca716b6a3c6134b" },
+    { "path": "artifacts/api-server/src/lib/largeFileAnalysis.ts", "sha256": "79dc52ff57a8e793a10ae9da42178b33e3786ac6b8a907673340be058243f08b", "gitBlob": "1211e0a6cb79138eae15bfa15f68a320b70a749a" },
+    { "path": "artifacts/api-server/src/lib/preSealOwnershipCheck.ts", "sha256": "6432e4b724b43444c872384c3ae8db257725e150340f7105f35d7b357cb0793b", "gitBlob": "a1958ebfc7e1cf388cda62125ba29fcd64819f2d" },
+    { "path": "artifacts/api-server/src/lib/svgXmlTancmarkEngine.ts", "sha256": "0de2867be3e2704cbfe37a5d133262edb9820831c8e2c142f440c499d844631f", "gitBlob": "3c39992df61b6451c9c48d0c6a543a3f7d90d90c" },
+    { "path": "artifacts/api-server/src/live/liveProductStore.ts", "sha256": "c09722f9970c5fddcd17b83c25c9696490bf51b4f8ca88595e41a8274bbf2ab0", "gitBlob": "302988bc14d5650899ce2fe95334c398b701785c" },
+    { "path": "artifacts/api-server/src/routes/demo.ts", "sha256": "2c4ee81f9fd2410aef0e0d71380c87abb8f6e50b13e548d6486c7f494bd10550", "gitBlob": "82db468205dd69b857a47e1125b275fdb5818cb3" },
+    { "path": "artifacts/api-server/src/routes/demoVisual.ts", "sha256": "6aa1c840df3733819c34eb68435865240399e6b95f81da97f0d345c6fe51bc27", "gitBlob": "0d25ec22ce484f2c0bd831d1b0d66ab1723aecd2" },
+    { "path": "artifacts/api-server/src/video/decodeVideo.ts", "sha256": "83b282feef38c44e87578c8e41478488f10886404c0f712a28ef337ed07e1ed8", "gitBlob": "d3c14cab37420788e0e3c23840c75cb21574ef62" },
+    { "path": "artifacts/api-server/src/video/exactSealTimingMap.ts", "sha256": "7033ffcdea83f47139c33929096d425ab2c8f0b5f836af6ad6cc92a31e2f9d94", "gitBlob": "a57a1a2110353a9ab3ea9f79f9a83080bb4b11e9" },
+    { "path": "artifacts/api-server/src/video/ffmpegHelper.ts", "sha256": "edefcb641f08f1e5f7abadee097d4c01b53c0886d159a866b9ac16d82bab1f8a", "gitBlob": "3525e0b6a05b9dd4ca8dffd9e21f906465ca5b59" },
+    { "path": "artifacts/tancmark-demo/package.json", "sha256": "e91b62a31d6cd0c4b26d118af632113394b16141d8ceaf9ab208a26037ae87f4", "gitBlob": "c8927d42234ffad42ad2b10a85c81279f39ae179" },
+    { "path": "artifacts/tancmark-demo/src/server.ts", "sha256": "b8143c68878d4ccb68620e542018f477145fdb5cc4966db67b642dded77f338c", "gitBlob": "61fc73b7e7abc5d0c9a0c68eb0b3781944151b6b" },
+    { "path": "lib/aegis-core/src/stylometricAnalyzer.ts", "sha256": "df5ef331181702158cc98065a174603acd24c16ae3e5cfc18a67593851c23772", "gitBlob": "867860e566c63eade42e6f9ebd121561393edc93" },
+    { "path": "lib/api-client-react/src/custom-fetch.ts", "sha256": "2d8d533d16649a2cd80a971433823377a581cfb8fafd658cf8a87670fff0dca0", "gitBlob": "9aeb2cc99440b84a4a75ebd3775a01223a6073f1" },
+    { "path": "lib/api-spec/orval.config.ts", "sha256": "50213489a70434ef7b16229b84aba46c6a695a6f2cc3f48b1c835372b59bb662", "gitBlob": "b4643d3ab3fe5dc76636a696eb6ab995b6a764b0" },
+    { "path": "lib/api-spec/package.json", "sha256": "7a450ec6f32f0600ab1f5b722cb227c970103c22c18d02412fdf4f0d7fc91a3e", "gitBlob": "8eccf996ac88b8909876e825f2e8156541700df9" },
+    { "path": "pnpm-lock.yaml", "sha256": "1ef0f1407f04eeedd425efe667c7094ae14d7a4c4e9df04a1c4ede57021c8e89", "gitBlob": "3788b9af72f36b3f02366a34e925b8b9bc7f5eca" },
+    { "path": "pnpm-workspace.yaml", "sha256": "e15ef91a76e7ac6753b767f84baec17ce879ae8efb740b0be9b03ed13c03fd30", "gitBlob": "6f1d26abd5aba60989f7174ffc8dc229f147e960" },
+    { "path": "runtime/validation/live_local_product_core_lease_contract.ts", "sha256": "b0acf8a9699b8656aa7d42770be6e9982d72cd887df93e736c56af42dd642c96", "gitBlob": "bc6a1bc1f1e91842544f0476e2077cc0f754e16b" },
+    { "path": "runtime/validation/public_media_runtime_preflight.mjs", "sha256": "4f73f0481e2a8b3e1bf371353251d59438471737ab47b7f77cc4cd9916900311", "gitBlob": "252c16c5c1ed6d37dd0070ff362f4d472a18cf57" },
+    { "path": "runtime/validation/public_product_build_route_smoke.mjs", "sha256": "399c62ed268550b96614705137f825a099d092bef27a313b63784b30350c8af6", "gitBlob": "abb8200033f349a4e31f92b77504954dcd3d998a" },
+    { "path": "scripts/src/seed-client.ts", "sha256": "07fdd6c8c0e121f11190c719c982d662eebb0dba0446861cfc5e7f530185aa4e", "gitBlob": "fe3e67cfc481d28e69a951cd4e19cdf405f6fadc" }
+  ],
+  "historicalHashContinuity": [
+    {
+      "path": "artifacts/api-server/src/video/exactSealTimingMap.ts",
+      "v12Sha256": "0bbd3692cb9d897b6b0d4e617c89c06ea2ddef2808f1528b6bf30dafcc116036",
+      "v13Sha256": "7033ffcdea83f47139c33929096d425ab2c8f0b5f836af6ad6cc92a31e2f9d94",
+      "changeClassification": "CODEQL_FALSE_POSITIVE_RATIONALE_COMMENT_ONLY"
+    },
+    {
+      "path": "artifacts/api-server/src/video/ffmpegHelper.ts",
+      "v12Sha256": "8f7f90ac74ec04505c608c5e2bbac2d991fbffd666b82e67cc91dd3e8bd5c074",
+      "v13Sha256": "edefcb641f08f1e5f7abadee097d4c01b53c0886d159a866b9ac16d82bab1f8a",
+      "changeClassification": "CODEQL_FALSE_POSITIVE_RATIONALE_COMMENT_ONLY"
+    }
+  ],
+  "invariants": {
+    "watermarkAlgorithmChanged": false,
+    "decisionThresholdChanged": false,
+    "idRuleChanged": false,
+    "ownershipRuleChanged": false,
+    "registryOrSignatureAuthorityChanged": false,
+    "vaultDecisionChanged": false,
+    "wrongOwnership": 0,
+    "productionVaultOpenedByDemo": 0
+  },
+  "windowsCanonicalRegressionV13": {
+    "path": "DEMO_WINDOWS_SECURITY_REMEDIATION_V13_RESULTS.json",
+    "sha256": "15226ca0c6899a5e858225e846068e5aa43db68fb7afd8ac2dba92182016c37f",
+    "gatesPassed": "13/13",
+    "status": "PASSED"
+  },
+  "codespacesLinuxDemoRegressionV13": {
+    "path": "DEMO_LINUX_SECURITY_REMEDIATION_V13_RESULTS.json",
+    "sha256": "ff7f75a33e08fa31b6cdb68227f1ab9b1ebe47e9c3447e0247d4e524da260170",
+    "functionalRuns": "3/3 PASSED",
+    "sourceSecurityRuns": "3/3 PASSED",
+    "httpSecurityRuns": "3/3 PASSED",
+    "c2paRuns": "3/3 PASSED",
+    "liveRuns": "3/3 PASSED",
+    "browserVisibility": "NOT_MEASURED_BY_THIS_TERMINAL_RETEST",
+    "status": "PASSED"
+  },
+  "releaseAuthority": "OWNER_ONLY"
+}

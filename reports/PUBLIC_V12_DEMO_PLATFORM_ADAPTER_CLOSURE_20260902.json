@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "tancmark-public-v12-demo-platform-adapter-closure-v1",
+  "status": "PASSED",
+  "scope": "CODESPACES_LINUX_DEMO_PROFILE_V1",
+  "basePublicCommit": "c2afd59283b13a3234c54e1e8d703ba95b160c49",
+  "productBehaviourAuthority": "V4_BEHAVIOUR_EVIDENCE_CARRIED_FORWARD_BY_V8_SECURITY_CLOSURE_AND_V12_TARGETED_WINDOWS_REGRESSION",
+  "classification": "PLATFORM_IO_CODEC_AND_CHILD_ENVIRONMENT_ADAPTER_ONLY",
+  "changedProtectedComponents": [
+    {
+      "path": "artifacts/api-server/src/video",
+      "beforeGitTree": "2305b621e3e51a85f6c9c08527891bb2bc16d31c",
+      "afterGitTree": "f32f1c943721b40e22d83ed8fc04728ba1497081"
+    },
+    {
+      "path": "runtime/product-runtime",
+      "beforeGitTree": "36a209c5a6ab61b23cf55ab27d6d0fe3e1033e99",
+      "afterGitTree": "f4264765bfd7e60adb4c3a15f181a5cc33c720a5"
+    }
+  ],
+  "unchangedProtectedComponents": [
+    { "path": "lib/aegis-core", "gitObject": "b1ab1a14303e5cf2509253d39d2b97722e082e9b" },
+    { "path": "artifacts/api-server/src/text", "gitObject": "43e9fc037f52c82e5be1c5d89fd704c2d0b699b0" },
+    { "path": "artifacts/api-server/src/visual", "gitObject": "a406853ac5baf1e80f369216cab61a6e43cf7a46" },
+    { "path": "artifacts/api-server/src/live", "gitObject": "79f1b59d84399c82e8d85bfa09786a72ad17f0b4" },
+    { "path": "artifacts/api-server/src/dna", "gitObject": "9f0a1e642e981eaa8e7eaf68560f11ba0cb7c21b" },
+    { "path": "artifacts/api-server/src/aiSeal", "gitObject": "99b029df0a205470e9e46c9fb695d088135fa242" },
+    { "path": "runtime/live", "gitObject": "d713c8179d70bbfd8f082d98f7ff8977dc9e05d7" },
+    { "path": "runtime/build", "gitObject": "e16952d27a79597ca5520c37ee831f5694177db3" },
+    { "path": "artifacts/api-server/src/c2pa/C2paProductPolicy.ts", "gitObject": "84cdfb3fac2e3c6c2137ec340b4e51637ec5b041" }
+  ],
+  "changedFiles": [
+    {
+      "path": "artifacts/api-server/src/video/advancedVideoRecovery.ts",
+      "beforeGitBlob": "d3423d88f00cdafb48c033cc58034048a7da9c2d",
+      "afterGitBlob": "a3457cf609798e3707475d3df413636d5e1cceed",
+      "afterSha256": "de021957bdfa732f01d5507ee5f46fe53e190b35bfef116dfa9314906e4a6eea"
+    },
+    {
+      "path": "artifacts/api-server/src/video/audioModule.ts",
+      "beforeGitBlob": "22b63b8105c5d0ff38131b1a3497295a4f252656",
+      "afterGitBlob": "33d1b7f1115d3de2a03177596872ca8ffc316c0f",
+      "afterSha256": "b24b1fc335ad585edb01c4c82a11767bad0910e2168f7cc2155f7d02efc34ced"
+    },
+    {
+      "path": "artifacts/api-server/src/video/exactSealTimingMap.ts",
+      "beforeGitBlob": "483bd1bc1d90f60765066572e1dc2cf07a679fdf",
+      "afterGitBlob": "1267d96d1498c1f4e4f9af96e000416bc3823e63",
+      "afterSha256": "0bbd3692cb9d897b6b0d4e617c89c06ea2ddef2808f1528b6bf30dafcc116036"
+    },
+    {
+      "path": "artifacts/api-server/src/video/ffmpegHelper.ts",
+      "beforeGitBlob": "1a3552ae6d17587703f5b9fb4773d4c9e2fdf687",
+      "afterGitBlob": "d494c8217961b07a3b83b46eec88801dcef902fa",
+      "afterSha256": "8f7f90ac74ec04505c608c5e2bbac2d991fbffd666b82e67cc91dd3e8bd5c074"
+    },
+    {
+      "path": "artifacts/api-server/src/video/mediaRuntimePathResolver.ts",
+      "beforeGitBlob": "4c85bee1dc3d525e945bd9c2e5a18918f4ffd185",
+      "afterGitBlob": "ce0c384d4ba3a57b596cf50b93f5b3adb9e59763",
+      "afterSha256": "b1bd96c52d02aa0f93a674d69dd57a32c701cef0988867ce47e4a3b9124c8b94"
+    },
+    {
+      "path": "runtime/product-runtime/unified_pts_watermark_adapter_c.py",
+      "beforeGitBlob": "b17a64fc1cead254a7a07ace8d864dece0f63fff",
+      "afterGitBlob": "f1de785b90572edd7f50417ce0d1b1aeeee6d728",
+      "afterSha256": "aa7f0e1cd4d3a489c836602a4a41a1dcca6e4a2d9a0e5221efe25e17aa46588f"
+    }
+  ],
+  "invariants": {
+    "watermarkAlgorithmChanged": false,
+    "decisionThresholdChanged": false,
+    "idRuleChanged": false,
+    "ownershipRuleChanged": false,
+    "registryOrSignatureAuthorityChanged": false,
+    "dnaOrChiefBrainDecisionChanged": false,
+    "windowsCanonicalRuntimeSelectedByDefault": true,
+    "linuxProfileRequiresLinuxAndDemoOnly": true,
+    "wrongOwnership": 0,
+    "productionVaultOpenedByDemo": 0
+  },
+  "windowsRegressionEvidence": {
+    "path": "DEMO_WINDOWS_REGRESSION_RESULTS.json",
+    "sha256": "02037928992372546d20d1b59d0b77de2d35e7ea9593fa776b79fbd8fb57bf65",
+    "gatesPassed": "13/13",
+    "status": "PASSED"
+  },
+  "ownerReviewRequiredBecauseExistingEngineFilesChanged": true,
+  "releaseAuthority": "OWNER_ONLY"
+}

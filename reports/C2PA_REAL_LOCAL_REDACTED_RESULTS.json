@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "tancmark-c2pa-real-local-redacted-v1",
+  "measuredAt": "2026-08-28T13:25:22.653Z",
+  "testCertificate": "EPHEMERAL_LOCAL_TEST_ONLY",
+  "officialTrust": false,
+  "pathsHashesFingerprintsContentsPublished": false,
+  "originalModified": 0,
+  "externalNetworkCalls": 0,
+  "formatCoverage": {
+    "PNG": "REAL_LOCAL_MEASURED",
+    "JPG": "REAL_LOCAL_MEASURED",
+    "MP4": "REAL_LOCAL_MEASURED",
+    "MOV": "REAL_LOCAL_MEASURED",
+    "PDF": "NOT_MEASURED_FAIL_CLOSED_UNSUPPORTED_BY_CURRENT_PRODUCT_POLICY",
+    "WAV": "NOT_MEASURED_FAIL_CLOSED_UNSUPPORTED_BY_CURRENT_PRODUCT_POLICY"
+  },
+  "results": [
+    { "alias": "REAL_C2PA_MEDIA_001", "format": "PNG", "sourceWithoutC2pa": "NO_C2PA", "createSignEmbedReadVerify": "PASSED", "tamperDetected": "PASSED", "originalModified": 0 },
+    { "alias": "REAL_C2PA_MEDIA_002", "format": "JPG", "sourceWithoutC2pa": "NO_C2PA", "createSignEmbedReadVerify": "PASSED", "tamperDetected": "PASSED", "originalModified": 0 },
+    { "alias": "REAL_C2PA_MEDIA_003", "format": "MP4", "sourceWithoutC2pa": "NO_C2PA", "createSignEmbedReadVerify": "PASSED", "tamperDetected": "PASSED", "originalModified": 0 },
+    { "alias": "REAL_C2PA_MEDIA_004", "format": "MOV", "sourceWithoutC2pa": "NO_C2PA", "createSignEmbedReadVerify": "PASSED", "tamperDetected": "PASSED", "originalModified": 0 }
+  ]
+}

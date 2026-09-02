@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "tancmark-live-real-media-matrix-result-v1",
+  "status": "PASSED",
+  "planFrozenBeforeResults": true,
+  "sourceMedia": { "originalsModified": false, "namesPathsHashesOrContentDisclosed": false },
+  "prerequisiteRealCases": {
+    "realCameraLocal": "PASSED_EXISTING_GATE",
+    "realH264Aac44100Stereo": "PASSED_EXISTING_GATE",
+    "realH264Aac48000Stereo": "MEASURED_THIS_RUN",
+    "realRotationMetadata": "MEASURED_THIS_RUN"
+  },
+  "measuredRealCases": [
+    {
+      "alias": "REAL_H264_AAC_48000_STEREO_01",
+      "fragmentCount": 2,
+      "fragmentDurationP95Ms": 4000,
+      "watermarkP95Ms": 1484,
+      "protectedReadyToPlayerVisibleP95Ms": 7.307,
+      "frames": { "raw": 109, "protected": 109, "lost": 0, "cumulativeDriftTicks": 0 },
+      "audio": { "sampleRate": 48000, "expectedChannels": 2, "rawSamples": 257, "protectedSamples": 257, "packetPayloadExact": true },
+      "finalVerdict": "VIDEO_LAYER_VAULT",
+      "wrongOwnership": 0,
+      "gatePassed": true
+    },
+    {
+      "alias": "REAL_ROTATION_METADATA_01",
+      "fragmentCount": 3,
+      "fragmentDurationP95Ms": 4000,
+      "watermarkP95Ms": 1514,
+      "protectedReadyToPlayerVisibleP95Ms": 10.64,
+      "frames": { "raw": 170, "protected": 170, "lost": 0, "cumulativeDriftTicks": 0 },
+      "audio": { "sampleRate": 44100, "expectedChannels": 1, "rawSamples": 369, "protectedSamples": 369, "packetPayloadExact": true },
+      "finalVerdict": "VIDEO_LAYER_VAULT",
+      "wrongOwnership": 0,
+      "gatePassed": true
+    }
+  ],
+  "unsealedNegatives": {
+    "measured": 3,
+    "results": [
+      { "alias": "REAL_UNSEALED_NEGATIVE_01", "physicalVerdict": "NOT_FOUND", "channelAExact": false, "channelBExact": false, "ownership": false, "vault": false },
+      { "alias": "REAL_UNSEALED_NEGATIVE_02", "physicalVerdict": "NOT_FOUND", "channelAExact": false, "channelBExact": false, "ownership": false, "vault": false },
+      { "alias": "REAL_UNSEALED_NEGATIVE_03", "physicalVerdict": "NOT_FOUND", "channelAExact": false, "channelBExact": false, "ownership": false, "vault": false }
+    ],
+    "wrongOwnership": 0,
+    "gatePassed": true
+  },
+  "concurrency": {
+    "tenantCount": 2,
+    "simultaneousSessions": 2,
+    "fragmentCountPerTenant": 10,
+    "distinctProtectedOutputs": 10,
+    "bothFinalVerdicts": "VIDEO_LAYER_VAULT",
+    "bothPhysicalChannelAExact": true,
+    "bothRegistryAndSignatureVerified": true,
+    "crossTenantLeak": 0,
+    "wrongOwnership": 0,
+    "rawIdDisclosed": false,
+    "gatePassed": true
+  },
+  "totals": {
+    "wrongOwnership": 0,
+    "crossTenantLeak": 0,
+    "rawIdDisclosure": 0,
+    "secretDisclosure": 0,
+    "unwatermarkedProtectedPlayback": 0,
+    "unauthorizedFinalDecision": 0
+  },
+  "externalNetworkCalls": 0,
+  "gatePassed": true
+}

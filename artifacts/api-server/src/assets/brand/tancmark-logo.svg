@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="120" viewBox="0 0 520 120" role="img" aria-label="TancMark logo">
+  <title>TancMark</title>
+  <!-- Amblem: runik T + kartal kanadi + merkez muhur -->
+  <rect x="6" y="14" width="92" height="92" rx="16" fill="#13243a"/>
+  <g transform="translate(52,60)">
+    <!-- runik T ust kol -->
+    <path d="M-22 -18 L22 -18 L18 -11 L-18 -11 Z" fill="#1fd6e0"/>
+    <!-- runik T govde -->
+    <path d="M-3.5 -11 L3.5 -11 L3.5 20 L-3.5 20 Z" fill="#1fd6e0"/>
+    <!-- sol kanat -->
+    <path d="M-18 -4 L-26 6 L-14 2 Z" fill="#16a8b0"/>
+    <!-- sag kanat -->
+    <path d="M18 -4 L26 6 L14 2 Z" fill="#16a8b0"/>
+    <!-- merkez muhur -->
+    <circle cx="0" cy="4" r="4.5" fill="#ff3b6b"/>
+  </g>
+  <!-- Yazi: TancMark -->
+  <text x="118" y="72" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="600" fill="#13243a">Tanc<tspan fill="#16a8b0">Mark</tspan></text>
+</svg>

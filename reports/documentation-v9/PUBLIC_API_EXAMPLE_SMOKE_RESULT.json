@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "tancmark-public-documentation-v9-gate-v1",
+  "releaseDate": "2026-09-01",
+  "status": "PASSED",
+  "gate": "PUBLIC_API_EXAMPLE_SMOKE_GATE",
+  "routeContractsChecked": 16,
+  "inventedRoutes": 0,
+  "invalidPlaceholders": [],
+  "jsonBlockParseFailures": 0,
+  "powerShellSyntaxFailures": 0,
+  "bashSyntaxFailures": 0,
+  "productHttpSmokeEvidence": "CARRIED_FORWARD_BY_EXACT_HASHED_EVIDENCE",
+  "health": 200,
+  "live": 200,
+  "wrongTenant": 404,
+  "videoLabProduct": 410,
+  "audioLabProduct": 410
+}

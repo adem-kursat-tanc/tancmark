@@ -1,0 +1,1 @@
+TancMark public synthetic demo text. This deterministic example contains no personal, customer, or production information. It exists only to exercise the real text sealing and recovery engine.

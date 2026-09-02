@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "tancmark-public-documentation-v9-product-hash-comparison-v1",
+  "generatedAtUtc": "2026-09-01T12:24:25.965Z",
+  "status": "PASSED",
+  "v8ProductEngineSourceManifestSha256": "e256584b9f7f86129a6282580ca60430410ec045128e605681513e5e9fafa66b",
+  "v9ProductEngineSourceManifestSha256": "e256584b9f7f86129a6282580ca60430410ec045128e605681513e5e9fafa66b",
+  "productEngineSourceChanged": false,
+  "publicApiBehaviorChanged": false,
+  "dependencyGraphChanged": false,
+  "lockfileChanged": false,
+  "watermarkOrDecisionBehaviorChanged": false,
+  "hashScopeModel": "PRODUCT_ENGINE_SOURCE_PUBLIC_VALIDATION_TOOLING_PUBLIC_DOCUMENTATION_AND_EVIDENCE",
+  "authoritativeProductBaseCommit": "a774c91b114b02784eb264d46ce50d3ae3b33037",
+  "productEngineFileCount": 386,
+  "productEngineFileSetSha256": "f528b5c69f34690613f385ae5f07b3f55c1b4fcba252a2a01a877dc7949a0ce2",
+  "acceptedV8ProductEngineDigestRecalculated": "e256584b9f7f86129a6282580ca60430410ec045128e605681513e5e9fafa66b",
+  "validationToolingDigest": "0c7456df63dbf10e38356dbc7b7b1a96bc7904aa4ee684fa993ba438934fbcc6",
+  "validationToolingDigestRecorded": true,
+  "explicitValidationTooling": [
+    "runtime/validation/public_source_contract.mjs",
+    "runtime/validation/public_export_surface_consistency_gate.mjs"
+  ],
+  "validationChangeMisclassifiedAsProduct": false,
+  "validationToolingDigestChanged": true,
+  "sourceManifestChangedForValidation": true,
+  "realProductChangeDetected": true,
+  "documentationChangeMisclassifiedAsProduct": false,
+  "documentationDigestChanged": true,
+  "runtimeImportedValidationFileCount": 0
+}

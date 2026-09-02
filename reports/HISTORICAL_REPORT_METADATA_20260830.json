@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "tancmark-historical-public-report-metadata-v1",
+  "asOf": "2026-08-30",
+  "currentReleaseAuthority": false,
+  "supersededBy": "reports/final-audit-v4/FINAL_PRE_RELEASE_GO_NO_GO_V4.json",
+  "reports": [
+    {
+      "path": "reports/PUBLIC_RELEASE_RECONCILIATION_SCAN_20260829.json",
+      "preservedSha256": "b6390f489e210a1ef372e411a5604f1b25063c071256c04a9e241a4365d2e2d9",
+      "historical": true,
+      "reason": "Pre-V4 archive-count snapshot; preserved byte-for-byte."
+    },
+    {
+      "path": "reports/PUBLIC_ACTION_PIN_RECONCILIATION_20260829.json",
+      "preservedSha256": "a4e2ae5b52e27fec6e424fc53a5709a2903d7c315fc2d95af47977471dc15a21",
+      "historical": true,
+      "reason": "Pre-V4 action-pin and archive snapshot; preserved byte-for-byte."
+    },
+    {
+      "path": "reports/PRODUCT_BUILD_MODE_ROOT_CAUSE_20260828.json",
+      "preservedSha256": "4227a845d3e9d9384eefe6087023f1c72ef2094093d2ca66306da58a1d28d9a0",
+      "historical": true,
+      "reason": "Earlier product-build root-cause record; preserved byte-for-byte and superseded only as release authority."
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "tancmark-public-private-repository-role-v1",
+  "generatedAtUtc": "2026-09-01T09:57:37Z",
+  "status": "PASSED",
+  "publicRepository": {
+    "role": "CLEAN_PUBLIC_EXPORT",
+    "publicSourceContractDirectTarget": true,
+    "licenseAuthority": "AGPL-3.0-only",
+    "privateHistoryAllowed": false,
+    "privateMediaAllowed": false,
+    "privateLearningDataAllowed": false,
+    "secretsAllowed": false
+  },
+  "privateDevelopmentRepository": {
+    "role": "PRIVATE_DEVELOPMENT_AND_EXPORT_PREPARATION",
+    "publicSourceContractDirectTarget": false,
+    "wholeTreeMustEqualPublicExport": false,
+    "packageMetadataIsPublicLicenseAuthority": false,
+    "readmeMustUsePublicReleaseLayout": false,
+    "privateEvidenceAllowed": true,
+    "validationGate": "PUBLIC_EXPORT_SURFACE_CONSISTENCY_GATE"
+  },
+  "publicLicenseAuthority": {
+    "classification": "PUBLIC_EXPORT_FILES_ONLY",
+    "license": "AGPL-3.0-only",
+    "requiredFiles": [
+      "LICENSE",
+      "package.json",
+      "README.md",
+      "SBOM.spdx.json",
+      "CLA.md"
+    ]
+  },
+  "privateMainPackageMetadataClassification": "PRIVATE_MAIN_PACKAGE_METADATA_NOT_PUBLIC_LICENSE_AUTHORITY",
+  "validationRouting": {
+    "PUBLIC_SOURCE_CONTRACT": "CLEAN_PUBLIC_EXPORT_ONLY",
+    "PUBLIC_EXPORT_SURFACE_CONSISTENCY_GATE": "PRIVATE_MAIN_TO_EXPLICIT_PUBLIC_EXPORT",
+    "publicExportRootRequiredForCrossRepositoryValidation": true
+  },
+  "productBehaviorChanged": false
+}

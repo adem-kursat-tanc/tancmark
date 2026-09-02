@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "tancmark-public-release-reconciliation-scan-v1",
+  "asOf": "2026-08-29",
+  "status": "PASSED",
+  "workingTreeFilesScanned": 1037,
+  "excludedLocalBuildMetadataFiles": 4,
+  "archiveFilesScanned": 1033,
+  "sourceManifestEntries": 1031,
+  "symlinkCount": 0,
+  "forbiddenPathCount": 0,
+  "privateMediaDisclosure": 0,
+  "privateFingerprintDisclosure": 0,
+  "learningDataDisclosure": 0,
+  "personalPathDisclosure": 0,
+  "secretDisclosure": 0,
+  "jsonFilesParsed": 48,
+  "jsonParseFailures": 0,
+  "yamlFilesParsed": 8,
+  "yamlParseFailures": 0,
+  "privateSecurityPathDisclosed": false,
+  "externalNetworkCalls": 0
+}

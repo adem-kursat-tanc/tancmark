@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "auditVersion": "V4",
+  "status": "PASSED",
+  "isolatedPublicCandidate": {
+    "commit": "57bc782beedd45c49f1cebd840148774240b263e",
+    "commitCount": 1,
+    "remoteCount": 0,
+    "workingTreeClean": true,
+    "frozenInstall": "PASSED",
+    "typecheck": "PASSED",
+    "normalBuild": "PASSED",
+    "productBuild": "PASSED",
+    "publicTests": "PASSED",
+    "builtTests": "PASSED",
+    "normalRouteSmoke": "PASSED",
+    "productRouteSmoke": "PASSED",
+    "canonicalReaderScope": "PASSED",
+    "generatedCodeRepeatability": "PASSED",
+    "documentationFreshness": "PASSED_IN_GIT_CANDIDATE",
+    "releaseConsistency": "PASSED",
+    "workflowPinValidation": "PASSED_8_OF_8",
+    "workflowUpstreamVerification": "PASSED_4_OF_4",
+    "textAndImagePhysical": "PASSED",
+    "audioPhysical": "PASSED",
+    "videoAffectedSharpRasterComparison": "PASSED_EXACT_BYTES",
+    "liveCore": "PASSED",
+    "liveWorker": "PASSED",
+    "liveCleanCloneRepeats": {
+      "passed": 3,
+      "attemptedWithCompleteRequiredEnvironment": 3,
+      "elapsedMs": [17078, 18014, 18233],
+      "automaticFinalExactVerification": true,
+      "wrongOwnership": 0
+    },
+    "realLocalProductExact": {
+      "status": "PASSED",
+      "sourceKind": "HASH_VERIFIED_REAL_LOCAL_MEDIA",
+      "sourceUnchanged": true,
+      "fragmentsProcessed": 2,
+      "verdict": "VIDEO_LAYER_VAULT",
+      "registry": true,
+      "signature": true,
+      "wrongIdAccepted": false,
+      "noIdAcceptedBeforeFinal": false,
+      "wrongTenantAccepted": false,
+      "unsealedAccepted": false,
+      "wrongOwnership": 0
+    },
+    "c2pa": {
+      "generated": "9/9 PASSED",
+      "core": "17/17 PASSED",
+      "http": "PASSED",
+      "wrongOwnership": 0,
+      "crossTenantLeak": 0,
+      "databaseAuditPersistence": "NOT_MEASURED_DATABASE_NOT_CONFIGURED"
+    }
+  },
+  "kingstonMainProduct": {
+    "typecheck": "PASSED",
+    "normalBuild": "PASSED_WITH_REQUIRED_PORT_AND_BASE_PATH_ENV",
+    "productBuild": "PASSED",
+    "multipartSecurity": "PASSED",
+    "mediaRuntimePreflightAndResolver": "PASSED",
+    "physicalAudio": "PASSED",
+    "normalAndProductRouteSmoke": "PASSED",
+    "realLocalProductExact": "PASSED",
+    "wrongOwnership": 0
+  },
+  "carriedUnchangedEvidence": {
+    "frozenV3PlanUnchanged": true,
+    "unaffectedHistoricalRealWorldEvidenceCarriedByExactHash": true,
+    "historicalAdvancedGeometryResult": "14/16 MINIMUM GATE; extreme front trim and local phone simulation remain documented limits",
+    "historicalEvidenceRerunClaimed": false
+  },
+  "preconditionFailuresNotProductFailures": [
+    "one resumed clean-Live invocation lacked the required explicit FFmpeg environment and stopped before the test",
+    "one clean typecheck invocation lacked the fixed pnpm wrapper in PATH",
+    "one clean route-smoke invocation lacked the fixed PowerShell directory in PATH",
+    "one Kingston install invocation required CI=true because no TTY was available",
+    "two Kingston normal-build invocations identified required PORT then BASE_PATH configuration before the passing run"
+  ]
+}

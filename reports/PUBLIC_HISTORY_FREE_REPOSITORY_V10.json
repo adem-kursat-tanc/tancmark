@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "tancmark-public-history-free-repository-v1",
+  "asOf": "2026-09-01",
+  "status": "PASSED",
+  "historyFreeStatus": "HISTORICAL_BASE_COMMIT_OBJECT_ABSENT_EXPECTED_HISTORY_FREE_EXPORT",
+  "temporaryRootCommit": "RECORDED_IN_EXTERNAL_HISTORY_FREE_EVIDENCE",
+  "commitCount": 1,
+  "remoteCount": 0,
+  "workingTreeClean": true,
+  "oldHistoricalObjectPresent": false,
+  "privateHistoryIncluded": false,
+  "frozenInstall": "PASSED",
+  "locales": [
+    "tr_TR.UTF-8",
+    "en_US.UTF-8",
+    "C.UTF-8"
+  ],
+  "gatesPerLocale": 8,
+  "allLocaleGateRunsPassed": "24/24",
+  "generatedFilesByteIdentical": true,
+  "storedRecordMutationRejected": true,
+  "productByteMutationRejected": true,
+  "validationOnlyDigestIsolationPassed": true,
+  "documentationOnlyDigestIsolationPassed": true,
+  "productFileContentsChanged": false
+}

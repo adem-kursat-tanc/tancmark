@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "tancmark-cross-platform-sbom-repeatability-v1",
+  "asOf": "2026-09-02",
+  "status": "PASSED",
+  "generator": "runtime/validation/generate-public-sbom.mjs",
+  "packageManager": "pnpm@10.34.5",
+  "supportedArchitectures": {
+    "os": ["linux", "win32"],
+    "cpu": ["x64"],
+    "libc": ["glibc", "musl"]
+  },
+  "inventory": {
+    "dependencyPackageCount": 1139,
+    "javascriptDependencyPackageCount": 628,
+    "nativeRustDependencyPackageCount": 511,
+    "declaredLicensePackageCount": 1139,
+    "unresolvedLicenseCount": 0
+  },
+  "windows": {
+    "node": "24.11.1",
+    "pnpm": "10.34.5",
+    "sbomSha256": "40b9b4f72dfa5a30b93926f1b2fb564e4b53d56b8c311c58c5375c5288f1737c",
+    "licenseInventorySha256": "94cac799c8fde4faf3f814dd0abbb16c9a4291b51aa89fd4e5a28d004dc35da0"
+  },
+  "linux": {
+    "node": "24.19.0",
+    "pnpm": "10.34.5",
+    "profile": "CODESPACES_LINUX_DEMO_PROFILE_V1",
+    "sbomSha256": "40b9b4f72dfa5a30b93926f1b2fb564e4b53d56b8c311c58c5375c5288f1737c",
+    "licenseInventorySha256": "94cac799c8fde4faf3f814dd0abbb16c9a4291b51aa89fd4e5a28d004dc35da0"
+  },
+  "comparison": {
+    "sbomRawBytesIdentical": true,
+    "licenseInventoryRawBytesIdentical": true,
+    "dependencyCountsIdentical": true,
+    "unresolvedLicenseCountsIdentical": true
+  },
+  "legalApprovalClaimed": false,
+  "claim": "Declared licenses were found for all 1,139 dependencies on both platforms; this is not a legal-approval claim."
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@workspace/scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "hello": "tsx ./src/hello.ts",
+    "canary-demo": "tsx ./src/canary-demo.ts",
+    "glyph-demo": "tsx ./src/glyph-demo.ts",
+    "seed-client": "tsx ./src/seed-client.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@workspace/aegis-core": "workspace:*",
+    "@workspace/db": "workspace:*",
+    "tsx": "catalog:"
+  }
+}

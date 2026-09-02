@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "tancmark-c2pa-r8-reusable-component-map-v1",
+  "archive": {
+    "name": "TancMark-v0.1.0-research-C2PA-FINAL-R8.zip",
+    "sha256": "23324b22a3da234ce27f834dd3e3ac5633de296d6373f26fac5615c23b83cdc2",
+    "zipCrcFailures": 0,
+    "innerChecksumMatches": 2798,
+    "innerChecksumFailures": 0,
+    "jsonParsed": 300,
+    "jsonParseFailures": 0
+  },
+  "r8Sdk": { "package": "@contentauth/c2pa-node", "version": "0.9.1" },
+  "r8Certificate": "PRIVATE_EPHEMERAL_TEST_CERTIFICATE",
+  "r8MeasuredScope": "Windows PNG synthetic/test fixture; JPEG, PDF, MP4, MOV, WAV, Linux and macOS were not measured in R8",
+  "components": [
+    { "component": "result types and support-only safety boundary", "classification": "SOLVED_REUSABLE", "reason": "hash-verified and retained with public-status expansion" },
+    { "component": "embedded manifest reader", "classification": "SOLVED_REUSABLE", "reason": "real SDK read and validation path passed R8 and current port tests" },
+    { "component": "local certificate signer", "classification": "SOLVED_REUSABLE", "reason": "pair and validity checks passed; key zeroization retained" },
+    { "component": "manifest builder and embed/reread", "classification": "SOLVED_REUSABLE", "reason": "write-read-verify and ingredient gates passed" },
+    { "component": "trust adapter", "classification": "REQUIRES_SDK_PORT", "reason": "adapted to current public trust-status vocabulary; official trust remains unmeasured" },
+    { "component": "test certificate generator", "classification": "TEST_ONLY", "reason": "ephemeral local certificate only; never production trust" },
+    { "component": "CLI inspect/verify/sign", "classification": "SUPERSEDED", "reason": "current product has no canonical public CLI; tenant-bound API and documented Node use are provided" },
+    { "component": "private R8 evidence and media", "classification": "NOT_REUSABLE", "reason": "private paths/media/evidence cannot enter public source" },
+    { "component": "official public trust, revocation and conformance", "classification": "INSUFFICIENT_EVIDENCE", "reason": "not measured in R8 and remains an operator step" }
+  ],
+  "r8NegativeEvidence": {
+    "c2paTestsPassed": 19,
+    "cliTestsPassed": 2,
+    "wrongOwnership": 0
+  }
+}

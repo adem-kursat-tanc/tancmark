@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "tancmark-toolchain-historical-record-metadata-v1",
+  "generatedAtUtc": "2026-08-31T00:00:00Z",
+  "historical": true,
+  "currentReleaseAuthority": false,
+  "supersededPackageManager": "pnpm@10.23.0",
+  "currentPackageManager": "pnpm@10.34.5",
+  "historicalDependencyInventoryClassification": "HISTORICAL_PRE_TOOLCHAIN_V6_MEASUREMENT",
+  "currentDependencyInventoryAuthority": "reports/PUBLIC_LICENSE_SCAN.json",
+  "currentFinalReleaseAuthority": "reports/PUBLIC_FINAL_RELEASE_RESULT_20260831.json",
+  "historicalDependencyRecords": [
+    {
+      "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_SUPPLY_CHAIN_V4.json",
+      "preservation": "BYTE_PRESERVED",
+      "currentReleaseAuthority": false
+    },
+    {
+      "path": "reports/PUBLIC_FINAL_RELEASE_RESULT_20260829.json",
+      "preservation": "HISTORICAL_CLASSIFICATION_ADDED_MEASURED_VALUES_UNCHANGED",
+      "currentReleaseAuthority": false
+    }
+  ],
+  "preservedRecords": [
+    "reports/history/PUBLIC_BUILD_TEST_RESULT_PRE_LIVE_REPEATABILITY_CLOSURE.json",
+    "reports/final-audit-v4/FINAL_PRE_RELEASE_CLEAN_INSTALL_V4.json"
+  ],
+  "note": "The listed files are preserved measurements of earlier release candidates. They are not current toolchain authority and their historical version strings must not be rewritten."
+}

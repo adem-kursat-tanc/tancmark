@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "tancmark-demo-dependency-container-security-v1",
+  "asOf": "2026-09-02",
+  "status": "PASSED_WITH_RAW_FINDINGS_RETAINED_AND_BOUNDED",
+  "scope": "CODESPACES_LINUX_DEMO_PROFILE_V1",
+  "scanner": {
+    "name": "Trivy",
+    "version": "0.74.0",
+    "imageRaw": {
+      "path": "DEMO_TRIVY_IMAGE_RAW.json",
+      "sha256": "3daee9d5fb67a7edc73f547e607edf7baf9ac46925e4241816f85cd05aa86a33",
+      "high": 24,
+      "critical": 2,
+      "secret": 0
+    },
+    "repositoryDependencyRaw": {
+      "path": "DEMO_TRIVY_FILESYSTEM_RAW.json",
+      "sha256": "a9e26df466f896486ae199651b2a6605cdc9f5c785f5626dbdd6f30b04d77e35",
+      "high": 4,
+      "critical": 0
+    },
+    "containerConfigurationRaw": {
+      "path": "DEMO_TRIVY_CONFIG_RAW.json",
+      "sha256": "f1f597068f67c5e7e9628ffeea3df335fd02fd2119c8296a1bae29003e440b71",
+      "high": 0,
+      "critical": 0
+    },
+    "sourceSecretRaw": {
+      "path": "DEMO_TRIVY_SECRET_RAW.json",
+      "sha256": "66ba593d6627d1d07e3465e5f6a25ff2e70c09449cb176a8bcf4cc4a36019b66",
+      "rawMatches": 6,
+      "validatedSecrets": 0,
+      "classification": "FALSE_POSITIVE_INTERNAL_CONSTANTS_AND_ERROR_IDENTIFIERS"
+    }
+  },
+  "rawImageFindings": {
+    "nodeSetupTooling": {
+      "packages": ["brace-expansion", "ip-address", "tar", "undici"],
+      "cves": ["CVE-2026-12151", "CVE-2026-13149", "CVE-2026-14257", "CVE-2026-59873", "CVE-2026-59874", "CVE-2026-69152", "CVE-2026-69192", "CVE-2026-73566"],
+      "classification": "NOT_REACHABLE_FROM_DEMO_HTTP_RUNTIME",
+      "basis": "These packages belong to the pinned Node/Corepack/pnpm setup toolchain. The running demo server neither imports them nor exposes archive, glob, arbitrary URL, or WebSocket input. Frozen installation runs before the server and accepts no visitor input."
+    },
+    "pythonBuildTooling": {
+      "packages": ["msgpack", "setuptools"],
+      "advisories": ["GHSA-6v7p-g79w-8964", "CVE-2025-47273"],
+      "classification": "NOT_REACHABLE_FROM_DEMO_MEDIA_RUNTIME",
+      "basis": "After importing the authoritative PyAV and NumPy runtime, both msgpack and setuptools were absent from sys.modules. The demo has no MessagePack endpoint and performs no package download or installation at request time."
+    },
+    "mediaMtxInternalService": {
+      "packages": ["github.com/go-git/go-git/v5", "golang.org/x/crypto", "golang.org/x/text", "Go stdlib"],
+      "cves": ["CVE-2026-33818", "CVE-2026-39821", "CVE-2026-39822", "CVE-2026-46600", "CVE-2026-56852", "CVE-2026-56853", "CVE-2026-56854", "CVE-2026-56858", "CVE-2026-56859", "CVE-2026-56860", "CVE-2026-56862", "CVE-2026-71556"],
+      "classification": "NOT_REACHABLE_UNDER_BOUNDED_DEMO_CONFIGURATION",
+      "basis": "MediaMTX is started only for one ephemeral Live run with fixed loopback RTSP/HLS/API addresses and a generated fixed configuration. No MediaMTX port is forwarded, no SSH or Git feature is configured, no visitor hostname or URL reaches it, and the only application proxy is an allowlisted demo_live HLS path. The real HTTP security matrix proved external fetch, SSRF, arbitrary command, outside-temp write, production route, residual process, residual port, and residual temporary directory counts are zero."
+    }
+  },
+  "repositoryDependencyClosure": {
+    "evidencePath": "evidence/DEMO_PRODUCTION_DEPENDENCY_CLOSURE.json",
+    "sha256": "f897c4a0c8524d2ac0729d36d21cfe94676077cce6adb7828d6a8e5e68e62b24",
+    "rawHighPackages": ["adm-zip", "ip-address", "path-to-regexp", "protobufjs"],
+    "presentInTancMarkDemoProductionClosure": [],
+    "reachableHigh": 0,
+    "reachableCritical": 0
+  },
+  "secretFalsePositiveReview": [
+    { "path": "artifacts/api-server/src/live/liveEventTypes.ts", "line": 1, "valueClass": "decision-role constant" },
+    { "path": "artifacts/api-server/src/live/liveProtectedFragmentTimeline.ts", "line": 72, "valueClass": "error identifier" },
+    { "path": "artifacts/api-server/src/live/liveProtectedFragmentTimeline.ts", "line": 137, "valueClass": "error identifier" },
+    { "path": "runtime/validation/live_external_provider_configuration_contract.ts", "line": 38, "valueClass": "test contract identifier" },
+    { "path": "runtime/validation/live_local_product_media_fixture.ts", "line": 22, "valueClass": "test error identifier" },
+    { "path": "runtime/validation/live_local_product_media_fixture.ts", "line": 56, "valueClass": "test error identifier" }
+  ],
+  "containerBoundary": {
+    "image": "tancmark-codespaces-demo-v12:local",
+    "imageId": "sha256:6ab2c8a19e22f7e5c8585c1719dd319d5af87e8d6a0fae0d79236cb2b3a2fade",
+    "runtimeUser": "uid=10001(tancmark) gid=10001(tancmark)",
+    "init": true,
+    "privileged": false,
+    "capDrop": ["ALL"],
+    "securityOptions": ["no-new-privileges"],
+    "cpuLimit": 2,
+    "memoryLimitBytes": 8589934592,
+    "pidsLimit": 256,
+    "forwardedPorts": ["127.0.0.1:4190->4173/tcp"],
+    "hostDockerSocketMounted": false,
+    "persistentVolume": false,
+    "remainingDemoProcesses": 0,
+    "remainingDemoPorts": 0,
+    "remainingDemoTemporaryDirectories": 0
+  },
+  "licensesAndProvenance": {
+    "dependencyPackages": 1139,
+    "declaredLicensePackages": 1139,
+    "unresolvedLicense": 0,
+    "unknownNativeProvenance": 0,
+    "nonfreeComponent": 0,
+    "gplFfmpegBuild": false
+  },
+  "acceptance": {
+    "reachableCritical": 0,
+    "reachableHigh": 0,
+    "unresolvedLicense": 0,
+    "unknownNativeProvenance": 0,
+    "nonfreeComponent": 0,
+    "rawFindingsClaimedAsZero": false
+  },
+  "limitations": "This reachability decision is scoped to the fixed synthetic demo, its allowlisted routes, fixed loopback media topology, and tested container restrictions. The raw scanner findings remain published and must be re-evaluated when any runtime, route, package, MediaMTX configuration, or trust boundary changes."
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "tancmark-public-media-runtime-preflight-v1",
+  "status": "PASSED",
+  "runtimeBundledInRepository": false,
+  "explicitExternalPathsOnly": true,
+  "userPathLookupUsed": false,
+  "versions": {
+    "python": "3.14.7",
+    "pyav": "18.0.0",
+    "numpy": "2.5.2",
+    "ffmpeg": "8.1.2"
+  },
+  "binarySha256": {
+    "python": "4942B86A6597E5AEE0128DAA00050ED79BC21F6E709A78EB19CBFEB0C2F39AC9",
+    "ffmpeg": "6B22601B72C358B3B41BDB8480964B178B5A2BFD1849FB24991F460D2F85A946",
+    "ffprobe": "E540D5392A3981DDFA4CFCCCBA0BECF07FB612A53BF0771E4BC61F4840182A68"
+  },
+  "sourceSha256": {
+    "liveWorker": "A499AE194BA1E7312283DB9947C254BB471CAF283CB3FEF2588BD41EDD4FF784",
+    "adapterC": "AA7F0E1CD4D3A489C836602A4A41A1DCCA6E4A2D9A0E5221EFE25E17AA46588F"
+  },
+  "policy": {
+    "gplDisabled": true,
+    "nonfreeDisabled": true,
+    "networkDisabled": true,
+    "libx264Absent": true,
+    "libx265Absent": true,
+    "h264MediaFoundation": true,
+    "nativeAac": true
+  },
+  "externalNetworkCalls": 0
+}

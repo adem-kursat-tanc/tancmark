@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "tancmark-public-build-test-v2",
+  "measuredAtUtc": "2026-08-28T16:18:04Z",
+  "status": "TANCMARK_PUBLIC_CLEAN_BUILD_PASSED",
+  "validatedExactCodeCommit": "0c3aee546eed060eeeebc8130a24c840aa6a63de",
+  "reportOnlyAmendmentFollows": true,
+  "validatedExactCodeArchiveSha256": "995fdb4a49580874193cfe62bb170df6f228d31c1ba3a159792ca99335e26598",
+  "cleanSourceCopy": true,
+  "dependencyInstall": {
+    "command": "pnpm install --frozen-lockfile --ignore-scripts --package-import-method=hardlink --store-dir <task-local-store>",
+    "status": "passed",
+    "workspaceProjects": 9,
+    "resolvedPackages": 633,
+    "reusedPackages": 633,
+    "downloadedPackages": 0,
+    "nativeInstallerAfterIgnoredScripts": "PASSED_INSTALLED_VERIFIED_AND_VERIFY_ONLY",
+    "nativeArchiveSha256": "e7f7fb615390878f9c65a3a60641136f1d4ca1aab51202b874c44ab8f0264a19",
+    "nativeBinarySha256": "dcfdf252a2bd3e6e048e209b0d8ca1733cb3ced0c2462da242906a31b9c941ce"
+  },
+  "toolchain": {
+    "node": "24.19.0",
+    "pnpm": "10.23.0",
+    "typescript": "5.9.3",
+    "operatorToolDirectoryOutsideRepository": true,
+    "userPathHiddenDependency": false
+  },
+  "typecheck": {
+    "status": "passed",
+    "libraries": true,
+    "apiServer": true,
+    "dashboard": true,
+    "scripts": true
+  },
+  "build": {
+    "status": "passed",
+    "apiServer": true,
+    "apiServerProduct": true,
+    "dashboard": true,
+    "dashboardChunkWarningOnly": true,
+    "dashboardJavaScriptBytes": 619560,
+    "dashboardCssBytes": 111970
+  },
+  "generatedCodeRepeatability": {
+    "status": "passed",
+    "generatedFilesCompared": 186,
+    "differences": 0,
+    "sourceOnly": 0
+  },
+  "c2pa": {
+    "generatedContractCases": "9/9",
+    "unitAndIntegration": "17/17",
+    "httpSignEmbedReadVerify": "passed",
+    "normalBuiltBundle": "passed",
+    "productBuiltBundle": "passed",
+    "c2paCanOpenVault": false,
+    "wrongOwnership": 0
+  },
+  "media": {
+    "runtimePreflight": "passed",
+    "physicalTextImage": "passed",
+    "physicalAudio": "passed",
+    "canonicalReaderScope": "passed",
+    "liveCore": "passed",
+    "liveRoute": "passed",
+    "finalLiveExactVerificationRepeatability": "NOT_PASSED_SEE_PUBLIC_CLEAN_CLONE_LIVE_REPEATABILITY_RESULT_20260828"
+  },
+  "finalReleaseStatus": "TANCMARK_ONE_PROVEN_LOCAL_RELEASE_GAP_REMAINS",
+  "externalProviderCalls": 0
+}

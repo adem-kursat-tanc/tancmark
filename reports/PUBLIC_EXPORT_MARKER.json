@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "tancmark-public-export-marker-v1",
+  "generatedAtUtc": "2026-09-01T09:57:37Z",
+  "publicExport": true,
+  "publicLicense": "AGPL-3.0-only",
+  "publicBaseCommit": "a774c91b114b02784eb264d46ce50d3ae3b33037",
+  "sourceManifest": "reports/PUBLIC_SOURCE_MANIFEST.json",
+  "privateHistoryIncluded": false,
+  "privateMediaIncluded": false,
+  "privateLearningDataIncluded": false,
+  "secretsIncluded": false,
+  "generatedFromVerifiedExportSurface": true,
+  "historyFreeSingleCommitValidationAllowed": true,
+  "historicalBaseCommitAbsenceStatus": "HISTORICAL_BASE_COMMIT_OBJECT_ABSENT_EXPECTED_HISTORY_FREE_EXPORT",
+  "ownershipAuthority": false,
+  "securityDecisionAuthority": false
+}

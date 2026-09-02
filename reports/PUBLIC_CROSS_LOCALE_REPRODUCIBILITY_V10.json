@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "tancmark-public-cross-locale-reproducibility-v1",
+  "asOf": "2026-09-01",
+  "status": "PASSED",
+  "orderingAlgorithm": "UTF8_BYTEWISE_PATH_ORDER_V2",
+  "locales": [
+    "tr_TR.UTF-8",
+    "en_US.UTF-8",
+    "C.UTF-8"
+  ],
+  "legacyDigestEvidence": {
+    "algorithmVersion": "LOCALE_COLLATION_TR_V1",
+    "sha256": "e256584b9f7f86129a6282580ca60430410ec045128e605681513e5e9fafa66b",
+    "historical": true,
+    "currentReleaseAuthority": false,
+    "productFileContentsChanged": false
+  },
+  "currentProductDigest": {
+    "algorithmVersion": "UTF8_BYTEWISE_PATH_ORDER_V2",
+    "sha256": "a67c71b81c79d0345d641155a9ed523a324ac7a48420c5cc096524f5ccba77b8",
+    "productEngineFileCount": 386,
+    "productEngineFileSetSha256": "f528b5c69f34690613f385ae5f07b3f55c1b4fcba252a2a01a877dc7949a0ce2",
+    "productEngineFileSetExact": true,
+    "productFileContentsChanged": false
+  },
+  "preFinalReportMeasurement": {
+    "validationToolingDigest": "356ea6e701ec88a22ddd89bb7b96a907035cb7ca4cb1e5bb04fdbd06d1f6b482",
+    "documentationAndEvidenceDigest": "dba193989498ed3561727698a1cd8767eec5601faffff881b286da51fcb3781f",
+    "publicSourceDigest": "3902ebf8e6d1a8834993a4c599f4df34b24da6bf02ad2a1301dd2f2f16063e00",
+    "sha256SumsSha256": "3634e1658bf9fac2401fbf867ec2e9fb588432c206a2c2ce14a115feb003f374",
+    "sourceManifestSha256": "d0e15c8f069e6326feb0df8dc0a20e03993c5164712e8f08f83e9e89b34a9199",
+    "sbomSha256": "11923bcd2374591f7e593498c1e0a21bf45c47b8c471053266432048aa372845",
+    "licenseReportSha256": "a56806def9bc477bd5f830a0bd44a65457f84ab35b57784515f6c83fc2484a30"
+  },
+  "byteIdenticalAcrossLocales": {
+    "sha256Sums": true,
+    "sourceManifest": true,
+    "sbom": true,
+    "licenseReport": true,
+    "productDigest": true,
+    "validationDigest": true,
+    "documentationDigest": true,
+    "publicSourceDigest": true
+  },
+  "localeSensitiveReleaseOrderingFileCount": 0,
+  "githubUbuntuPreflight": "PASSED_CONFIGURATION_AND_LOCAL_MATRIX_EXECUTION",
+  "githubHostedRunnerExecution": "NOT_RUN_PUSH_PROHIBITED",
+  "externalNetworkCallsForLocaleMatrix": 0
+}

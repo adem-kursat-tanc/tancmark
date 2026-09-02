@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "tancmark-public-clean-clone-live-repeatability-v2",
+  "asOf": "2026-08-29",
+  "scope": "FINAL_PUBLIC_CLEAN_CLONE_LIVE_EXACT_VERIFICATION_REPEATABILITY",
+  "status": "REPEATABILITY_PASSED_HISTORICAL_DIAGNOSTIC_DETAIL_NOT_RECORDED_NON_BLOCKING",
+  "historicalDiagnosticClassification": "HISTORICAL_DIAGNOSTIC_DETAIL_NOT_RECORDED_NON_BLOCKING",
+  "source": {
+    "baseCommit": "7ce5b772091afbe393844af827c97b67813a0ac9",
+    "baseCommitCount": 1,
+    "baseRemoteCount": 0,
+    "baseWorkingTreeClean": true,
+    "frozenContract": "runtime/validation/public_clean_clone_live_http_contract.ts",
+    "frozenContractBaseSha256": "24bc94b81a091a348a2860df5d23b50509e160cb4327400f2e3a28958d3901b1",
+    "lifecyclePatchedContractSha256": "7263be71f20ef845f258a7ade105376a04f077be81c628286c08e9305d569dfb"
+  },
+  "historicalAttempts": [
+    {
+      "attempt": 1,
+      "publishedReportObservation": "HTTP_500_live_local_internal_error",
+      "underlyingExceptionOrRouteStage": "NOT_RECOVERABLE_NOT_RETAINED",
+      "claimBoundary": "The route deliberately redacted the internal exception and the retained report stored neither the route stage nor a stack trace."
+    },
+    {
+      "attempt": 2,
+      "publishedReportObservation": "HTTP_409_live_final_exact_verification_failed",
+      "knownThrowSite": "artifacts/api-server/src/live/liveProductLifecycle.ts:393",
+      "knownMeaning": "The final exact result did not have final, ownership and vault all true.",
+      "underlyingFailedFieldOrPrecedingStage": "NOT_RECOVERABLE_NOT_RETAINED"
+    }
+  ],
+  "historicalEvidenceConflict": {
+    "publishedJson": "HTTP 500 then HTTP 409",
+    "archivedOperatorCommentary": "Two clean-copy repetitions returned HTTP 409.",
+    "resolution": "The historical observations are preserved as originally recorded; no unsupported exact sub-error is invented."
+  },
+  "provenLifecycleDefects": [
+    {
+      "defect": "PROJECT_MODULES_IMPORTED_BEFORE_TEST_ENVIRONMENT_INITIALIZATION",
+      "evidence": "Before the patch one process logged both an insecure default AEGIS secret and the configured AEGIS_SECRET. After the patch every qualifying run logged only the configured secret.",
+      "effect": "Different module evaluation contexts could observe different secret state during the same test, making physical exact verification non-repeatable."
+    },
+    {
+      "defect": "ASYNC_WORKER_SHUTDOWN_NOT_AWAITED_AND_PROCESS_LEASE_RELEASED_TWICE",
+      "evidence": "The old finally block called a reset helper whose shutdown promise was discarded and then directly released process leases a second time.",
+      "effect": "Worker, SQLite lease and temporary-root teardown order was nondeterministic after a pass or an early failure."
+    }
+  ],
+  "narrowFix": {
+    "productFilesChanged": 0,
+    "contractFilesChanged": 1,
+    "changes": [
+      "Load project modules only after the frozen test environment is fully initialized.",
+      "Await the existing canonical Live runtime shutdown helper exactly once in the finally block.",
+      "Clean the scoped temporary root even when fixture or server setup fails before the main test try/finally block."
+    ],
+    "fixtureChanged": false,
+    "watermarkAlgorithmChanged": false,
+    "watermarkStrengthChanged": false,
+    "thresholdsChanged": false,
+    "identityChanged": false,
+    "registryChanged": false,
+    "signatureChanged": false,
+    "ownershipOrVaultDecisionChanged": false
+  },
+  "nonQualifyingOperatorInvocations": [
+    {
+      "reasonExcluded": "The explicit FFmpeg environment variable was misnamed, so the frozen runtime precondition was absent.",
+      "observation": "Rejected before fixture generation with live_test_fixture_explicit_ffmpeg_8_1_2_required."
+    },
+    {
+      "reasonExcluded": "The three canonical Live worker environment variables were absent, so this was not the frozen product runtime environment.",
+      "observation": "The start request failed closed with HTTP 503 before watermarking."
+    }
+  ],
+  "earlySetupCleanupNegative": {
+    "condition": "Explicit FFmpeg environment deliberately absent after the cleanup patch.",
+    "expectedExitCode": 1,
+    "observedExitCode": 1,
+    "expectedError": "live_test_fixture_explicit_ffmpeg_8_1_2_required",
+    "recentTemporaryRootsRemaining": 0,
+    "result": "PASSED"
+  },
+  "qualifyingRuns": [
+    {
+      "run": 1,
+      "exitCode": 0,
+      "result": "PASSED",
+      "configuredSecretLoads": 1,
+      "insecureDefaultSecretLoads": 0,
+      "postExitCleanupHelperNeeded": false
+    },
+    {
+      "run": 2,
+      "exitCode": 0,
+      "result": "PASSED",
+      "configuredSecretLoads": 1,
+      "insecureDefaultSecretLoads": 0,
+      "postExitCleanupHelperNeeded": false
+    },
+    {
+      "run": 3,
+      "exitCode": 0,
+      "result": "PASSED",
+      "configuredSecretLoads": 1,
+      "insecureDefaultSecretLoads": 0,
+      "postExitCleanupHelperNeeded": false
+    }
+  ],
+  "qualifyingConsecutivePasses": 3,
+  "repeatable": true,
+  "perRunInvariants": {
+    "uploadedFragmentCount": 10,
+    "realPhysicalVideoWatermarking": true,
+    "automaticFinalExactVerification": true,
+    "finalVault": true,
+    "wrongTenantRejected": true,
+    "unauthorizedRejected": true,
+    "externalNetworkCalls": 0,
+    "cleanShutdown": true
+  },
+  "c2paEdgeCases": {
+    "standaloneWrongSignature": "DOCUMENTED_NON_BLOCKING_LIMITATION_NOT_MEASURED_SEPARATE_SIGNATURE_ONLY_FIXTURE_ABSENT",
+    "duplicateAssertion": "DOCUMENTED_NON_BLOCKING_LIMITATION_NOT_MEASURED_SIGNED_DUPLICATE_ASSERTION_FIXTURE_ABSENT",
+    "oversizedEmbeddedManifest": "DOCUMENTED_NON_BLOCKING_LIMITATION_NOT_MEASURED_OVERSIZED_EMBEDDED_MANIFEST_FIXTURE_ABSENT",
+    "interruptedWrite": "DOCUMENTED_NON_BLOCKING_LIMITATION_NOT_MEASURED_PROCESS_CRASH_INJECTION_ABSENT",
+    "documentedNonBlockingLimitationCount": 4,
+    "documentedNonBlockingLimitationsClaimedPassed": false
+  },
+  "crossGates": {
+    "typecheck": "PASSED",
+    "build": "PASSED",
+    "normalBuiltSmoke": "PASSED",
+    "buildProduct": "PASSED",
+    "productBuiltSmoke": "PASSED",
+    "publicTests": "PASSED",
+    "builtLiveRouteContract": "PASSED_29_OPERATIONS",
+    "c2paGeneratedCases": "PASSED_9_OF_9",
+    "c2paCoreCases": "PASSED_17_OF_17",
+    "c2paHttpContract": "PASSED",
+    "wrongOwnershipCount": 0,
+    "c2paCanOpenVault": false,
+    "disclosureCount": 0,
+    "externalNetworkCalls": 0
+  },
+  "releaseDecision": {
+    "repeatabilityGapClosed": true,
+    "historicalHttp500ExactSubcauseRecovered": false,
+    "historicalHttp409ExactSubcauseRecovered": false,
+    "historicalDiagnosticDetailBlocksRelease": false,
+    "ownerAcceptedThreeOfThreeFrozenRuns": true,
+    "ownerPushReady": true,
+    "reason": "The exact historical sub-errors were not retained and are not reconstructed. The owner accepted the proven lifecycle defects, narrow fix and 3/3 frozen repeatability result as closing the current release gap."
+  },
+  "finalStatus": "TANCMARK_LIVE_REPEATABILITY_GAP_CLOSED"
+}

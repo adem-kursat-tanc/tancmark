@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "auditVersion": "V4",
+  "status": "PASSED",
+  "blockers": {
+    "multer": {
+      "status": "TANCMARK_MULTER_SECURITY_BLOCKER_CLOSED",
+      "previousVersion": "2.1.1",
+      "selectedVersion": "2.2.0",
+      "exactPinned": true,
+      "flatFieldNestingDepth": 0,
+      "hostileMultipartContract": "PASSED",
+      "processCrash": false,
+      "orphanUploadFiles": 0,
+      "secretDisclosure": 0
+    },
+    "sharp": {
+      "status": "TANCMARK_SHARP_SECURITY_BLOCKER_CLOSED",
+      "previousVersion": "0.34.5",
+      "requestedExpectedVersion": "0.35.3",
+      "officialStableSelectedVersion": "0.35.4",
+      "libvipsVersion": "8.18.6",
+      "nodeVersion": "24.19.0",
+      "exactImageRegression": 0,
+      "videoRecoveryRegression": 0,
+      "liveRegression": 0,
+      "wrongOwnership": 0
+    },
+    "mediaRuntimePath": {
+      "status": "TANCMARK_FFMPEG_DOCUMENTATION_RUNTIME_PARITY_PASSED",
+      "productVariables": ["TANCMARK_FFMPEG_PATH", "TANCMARK_FFPROBE_PATH"],
+      "testAliasesAcceptedOnlyUnderNodeEnvTest": true,
+      "ffmpegAvailableWithoutSystemPathMutation": true,
+      "ffprobeAvailableWithoutSystemPathMutation": true,
+      "documentationMatchesRuntime": true,
+      "hiddenPathDependency": false,
+      "ffmpegVersion": "8.1.2",
+      "ffmpegSha256": "6b22601b72c358b3b41bdb8480964b178b5a2bfd1849fb24991f460d2f85a946",
+      "ffprobeSha256": "e540d5392a3981ddfa4cfcccba0becf07fb612a53bf0771e4bc61f4840182a68"
+    },
+    "liveTemporaryResources": {
+      "status": "TANCMARK_LIVE_TEMP_CLEANUP_GATE_PASSED",
+      "verifiedLegacyDirectoriesInspected": 7,
+      "verifiedLegacyDirectoriesRemoved": 7,
+      "remainingVerifiedTancMarkTemporaryDirectories": 0,
+      "remainingLiveWorkers": 0,
+      "remainingLivePorts": 0,
+      "nonTancMarkDirectoriesDeleted": 0,
+      "originalFilesDeleted": 0,
+      "evidenceFilesDeleted": 0,
+      "newFailedPreconditionWorkingCopyQuarantined": 1
+    }
+  },
+  "decisionFreeze": {
+    "watermarkChanged": false,
+    "thresholdChanged": false,
+    "idRuleChanged": false,
+    "registryOrSignatureChanged": false,
+    "ownershipOrVaultChanged": false,
+    "dnaOrChiefBrainChanged": false
+  },
+  "patchEvidence": {
+    "productPatchSha256": "9ff76885cd22e2a3e5e1d20e19a707aab1f6c0bd83307b1fc368e9a5271194d8",
+    "rollbackPatchSha256": "f226f5b4c0862a9f6ea46130644bf0bcd72dfefc296d419eeec1d708daabd871",
+    "cleanPatchApplyAndRollbackValidation": "PASSED"
+  }
+}

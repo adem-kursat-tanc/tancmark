@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "tancmark-final-audit-history-v1",
+  "historical": true,
+  "currentReleaseAuthority": false,
+  "candidateCommit": "866fff6fd5b8f169ad958d596b8104ebc00b5a50",
+  "historicalDecision": "TANCMARK_FINAL_PRE_RELEASE_NO_GO",
+  "supersededBy": "V4 final audit results",
+  "preservedFiles": [
+    {
+      "path": "FINAL_PRE_RELEASE_THREAT_MODEL_V3_NO_GO.md",
+      "preservedSha256": "41f68f9b38d5ee0d0e50059f1371184a6c69091f448e257b6833432ab4dbdf0e"
+    },
+    {
+      "path": "FINAL_PRE_RELEASE_ASVS_5_MAPPING_V3_NO_GO.json",
+      "preservedSha256": "6482a05bcc1ea7c3c17a70820cd063d2a44bc295f7fc40b2851c7c2190690d5b"
+    },
+    {
+      "path": "FINAL_PRE_RELEASE_SSDF_EVIDENCE_V3_NO_GO.json",
+      "preservedSha256": "32236366aafc12e1bc6ff5678556aede35ac0178bd1f6e228510f27a2062590c"
+    }
+  ]
+}

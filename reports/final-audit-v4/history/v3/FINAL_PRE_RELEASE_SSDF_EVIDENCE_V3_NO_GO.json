@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "framework": "NIST Secure Software Development Framework (SSDF)",
+  "usage": "evidence mapping; not an attestation or certification",
+  "overall": "PARTIAL_NO_GO",
+  "practices": [
+    {
+      "practice": "PO - Prepare the Organization",
+      "status": "PARTIAL",
+      "evidence": ["SECURITY.md", "CONTRIBUTING.md", "CLA.md", "owner-only merge rule", "post-push security checklist"],
+      "gap": "GitHub-native controls require owner activation after push."
+    },
+    {
+      "practice": "PS - Protect the Software",
+      "status": "EVIDENCED",
+      "evidence": ["one reachable public commit", "remote count zero", "git archive reproducibility", "SHA256SUMS 1034/1034", "privacy/exclusion ledgers", "SHA-pinned Actions"]
+    },
+    {
+      "practice": "PW - Produce Well-Secured Software",
+      "status": "FAILED_RELEASE_GATE",
+      "evidence": ["threat model", "typecheck/build tests", "negative ownership/tenant/C2PA tests", "manual high-risk review"],
+      "gap": "Reachable high advisories in direct runtime dependencies and a documented Live runtime setup contradiction."
+    },
+    {
+      "practice": "RV - Respond to Vulnerabilities",
+      "status": "PARTIAL",
+      "evidence": ["pnpm audit", "OSV lockfile query", "private exact findings", "narrow remediation and rollback dry-run"],
+      "gap": "Blockers intentionally were not patched in this read-only audit; a new authorized fix-and-retest task is required."
+    }
+  ],
+  "provenance": {
+    "candidateCommit": "866fff6fd5b8f169ad958d596b8104ebc00b5a50",
+    "candidateTree": "95d7c5a62f280945482a9661bb5a5396a24dd539",
+    "candidateZipSha256": "2b66ad4d015d174c24a7428b27cc27540f79303eedca591b02b4a7df2f1e80e1",
+    "lockfileSha256": "542d263614c17d78982108bdf7303d05aa59835c85c54e3f6c26515c9a20a465",
+    "mainProductCommitObserved": "346c0fb8f29e72eb816df7f55864649a37b14f55"
+  },
+  "releaseDecision": "TANCMARK_FINAL_PRE_RELEASE_NO_GO"
+}

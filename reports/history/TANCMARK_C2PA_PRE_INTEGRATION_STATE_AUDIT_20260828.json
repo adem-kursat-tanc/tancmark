@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "tancmark-c2pa-current-state-audit-v1",
+  "auditedBaselineMainCommit": "0723066b71972db7c5320db19458fe27e0946bb3",
+  "auditedBaselinePublicCommit": "2dde0d4e62cca8a8a9a20004e9ce70f4f47753d8",
+  "conclusion": "SUPPORT_AND_DRAFT_ONLY_NOT_REAL_C2PA",
+  "functions": [
+    {
+      "path": "artifacts/api-server/src/lib/c2paStatus.ts",
+      "sha256": "b9c2228177b1f3adf6cbcf03a9f0f39d5413d4873b6e976489eac889e411b94d",
+      "actualFunction": "bounded byte marker scan for C2PA-like strings",
+      "classification": "marker-scan",
+      "productRouteConnected": true,
+      "supportOnly": true,
+      "mockOnly": false,
+      "worksOnFile": true,
+      "cryptographicManifestRead": false,
+      "signatureVerification": false,
+      "sign": false,
+      "embed": false,
+      "testEvidence": "existing marker-scan contracts only",
+      "presentInBaselinePublicCandidate": true
+    },
+    {
+      "path": "artifacts/api-server/src/lib/c2paDraft.ts",
+      "sha256": "53118715e41969425d0c3cf8ba5135c532111bdcb87efc9478490f4ee8648748",
+      "actualFunction": "creates a support-only JSON draft payload",
+      "classification": "draft",
+      "productRouteConnected": true,
+      "supportOnly": true,
+      "mockOnly": false,
+      "worksOnFile": false,
+      "cryptographicManifestRead": false,
+      "signatureVerification": false,
+      "sign": false,
+      "embed": false,
+      "testEvidence": "draft structure and route contracts only",
+      "presentInBaselinePublicCandidate": true
+    },
+    {
+      "path": "artifacts/api-server/src/routes/secureRoom.ts",
+      "sha256": "b36b5deb0e5be1ba02d69ab7f90c041a53f5b2bab2c7614dcd7ffde3f989394c",
+      "actualFunction": "exposes the historical support-only c2pa-draft route",
+      "classification": "draft-route",
+      "productRouteConnected": true,
+      "supportOnly": true,
+      "mockOnly": false,
+      "worksOnFile": false,
+      "cryptographicManifestRead": false,
+      "signatureVerification": false,
+      "sign": false,
+      "embed": false,
+      "testEvidence": "route authorization contracts",
+      "presentInBaselinePublicCandidate": true
+    }
+  ],
+  "baselineCapabilities": {
+    "read": false,
+    "verify": false,
+    "sign": false,
+    "embed": false,
+    "draft": true,
+    "markerScan": true
+  }
+}

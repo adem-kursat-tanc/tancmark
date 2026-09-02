@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "tancmark-public-final-release-result-v1",
+  "asOf": "2026-08-29",
+  "historical": true,
+  "currentReleaseAuthority": false,
+  "scope": "PRE_TOOLCHAIN_V6",
+  "supersededBy": "reports/PUBLIC_FINAL_RELEASE_RESULT_20260831.json",
+  "validatedProductCode": {
+    "productSourceAuthorityCommit": "ee1e46f277d242039344431a46cdc8d49f689fef",
+    "productSourceAggregateSha256": "09db7eadc35300e6c9e95539aa1aa29f10a5607799b8f8f7e204ecbf9f78542c",
+    "reconciliationChangedProductCode": false
+  },
+  "validatedLiveRepeatabilityEvidence": "reports/PUBLIC_CLEAN_CLONE_LIVE_REPEATABILITY_RESULT_20260828.json",
+  "liveRepeatability": {
+    "frozenRuns": "3/3 PASSED",
+    "repeatabilityGapClosed": true,
+    "ownerPushReady": true,
+    "historicalDiagnosticDetail": "HISTORICAL_DIAGNOSTIC_DETAIL_NOT_RECORDED_NON_BLOCKING"
+  },
+  "c2pa": {
+    "generatedContract": "9/9 PASSED",
+    "coreContract": "17/17 PASSED",
+    "readVerifySignEmbed": "PASSED",
+    "c2paCanOpenVault": false
+  },
+  "gates": {
+    "typecheck": "PASSED",
+    "build": "PASSED",
+    "buildProduct": "PASSED",
+    "publicTests": "PASSED",
+    "documentation": "PASSED",
+    "releaseStateConsistency": "PASSED",
+    "workflowPins": "PASSED_3_WORKFLOWS_8_EXTERNAL_USES",
+    "workflowOfficialReleaseOrigin": "PASSED_4_OF_4",
+    "actionPinFromOfficialReleaseTag": true,
+    "generatedCodeRepeatability": "PASSED_186_OF_186",
+    "sbom": "PASSED",
+    "licenseInventory": "PASSED_1145_TOTAL_1144_DECLARED_1_DOCUMENTED_UNRESOLVED_0",
+    "finalAuditEvidenceConsistency": "PASSED_V4_CURRENT_AUTHORITY"
+  },
+  "requiredOutcomes": {
+    "wrongOwnership": 0,
+    "crossTenantLeak": 0,
+    "secretDisclosure": 0,
+    "privateMediaDisclosure": 0,
+    "privateFingerprintDisclosure": 0,
+    "learningDataDisclosure": 0,
+    "releaseStateContradiction": 0,
+    "unresolvedReachableSecurityDetail": 0
+  },
+  "privacyScan": {
+    "secretPatterns": 0,
+    "personalPaths": 0,
+    "privateMediaOrFingerprint": 0,
+    "dnaOrChiefBrainLearningData": 0
+  },
+  "packageIntegrity": {
+    "sourceManifestExact": true,
+    "sha256sumExact": true,
+    "failed": 0,
+    "zipCrc": "PASSED",
+    "commitIdentity": "RECORDED_EXTERNALLY_IN_GIT_AND_ZIP_COMMENT"
+  },
+  "realLocalReleaseGaps": [],
+  "operatorStatuses": [
+    "OFFICIAL_C2PA_TRUST_AND_CONFORMANCE_OPERATOR_STEP",
+    "PRODUCTION_SECURITY_CONFIGURATION_OPERATOR_REQUIRED",
+    "EXTERNAL_PROVIDER_INTEGRATIONS_USER_CONFIGURED"
+  ],
+  "currentReleaseStatus": "TANCMARK_GITHUB_PUBLIC_RELEASE_READY_FOR_OWNER_PUSH",
+  "finalAuditEvidence": {
+    "authority": "V4",
+    "location": "reports/final-audit-v4",
+    "historicalV3Authority": false,
+    "candidateCommitIdentity": "RECORDED_EXTERNALLY_IN_GIT_AND_ARCHIVE_COMMENT"
+  },
+  "pushTagReleaseDeployPerformed": false
+}

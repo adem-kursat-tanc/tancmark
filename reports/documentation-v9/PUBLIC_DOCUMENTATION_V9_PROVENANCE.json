@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "tancmark-public-documentation-v9-provenance-v1",
+  "generatedAtUtc": "2026-09-01T12:24:25.965Z",
+  "status": "PASSED",
+  "acceptedV8": {
+    "archiveSha256": "e88e592e5ee76d544dff2818fdcd26b4456740db81a36bf330caf595f4a9cd3a",
+    "commit": "a774c91b114b02784eb264d46ce50d3ae3b33037",
+    "tree": "574e73bee7882cd196a8e3858008481565e49b43",
+    "commitCount": 1,
+    "remoteCount": 0,
+    "sourceManifestExact": "1069/1069",
+    "sha256SumsExact": "1069/1069",
+    "zipCrcExact": "1071/1071"
+  },
+  "documentationCandidate": {
+    "baseCommit": "a774c91b114b02784eb264d46ce50d3ae3b33037",
+    "baseTree": "574e73bee7882cd196a8e3858008481565e49b43",
+    "commitCountBeforeAmend": 1,
+    "remoteCount": 0,
+    "provenanceDecision": "EXACT_V8_BASE_COMMIT_AND_TREE",
+    "privateHistory": 0
+  },
+  "mainProduct": {
+    "acceptedHeadBeforeDocumentationIntegration": "a0b5089d6785edc5a22eb0090302214381e71908"
+  },
+  "hashScopeCorrection": {
+    "acceptedPublicCandidateBeforeCorrection": "c5260eaf123193470db6a3978dbb617de37fefbd",
+    "acceptedPrivateMainDocumentationCommit": "a19d915a2b2b740bedca97c74b943faf581ab23b",
+    "acceptedV8ProductEngineDigestRecalculated": "e256584b9f7f86129a6282580ca60430410ec045128e605681513e5e9fafa66b",
+    "authoritativeProductEngineFileCount": 386,
+    "authoritativeProductEngineFileSetSha256": "f528b5c69f34690613f385ae5f07b3f55c1b4fcba252a2a01a877dc7949a0ce2",
+    "validationToolingDigest": "0c7456df63dbf10e38356dbc7b7b1a96bc7904aa4ee684fa993ba438934fbcc6",
+    "runtimeImportedValidationFileCount": 0,
+    "productEngineSourceChanged": false
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "auditVersion": "V4",
+  "framework": "NIST Secure Software Development Framework (SSDF)",
+  "usage": "evidence mapping; not an attestation or certification",
+  "overall": "EVIDENCED_LOCAL_RELEASE_GATE_PASSED_WITH_EXTERNAL_OPERATOR_STEPS",
+  "practices": [
+    {
+      "practice": "PO - Prepare the Organization",
+      "status": "PARTIAL_EXTERNAL_GITHUB_AND_PRODUCTION_OPERATOR_STEPS",
+      "evidence": ["SECURITY.md", "CONTRIBUTING.md", "CLA.md", "owner or owner-designated maintainer approval rule", "post-push security checklist"],
+      "externalStep": "GitHub-native controls require owner activation and verification after push."
+    },
+    {
+      "practice": "PS - Protect the Software",
+      "status": "EVIDENCED",
+      "evidence": ["one public commit", "remote count zero", "git archive", "SHA256SUMS and manifest 1038/1038", "privacy scan", "SHA-pinned Actions"]
+    },
+    {
+      "practice": "PW - Produce Well-Secured Software",
+      "status": "EVIDENCED_LOCAL_RELEASE_GATE_PASSED",
+      "evidence": ["V4 threat model", "typecheck/build/product build/public tests", "3/3 Live exact", "wrong ownership=0", "reachable critical/high advisories=0"]
+    },
+    {
+      "practice": "RV - Respond to Vulnerabilities",
+      "status": "EVIDENCED_BLOCKERS_FIXED_AND_REGRESSION_TESTED",
+      "evidence": ["pnpm and OSV evidence", "reachability classification", "Multer and Sharp blocker closures", "rollback evidence", "unresolved license=0"]
+    }
+  ],
+  "provenance": {
+    "publicBaselineCommit": "57bc782beedd45c49f1cebd840148774240b263e",
+    "publicBaselineArchiveSha256": "6ac1fb39878b030d758e5ac76c69b7cb2a7889fb2bc5a4c4bbec3f18da5f11dd",
+    "mainProductBaselineCommit": "8d6c71ccb85227b5b6c5c765d3e3ae4da688ca5a"
+  },
+  "license": "AGPL-3.0-only",
+  "claPreserved": true,
+  "heavyEvidenceDisposition": "CARRIED_FORWARD_BY_EXACT_HASHED_EVIDENCE",
+  "releaseDecision": "TANCMARK_FINAL_PRE_RELEASE_AUDIT_PASSED"
+}

@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "tancmark-public-media-runtime-sources-v1",
+  "runtime": {
+    "python": "3.14.7",
+    "numpy": "2.5.2",
+    "pyav": "18.0.0",
+    "ffmpeg": "8.1.2"
+  },
+  "sourceArchives": [
+    {
+      "name": "ffmpeg-8.1.2.tar.xz",
+      "retrieval": "https://ffmpeg.org/releases/ffmpeg-8.1.2.tar.xz",
+      "sha256": "464BEB5E7BF0C311E68B45AE2F04E9CC2AF88851ABB4082231742A74D97B524C"
+    },
+    {
+      "name": "av-18.0.0.tar.gz",
+      "retrieval": "python -m pip download --no-binary=:all: --no-deps av==18.0.0",
+      "sha256": "4EF7E72C3D3A872584A1215173B16E0226811037F40DCDBF75992631098DF1BA"
+    },
+    {
+      "name": "numpy-2.5.2.tar.gz",
+      "retrieval": "python -m pip download --no-binary=:all: --no-deps numpy==2.5.2",
+      "sha256": "D482D171C406AE88C5B19CAD3B6A1C4C5209F886AB74BC44C2C865C23F52D860"
+    },
+    {
+      "name": "Python-3.14.7.tar.xz",
+      "retrieval": "https://www.python.org/ftp/python/3.14.7/Python-3.14.7.tar.xz",
+      "sha256": "3B48DAC8FB59F62EAA67AC83C1EB12BDA1B7A08406DD286E252C11A66BE27F81"
+    }
+  ],
+  "verifiedWindowsBinaryInputs": [
+    {
+      "name": "python-3.14.7-amd64.exe",
+      "sha256": "9D9EB2709EF81BF5CD30DB3C2096BDBC4EA10087C22E62F27D356B36F6AE9649"
+    },
+    {
+      "name": "numpy-2.5.2-cp314-cp314-win_amd64.whl",
+      "sha256": "7587F53DFBD5EDC0F7B87C6217B4C6D2D1F2EF9C3DA70BC1315E7DB5F8D7EC9D"
+    }
+  ],
+  "ffmpegPolicy": {
+    "required": [
+      "--disable-gpl",
+      "--disable-nonfree",
+      "--disable-network",
+      "--disable-autodetect",
+      "--enable-shared",
+      "--enable-mediafoundation",
+      "--enable-zlib"
+    ],
+    "forbidden": [
+      "--enable-libx264",
+      "--enable-libx265"
+    ]
+  }
+}
