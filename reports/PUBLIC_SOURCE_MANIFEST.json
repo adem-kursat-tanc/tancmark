@@ -3,7 +3,7 @@
   "generatedAtUtc": "2026-08-28T00:00:00Z",
   "status": "PASSED",
   "fileCount": 1180,
-  "totalBytes": 29111224,
+  "totalBytes": 29111433,
   "symlinkCount": 0,
   "orderingAlgorithm": "UTF8_BYTEWISE_PATH_ORDER_V2",
   "excludedGeneratedDirectories": [
@@ -14,7 +14,7 @@
     "dist-product",
     "node_modules"
   ],
-  "sha256SumsSha256": "83c5b6a32e4d02876e3c4436b62f98d7e0fb574ec3247ba4c0c74fa588a63033",
+  "sha256SumsSha256": "a98537f5493c17dc3f086623bc2d5d3c11f9487a7155eb7995da3759b1d6ff90",
   "entries": [
     {
       "mode": "100644",
@@ -6907,8 +6907,8 @@
     {
       "mode": "100644",
       "path": "runtime/validation/public_codespaces_prebuild_contract.mjs",
-      "bytes": 4209,
-      "sha256": "f82d4e0d42f322c4e3232acf7e6df2f31d87dea615ea83c9843909bab4a7431c"
+      "bytes": 4418,
+      "sha256": "064b1905047d858b13f6112d64586608855dd39c71a7d4391036ebaa1ab5ca7f"
     },
     {
       "mode": "100644",

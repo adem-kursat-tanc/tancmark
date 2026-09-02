@@ -53,8 +53,11 @@ const publicationDocuments = [readmePath, englishGuidePath, turkishGuidePath]
 for (const document of publicationDocuments) {
   assert(document.includes("EXPERIMENTAL_LOCAL_DEMO"), "experimental_local_demo_status_missing");
   assert(document.includes("GitHub Codespaces hosted demo currently unavailable"), "codespaces_unavailable_notice_missing");
-  assert.equal(document.includes("https://codespaces.new/"), false, "codespaces_quickstart_must_not_be_published");
-  assert.equal(document.includes("https://github.com/codespaces/badge.svg"), false, "codespaces_badge_must_not_be_published");
+  const publishedUrls = (document.match(/https:\/\/[^\s)>\]]+/gu) ?? []).map((candidate) => new URL(candidate));
+  assert.equal(publishedUrls.some((url) => url.hostname.toLowerCase() === "codespaces.new"), false,
+    "codespaces_quickstart_must_not_be_published");
+  assert.equal(publishedUrls.some((url) => url.hostname.toLowerCase() === "github.com" && url.pathname === "/codespaces/badge.svg"), false,
+    "codespaces_badge_must_not_be_published");
 }
 const statusReport = JSON.parse(readFileSync(statusReportPath, "utf8"));
 assert.equal(statusReport.status, "GITHUB_CODESPACES_HOSTED_DEMO_CURRENTLY_UNAVAILABLE");
