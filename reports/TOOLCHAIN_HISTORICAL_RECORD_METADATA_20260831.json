@@ -7,7 +7,7 @@
   "currentPackageManager": "pnpm@10.34.5",
   "historicalDependencyInventoryClassification": "HISTORICAL_PRE_TOOLCHAIN_V6_MEASUREMENT",
   "currentDependencyInventoryAuthority": "reports/PUBLIC_LICENSE_SCAN.json",
-  "currentFinalReleaseAuthority": "reports/PUBLIC_FINAL_RELEASE_RESULT_20260831.json",
+  "currentFinalReleaseAuthority": "reports/PUBLIC_FINAL_RELEASE_RESULT_20260903.json",
   "historicalDependencyRecords": [
     {
       "path": "reports/final-audit-v4/FINAL_PRE_RELEASE_SUPPLY_CHAIN_V4.json",

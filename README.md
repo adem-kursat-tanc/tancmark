@@ -42,11 +42,11 @@ pnpm run test:physical-audio
 pnpm run test:clean-live
 ```
 
-## Secure Codespaces demo
+## Experimental local demo (`EXPERIMENTAL_LOCAL_DEMO`)
 
-The isolated bilingual demo runs real text, image, audio, video, Live, registry/signature, and C2PA operations using only repository-generated synthetic fixtures. It accepts no file uploads, paths, URLs, camera, microphone, production keys, or production registry data. Every result is `DEMO_ONLY`, and forwarded port `4173` must remain private.
+The isolated bilingual demo runs real text, image, audio, video, Live, registry/signature, and C2PA operations using only repository-generated synthetic fixtures. It accepts no file uploads, paths, URLs, camera, microphone, production keys, or production registry data. Every result is `DEMO_ONLY`.
 
-The devcontainer is prepared for a GitHub Codespaces prebuild: expensive verified setup runs in `updateContentCommand`; user startup only verifies the snapshot, starts the server, and opens the private preview. The owner must enable the prebuild after the first push. See the [English demo guide](docs/DEMO_GUIDE.md), [Türkçe demo kılavuzu](docs/DEMO_GUIDE_TR.md), and [security boundary](docs/DEMO_SECURITY_AND_PRIVACY.md). [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/adem-kursat-tanc/tancmark?quickstart=1)
+**GitHub Codespaces hosted demo currently unavailable.** The failed hosted test is not a release gate, no Codespaces launch badge or quickstart link is published, and no paid prebuild is configured. The demo source and its previously passed local/Docker evidence remain available for experimental operator-controlled use. See the [English demo guide](docs/DEMO_GUIDE.md), [Türkçe demo kılavuzu](docs/DEMO_GUIDE_TR.md), and [security boundary](docs/DEMO_SECURITY_AND_PRIVACY.md).
 
 ## How verification works
 

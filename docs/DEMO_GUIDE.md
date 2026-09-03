@@ -1,27 +1,20 @@
-# TancMark Interactive Demo
+# TancMark Experimental Local Demo
 
-The Codespaces demo runs the real TancMark text, image, audio, Video Primary, Live, registry/signature, and C2PA code against public synthetic fixtures. It does not return a precomputed success response and it cannot create production ownership or open a production VAULT.
+Status: `EXPERIMENTAL_LOCAL_DEMO`.
 
-## Start in Codespaces
+The local/Docker demo runs the real TancMark text, image, audio, Video Primary, Live, registry/signature, and C2PA code against public synthetic fixtures. It does not return a precomputed success response and it cannot create production ownership or open a production VAULT.
 
-1. Select the **Open in GitHub Codespaces** badge in the README.
-2. Choose a machine with at least 2 vCPU and 8 GB RAM and prefer one marked **Prebuild ready**.
-3. The prebuilt snapshot is checked, the demo starts, and private port `4173` opens automatically.
-4. Choose English or Türkçe, then use a Run button or **RUN ALL DEMOS**.
+## Availability
 
-Repository-specific quickstart URL: `https://codespaces.new/adem-kursat-tanc/tancmark?quickstart=1`.
+**GitHub Codespaces hosted demo currently unavailable.** The hosted attempt entered recovery mode after the image build and a cached rebuild did not become ready within the observed 11 minutes 14 seconds. The failed hosted path is not a release gate. This repository publishes no Codespaces badge, quickstart link, paid prebuild, paid machine, or hosted-startup guarantee.
 
-Codespaces account access, compute quota, storage quota, and billing remain the user's responsibility. This is a bounded demonstration, not a production deployment.
+The demo code remains available for experimental local/Docker use by operators who control the runtime. The `.devcontainer` files are retained as build and security-boundary source, not as a claim that a hosted Codespaces launch currently works. Do not advertise the local measurements as GitHub-hosted startup measurements.
 
-## Owner prebuild setup
+## Local/Docker evidence boundary
 
-After the first owner-approved push, in repository **Settings → Codespaces → Prebuild configuration**, create a prebuild for the default `main` branch and `.devcontainer/devcontainer.json`, update it on every push, and select the required regions. Keep GitHub Actions enabled.
+The bounded local/Docker fixture, functional, security, C2PA, Live, cleanup, and browser-visibility tests passed in the recorded Linux profile. On the already prepared local Docker snapshot, snapshot verification took 31–36 ms and server start-to-health took 250–270 ms across three repeats. The combined prepared-image lifecycle averaged 292.333 ms with a nearest-rank p95 of 303 ms. These values exclude image construction, GitHub allocation, snapshot transfer, repository synchronization, browser connection, and port forwarding; see `reports/CODESPACES_PREBUILD_LOCAL_FAST_START_20260902.json` and `reports/GITHUB_CODESPACES_HOSTED_DEMO_STATUS_20260902.json`.
 
-The heavy verified dependency installation, deterministic fixture generation, typecheck, build, and source-security gate run in `updateContentCommand`, which GitHub includes in the prebuild snapshot. A user-created Codespace runs only the fast `postCreateCommand` snapshot check and `postStartCommand` server start. If no matching prebuild is available, Codespaces performs the same heavy setup during creation; do not describe that fallback as instant.
-
-GitHub still has to allocate a virtual machine, restore storage, clone the repository, and connect the browser. Therefore the repository can remove the 94-minute local native build from the user path, but it cannot honestly guarantee a fixed number of seconds for GitHub infrastructure startup.
-
-On the local verified Docker snapshot, the fast snapshot check took 31–36 ms and server start-to-health took 250–270 ms across three repeats. The combined local prebuilt lifecycle averaged 292.333 ms with a nearest-rank p95 of 303 ms. GitHub allocation, snapshot transfer, repository synchronization, browser connection, and port forwarding were not measured; see `reports/CODESPACES_PREBUILD_LOCAL_FAST_START_20260902.json`.
+Local execution is an experimental operator workflow. Keep port `4173` bound to loopback/private access, use only the generated public fixtures, and preserve the environment allowlist and `DEMO_ONLY` boundary in `.devcontainer/start-demo.sh`.
 
 ## Real operations
 
@@ -61,4 +54,4 @@ All results are marked `DEMO_ONLY`. A demo exact result means an ephemeral demo 
 
 On the tested real Ubuntu Linux profile, text, image, both audio rates, video, registry/signature, C2PA, cleanup, and browser-visible Live passed 3/3. Live processed 384/384 frames with 0 dropped frames and 0 final backlog. Its three end-to-end durations were 52.612 s, 24.744 s, and 22.631 s; the 16-second source was fed at 1× real time and final physical verification ran after recording finalized.
 
-See [security and privacy](DEMO_SECURITY_AND_PRIVACY.md), [Linux profile](CODESPACES_LINUX_DEMO_PROFILE.md), and [media runtime](DEMO_MEDIA_RUNTIME.md).
+See [security and privacy](DEMO_SECURITY_AND_PRIVACY.md), [Linux profile](CODESPACES_LINUX_DEMO_PROFILE.md), [media runtime](DEMO_MEDIA_RUNTIME.md), and the [hosted-demo status report](../reports/GITHUB_CODESPACES_HOSTED_DEMO_STATUS_20260902.json).

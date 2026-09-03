@@ -2,6 +2,8 @@
 
 `CODESPACES_LINUX_DEMO_PROFILE_V1` is a demo-only platform adapter. It connects existing platform-independent TancMark algorithms to pinned Linux I/O, codec, mux, and browser-delivery components.
 
+Current publication status: `EXPERIMENTAL_LOCAL_DEMO`. **GitHub Codespaces hosted demo currently unavailable.** The profile name is retained for historical evidence and code compatibility; it is not a hosted-service availability claim. No Codespaces badge, hosted quickstart, or paid prebuild is published.
+
 > Linux demo profile verified under bounded synthetic demo conditions. The canonical Windows production profile remains separately verified.
 
 > Linux demo profili, sınırlı yapay demo koşullarında doğrulanmıştır. Kanonik Windows ürün profili ayrıca doğrulanmış olarak korunur.

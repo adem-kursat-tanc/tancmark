@@ -284,6 +284,6 @@ Saklama kökü, profil, depo veya çözülmemiş link hedefinde recursive silme 
 5. Gerçek TLS, yedek, izleme, anahtar döndürme, saklama, rate limit ve olay müdahalesini kurun.
 6. Depo adresinin `https://github.com/adem-kursat-tanc/tancmark` olarak kaldığını doğrulayıp `pnpm run test:documentation` çalıştırın.
 
-Güncel V13 envanteri 1.188 bağımlılığı kapsar: 677 JavaScript paketi ve 511 native Rust paketi. Çözümsüz lisans sayısı 0'dır. Bu hukuki onay iddiası değildir.
+Güncel temiz-kurulum envanteri 1.115 bağımlılığı kapsar: 604 JavaScript paketi ve 511 native Rust paketi. Çözümsüz lisans sayısı 0'dır. Bu hukuki onay iddiası değildir.
 
 Güvenli kurulum ayrıntıları için [Güvenlik ve Kurulum Kılavuzunu](SECURITY_DEPLOYMENT_GUIDE.md), bütün belgeler için [Dokümantasyon Dizinini](DOCUMENTATION_INDEX.md) kullanın.

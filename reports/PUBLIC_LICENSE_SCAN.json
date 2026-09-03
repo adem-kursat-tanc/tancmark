@@ -3,8 +3,8 @@
   "generatedAt": "2026-08-31T00:00:00Z",
   "status": "PASSED",
   "rootLicense": "AGPL-3.0-only",
-  "dependencyPackageCount": 1188,
-  "javascriptDependencyPackageCount": 677,
+  "dependencyPackageCount": 1115,
+  "javascriptDependencyPackageCount": 604,
   "nativeRustDependencyPackageCount": 511,
   "declaredLicenses": [
     "(Apache-2.0 OR MIT) AND BSD-3-Clause",
@@ -46,7 +46,6 @@
     "MIT OR Zlib OR Apache-2.0",
     "MIT/Apache-2.0",
     "MPL-2.0",
-    "PSF-2.0",
     "Python-2.0",
     "Unicode-3.0",
     "Unlicense",
@@ -55,7 +54,7 @@
     "Zlib OR Apache-2.0 OR MIT"
   ],
   "unresolvedLicenseCount": 0,
-  "declaredLicensePackageCount": 1188,
+  "declaredLicensePackageCount": 1115,
   "documentedSourceLicenseResolutionCount": 0,
   "unresolved": [],
   "nativeUnresolved": [],
@@ -70,7 +69,7 @@
     "declaredLicenseInventory": "reports/C2PA_NATIVE_RUST_DEPENDENCIES.json"
   },
   "externalNetworkCalls": 0,
-  "inventorySha256": "b3bc51e17faf3a3817edf7ac9586ec74b8568b766de4d8a601dd1fe6a65a2c05",
+  "inventorySha256": "bddb77c052da548555d8762890ac08bd812228d8656c4658aba6c5f1d6e63eee",
   "orderingAlgorithm": "UTF8_BYTEWISE_PATH_ORDER_V2",
   "nativeInventorySha256": "bb1ab5d610e57a05f21a4f42b26ccb6b0f9b5f677324eae2ffbd6fe447c9acd8",
   "legalApprovalClaimed": false,

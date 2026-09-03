@@ -288,6 +288,6 @@ Before any production deployment or owner-approved GitHub publication:
 5. Configure real TLS, backup, monitoring, key rotation, retention, rate limits, and incident response.
 6. Confirm the repository URL remains `https://github.com/adem-kursat-tanc/tancmark` and rerun `pnpm run test:documentation`.
 
-Current V13 inventory covers 1,188 dependencies: 677 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.
+Current clean-install inventory covers 1,115 dependencies: 604 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.
 
 For security deployment details, use [Security and Deployment Guide](SECURITY_DEPLOYMENT_GUIDE.md). For all documentation, use the [Documentation Index](DOCUMENTATION_INDEX.md).

@@ -1,5 +1,13 @@
 # Changelog
 
+## Experimental local demo release-state reconciliation — 2026-09-03
+
+- Reclassified the previously verified local/Docker demo as `EXPERIMENTAL_LOCAL_DEMO`; GitHub-hosted Codespaces launch is currently unavailable and is not a product release gate.
+- Preserved the prior V12 functional evidence as historical evidence, withdrew hosted launch claims, and kept paid prebuild disabled by owner decision.
+- Added source-ZIP documentation validation that binds the published GitHub URL to the public export marker without a hidden environment variable.
+- Made the public CI checkout retain the complete public commit ancestry so pull-request freshness checks can compare the verified base commit without weakening the gate.
+- Changed release metadata, documentation, validation, manifest, and checksums only. Product engines, public API behavior, dependencies, the lockfile, identity, registry, signature, ownership, VAULT, Live, C2PA, DNA, and Chief Brain decisions did not change.
+
 ## History-free GitHub remote compatibility — 2026-09-01
 
 - Distinguished a safe, expected GitHub `origin` from Git history while continuing to require one parentless public root commit and a public-export marker with `privateHistoryIncluded = false`.
@@ -33,7 +41,7 @@
 ## V6 current release metadata reconciliation — 2026-08-31
 
 - Bound the unchanged V4 product evidence to the current V6 package-manager, archive-reader, SBOM and declared-license evidence without changing product behavior.
-- Current V13 inventory covers 1,188 dependencies: 677 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.
+- Current clean-install inventory covers 1,115 dependencies: 604 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim. The previous 1,188 count included 73 stale JavaScript package directories left by earlier local installs.
 - Reclassified the pre-toolchain-V6 dependency counts as historical and added fail-closed V6 evidence-consistency checks.
 
 ## V4 final evidence reconciliation — 2026-08-30

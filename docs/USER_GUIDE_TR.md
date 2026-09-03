@@ -277,6 +277,7 @@ Belirti ve çözüm denetimleri için [Sorun Giderme](TROUBLESHOOTING_TR.md) bel
 
 ## Bilinen sınırlar
 
+- Deponun gerçek sentetik-fixture demosu yalnız operatör denetimli deneysel yerel/Docker demo olarak kullanılabilir; GitHub üzerinde barındırılan Codespaces başlatması şu anda kullanılamaz ve ürün yayın kapısı değildir.
 - Masaüstü, mobil, tarayıcı veya WebAssembly ürünü yoktur.
 - Linux ilk gönderim CI doğrulamasını bekler; macOS test edilmedi.
 - Dondurulmuş ileri Video matrisinin iki hücresi güvenli biçimde başarısızdır.

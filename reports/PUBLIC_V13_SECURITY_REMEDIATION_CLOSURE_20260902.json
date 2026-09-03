@@ -21,10 +21,10 @@
     "codeqlRealFindingsRemovedByCodeChange": 4
   },
   "currentInventory": {
-    "dependencyPackageCount": 1188,
-    "javascriptDependencyPackageCount": 677,
+    "dependencyPackageCount": 1115,
+    "javascriptDependencyPackageCount": 604,
     "nativeRustDependencyPackageCount": 511,
-    "declaredLicensePackageCount": 1188,
+    "declaredLicensePackageCount": 1115,
     "documentedSourceLicenseResolutionCount": 0,
     "unresolvedLicenseCount": 0,
     "inventorySha256": "b3bc51e17faf3a3817edf7ac9586ec74b8568b766de4d8a601dd1fe6a65a2c05"

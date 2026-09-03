@@ -2,6 +2,8 @@
 
 The public source is fail closed. Exact media evidence still requires the unique registry record, tenant/account boundary, and a valid record signature. C2PA, short locators, similarity, maps, DNA, ECC, and transport receipts remain support evidence.
 
+The repository demo is an operator-controlled `EXPERIMENTAL_LOCAL_DEMO` using repository-generated synthetic fixtures. GitHub-hosted Codespaces launch is currently unavailable, no paid prebuild is enabled, and hosted demo availability is not a product release or security gate.
+
 Before production deployment:
 
 1. Put TancMark, registry, Live, provider, and C2PA secrets in an operator-controlled secret manager; never in Git, environment templates, request bodies, logs, or database rows. TancMark core secrets; some environment-variable names retain the legacy AEGIS_ prefix for compatibility.

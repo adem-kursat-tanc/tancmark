@@ -9,18 +9,19 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { calculatePublicSourceClassDigests } from "./public_documentation_freshness_gate.mjs";
 import {
+  expectedPublicRepositoryUrl,
   inspectPublicRepositoryRemotePolicy,
   PUBLIC_REPOSITORY_DOCUMENTS,
   PUBLIC_REPOSITORY_PLACEHOLDER,
 } from "./public-repository-remote-policy.mjs";
 
 const sourceRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
-const safeRepositoryUrl = "https://github.com/tancmark-test-owner/tancmark";
+const safeRepositoryUrl = "https://github.com/adem-kursat-tanc/tancmark";
 const explicitEnvironment = { TANCMARK_PUBLIC_REPOSITORY_URL: safeRepositoryUrl };
 const actionsEnvironment = {
   GITHUB_ACTIONS: "true",
   GITHUB_SERVER_URL: "https://github.com",
-  GITHUB_REPOSITORY: "tancmark-test-owner/tancmark",
+  GITHUB_REPOSITORY: "adem-kursat-tanc/tancmark",
   TANCMARK_PUBLIC_REPOSITORY_URL: "",
   LANG: "C.UTF-8",
   LC_ALL: "C.UTF-8",
@@ -62,13 +63,29 @@ function commitRoot(repositoryRoot) {
   });
 }
 
-function replaceRepositoryPlaceholder(repositoryRoot) {
+function rewriteRepositoryDocuments(repositoryRoot, replacement) {
+  const configuredRepositoryUrl = expectedPublicRepositoryUrl(process.env)?.canonicalUrl ?? null;
+  const markerPath = path.join(repositoryRoot, "reports", "PUBLIC_EXPORT_MARKER.json");
+  const markerRepositoryUrl = fs.existsSync(markerPath)
+    ? JSON.parse(fs.readFileSync(markerPath, "utf8")).publicRepositoryUrl ?? null
+    : null;
   for (const relative of PUBLIC_REPOSITORY_DOCUMENTS) {
     const absolute = path.join(repositoryRoot, relative);
     const source = fs.readFileSync(absolute, "utf8");
-    assert(source.includes(PUBLIC_REPOSITORY_PLACEHOLDER), `REMOTE_TEST_PLACEHOLDER_MISSING:${relative}`);
-    fs.writeFileSync(absolute, source.replaceAll(PUBLIC_REPOSITORY_PLACEHOLDER, safeRepositoryUrl));
+    const sourceRepositoryUrl = source.includes(PUBLIC_REPOSITORY_PLACEHOLDER)
+      ? PUBLIC_REPOSITORY_PLACEHOLDER
+      : configuredRepositoryUrl && source.includes(configuredRepositoryUrl)
+        ? configuredRepositoryUrl
+        : markerRepositoryUrl && source.includes(markerRepositoryUrl)
+          ? markerRepositoryUrl
+          : null;
+    assert(sourceRepositoryUrl, `REMOTE_TEST_SOURCE_REPOSITORY_URL_MISSING:${relative}`);
+    fs.writeFileSync(absolute, source.replaceAll(sourceRepositoryUrl, replacement));
   }
+}
+
+function replaceRepositoryPlaceholder(repositoryRoot) {
+  rewriteRepositoryDocuments(repositoryRoot, safeRepositoryUrl);
 }
 
 function createMinimalRepository(parent, name, realRepositoryUrl = false) {
@@ -83,9 +100,24 @@ function createMinimalRepository(parent, name, realRepositoryUrl = false) {
     path.join(sourceRoot, "reports", "PUBLIC_EXPORT_MARKER.json"),
     path.join(repositoryRoot, "reports", "PUBLIC_EXPORT_MARKER.json"),
   );
-  if (realRepositoryUrl) replaceRepositoryPlaceholder(repositoryRoot);
+  rewriteRepositoryDocuments(repositoryRoot, realRepositoryUrl ? safeRepositoryUrl : PUBLIC_REPOSITORY_PLACEHOLDER);
   initRepository(repositoryRoot);
   commitRoot(repositoryRoot);
+  return repositoryRoot;
+}
+
+function createMinimalArchive(parent, name) {
+  const repositoryRoot = path.join(parent, name);
+  fs.mkdirSync(path.join(repositoryRoot, "reports"), { recursive: true });
+  for (const relative of PUBLIC_REPOSITORY_DOCUMENTS) {
+    const destination = path.join(repositoryRoot, relative);
+    fs.mkdirSync(path.dirname(destination), { recursive: true });
+    fs.copyFileSync(path.join(sourceRoot, relative), destination);
+  }
+  fs.copyFileSync(
+    path.join(sourceRoot, "reports", "PUBLIC_EXPORT_MARKER.json"),
+    path.join(repositoryRoot, "reports", "PUBLIC_EXPORT_MARKER.json"),
+  );
   return repositoryRoot;
 }
 
@@ -212,6 +244,34 @@ let result;
 try {
   const scenarios = [];
 
+  const verifiedArchive = createMinimalArchive(temporaryParent, "00-archive-verified-url");
+  const verifiedArchivePolicy = inspectPublicRepositoryRemotePolicy(verifiedArchive, {});
+  assert.equal(verifiedArchivePolicy.repositoryState, "ARCHIVE_WITH_VERIFIED_PUBLIC_REPOSITORY_URL");
+  assert.equal(verifiedArchivePolicy.expectedRepositorySource, "PUBLIC_EXPORT_MARKER");
+  scenarios.push({ scenario: "PASSED_ARCHIVE_WITH_VERIFIED_URL", status: "PASSED_ARCHIVE_WITH_VERIFIED_URL" });
+
+  const mismatchedArchive = createMinimalArchive(temporaryParent, "00a-archive-mismatched-url");
+  const mismatchedGuide = path.join(mismatchedArchive, PUBLIC_REPOSITORY_DOCUMENTS[0]);
+  fs.writeFileSync(mismatchedGuide, fs.readFileSync(mismatchedGuide, "utf8").replaceAll(safeRepositoryUrl, "https://github.com/wrong-owner/tancmark"));
+  scenarios.push(expectedFailure("FAIL_REPOSITORY_URL_MISMATCH",
+    () => inspectPublicRepositoryRemotePolicy(mismatchedArchive, {}), "REPOSITORY_URL_MISMATCH"));
+
+  const credentialArchive = createMinimalArchive(temporaryParent, "00b-archive-credential-url");
+  const credentialMarkerPath = path.join(credentialArchive, "reports", "PUBLIC_EXPORT_MARKER.json");
+  const credentialMarker = JSON.parse(fs.readFileSync(credentialMarkerPath, "utf8"));
+  credentialMarker.publicRepositoryUrl = ["https://archive-user", "archive-password@github.com/adem-kursat-tanc/tancmark"].join(":");
+  fs.writeFileSync(credentialMarkerPath, `${JSON.stringify(credentialMarker, null, 2)}\n`);
+  scenarios.push(expectedFailure("FAIL_CREDENTIAL_DISCLOSURE",
+    () => inspectPublicRepositoryRemotePolicy(credentialArchive, {}), "PUBLIC_EXPORT_MARKER_REPOSITORY_URL_CREDENTIAL_DISCLOSURE"));
+
+  const externalHostArchive = createMinimalArchive(temporaryParent, "00c-archive-external-host");
+  const externalHostMarkerPath = path.join(externalHostArchive, "reports", "PUBLIC_EXPORT_MARKER.json");
+  const externalHostMarker = JSON.parse(fs.readFileSync(externalHostMarkerPath, "utf8"));
+  externalHostMarker.publicRepositoryUrl = "https://example.invalid/adem-kursat-tanc/tancmark";
+  fs.writeFileSync(externalHostMarkerPath, `${JSON.stringify(externalHostMarker, null, 2)}\n`);
+  scenarios.push(expectedFailure("FAIL_HOST_NOT_ALLOWED",
+    () => inspectPublicRepositoryRemotePolicy(externalHostArchive, {}), "PUBLIC_EXPORT_MARKER_REPOSITORY_URL_HOST_NOT_ALLOWED"));
+
   const prePush = createMinimalRepository(temporaryParent, "01-pre-push");
   const prePushPolicy = inspectPublicRepositoryRemotePolicy(prePush, {});
   assert.equal(prePushPolicy.repositoryState, "PRE_PUSH_LOCAL_CANDIDATE");
@@ -221,11 +281,24 @@ try {
   git(["remote", "add", "origin", `${safeRepositoryUrl}.git`], postRemote);
   const postRemotePolicy = inspectPublicRepositoryRemotePolicy(postRemote, explicitEnvironment);
   assert.equal(postRemotePolicy.repositoryState, "GITHUB_REMOTE_CONFIGURED_PRE_PUSH_TEST");
-  scenarios.push({ scenario: "PASSED_POST_REMOTE", status: "PASSED_POST_REMOTE" });
+  scenarios.push({ scenario: "PASSED_GITHUB_REPOSITORY", status: "PASSED_GITHUB_REPOSITORY" });
 
   const actionsPolicy = inspectPublicRepositoryRemotePolicy(postRemote, actionsEnvironment);
   assert.equal(actionsPolicy.repositoryState, "GITHUB_ACTIONS_CHECKOUT");
-  scenarios.push({ scenario: "PASSED_GITHUB_ACTIONS_SIMULATION", status: "PASSED_GITHUB_ACTIONS_SIMULATION" });
+  scenarios.push({ scenario: "PASSED_GITHUB_ACTIONS", status: "PASSED_GITHUB_ACTIONS" });
+
+  const publicDescendant = createMinimalRepository(temporaryParent, "03a-public-descendant", true);
+  const publicRootCommit = git(["rev-parse", "HEAD"], publicDescendant);
+  const publicDescendantMarkerPath = path.join(publicDescendant, "reports", "PUBLIC_EXPORT_MARKER.json");
+  const publicDescendantMarker = JSON.parse(fs.readFileSync(publicDescendantMarkerPath, "utf8"));
+  publicDescendantMarker.publicHistoryRootCommit = publicRootCommit;
+  fs.writeFileSync(publicDescendantMarkerPath, `${JSON.stringify(publicDescendantMarker, null, 2)}\n`);
+  git(["add", "--", "reports/PUBLIC_EXPORT_MARKER.json"], publicDescendant);
+  git(["commit", "-m", "verified public follow-up"], publicDescendant);
+  const publicDescendantPolicy = inspectPublicRepositoryRemotePolicy(publicDescendant, explicitEnvironment);
+  assert.equal(publicDescendantPolicy.commitCount, 2);
+  assert.equal(publicDescendantPolicy.historyMode, "VERIFIED_PUBLIC_ROOT_WITH_NORMAL_DESCENDANT_COMMITS");
+  scenarios.push({ scenario: "PASSED_VERIFIED_PUBLIC_DESCENDANT_COMMIT", status: "PASSED_VERIFIED_PUBLIC_DESCENDANT_COMMIT" });
 
   const placeholderAfterRemote = createMinimalRepository(temporaryParent, "04-placeholder-after-remote");
   git(["remote", "add", "origin", `${safeRepositoryUrl}.git`], placeholderAfterRemote);
@@ -237,14 +310,14 @@ try {
   git(["add", "--", "extra-history.txt"], extraHistory);
   git(["commit", "-m", "forbidden second commit"], extraHistory);
   scenarios.push(expectedFailure("FAIL_PRIVATE_OR_EXTRA_HISTORY",
-    () => inspectPublicRepositoryRemotePolicy(extraHistory, {}), "SINGLE_ROOT_COMMIT_COUNT_REQUIRED"));
+    () => inspectPublicRepositoryRemotePolicy(extraHistory, {}), "PUBLIC_HISTORY_ROOT_COMMIT_MISMATCH"));
 
   const parentHistory = createMinimalRepository(temporaryParent, "06-parent-history");
   fs.writeFileSync(path.join(parentHistory, "parent-history.txt"), "parent present\n");
   git(["add", "--", "parent-history.txt"], parentHistory);
   git(["commit", "-m", "forbidden parent"], parentHistory);
   scenarios.push(expectedFailure("FAIL_NOT_HISTORY_FREE_ROOT",
-    () => inspectPublicRepositoryRemotePolicy(parentHistory, {}), "HEAD_PARENT_PRESENT"));
+    () => inspectPublicRepositoryRemotePolicy(parentHistory, {}), "PUBLIC_HISTORY_ROOT_COMMIT_MISMATCH"));
 
   const multipleRemotes = createMinimalRepository(temporaryParent, "07-multiple-remotes", true);
   git(["remote", "add", "origin", `${safeRepositoryUrl}.git`], multipleRemotes);
@@ -314,13 +387,17 @@ try {
   fs.appendFileSync(path.join(productChangeRepository, productRelative), Buffer.from([0x0a]));
   git(["add", "--", productRelative], productChangeRepository);
   scenarios.push(expectedFailure("FAIL_PRODUCT_ENGINE_CHANGE",
-    () => calculatePublicSourceClassDigests(productChangeRepository), "CURRENT_PRODUCT_CONTENT_DIFFERS_FROM_VERIFIED_V12_PLATFORM_ADAPTER_CLOSURE"));
+    () => calculatePublicSourceClassDigests(productChangeRepository), "CURRENT_PRODUCT_CONTENT_DIFFERS_FROM_VERIFIED_V13_SECURITY_REMEDIATION_CLOSURE"));
 
   const githubActionsSimulation = runActionsSimulation(temporaryParent);
   assert.equal(githubActionsSimulation.gateCount, 8);
   assert.equal(githubActionsSimulation.commitCount, 1);
   assert.equal(githubActionsSimulation.headHasParent, false);
   assert.equal(githubActionsSimulation.remoteCount, 1);
+  const publicCiWorkflow = fs.readFileSync(path.join(sourceRoot, ".github", "workflows", "ci.yml"), "utf8");
+  assert.match(publicCiWorkflow,
+    /actions\/checkout@[0-9a-f]{40}[\s\S]*?fetch-depth:\s*0[\s\S]*?persist-credentials:\s*false/u,
+    "PUBLIC_CI_PULL_REQUEST_BASE_HISTORY_NOT_AVAILABLE");
 
   result = {
     contract: "PUBLIC_GITHUB_REMOTE_COMPATIBILITY_CONTRACT",
@@ -334,7 +411,9 @@ try {
       credentialBearingRemoteAccepted: false,
       multipleUnexpectedRemotesAccepted: false,
       placeholderAcceptedAfterRemote: false,
-      singleRootCommitEnforced: true,
+      singleParentlessPublicRootEnforced: true,
+      normalPublicDescendantCommitsAllowed: true,
+      pullRequestBaseHistoryAvailable: true,
       privateHistoryIncluded: false,
     },
     productEngineSourceChanged: false,

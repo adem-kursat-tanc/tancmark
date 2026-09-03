@@ -27,7 +27,10 @@ const ssdf = readEvidenceJson("FINAL_PRE_RELEASE_SSDF_EVIDENCE_V4.json");
 const auditNarrative = fs.readFileSync(path.join(evidenceRoot, "FINAL_PRE_RELEASE_AUDIT_V4_TR.md"), "utf8");
 const v3History = readEvidenceJson("history/v3/HISTORICAL_METADATA.json");
 
-const currentFinal = readRootJson("reports/PUBLIC_FINAL_RELEASE_RESULT_20260831.json");
+const currentFinal = readRootJson("reports/PUBLIC_FINAL_RELEASE_RESULT_20260903.json");
+const formerV12Final = readRootJson("reports/PUBLIC_FINAL_RELEASE_RESULT_20260831.json");
+const preservedV12Final = readRootJson("reports/history/PUBLIC_FINAL_RELEASE_RESULT_FULL_SECURE_DEMO_V12_20260831.json");
+const hostedDemoStatus = readRootJson("reports/GITHUB_CODESPACES_HOSTED_DEMO_STATUS_20260902.json");
 const securityClosure = readRootJson("reports/PUBLIC_V7_SECURITY_BOUNDARY_CLOSURE_20260901.json");
 const demoPlatformClosure = readRootJson("reports/PUBLIC_V12_DEMO_PLATFORM_ADAPTER_CLOSURE_20260902.json");
 const securityRemediation = readRootJson("reports/PUBLIC_V13_SECURITY_REMEDIATION_CLOSURE_20260902.json");
@@ -77,7 +80,26 @@ assert.equal(currentFinal.historical, false);
 assert.equal(currentFinal.currentReleaseAuthority, true);
 assert.equal(currentFinal.productEvidenceAuthority, "V4_BEHAVIOUR_EVIDENCE_CARRIED_FORWARD_BY_V8_SECURITY_CLOSURE_V12_PLATFORM_REGRESSION_AND_V13_SECURITY_REMEDIATION_REGRESSION");
 assert.equal(currentFinal.toolchainEvidenceAuthority, "V6_BASE_CARRIED_FORWARD_BY_V13_SECURITY_REMEDIATION_CURRENT");
-assert.equal(currentFinal.currentReleaseStatus, "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12");
+assert.equal(currentFinal.currentReleaseStatus, "TANCMARK_GITHUB_PUBLIC_RELEASE_READY_WITH_EXPERIMENTAL_LOCAL_DEMO_20260903");
+assert.equal(currentFinal.releaseScope.productReleaseReady, true);
+assert.equal(currentFinal.releaseScope.hostedCodespacesDemoAvailable, false);
+assert.equal(currentFinal.releaseScope.hostedDemoReleaseGateRequired, false);
+assert.equal(currentFinal.releaseScope.localDemoClassification, "EXPERIMENTAL_LOCAL_DEMO");
+assert.equal(currentFinal.releaseScope.localDockerDemoEvidencePreserved, true);
+for (const field of ["codespacesBadgePublished", "codespacesQuickstartPublished", "paidPrebuildEnabled", "productEngineChangedByHostedDemoWithdrawal", "publicApiBehaviorChanged", "dependencyGraphChanged", "lockfileChanged"]) {
+  assert.equal(currentFinal.releaseScope[field], false, `release_scope_expected_false:${field}`);
+}
+assert.equal(formerV12Final.historical, true);
+assert.equal(formerV12Final.currentReleaseAuthority, false);
+assert.equal(formerV12Final.supersededBy, "reports/PUBLIC_FINAL_RELEASE_RESULT_20260903.json");
+assert.equal(formerV12Final.currentReleaseStatus, "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12");
+assert.equal(preservedV12Final.currentReleaseStatus, "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12");
+assert.equal(sha256(path.join(root, "reports/history/PUBLIC_FINAL_RELEASE_RESULT_FULL_SECURE_DEMO_V12_20260831.json")), "9d97985e9a20dd457d1a9397170ddd15007c9b15a60d6c6b48e976c2c37082a6");
+assert.equal(currentFinal.historicalDemoEvidence.byteExactCopySha256, "9d97985e9a20dd457d1a9397170ddd15007c9b15a60d6c6b48e976c2c37082a6");
+assert.equal(hostedDemoStatus.status, "GITHUB_CODESPACES_HOSTED_DEMO_CURRENTLY_UNAVAILABLE");
+assert.equal(hostedDemoStatus.releaseGateRequired, false);
+assert.equal(hostedDemoStatus.localDemoClassification, "EXPERIMENTAL_LOCAL_DEMO");
+assert.equal(hostedDemoStatus.paidPrebuildEnabled, false);
 assert.equal(currentFinal.validatedProductCode.reconciliationChangedProductCode, true);
 assert.equal(currentFinal.validatedProductCode.authorizedSecurityBoundarySourceChanged, true);
 assert.equal(currentFinal.validatedProductCode.designatedSecurityBoundaryFileCount, 15);
@@ -92,10 +114,10 @@ assert.equal(currentFinal.c2pa.archiveNegativeTests, "33/33 PASSED");
 assert.equal(currentFinal.c2pa.c2paCanOpenVault, false);
 
 const expectedInventory = {
-  dependencyPackageCount: 1188,
-  javascriptDependencyPackageCount: 677,
+  dependencyPackageCount: 1115,
+  javascriptDependencyPackageCount: 604,
   nativeRustDependencyPackageCount: 511,
-  declaredLicensePackageCount: 1188,
+  declaredLicensePackageCount: 1115,
   documentedSourceLicenseResolutionCount: 0,
   unresolvedLicenseCount: 0,
 };
@@ -134,7 +156,7 @@ assert.equal(securityClosure.frozenAudit.criteriaChanged, false);
 assert.equal(securityClosure.frozenAudit.fixturesThresholdsAttacksOrDecisionRulesChanged, false);
 assert.equal(securityClosure.releaseDecision.releaseBlockersRemaining, 0);
 assert.equal(securityClosure.releaseDecision.knownReleaseBlockersRemaining, 0);
-assert.equal(securityClosure.releaseDecision.status, currentFinal.currentReleaseStatus);
+assert.equal(securityClosure.releaseDecision.status, "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12");
 for (const field of ["anonymousCanonicalSealAccepted", "callerSelectedIdentityAccepted", "nullTenantCanonicalWrites", "crossTenantAnchorOverwrite", "crossTenantLeak", "forgedAuditActor", "registrySignatureBypass", "wrongOwnership", "privateKeyDisclosure", "deniedRequestsReachedCanonicalWrites"]) {
   assert.equal(securityClosure.requiredOutcomes[field], 0, `security_closure_nonzero:${field}`);
 }
@@ -273,12 +295,12 @@ const currentAuthorityText = [currentFinal, currentLicense, toolchain, securityC
 assert.equal(/1145_TOTAL|1144_DECLARED|"dependencyPackageCount":1145/.test(currentAuthorityText.replaceAll(" ", "")), false, "historical_v4_inventory_leaked_into_current_authority");
 
 process.stdout.write(`${JSON.stringify({
-  gate: "FINAL_AUDIT_EVIDENCE_CONSISTENCY_GATE_V13_SECURITY_REMEDIATION_CURRENT",
+  gate: "FINAL_AUDIT_EVIDENCE_CONSISTENCY_GATE_EXPERIMENTAL_LOCAL_DEMO_CURRENT",
   status: "PASSED",
   productEvidenceAuthority: currentFinal.productEvidenceAuthority,
   toolchainEvidenceAuthority: currentFinal.toolchainEvidenceAuthority,
-  dependencyInventory: "1188_TOTAL_677_JAVASCRIPT_511_NATIVE_RUST",
-  declaredLicensePackageCount: 1188,
+  dependencyInventory: "1115_TOTAL_604_JAVASCRIPT_511_NATIVE_RUST",
+  declaredLicensePackageCount: 1115,
   unresolvedLicense: 0,
   historicalV4DependencyInventoryClassification: "HISTORICAL_PRE_TOOLCHAIN_V6_MEASUREMENT",
   productTreeCheckedAgainstGit: gitTreeChecked,

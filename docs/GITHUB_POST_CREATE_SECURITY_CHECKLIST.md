@@ -1,11 +1,12 @@
 # GitHub Post-Creation Security Checklist
 
-These settings cannot be active until the owner creates the remote repository. After creation, the owner or designated maintainer should verify:
+After repository creation, the owner or designated maintainer should verify:
 
-- verify that the README badge targets the exact `https://codespaces.new/adem-kursat-tanc/tancmark?quickstart=1` URL;
-- under **Settings → Codespaces → Prebuild configuration**, create an every-push prebuild for `main` and `.devcontainer/devcontainer.json` in the intended regions;
-- wait for the GitHub-managed prebuild workflow to pass and confirm **Prebuild ready** appears before advertising fast start;
-- create one owner test Codespace from that prebuild, keep forwarded port `4173` private, and record measured create-to-demo-ready time without claiming a guaranteed value;
+- the README contains `GitHub Codespaces hosted demo currently unavailable`;
+- no Codespaces launch badge or `codespaces.new` quickstart URL is published;
+- no paid prebuild, paid machine, or payment method is enabled for the demo;
+- the demo remains classified as `EXPERIMENTAL_LOCAL_DEMO` and is not a release gate;
+- any future hosted retest requires separate owner authorization, keeps port `4173` private, and records the full create-to-demo-ready result without selecting only successful retries;
 
 - private vulnerability reporting and a security-advisory process;
 - secret scanning and push protection;

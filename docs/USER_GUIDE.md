@@ -277,6 +277,7 @@ See [Troubleshooting](TROUBLESHOOTING.md) for symptoms and checks.
 
 ## Known limits
 
+- The repository's real synthetic-fixture demo is available only as an operator-controlled experimental local/Docker demo; GitHub-hosted Codespaces launch is currently unavailable and is not a product release gate.
 - No desktop, mobile, browser, or WebAssembly product is included.
 - Linux awaits first-push CI verification; macOS is not tested.
 - Two frozen advanced Video cells fail closed.

@@ -19,6 +19,9 @@ function rejects(name, mutate, expectedFragment) {
 rejects("live_gap_reopens_fail_closed", (candidate) => { candidate.liveRepeatability.releaseDecision.repeatabilityGapClosed = false; }, "LIVE_REPEATABILITY_GAP_NOT_CLOSED");
 rejects("stale_feature_status_fail_closed", (candidate) => { candidate.featureStatus += "\nIMPLEMENTED_AND_TESTED_WITH_RELEASE_GATE_GAP\n"; }, "FEATURE_STATUS_STALE_LIVE_GAP");
 rejects("final_release_status_fail_closed", (candidate) => { candidate.finalRelease.currentReleaseStatus = "NOT_READY"; }, "FINAL_RELEASE_STATUS_MISMATCH");
+rejects("stale_hosted_demo_status_fail_closed", (candidate) => { candidate.finalRelease.currentReleaseStatus = "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12"; }, "FAIL_STALE_HOSTED_DEMO_STATUS");
+assert.equal(actual.preservedV12FinalRelease.currentReleaseStatus, "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12");
+cases.push("historical_v12_evidence_allowed");
 rejects("current_license_count_fail_closed", (candidate) => { candidate.currentLicense.dependencyPackageCount = 1145; }, "LICENSE_CURRENT_INVENTORY_MISMATCH_DEPENDENCYPACKAGECOUNT");
 rejects("current_toolchain_version_fail_closed", (candidate) => { candidate.currentToolchain.packageManager.after = "pnpm@10.23.0"; }, "TOOLCHAIN_PACKAGE_MANAGER_VERSION_MISMATCH");
 rejects("historical_report_authority_fail_closed", (candidate) => { candidate.historicalFinalRelease.currentReleaseAuthority = true; }, "PRE_V6_FINAL_REPORT_NOT_HISTORICAL");
