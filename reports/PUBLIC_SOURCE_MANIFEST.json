@@ -3,7 +3,7 @@
   "generatedAtUtc": "2026-08-28T00:00:00Z",
   "status": "PASSED",
   "fileCount": 1180,
-  "totalBytes": 29111802,
+  "totalBytes": 29111973,
   "symlinkCount": 0,
   "orderingAlgorithm": "UTF8_BYTEWISE_PATH_ORDER_V2",
   "excludedGeneratedDirectories": [
@@ -14,7 +14,7 @@
     "dist-product",
     "node_modules"
   ],
-  "sha256SumsSha256": "3c71795b2cd98d13615d7ab4ebaf5ad3a447a2da36179a3c0de358426e5164cb",
+  "sha256SumsSha256": "5d71eea6dd0481b761545ecb5537cd3bd4aed1f301369a590cbf5d1c55cecef9",
   "entries": [
     {
       "mode": "100644",
@@ -121,8 +121,8 @@
     {
       "mode": "100644",
       "path": "CHANGELOG.md",
-      "bytes": 7596,
-      "sha256": "6ee9338a9fc783f8e18a33756eaaf984af2eb43e62766e7cfcc7a90a8373679d"
+      "bytes": 7767,
+      "sha256": "6e417708482cdf9f10bfc31ac333d262949215551833f8f6140822fa7c7715ac"
     },
     {
       "mode": "100644",

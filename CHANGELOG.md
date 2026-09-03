@@ -5,6 +5,7 @@
 - Reclassified the previously verified local/Docker demo as `EXPERIMENTAL_LOCAL_DEMO`; GitHub-hosted Codespaces launch is currently unavailable and is not a product release gate.
 - Preserved the prior V12 functional evidence as historical evidence, withdrew hosted launch claims, and kept paid prebuild disabled by owner decision.
 - Added source-ZIP documentation validation that binds the published GitHub URL to the public export marker without a hidden environment variable.
+- Made the public CI checkout retain the complete public commit ancestry so pull-request freshness checks can compare the verified base commit without weakening the gate.
 - Changed release metadata, documentation, validation, manifest, and checksums only. Product engines, public API behavior, dependencies, the lockfile, identity, registry, signature, ownership, VAULT, Live, C2PA, DNA, and Chief Brain decisions did not change.
 
 ## History-free GitHub remote compatibility — 2026-09-01
