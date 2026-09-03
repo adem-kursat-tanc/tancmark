@@ -87,7 +87,7 @@ DNA modül kanıtlarını ve sağlık bilgilerini düzenler. Chief Brain özetle
 1. `https://github.com/adem-kursat-tanc/tancmark` adresindeki sahip-yayınlı GitHub deposunu klonlayın.
 2. Seçilen commit için GitHub source ZIP'ini indirin, kısa ve boş bir klasöre çıkarın, iç checksumları doğrulayın.
 
-Henüz yayımlanmış release veya tag yoktur. Sahip bunları oluşturana kadar duyurulan `main` commit'ini kullanın ve commit kimliğini duyuruyla karşılaştırın. Resmî olmayan adres uydurmayın veya kullanmayın.
+Sahibin yayımladığı ilk GitHub ön sürümü [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1) sürümüdür. Bu sürüme eklenen deterministik kaynak arşivini tercih edin, yanındaki SHA-256 dosyasını doğrulayın ve sürüm etiketini sahibin belirlediği commit ile karşılaştırın. Resmî olmayan adres uydurmayın veya kullanmayın.
 
 ### Klonu doğrulama
 

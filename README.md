@@ -30,7 +30,7 @@ pnpm test
 
 Node.js 24 or newer and the pinned pnpm 10.34.5 are required. Do not substitute a different package-manager version when reproducing release checks.
 Media integration tests also require a locally installed FFmpeg/PyAV runtime.
-Runtime binaries and production secrets are not included.
+Runtime binaries and production secrets are not included. The first owner-published GitHub pre-release is [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1); use its deterministic source archive, verify the attached SHA-256 file, and note that this source release is separate from the experimental local demo and does not claim hosted Codespaces or production deployment.
 
 Build that runtime from [the verified media runtime guide](docs/BUILD_VERIFIED_MEDIA_RUNTIME.md),
 set the explicit absolute environment paths, then run:
