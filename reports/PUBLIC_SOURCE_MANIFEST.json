@@ -3,7 +3,7 @@
   "generatedAtUtc": "2026-08-28T00:00:00Z",
   "status": "PASSED",
   "fileCount": 1180,
-  "totalBytes": 29111433,
+  "totalBytes": 29111802,
   "symlinkCount": 0,
   "orderingAlgorithm": "UTF8_BYTEWISE_PATH_ORDER_V2",
   "excludedGeneratedDirectories": [
@@ -14,7 +14,7 @@
     "dist-product",
     "node_modules"
   ],
-  "sha256SumsSha256": "a98537f5493c17dc3f086623bc2d5d3c11f9487a7155eb7995da3759b1d6ff90",
+  "sha256SumsSha256": "3c71795b2cd98d13615d7ab4ebaf5ad3a447a2da36179a3c0de358426e5164cb",
   "entries": [
     {
       "mode": "100644",
@@ -91,8 +91,8 @@
     {
       "mode": "100644",
       "path": ".github/workflows/ci.yml",
-      "bytes": 2910,
-      "sha256": "323823d4fa9e20eb43a0fe18ff9f4124a02350a781993a4b938501b46d52a79d"
+      "bytes": 2935,
+      "sha256": "4564f80193a028b6ce40858be17ba975dbb2807566bac1de784094e728eac523"
     },
     {
       "mode": "100644",
@@ -6961,8 +6961,8 @@
     {
       "mode": "100644",
       "path": "runtime/validation/public_github_remote_compatibility_contract.mjs",
-      "bytes": 24233,
-      "sha256": "fee0b342260e0b1bc30c01cb1d2d50066e68495ed6f11c43c33ff93d4a6fd243"
+      "bytes": 24577,
+      "sha256": "a7fa97e1718e2ab815c5b8a8a5d4bf975878fddff489a018ec3f3fe5a11c83ee"
     },
     {
       "mode": "100644",

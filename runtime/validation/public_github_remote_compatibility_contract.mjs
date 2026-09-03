@@ -394,6 +394,10 @@ try {
   assert.equal(githubActionsSimulation.commitCount, 1);
   assert.equal(githubActionsSimulation.headHasParent, false);
   assert.equal(githubActionsSimulation.remoteCount, 1);
+  const publicCiWorkflow = fs.readFileSync(path.join(sourceRoot, ".github", "workflows", "ci.yml"), "utf8");
+  assert.match(publicCiWorkflow,
+    /actions\/checkout@[0-9a-f]{40}[\s\S]*?fetch-depth:\s*0[\s\S]*?persist-credentials:\s*false/u,
+    "PUBLIC_CI_PULL_REQUEST_BASE_HISTORY_NOT_AVAILABLE");
 
   result = {
     contract: "PUBLIC_GITHUB_REMOTE_COMPATIBILITY_CONTRACT",
@@ -409,6 +413,7 @@ try {
       placeholderAcceptedAfterRemote: false,
       singleParentlessPublicRootEnforced: true,
       normalPublicDescendantCommitsAllowed: true,
+      pullRequestBaseHistoryAvailable: true,
       privateHistoryIncluded: false,
     },
     productEngineSourceChanged: false,
