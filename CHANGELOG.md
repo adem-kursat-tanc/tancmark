@@ -53,6 +53,7 @@
 
 ## 0.1.0-rc.1 — 2026-08-28
 
+- Published as the first owner-designated GitHub pre-release on 2026-09-03, with a deterministic source archive and a separate SHA-256 verification file.
 - Added official C2PA 2.4 read, verify, sign, and embedded-manifest support through `@contentauth/c2pa-node` 0.9.1.
 - Added tenant-bound C2PA inspect, verify, and sign/embed API routes with no-network defaults, key/path redaction, atomic working-copy output, and fail-closed filesystem checks.
 - Added the support-only `com.tancmark.registry.v1` assertion and kept exact TancMark ID, registry, tenant, signature, ownership, and VAULT authority unchanged.

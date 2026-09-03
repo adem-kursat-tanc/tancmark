@@ -3,7 +3,7 @@
   "generatedAtUtc": "2026-08-28T00:00:00Z",
   "status": "PASSED",
   "fileCount": 1180,
-  "totalBytes": 29111973,
+  "totalBytes": 29112783,
   "symlinkCount": 0,
   "orderingAlgorithm": "UTF8_BYTEWISE_PATH_ORDER_V2",
   "excludedGeneratedDirectories": [
@@ -14,7 +14,7 @@
     "dist-product",
     "node_modules"
   ],
-  "sha256SumsSha256": "5d71eea6dd0481b761545ecb5537cd3bd4aed1f301369a590cbf5d1c55cecef9",
+  "sha256SumsSha256": "8882a453ef171aee8d90b97bb18664981fe9e2e2b76de4b11f12d04efd523d76",
   "entries": [
     {
       "mode": "100644",
@@ -121,8 +121,8 @@
     {
       "mode": "100644",
       "path": "CHANGELOG.md",
-      "bytes": 7767,
-      "sha256": "6e417708482cdf9f10bfc31ac333d262949215551833f8f6140822fa7c7715ac"
+      "bytes": 7921,
+      "sha256": "c2804df736ce35c37f08f1390efc5146dc8e33c80de639f5fee5b7aacd602066"
     },
     {
       "mode": "100644",
@@ -235,8 +235,8 @@
     {
       "mode": "100644",
       "path": "README.md",
-      "bytes": 8299,
-      "sha256": "f0edee8c38c338792d90bb10d1ea4727327cf5ef0668fd57c53ad0399d0cfcba"
+      "bytes": 8649,
+      "sha256": "0c03c52b5411709c92af54d1bb4e6c35ca169110a3db0e3fe35962e896e477ac"
     },
     {
       "mode": "100644",
@@ -4201,14 +4201,14 @@
     {
       "mode": "100644",
       "path": "docs/USER_GUIDE.md",
-      "bytes": 16974,
-      "sha256": "b8a005c4ca46f8aed1d506b0575075bf7c26274155638e5b85242b7cb90293d8"
+      "bytes": 17117,
+      "sha256": "e8561def5d6564a7b543f075a8ee42e138d792b4ce880b950c3ed7cc6526c139"
     },
     {
       "mode": "100644",
       "path": "docs/USER_GUIDE_TR.md",
-      "bytes": 17681,
-      "sha256": "8d7944aa2370f2902046c9b31273839bc28bea8ee3ee7f8642e6e005bb76b76a"
+      "bytes": 17844,
+      "sha256": "d040ef87da48d08428b460f94a723ec980143ada2fc2bd3ac94027767f10c42f"
     },
     {
       "mode": "100644",

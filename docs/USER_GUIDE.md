@@ -87,7 +87,7 @@ Use one of these source paths:
 1. Clone the owner-published GitHub repository from `https://github.com/adem-kursat-tanc/tancmark`.
 2. Download GitHub's source ZIP for the selected commit, extract it into a short, empty directory, and validate the included checksums.
 
-There is no published release or tag yet. Until the owner creates one, use the owner-designated `main` commit and compare its commit ID with the announcement. Never invent or trust an unofficial download URL.
+The first owner-published GitHub pre-release is [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1). Prefer the deterministic source archive attached to that release, verify its accompanying SHA-256 file, and compare the release tag with the owner-designated commit. Never invent or trust an unofficial download URL.
 
 ### Verify a clone
 
