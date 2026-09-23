@@ -158,7 +158,7 @@ try {
   process.stdout.write(`${JSON.stringify({
     contract: "public_multipart_upload_security_contract",
     status: "passed",
-    multerVersion: "2.2.0",
+    multerVersion: "2.3.0",
     flatFieldNestingDepth: 0,
     controlledClientErrors: true,
     validUploadPreserved: true,

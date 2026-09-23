@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "tancmark-dependency-security-maintenance-v1",
+  "baseCommit": "5061ec21dae8bd1451eda86c562336484eb5a4de",
+  "historicalV13Report": "reports/PUBLIC_V13_SECURITY_REMEDIATION_CLOSURE_20260902.json",
+  "scope": "DEPENDENCY_VERSIONS_ONLY",
+  "packages": {
+    "multer": { "before": "2.2.0", "after": "2.3.0" },
+    "adm-zip": { "before": "0.6.0", "after": "0.6.1" },
+    "js-yaml": { "before": "4.3.1", "after": "4.3.2" }
+  },
+  "historicalV13FilesNowUpdated": [
+    {
+      "path": "artifacts/api-server/package.json",
+      "historicalSha256": "e7f483063401323cf9f25afa1886b11e927059bd86d2a94b952e5e3d105b5491",
+      "currentSha256": "988641a0b237025ad5ad09cd9b6362b1050a4a6c187391998baad4e4df107548"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "historicalSha256": "1ef0f1407f04eeedd425efe667c7094ae14d7a4c4e9df04a1c4ede57021c8e89",
+      "currentSha256": "b21b41e95f592ead493e2833536895403537adbc06a4d7cbcfa5737415eb8e02"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "historicalSha256": "e15ef91a76e7ac6753b767f84baec17ce879ae8efb740b0be9b03ed13c03fd30",
+      "currentSha256": "c2495930a28813d16e2ba2c07c581e8a69d3e6a4b2b2f52319ae30101e3a216a"
+    }
+  ]
+}

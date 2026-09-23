@@ -71,6 +71,8 @@ pnpm install --frozen-lockfile
 
 Do not substitute another package manager version. The install can need network access for npm packages and the fixed C2PA native archive.
 
+This revision pins Multer 2.3.0 and resolves the transitive adm-zip and js-yaml dependencies to 0.6.1 and 4.3.2. After installation, run `pnpm audit --audit-level=low` to check the current npm advisory database. A past clean audit is not a substitute for checking again before deployment.
+
 For a network-free installation with the verified C2PA native installer, first obtain the exact official archive on a connected staging host and verify it against `reports/C2PA_NATIVE_RELEASE_ASSET_CHECKSUMS.json`. Copy only the verified archive to the target. Then set its absolute path before `pnpm install --frozen-lockfile`.
 
 PowerShell:

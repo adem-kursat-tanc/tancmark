@@ -150,6 +150,7 @@ const commandFailures = [];
 for (const command of commands) {
   if (command === "corepack enable" || command === "corepack prepare pnpm@10.34.5 --activate") continue;
   if (/^pnpm (?:install --frozen-lockfile|--version)$/.test(command)) continue;
+  if (command === "pnpm audit --audit-level=low") continue;
   if (command === "pnpm test") {
     if (typeof rootPackage.scripts?.test !== "string") commandFailures.push(command);
     continue;
