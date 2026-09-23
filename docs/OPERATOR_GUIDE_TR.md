@@ -71,6 +71,8 @@ pnpm install --frozen-lockfile
 
 Başka paket yöneticisi sürümü kullanmayın. Kurulum npm paketleri ve sabit C2PA native arşivi için ağ erişimi isteyebilir.
 
+Bu sürüm Multer 2.3.0'ı sabitler ve dolaylı adm-zip ile js-yaml bağımlılıklarını 0.6.1 ve 4.3.2 sürümlerine çözer. Kurulumdan sonra güncel npm güvenlik duyurularını denetlemek için `pnpm audit --audit-level=low` çalıştırın. Önceki temiz denetim, dağıtımdan önce yeniden kontrol etmenin yerine geçmez.
+
 Doğrulanmış C2PA native installer ile çevrim dışı kurulum için bağlı hazırlık makinesinde tam resmî arşivi indirin ve `reports/C2PA_NATIVE_RELEASE_ASSET_CHECKSUMS.json` ile doğrulayın. Yalnız doğrulanmış arşivi hedefe taşıyın. `pnpm install --frozen-lockfile` öncesinde mutlak yolu ayarlayın.
 
 PowerShell:

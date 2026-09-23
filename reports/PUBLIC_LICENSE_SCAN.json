@@ -69,7 +69,7 @@
     "declaredLicenseInventory": "reports/C2PA_NATIVE_RUST_DEPENDENCIES.json"
   },
   "externalNetworkCalls": 0,
-  "inventorySha256": "bddb77c052da548555d8762890ac08bd812228d8656c4658aba6c5f1d6e63eee",
+  "inventorySha256": "904f50f7e83ccfd433cb5de08567058b6d6f35392b95b86fe67140e967f83d23",
   "orderingAlgorithm": "UTF8_BYTEWISE_PATH_ORDER_V2",
   "nativeInventorySha256": "bb1ab5d610e57a05f21a4f42b26ccb6b0f9b5f677324eae2ffbd6fe447c9acd8",
   "legalApprovalClaimed": false,

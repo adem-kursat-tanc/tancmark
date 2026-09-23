@@ -34,6 +34,7 @@ const hostedDemoStatus = readRootJson("reports/GITHUB_CODESPACES_HOSTED_DEMO_STA
 const securityClosure = readRootJson("reports/PUBLIC_V7_SECURITY_BOUNDARY_CLOSURE_20260901.json");
 const demoPlatformClosure = readRootJson("reports/PUBLIC_V12_DEMO_PLATFORM_ADAPTER_CLOSURE_20260902.json");
 const securityRemediation = readRootJson("reports/PUBLIC_V13_SECURITY_REMEDIATION_CLOSURE_20260902.json");
+const dependencyMaintenance = readRootJson("reports/DEPENDENCY_SECURITY_MAINTENANCE_20260923.json");
 const securityRemediationWindows = readRootJson("DEMO_WINDOWS_SECURITY_REMEDIATION_V13_RESULTS.json");
 const securityRemediationLinuxDemo = readRootJson("DEMO_LINUX_SECURITY_REMEDIATION_V13_RESULTS.json");
 const historicalFinal = readRootJson("reports/PUBLIC_FINAL_RELEASE_RESULT_20260829.json");
@@ -224,20 +225,37 @@ assert.equal(sha256(path.join(root, securityRemediation.codespacesLinuxDemoRegre
 assert.equal(securityRemediation.codespacesLinuxDemoRegressionV13.status, "PASSED");
 const v13HashContinuityByPath = new Map(securityRemediation.historicalHashContinuity.map((record) => [record.path, record]));
 const v13ChangedFileByPath = new Map(securityRemediation.currentChangedFiles.map((record) => [record.path, record]));
+assert.equal(dependencyMaintenance.schemaVersion, "tancmark-dependency-security-maintenance-v1");
+assert.equal(dependencyMaintenance.baseCommit, "5061ec21dae8bd1451eda86c562336484eb5a4de");
+assert.equal(dependencyMaintenance.historicalV13Report, "reports/PUBLIC_V13_SECURITY_REMEDIATION_CLOSURE_20260902.json");
+assert.equal(dependencyMaintenance.scope, "DEPENDENCY_VERSIONS_ONLY");
+assert.deepEqual(dependencyMaintenance.packages, {
+  multer: { before: "2.2.0", after: "2.3.0" },
+  "adm-zip": { before: "0.6.0", after: "0.6.1" },
+  "js-yaml": { before: "4.3.1", after: "4.3.2" },
+});
+const dependencyMaintenanceByPath = new Map(dependencyMaintenance.historicalV13FilesNowUpdated.map((record) => [record.path, record]));
+assert.deepEqual([...dependencyMaintenanceByPath.keys()].sort(), [
+  "artifacts/api-server/package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml",
+]);
+for (const [relative, record] of dependencyMaintenanceByPath) {
+  assert.equal(record.historicalSha256, v13ChangedFileByPath.get(relative)?.sha256, `dependency_historical_hash_mismatch:${relative}`);
+  assert.equal(sha256(path.join(root, relative)), record.currentSha256, `dependency_current_hash_mismatch:${relative}`);
+}
 for (const record of demoPlatformClosure.changedFiles) {
   const actualSha256 = sha256(path.join(root, record.path));
   if (actualSha256 === record.afterSha256) continue;
   const continuity = v13HashContinuityByPath.get(record.path);
   assert.ok(continuity, `v12_demo_file_changed_without_v13_continuity:${record.path}`);
   assert.equal(continuity.v12Sha256, record.afterSha256, `v13_continuity_base_mismatch:${record.path}`);
-  assert.equal(actualSha256, continuity.v13Sha256, `v13_remediated_file_sha_mismatch:${record.path}`);
+  assert.equal(actualSha256, dependencyMaintenanceByPath.get(record.path)?.currentSha256 ?? continuity.v13Sha256, `v13_remediated_file_sha_mismatch:${record.path}`);
   assert.equal(continuity.changeClassification, "CODEQL_FALSE_POSITIVE_RATIONALE_COMMENT_ONLY", `v13_continuity_classification_mismatch:${record.path}`);
 }
 for (const record of securityRemediation.realSourceFixes) {
   assert.equal(sha256(path.join(root, record.path)), record.afterSha256, `v13_real_fix_sha_mismatch:${record.path}`);
 }
 for (const record of securityRemediation.currentChangedFiles) {
-  assert.equal(sha256(path.join(root, record.path)), record.sha256, `v13_changed_file_sha_mismatch:${record.path}`);
+  assert.equal(sha256(path.join(root, record.path)), dependencyMaintenanceByPath.get(record.path)?.currentSha256 ?? record.sha256, `v13_changed_file_sha_mismatch:${record.path}`);
 }
 
 // In a checkout, bind current claims to the actual Git tree. A git-archive has no

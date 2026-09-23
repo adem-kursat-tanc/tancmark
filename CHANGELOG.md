@@ -1,5 +1,12 @@
 # Changelog
 
+## Dependency security maintenance — 2026-09-23
+
+- Updated Multer from 2.2.0 to 2.3.0 for the reported multipart upload denial-of-service issues.
+- Updated the transitive adm-zip dependency from 0.6.0 to 0.6.1 and js-yaml from 4.3.1 to 4.3.2 through workspace overrides. The adm-zip dependency is supplied by onnxruntime-node; TancMark's ZIP package reader does not import it.
+- Recorded the exact dependency-file transition separately while preserving the historical V13 hashes and release evidence.
+- Kept the multipart route limits and memory storage unchanged. This maintenance does not change watermark, identity, registry, signature, ownership, or VAULT decisions.
+
 ## Experimental local demo release-state reconciliation — 2026-09-03
 
 - Reclassified the previously verified local/Docker demo as `EXPERIMENTAL_LOCAL_DEMO`; GitHub-hosted Codespaces launch is currently unavailable and is not a product release gate.
