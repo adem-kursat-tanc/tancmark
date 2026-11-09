@@ -14,7 +14,7 @@
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
     "test": "pnpm run test:public && pnpm run test:built",
-    "test:public": "tsx runtime/validation/public_core_smoke.ts && node runtime/validation/public_source_contract.mjs && node runtime/validation/public_codespaces_prebuild_contract.mjs && tsx runtime/validation/live_external_provider_configuration_contract.ts && tsx runtime/validation/public_multipart_upload_security_contract.ts && pnpm run test:seal-security && pnpm run test:c2pa-rsa-policy && pnpm run test:audit-evidence",
+    "test:public": "tsx runtime/validation/public_core_smoke.ts && node runtime/validation/public_source_contract.mjs && node runtime/validation/public_codespaces_prebuild_contract.mjs && tsx runtime/validation/live_external_provider_configuration_contract.ts && tsx runtime/validation/public_multipart_upload_security_contract.ts && pnpm run test:seal-security && pnpm run test:c2pa-rsa-policy && pnpm run test:audit-evidence && pnpm run test:zod-api-compatibility && pnpm run test:dependency-security",
     "test:codespaces-prebuild": "node runtime/validation/public_codespaces_prebuild_contract.mjs",
     "test:seal-security": "tsx runtime/validation/public_canonical_seal_principal_contract.ts",
     "test:seal-security:db": "tsx runtime/validation/public_canonical_seal_postgres_contract.mts",
@@ -39,7 +39,9 @@
     "test:workflow-upstream": "node runtime/validation/public_workflow_upstream_origin_verification.mjs",
     "test:audit-evidence": "node runtime/validation/final_audit_evidence_consistency_gate.mjs",
     "sbom": "node runtime/validation/generate-public-sbom.mjs",
-    "manifest": "node runtime/validation/generate-public-manifest.mjs"
+    "manifest": "node runtime/validation/generate-public-manifest.mjs",
+    "test:zod-api-compatibility": "tsx runtime/validation/public_zod_api_compatibility_contract.ts",
+    "test:dependency-security": "node runtime/validation/public_dependency_security_regression_contract.mjs"
   },
   "private": true,
   "dependencies": {

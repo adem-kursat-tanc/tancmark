@@ -1,5 +1,9 @@
 # TancMark Operatör Kılavuzu
 
+## Kasım 2026 güvenlik bakımı
+
+Kurulumda depodaki kilit dosyasını ve pnpm 10.34.5 kullanın. `reports/DEPENDENCY_SECURITY_MAINTENANCE_20261109.json` temiz bağımlılık envanterini ve gerçek test çıktılarını kaydeder. Eylül bağımlılık sürümlerinin yerini alır; tarihî ürün kanıtlarını değiştirmez. Tam doğrulama paketine ek olarak `pnpm run test:dependency-security` ve `pnpm run test:zod-api-compatibility` çalıştırın. npm latest etiketinin ilerlemesi tek başına bu sabit araç sürümünü geçersiz yapmaz; bütünlük ve güncel güvenlik denetimleri yine geçmelidir.
+
 Bu kılavuz kaynak doğrulama, kurulum, yerel ürün başlatma, sırlar, PostgreSQL, medya ve C2PA runtime'ları, test, yedekleme ve güvenli kapatmayı kapsar. Laboratuvar rotalarını kamu ürün API'sine dönüştürmez ve dış yayın sağlayıcılarını sizin yerinize yapılandırmaz.
 
 ## Kurulum sınırı

@@ -1,0 +1,5 @@
+PASS proxy-addr: valid IPv4/mapped /104 trust boundaries preserved; mapped /8 cannot expand trust
+PASS fast-uri: percent-encoded schemes rejected; valid resolution preserved
+PASS qs: JSON own toString and parser-to-comma serialization do not crash; normal arrays preserved
+PASS ip-address: cross-family subnet confusion rejected; same-family checks preserved
+PASS dependency security regression contract

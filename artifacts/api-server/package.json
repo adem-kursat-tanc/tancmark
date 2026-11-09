@@ -23,14 +23,14 @@
     "drizzle-orm": "catalog:",
     "express": "^5",
     "express-rate-limit": "^8.5.0",
-    "multer": "2.3.0",
+    "multer": "2.5.0",
     "onnxruntime-node": "^1.24.3",
     "optional": "^0.1.4",
     "pdf-lib": "^1.17.1",
     "pdfkit": "^0.18.0",
     "pino": "^9",
     "pino-http": "^10",
-    "sharp": "0.35.4"
+    "sharp": "0.35.5"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.10",

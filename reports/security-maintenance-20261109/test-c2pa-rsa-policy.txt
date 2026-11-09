@@ -1,0 +1,15 @@
+
+> tancmark@0.1.0-rc.1 test:c2pa-rsa-policy <repository>
+> tsx runtime/validation/public_c2pa_rsa_pss_product_policy_contract.ts
+
+{
+  "status": "PASSED",
+  "productEs256Allowed": true,
+  "productPs256RejectedBeforePrivateKeyRead": true,
+  "productPs384RejectedBeforePrivateKeyRead": true,
+  "productPs512RejectedBeforePrivateKeyRead": true,
+  "defaultAlgorithm": "es256",
+  "privateKeyDisclosure": 0,
+  "c2paCanOpenVault": false,
+  "wrongOwnership": 0
+}

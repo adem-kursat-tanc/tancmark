@@ -1,0 +1,53 @@
+Scope: all 10 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +599
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 599, reused 540, downloaded 0, added 0
+Progress: resolved 599, reused 599, downloaded 0, added 96
+Progress: resolved 599, reused 599, downloaded 0, added 163
+Progress: resolved 599, reused 599, downloaded 0, added 194
+Progress: resolved 599, reused 599, downloaded 0, added 224
+Progress: resolved 599, reused 599, downloaded 0, added 227
+Progress: resolved 599, reused 599, downloaded 0, added 235
+Progress: resolved 599, reused 599, downloaded 0, added 236
+Progress: resolved 599, reused 599, downloaded 0, added 237
+Progress: resolved 599, reused 599, downloaded 0, added 239
+Progress: resolved 599, reused 599, downloaded 0, added 241
+Progress: resolved 599, reused 599, downloaded 0, added 251
+Progress: resolved 599, reused 599, downloaded 0, added 262
+Progress: resolved 599, reused 599, downloaded 0, added 286
+Progress: resolved 599, reused 599, downloaded 0, added 287
+Progress: resolved 599, reused 599, downloaded 0, added 299
+Progress: resolved 599, reused 599, downloaded 0, added 316
+Progress: resolved 599, reused 599, downloaded 0, added 385
+Progress: resolved 599, reused 599, downloaded 0, added 449
+Progress: resolved 599, reused 599, downloaded 0, added 505
+Progress: resolved 599, reused 599, downloaded 0, added 523
+Progress: resolved 599, reused 599, downloaded 0, added 542
+Progress: resolved 599, reused 599, downloaded 0, added 551
+Progress: resolved 599, reused 599, downloaded 0, added 593
+Progress: resolved 599, reused 599, downloaded 0, added 597
+Progress: resolved 599, reused 599, downloaded 0, added 598
+Progress: resolved 599, reused 599, downloaded 0, added 599
+Progress: resolved 599, reused 599, downloaded 0, added 599, done
+
+dependencies:
++ unzipper 0.12.5
+
+devDependencies:
++ prettier 3.8.1
++ tsx 4.21.0
++ typescript 5.9.3
+
+. postinstall$ node runtime/c2pa/install-verified-native.mjs
+. postinstall: {"status":"PASSED_INSTALLED_VERIFIED","platform":"win32-x64","archiveSource":"PINNED_OFFICIAL_GITHUB_RELEASE","archiveSha256":"e7f7fb615390878f9c65a3a60641136f1d4ca1aab51202b874c44ab8f0264a19","binarySha256":"dcfdf252a2bd3e6e048e209b0d8ca1733cb3ced0c2462da242906a31b9c941ce"}
+. postinstall: Done
+Ôò¡ Warning ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔò«
+Ôöé                                                                              Ôöé
+Ôöé   Ignored build scripts: onnxruntime-node@1.24.3, tesseract.js@7.0.0.        Ôöé
+Ôöé   Run "pnpm approve-builds" to pick which dependencies should be allowed     Ôöé
+Ôöé   to run scripts.                                                            Ôöé
+Ôöé                                                                              Ôöé
+Ôò░ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔò»
+Done in 39.9s using pnpm v10.34.5

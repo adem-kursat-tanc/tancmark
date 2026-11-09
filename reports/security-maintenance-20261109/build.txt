@@ -1,0 +1,54 @@
+
+> tancmark@0.1.0-rc.1 build <repository>
+> pnpm run typecheck && node runtime/public-build.mjs
+
+
+> tancmark@0.1.0-rc.1 typecheck <repository>
+> pnpm run typecheck:libs && pnpm -r --filter "./artifacts/**" --filter "./scripts" --if-present run typecheck
+
+
+> tancmark@0.1.0-rc.1 typecheck:libs <repository>
+> tsc --build
+
+Scope: 4 of 10 workspace projects
+artifacts/api-server typecheck$ tsc -p tsconfig.json --noEmit
+artifacts/dashboard-ui typecheck$ tsc -p tsconfig.json --noEmit
+artifacts/tancmark-demo typecheck$ tsc -p tsconfig.json --noEmit
+scripts typecheck$ tsc -p tsconfig.json --noEmit
+artifacts/tancmark-demo typecheck: Done
+scripts typecheck: Done
+artifacts/dashboard-ui typecheck: Done
+artifacts/api-server typecheck: Done
+Scope: 9 of 10 workspace projects
+artifacts/api-server build$ node ./build.mjs
+artifacts/dashboard-ui build$ vite build --config vite.config.ts
+artifacts/tancmark-demo build$ node ./build.mjs
+artifacts/tancmark-demo build:   dist\server.mjs      418.7kb
+artifacts/tancmark-demo build:   dist\server.mjs.map    1.6mb
+artifacts/tancmark-demo build: Done in 2435ms
+artifacts/tancmark-demo build: Done
+artifacts/dashboard-ui build: vite v7.3.7 building client environment for production...
+artifacts/dashboard-ui build: transforming...
+artifacts/dashboard-ui build: src/components/ui/tooltip.tsx (2:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+artifacts/api-server build:   dist\index.mjs                   5.6mb
+artifacts/api-server build:   dist\pino-worker.mjs           153.5kb
+artifacts/api-server build:   dist\pino-file.mjs             142.1kb
+artifacts/api-server build:   dist\pino-pretty.mjs           115.1kb
+artifacts/api-server build:   dist\thread-stream-worker.mjs    7.4kb
+artifacts/api-server build:   ...and 5 more output files...
+artifacts/api-server build: Done in 13154ms
+artifacts/api-server build: Done
+artifacts/dashboard-ui build: src/components/ui/label.tsx (2:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+artifacts/dashboard-ui build: src/components/ui/select.tsx (2:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+artifacts/dashboard-ui build: Ô£ô 2157 modules transformed.
+artifacts/dashboard-ui build: rendering chunks...
+artifacts/dashboard-ui build: computing gzip size...
+artifacts/dashboard-ui build: dist/public/index.html                   0.89 kB Ôöé gzip:   0.47 kB
+artifacts/dashboard-ui build: (!) Some chunks are larger than 500 kB after minification. Consider:
+artifacts/dashboard-ui build: - Using dynamic import() to code-split the application
+artifacts/dashboard-ui build: - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+artifacts/dashboard-ui build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+artifacts/dashboard-ui build: dist/public/assets/index-Cc07hm6O.css  111.97 kB Ôöé gzip:  18.03 kB
+artifacts/dashboard-ui build: dist/public/assets/index-Fuhc8EPA.js   619.86 kB Ôöé gzip: 176.44 kB
+artifacts/dashboard-ui build: Ô£ô built in 17.96s
+artifacts/dashboard-ui build: Done

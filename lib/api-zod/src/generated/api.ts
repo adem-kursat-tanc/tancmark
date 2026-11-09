@@ -78,10 +78,10 @@ export const LiveLocalListSessions401Response = zod.object({
 export const liveLocalCreateSessionBodyLegalHoldDefault = false;
 export const liveLocalCreateSessionBodyProtectionModeDefault = `PROTECTED_TANCMARK`;
 
-export const LiveLocalCreateSessionBody = zod.object({
+export const LiveLocalCreateSessionBody = zod.strictObject({
   "legalHold": zod.boolean().default(liveLocalCreateSessionBodyLegalHoldDefault),
   "protectionMode": zod.enum(['PROTECTED_TANCMARK', 'TRANSPORT_ONLY']).default(liveLocalCreateSessionBodyProtectionModeDefault)
-}).strict().describe('Tenant, account, raw ID, registry and signature authority fields are forbidden; all authority is server-derived.')
+}).describe('Tenant, account, raw ID, registry and signature authority fields are forbidden; all authority is server-derived.')
 
 export const liveLocalCreateSession201ResponseSessionRevisionMin = 0;
 
@@ -105,7 +105,7 @@ export const liveLocalCreateSession201ResponseSessionStopReceiptOneSessionRevisi
 
 export const LiveLocalCreateSession201Response = zod.object({
   "session": zod.object({
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "status": zod.enum(['CREATED', 'READY', 'RUNNING', 'STOPPING', 'STOPPED', 'FAILED', 'CLEANUP_PENDING', 'PURGED']),
   "revision": zod.number().min(liveLocalCreateSession201ResponseSessionRevisionMin),
   "accessRevision": zod.number().min(liveLocalCreateSession201ResponseSessionAccessRevisionMin),
@@ -120,7 +120,7 @@ export const LiveLocalCreateSession201Response = zod.object({
   "signedMapState": zod.enum(['PENDING', 'ROLLING', 'FINALIZED', 'INVALID', 'NOT_APPLICABLE']),
   "protectedOutputReady": zod.boolean(),
   "transportOnlyWarning": zod.boolean(),
-  "bindingId": zod.string().uuid().nullable(),
+  "bindingId": zod.uuid().nullable(),
   "expectedIdProvided": zod.boolean(),
   "identityAuthorityMode": zod.enum(['SERVER_OWNED_SIGNED_EXACT', 'TRANSPORT_SUPPORT_ONLY', 'TARGETED_EXPECTED_ID_SUPPORT_ONLY']),
   "segmentCount": zod.number().min(liveLocalCreateSession201ResponseSessionSegmentCountMin),
@@ -163,7 +163,7 @@ export const LiveLocalCreateSession401Response = zod.object({
 
 
 export const LiveLocalGetSessionParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalGetSession200ResponseSessionRevisionMin = 0;
@@ -188,7 +188,7 @@ export const liveLocalGetSession200ResponseSessionStopReceiptOneSessionRevisionM
 
 export const LiveLocalGetSession200Response = zod.object({
   "session": zod.object({
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "status": zod.enum(['CREATED', 'READY', 'RUNNING', 'STOPPING', 'STOPPED', 'FAILED', 'CLEANUP_PENDING', 'PURGED']),
   "revision": zod.number().min(liveLocalGetSession200ResponseSessionRevisionMin),
   "accessRevision": zod.number().min(liveLocalGetSession200ResponseSessionAccessRevisionMin),
@@ -203,7 +203,7 @@ export const LiveLocalGetSession200Response = zod.object({
   "signedMapState": zod.enum(['PENDING', 'ROLLING', 'FINALIZED', 'INVALID', 'NOT_APPLICABLE']),
   "protectedOutputReady": zod.boolean(),
   "transportOnlyWarning": zod.boolean(),
-  "bindingId": zod.string().uuid().nullable(),
+  "bindingId": zod.uuid().nullable(),
   "expectedIdProvided": zod.boolean(),
   "identityAuthorityMode": zod.enum(['SERVER_OWNED_SIGNED_EXACT', 'TRANSPORT_SUPPORT_ONLY', 'TARGETED_EXPECTED_ID_SUPPORT_ONLY']),
   "segmentCount": zod.number().min(liveLocalGetSession200ResponseSessionSegmentCountMin),
@@ -245,7 +245,7 @@ export const LiveLocalGetSession404Response = zod.object({
  * @summary Idempotently upload a validated AVC fMP4 initialization segment
  */
 export const LiveLocalUploadInitParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalUploadInitHeaderXIdempotencyKeyMin = 8;
@@ -294,7 +294,7 @@ export const LiveLocalUploadInit200Response = zod.object({
 }),
   "duplicate": zod.boolean(),
   "session": zod.object({
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "status": zod.enum(['CREATED', 'READY', 'RUNNING', 'STOPPING', 'STOPPED', 'FAILED', 'CLEANUP_PENDING', 'PURGED']),
   "revision": zod.number().min(liveLocalUploadInit200ResponseSessionRevisionMin),
   "accessRevision": zod.number().min(liveLocalUploadInit200ResponseSessionAccessRevisionMin),
@@ -309,7 +309,7 @@ export const LiveLocalUploadInit200Response = zod.object({
   "signedMapState": zod.enum(['PENDING', 'ROLLING', 'FINALIZED', 'INVALID', 'NOT_APPLICABLE']),
   "protectedOutputReady": zod.boolean(),
   "transportOnlyWarning": zod.boolean(),
-  "bindingId": zod.string().uuid().nullable(),
+  "bindingId": zod.uuid().nullable(),
   "expectedIdProvided": zod.boolean(),
   "identityAuthorityMode": zod.enum(['SERVER_OWNED_SIGNED_EXACT', 'TRANSPORT_SUPPORT_ONLY', 'TARGETED_EXPECTED_ID_SUPPORT_ONLY']),
   "segmentCount": zod.number().min(liveLocalUploadInit200ResponseSessionSegmentCountMin),
@@ -377,7 +377,7 @@ export const LiveLocalUploadInit201Response = zod.object({
 }),
   "duplicate": zod.boolean(),
   "session": zod.object({
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "status": zod.enum(['CREATED', 'READY', 'RUNNING', 'STOPPING', 'STOPPED', 'FAILED', 'CLEANUP_PENDING', 'PURGED']),
   "revision": zod.number().min(liveLocalUploadInit201ResponseSessionRevisionMin),
   "accessRevision": zod.number().min(liveLocalUploadInit201ResponseSessionAccessRevisionMin),
@@ -392,7 +392,7 @@ export const LiveLocalUploadInit201Response = zod.object({
   "signedMapState": zod.enum(['PENDING', 'ROLLING', 'FINALIZED', 'INVALID', 'NOT_APPLICABLE']),
   "protectedOutputReady": zod.boolean(),
   "transportOnlyWarning": zod.boolean(),
-  "bindingId": zod.string().uuid().nullable(),
+  "bindingId": zod.uuid().nullable(),
   "expectedIdProvided": zod.boolean(),
   "identityAuthorityMode": zod.enum(['SERVER_OWNED_SIGNED_EXACT', 'TRANSPORT_SUPPORT_ONLY', 'TARGETED_EXPECTED_ID_SUPPORT_ONLY']),
   "segmentCount": zod.number().min(liveLocalUploadInit201ResponseSessionSegmentCountMin),
@@ -443,7 +443,7 @@ export const LiveLocalUploadInit507Response = zod.object({
 
 
 export const LiveLocalStartSessionParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalStartSessionHeaderXIdempotencyKeyMin = 8;
@@ -459,9 +459,9 @@ export const liveLocalStartSessionBodyExpectedRevisionMin = 0;
 
 
 
-export const LiveLocalStartSessionBody = zod.object({
+export const LiveLocalStartSessionBody = zod.strictObject({
   "expectedRevision": zod.number().min(liveLocalStartSessionBodyExpectedRevisionMin)
-}).strict()
+})
 
 export const liveLocalStartSession200ResponseSessionRevisionMin = 0;
 
@@ -485,7 +485,7 @@ export const liveLocalStartSession200ResponseSessionStopReceiptOneSessionRevisio
 
 export const LiveLocalStartSession200Response = zod.object({
   "session": zod.object({
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "status": zod.enum(['CREATED', 'READY', 'RUNNING', 'STOPPING', 'STOPPED', 'FAILED', 'CLEANUP_PENDING', 'PURGED']),
   "revision": zod.number().min(liveLocalStartSession200ResponseSessionRevisionMin),
   "accessRevision": zod.number().min(liveLocalStartSession200ResponseSessionAccessRevisionMin),
@@ -500,7 +500,7 @@ export const LiveLocalStartSession200Response = zod.object({
   "signedMapState": zod.enum(['PENDING', 'ROLLING', 'FINALIZED', 'INVALID', 'NOT_APPLICABLE']),
   "protectedOutputReady": zod.boolean(),
   "transportOnlyWarning": zod.boolean(),
-  "bindingId": zod.string().uuid().nullable(),
+  "bindingId": zod.uuid().nullable(),
   "expectedIdProvided": zod.boolean(),
   "identityAuthorityMode": zod.enum(['SERVER_OWNED_SIGNED_EXACT', 'TRANSPORT_SUPPORT_ONLY', 'TARGETED_EXPECTED_ID_SUPPORT_ONLY']),
   "segmentCount": zod.number().min(liveLocalStartSession200ResponseSessionSegmentCountMin),
@@ -547,7 +547,7 @@ export const LiveLocalStartSession409Response = zod.object({
  * @summary Append one validated CMAF fragment; arbitrary bytes are rejected
  */
 export const LiveLocalAppendSegmentParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalAppendSegmentHeaderXIdempotencyKeyMin = 8;
@@ -596,7 +596,7 @@ export const liveLocalAppendSegment200ResponseSessionStopReceiptOneSessionRevisi
 
 export const LiveLocalAppendSegment200Response = zod.object({
   "segment": zod.object({
-  "segmentId": zod.string().uuid(),
+  "segmentId": zod.uuid(),
   "sequence": zod.number().min(liveLocalAppendSegment200ResponseSegmentSequenceMin),
   "durationMs": zod.number().min(1),
   "byteLength": zod.number().min(1),
@@ -606,7 +606,7 @@ export const LiveLocalAppendSegment200Response = zod.object({
 }),
   "duplicate": zod.boolean(),
   "session": zod.object({
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "status": zod.enum(['CREATED', 'READY', 'RUNNING', 'STOPPING', 'STOPPED', 'FAILED', 'CLEANUP_PENDING', 'PURGED']),
   "revision": zod.number().min(liveLocalAppendSegment200ResponseSessionRevisionMin),
   "accessRevision": zod.number().min(liveLocalAppendSegment200ResponseSessionAccessRevisionMin),
@@ -621,7 +621,7 @@ export const LiveLocalAppendSegment200Response = zod.object({
   "signedMapState": zod.enum(['PENDING', 'ROLLING', 'FINALIZED', 'INVALID', 'NOT_APPLICABLE']),
   "protectedOutputReady": zod.boolean(),
   "transportOnlyWarning": zod.boolean(),
-  "bindingId": zod.string().uuid().nullable(),
+  "bindingId": zod.uuid().nullable(),
   "expectedIdProvided": zod.boolean(),
   "identityAuthorityMode": zod.enum(['SERVER_OWNED_SIGNED_EXACT', 'TRANSPORT_SUPPORT_ONLY', 'TARGETED_EXPECTED_ID_SUPPORT_ONLY']),
   "segmentCount": zod.number().min(liveLocalAppendSegment200ResponseSessionSegmentCountMin),
@@ -683,7 +683,7 @@ export const liveLocalAppendSegment201ResponseSessionStopReceiptOneSessionRevisi
 
 export const LiveLocalAppendSegment201Response = zod.object({
   "segment": zod.object({
-  "segmentId": zod.string().uuid(),
+  "segmentId": zod.uuid(),
   "sequence": zod.number().min(liveLocalAppendSegment201ResponseSegmentSequenceMin),
   "durationMs": zod.number().min(1),
   "byteLength": zod.number().min(1),
@@ -693,7 +693,7 @@ export const LiveLocalAppendSegment201Response = zod.object({
 }),
   "duplicate": zod.boolean(),
   "session": zod.object({
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "status": zod.enum(['CREATED', 'READY', 'RUNNING', 'STOPPING', 'STOPPED', 'FAILED', 'CLEANUP_PENDING', 'PURGED']),
   "revision": zod.number().min(liveLocalAppendSegment201ResponseSessionRevisionMin),
   "accessRevision": zod.number().min(liveLocalAppendSegment201ResponseSessionAccessRevisionMin),
@@ -708,7 +708,7 @@ export const LiveLocalAppendSegment201Response = zod.object({
   "signedMapState": zod.enum(['PENDING', 'ROLLING', 'FINALIZED', 'INVALID', 'NOT_APPLICABLE']),
   "protectedOutputReady": zod.boolean(),
   "transportOnlyWarning": zod.boolean(),
-  "bindingId": zod.string().uuid().nullable(),
+  "bindingId": zod.uuid().nullable(),
   "expectedIdProvided": zod.boolean(),
   "identityAuthorityMode": zod.enum(['SERVER_OWNED_SIGNED_EXACT', 'TRANSPORT_SUPPORT_ONLY', 'TARGETED_EXPECTED_ID_SUPPORT_ONLY']),
   "segmentCount": zod.number().min(liveLocalAppendSegment201ResponseSessionSegmentCountMin),
@@ -762,7 +762,7 @@ export const LiveLocalAppendSegment507Response = zod.object({
  * @summary Revoke existing grants then idempotently finalize LL-HLS VOD, recording and evidence
  */
 export const LiveLocalStopSessionParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalStopSessionHeaderXIdempotencyKeyMin = 8;
@@ -778,9 +778,9 @@ export const liveLocalStopSessionBodyExpectedRevisionMin = 0;
 
 
 
-export const LiveLocalStopSessionBody = zod.object({
+export const LiveLocalStopSessionBody = zod.strictObject({
   "expectedRevision": zod.number().min(liveLocalStopSessionBodyExpectedRevisionMin)
-}).strict()
+})
 
 export const liveLocalStopSession200ResponseSessionRevisionMin = 0;
 
@@ -819,7 +819,7 @@ export const liveLocalStopSession200ResponseEvidenceRecordingSha256RegExp = new 
 
 export const LiveLocalStopSession200Response = zod.object({
   "session": zod.object({
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "status": zod.enum(['CREATED', 'READY', 'RUNNING', 'STOPPING', 'STOPPED', 'FAILED', 'CLEANUP_PENDING', 'PURGED']),
   "revision": zod.number().min(liveLocalStopSession200ResponseSessionRevisionMin),
   "accessRevision": zod.number().min(liveLocalStopSession200ResponseSessionAccessRevisionMin),
@@ -834,7 +834,7 @@ export const LiveLocalStopSession200Response = zod.object({
   "signedMapState": zod.enum(['PENDING', 'ROLLING', 'FINALIZED', 'INVALID', 'NOT_APPLICABLE']),
   "protectedOutputReady": zod.boolean(),
   "transportOnlyWarning": zod.boolean(),
-  "bindingId": zod.string().uuid().nullable(),
+  "bindingId": zod.uuid().nullable(),
   "expectedIdProvided": zod.boolean(),
   "identityAuthorityMode": zod.enum(['SERVER_OWNED_SIGNED_EXACT', 'TRANSPORT_SUPPORT_ONLY', 'TARGETED_EXPECTED_ID_SUPPORT_ONLY']),
   "segmentCount": zod.number().min(liveLocalStopSession200ResponseSessionSegmentCountMin),
@@ -875,7 +875,7 @@ export const LiveLocalStopSession200Response = zod.object({
   "evidence": zod.object({
   "schemaVersion": zod.enum(['tancmark-live-local-evidence-v1']),
   "evidenceId": zod.string(),
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "tenantBindingSha256": zod.string().regex(liveLocalStopSession200ResponseEvidenceTenantBindingSha256RegExp),
   "sessionRevision": zod.number().min(liveLocalStopSession200ResponseEvidenceSessionRevisionMin),
   "statusAtFinalization": zod.enum(['STOPPING']),
@@ -916,8 +916,8 @@ export const LiveLocalStopSession200Response = zod.object({
 }),
   "finalVerification": zod.union([zod.object({
   "schemaVersion": zod.enum(['tancmark-live-automatic-final-verification-v1']),
-  "sessionId": zod.string().uuid(),
-  "bindingId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
+  "bindingId": zod.uuid(),
   "verdict": zod.enum(['VIDEO_LAYER_VAULT', 'CANDIDATE_SUPPORT_ONLY', 'MANUAL_REVIEW', 'NOT_FOUND']),
   "reason": zod.string(),
   "exactIdVerified": zod.boolean(),
@@ -949,7 +949,7 @@ export const LiveLocalStopSession409Response = zod.object({
  * @summary Revalidate initialization, fragments, timelines, hash chains, manifest and recording
  */
 export const LiveLocalSessionHealthParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const LiveLocalSessionHealth200Response = zod.record(zod.string(), zod.unknown())
@@ -963,7 +963,7 @@ export const LiveLocalSessionHealth409Response = zod.object({
  * @summary Paginated redacted, tamper-evident event chain
  */
 export const LiveLocalSessionEventsParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalSessionEventsQueryLimitDefault = 25;
@@ -982,7 +982,7 @@ export const LiveLocalSessionEvents200Response = zod.record(zod.string(), zod.un
 
 
 export const LiveLocalSessionMetricsParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const LiveLocalSessionMetrics200Response = zod.record(zod.string(), zod.unknown())
@@ -992,7 +992,7 @@ export const LiveLocalSessionMetrics200Response = zod.record(zod.string(), zod.u
  * @summary Support-only transport and storage evidence; all generic authority flags remain false
  */
 export const LiveLocalSessionEvidenceParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const LiveLocalSessionEvidence200Response = zod.record(zod.string(), zod.unknown())
@@ -1006,7 +1006,7 @@ export const LiveLocalSessionEvidence409Response = zod.object({
  * @summary Redacted advisory feed item; autoApply and authority are always false
  */
 export const LiveLocalAdvisoryEventParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const LiveLocalAdvisoryEvent200Response = zod.record(zod.string(), zod.unknown())
@@ -1016,7 +1016,7 @@ export const LiveLocalAdvisoryEvent200Response = zod.record(zod.string(), zod.un
  * @summary Issue a single-use signed exchange token for RUNNING or STOPPED playback
  */
 export const LiveLocalIssueAccessTokenParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalIssueAccessTokenBodyViewerSubjectMax = 200;
@@ -1026,11 +1026,11 @@ export const liveLocalIssueAccessTokenBodyTtlSecondsMax = 300;
 
 
 
-export const LiveLocalIssueAccessTokenBody = zod.object({
+export const LiveLocalIssueAccessTokenBody = zod.strictObject({
   "viewerSubject": zod.string().min(1).max(liveLocalIssueAccessTokenBodyViewerSubjectMax),
   "ttlSeconds": zod.number().min(1).max(liveLocalIssueAccessTokenBodyTtlSecondsMax).optional(),
   "resourceScopes": zod.array(zod.enum(['init', 'manifest', 'media-json', 'player', 'recording', 'segment'])).min(1).optional()
-}).strict()
+})
 
 export const liveLocalIssueAccessToken201ResponseExchangeTokenMin = 32;
 
@@ -1055,16 +1055,16 @@ export const LiveLocalIssueAccessToken409Response = zod.object({
 /**
  * @summary Atomically consume a signed exchange token and set only an HttpOnly, session-specific opaque cookie
  */
-export const LiveLocalExchangeAccessTokenBody = zod.object({
+export const LiveLocalExchangeAccessTokenBody = zod.strictObject({
   "token": zod.string()
-}).strict()
+})
 
 
 
 
 export const LiveLocalExchangeAccessToken201Response = zod.object({
-  "grantId": zod.string().uuid(),
-  "sessionId": zod.string().uuid(),
+  "grantId": zod.uuid(),
+  "sessionId": zod.uuid(),
   "scopes": zod.array(zod.enum(['init', 'manifest', 'media-json', 'player', 'recording', 'segment'])).min(1),
   "expiresAt": zod.coerce.date()
 })
@@ -1082,7 +1082,7 @@ export const LiveLocalExchangeAccessToken409Response = zod.object({
  * @summary Self-contained same-origin MediaSource player with native-HLS fallback and support-only warning
  */
 export const LiveLocalPlayerParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const LiveLocalPlayer200Response = zod.unknown()
@@ -1097,7 +1097,7 @@ export const LiveLocalPlayer401Response = zod.object({
  * @summary Standard LL-HLS while RUNNING and finalized HLS VOD when STOPPED
  */
 export const LiveLocalManifestParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalManifestQueryHLSMsnMin = 0;
@@ -1129,7 +1129,7 @@ export const LiveLocalManifest401Response = zod.object({
 
 
 export const LiveLocalPlaybackInitParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const LiveLocalPlaybackInitHeader = zod.object({
@@ -1149,7 +1149,7 @@ export const LiveLocalPlaybackInit401Response = zod.object({
  * @summary Pollable MediaSource fragment inventory with exact RFC codec string
  */
 export const LiveLocalMediaInventoryParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalMediaInventory200ResponseMimeCodecRegExp = new RegExp('^video/mp4; codecs="[^"]+"$');
@@ -1177,8 +1177,8 @@ export const LiveLocalMediaInventory401Response = zod.object({
 
 
 export const LiveLocalPlaybackSegmentParams = zod.object({
-  "sessionId": zod.coerce.string().uuid(),
-  "segmentId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid(),
+  "segmentId": zod.uuid()
 })
 
 export const LiveLocalPlaybackSegmentHeader = zod.object({
@@ -1198,7 +1198,7 @@ export const LiveLocalPlaybackSegment401Response = zod.object({
  * @summary Server-assembled STOPPED VOD recording; requires the dedicated recording scope
  */
 export const LiveLocalRecordingParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const LiveLocalRecordingHeader = zod.object({
@@ -1215,8 +1215,8 @@ export const LiveLocalRecording401Response = zod.object({
 
 
 export const LiveLocalRevokeGrantParams = zod.object({
-  "sessionId": zod.coerce.string().uuid(),
-  "grantId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid(),
+  "grantId": zod.uuid()
 })
 
 export const LiveLocalRevokeGrant200Response = zod.object({
@@ -1232,16 +1232,16 @@ export const LiveLocalRevokeGrant404Response = zod.object({
  * @summary Increment access revision and token epoch and revoke every existing grant
  */
 export const LiveLocalRevokeSessionGrantsParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalRevokeSessionGrantsBodyExpectedRevisionMin = 0;
 
 
 
-export const LiveLocalRevokeSessionGrantsBody = zod.object({
+export const LiveLocalRevokeSessionGrantsBody = zod.strictObject({
   "expectedRevision": zod.number().min(liveLocalRevokeSessionGrantsBodyExpectedRevisionMin)
-}).strict()
+})
 
 export const liveLocalRevokeSessionGrants200ResponseSessionRevisionMin = 0;
 
@@ -1267,7 +1267,7 @@ export const liveLocalRevokeSessionGrants200ResponseRevokedGrantCountMin = 0;
 
 export const LiveLocalRevokeSessionGrants200Response = zod.object({
   "session": zod.object({
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "status": zod.enum(['CREATED', 'READY', 'RUNNING', 'STOPPING', 'STOPPED', 'FAILED', 'CLEANUP_PENDING', 'PURGED']),
   "revision": zod.number().min(liveLocalRevokeSessionGrants200ResponseSessionRevisionMin),
   "accessRevision": zod.number().min(liveLocalRevokeSessionGrants200ResponseSessionAccessRevisionMin),
@@ -1282,7 +1282,7 @@ export const LiveLocalRevokeSessionGrants200Response = zod.object({
   "signedMapState": zod.enum(['PENDING', 'ROLLING', 'FINALIZED', 'INVALID', 'NOT_APPLICABLE']),
   "protectedOutputReady": zod.boolean(),
   "transportOnlyWarning": zod.boolean(),
-  "bindingId": zod.string().uuid().nullable(),
+  "bindingId": zod.uuid().nullable(),
   "expectedIdProvided": zod.boolean(),
   "identityAuthorityMode": zod.enum(['SERVER_OWNED_SIGNED_EXACT', 'TRANSPORT_SUPPORT_ONLY', 'TARGETED_EXPECTED_ID_SUPPORT_ONLY']),
   "segmentCount": zod.number().min(liveLocalRevokeSessionGrants200ResponseSessionSegmentCountMin),
@@ -1325,7 +1325,7 @@ export const LiveLocalRevokeSessionGrants409Response = zod.object({
  * @summary Idempotent exact managed-media inventory and confirmation digest
  */
 export const LiveLocalCleanupPlanParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalCleanupPlanHeaderXIdempotencyKeyMin = 8;
@@ -1341,9 +1341,9 @@ export const liveLocalCleanupPlanBodyExpectedRevisionMin = 0;
 
 
 
-export const LiveLocalCleanupPlanBody = zod.object({
+export const LiveLocalCleanupPlanBody = zod.strictObject({
   "expectedRevision": zod.number().min(liveLocalCleanupPlanBodyExpectedRevisionMin)
-}).strict()
+})
 
 export const liveLocalCleanupPlan200ResponsePlanSessionRevisionMin = 0;
 
@@ -1359,8 +1359,8 @@ export const liveLocalCleanupPlan200ResponsePlanArtifactsItemSha256RegExp = new 
 
 export const LiveLocalCleanupPlan200Response = zod.object({
   "plan": zod.object({
-  "planId": zod.string().uuid(),
-  "sessionId": zod.string().uuid(),
+  "planId": zod.uuid(),
+  "sessionId": zod.uuid(),
   "sessionRevision": zod.number().min(liveLocalCleanupPlan200ResponsePlanSessionRevisionMin),
   "confirmationDigest": zod.string().regex(liveLocalCleanupPlan200ResponsePlanConfirmationDigestRegExp),
   "mediaOnly": zod.literal(true),
@@ -1392,8 +1392,8 @@ export const liveLocalCleanupPlan201ResponsePlanArtifactsItemSha256RegExp = new 
 
 export const LiveLocalCleanupPlan201Response = zod.object({
   "plan": zod.object({
-  "planId": zod.string().uuid(),
-  "sessionId": zod.string().uuid(),
+  "planId": zod.uuid(),
+  "sessionId": zod.uuid(),
   "sessionRevision": zod.number().min(liveLocalCleanupPlan201ResponsePlanSessionRevisionMin),
   "confirmationDigest": zod.string().regex(liveLocalCleanupPlan201ResponsePlanConfirmationDigestRegExp),
   "mediaOnly": zod.literal(true),
@@ -1420,7 +1420,7 @@ export const LiveLocalCleanupPlan409Response = zod.object({
  * @summary Idempotently purge managed media only; metadata, evidence and audit remain
  */
 export const LiveLocalCleanupExecuteParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
 export const liveLocalCleanupExecuteHeaderXIdempotencyKeyMin = 8;
@@ -1437,9 +1437,9 @@ export const liveLocalCleanupExecuteBodyExpectedRevisionMin = 0;
 
 
 
-export const LiveLocalCleanupExecuteBody = zod.object({
+export const LiveLocalCleanupExecuteBody = zod.strictObject({
   "expectedRevision": zod.number().min(liveLocalCleanupExecuteBodyExpectedRevisionMin)
-}).strict()
+})
 
 export const liveLocalCleanupExecute200ResponseSessionRevisionMin = 0;
 
@@ -1467,7 +1467,7 @@ export const liveLocalCleanupExecute200ResponseReceiptDeletedBytesMin = 0;
 
 export const LiveLocalCleanupExecute200Response = zod.object({
   "session": zod.object({
-  "sessionId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
   "status": zod.enum(['CREATED', 'READY', 'RUNNING', 'STOPPING', 'STOPPED', 'FAILED', 'CLEANUP_PENDING', 'PURGED']),
   "revision": zod.number().min(liveLocalCleanupExecute200ResponseSessionRevisionMin),
   "accessRevision": zod.number().min(liveLocalCleanupExecute200ResponseSessionAccessRevisionMin),
@@ -1482,7 +1482,7 @@ export const LiveLocalCleanupExecute200Response = zod.object({
   "signedMapState": zod.enum(['PENDING', 'ROLLING', 'FINALIZED', 'INVALID', 'NOT_APPLICABLE']),
   "protectedOutputReady": zod.boolean(),
   "transportOnlyWarning": zod.boolean(),
-  "bindingId": zod.string().uuid().nullable(),
+  "bindingId": zod.uuid().nullable(),
   "expectedIdProvided": zod.boolean(),
   "identityAuthorityMode": zod.enum(['SERVER_OWNED_SIGNED_EXACT', 'TRANSPORT_SUPPORT_ONLY', 'TARGETED_EXPECTED_ID_SUPPORT_ONLY']),
   "segmentCount": zod.number().min(liveLocalCleanupExecute200ResponseSessionSegmentCountMin),
@@ -1515,8 +1515,8 @@ export const LiveLocalCleanupExecute200Response = zod.object({
 }),
   "receipt": zod.object({
   "receiptId": zod.string(),
-  "planId": zod.string().uuid(),
-  "sessionId": zod.string().uuid(),
+  "planId": zod.uuid(),
+  "sessionId": zod.uuid(),
   "purgedAt": zod.coerce.date(),
   "deletedFileCount": zod.number().min(liveLocalCleanupExecute200ResponseReceiptDeletedFileCountMin),
   "deletedBytes": zod.number().min(liveLocalCleanupExecute200ResponseReceiptDeletedBytesMin)
@@ -1536,17 +1536,17 @@ export const LiveLocalCleanupExecute409Response = zod.object({
  * @summary Return the already completed automatic STOPPED-VOD exact verification
  */
 export const LiveLocalVerifyExactIdParams = zod.object({
-  "sessionId": zod.coerce.string().uuid()
+  "sessionId": zod.uuid()
 })
 
-export const LiveLocalVerifyExactIdBody = zod.object({
+export const LiveLocalVerifyExactIdBody = zod.strictObject({
 
 })
 
 export const LiveLocalVerifyExactId200Response = zod.object({
   "schemaVersion": zod.enum(['tancmark-live-automatic-final-verification-v1']),
-  "sessionId": zod.string().uuid(),
-  "bindingId": zod.string().uuid(),
+  "sessionId": zod.uuid(),
+  "bindingId": zod.uuid(),
   "verdict": zod.enum(['VIDEO_LAYER_VAULT', 'CANDIDATE_SUPPORT_ONLY', 'MANUAL_REVIEW', 'NOT_FOUND']),
   "reason": zod.string(),
   "exactIdVerified": zod.boolean(),
@@ -1602,18 +1602,18 @@ export const protectTextBodyBehaviorRequestIntervalStddevMsMin = 0;
 
 
 
-export const ProtectTextBody = zod.object({
+export const ProtectTextBody = zod.strictObject({
   "aiTrapMode": zod.enum(['auto', 'force-bot', 'force-human', 'off']).optional().describe('Override the bot detector. `auto` (default) uses request signals; `off` disables honeytoken injection entirely.'),
-  "behavior": zod.object({
+  "behavior": zod.strictObject({
   "mouseEvents": zod.number().min(protectTextBodyBehaviorMouseEventsMin).optional(),
   "dwellMs": zod.number().min(protectTextBodyBehaviorDwellMsMin).optional(),
   "requestIntervalMs": zod.number().min(protectTextBodyBehaviorRequestIntervalMsMin).optional(),
   "requestIntervalStddevMs": zod.number().min(protectTextBodyBehaviorRequestIntervalStddevMsMin).optional()
-}).strict().optional().describe('Optional client-side telemetry — mouse activity, dwell time, request cadence — used by the bot detector.'),
+}).optional().describe('Optional client-side telemetry — mouse activity, dwell time, request cadence — used by the bot detector.'),
   "text": zod.string(),
   "clientId": zod.union([zod.string(),zod.number()]).optional(),
   "userId": zod.string().optional()
-}).strict()
+})
 
 export const ProtectText200Response = zod.object({
   "protectedText": zod.string(),
@@ -1665,12 +1665,12 @@ export const ProtectText400Response = zod.object({
 
 export const analyzeTextBodyScanHoneytokensDefault = true;
 
-export const AnalyzeTextBody = zod.object({
+export const AnalyzeTextBody = zod.strictObject({
   "text": zod.string(),
   "candidateClientIds": zod.array(zod.union([zod.string(),zod.number()])).optional(),
   "minMatches": zod.number().min(1).optional(),
   "scanHoneytokens": zod.boolean().default(analyzeTextBodyScanHoneytokensDefault)
-}).strict()
+})
 
 export const analyzeText200ResponseCascadeIntegrityIntegrityScoreMin = 0;
 export const analyzeText200ResponseCascadeIntegrityIntegrityScoreMax = 1;
@@ -1902,61 +1902,61 @@ export const generateReportBodyExpertNotesMax = 8000;
 
 
 
-export const GenerateReportBody = zod.object({
+export const GenerateReportBody = zod.strictObject({
   "suspectText": zod.string(),
   "protectedText": zod.string(),
   "suspectedClientId": zod.union([zod.number(),zod.string(),zod.null()]).optional(),
   "confidenceScore": zod.number(),
   "matchedTokens": zod.number(),
   "totalTokens": zod.number(),
-  "candidates": zod.array(zod.object({
+  "candidates": zod.array(zod.strictObject({
   "clientId": zod.string(),
   "matchedTokens": zod.number(),
   "totalTokens": zod.number(),
   "confidenceScore": zod.number(),
   "combinedScore": zod.number().optional(),
-  "channels": zod.object({
-  "synonym": zod.object({
+  "channels": zod.strictObject({
+  "synonym": zod.strictObject({
   "matched": zod.number(),
   "total": zod.number(),
   "score": zod.number(),
   "present": zod.boolean().optional()
-}).strict(),
-  "homoglyph": zod.object({
+}),
+  "homoglyph": zod.strictObject({
   "matched": zod.number(),
   "total": zod.number(),
   "score": zod.number(),
   "present": zod.boolean().optional()
-}).strict(),
-  "zeroWidth": zod.object({
+}),
+  "zeroWidth": zod.strictObject({
   "matched": zod.number(),
   "total": zod.number(),
   "score": zod.number(),
   "present": zod.boolean().optional()
-}).strict()
-}).strict().optional()
-}).strict()).optional(),
-  "channelBreakdown": zod.object({
-  "synonym": zod.object({
+})
+}).optional()
+})).optional(),
+  "channelBreakdown": zod.strictObject({
+  "synonym": zod.strictObject({
   "matched": zod.number(),
   "total": zod.number(),
   "score": zod.number(),
   "present": zod.boolean().optional()
-}).strict(),
-  "homoglyph": zod.object({
+}),
+  "homoglyph": zod.strictObject({
   "matched": zod.number(),
   "total": zod.number(),
   "score": zod.number(),
   "present": zod.boolean().optional()
-}).strict(),
-  "zeroWidth": zod.object({
+}),
+  "zeroWidth": zod.strictObject({
   "matched": zod.number(),
   "total": zod.number(),
   "score": zod.number(),
   "present": zod.boolean().optional()
-}).strict()
-}).strict().optional(),
-  "stylometry": zod.object({
+})
+}).optional(),
+  "stylometry": zod.strictObject({
   "wordCount": zod.number(),
   "uniqueWordCount": zod.number(),
   "sentenceCount": zod.number(),
@@ -1965,28 +1965,28 @@ export const GenerateReportBody = zod.object({
   "stopWordCount": zod.number(),
   "stopWordRatio": zod.number(),
   "avgWordLength": zod.number(),
-  "stopWordDistribution": zod.array(zod.object({
+  "stopWordDistribution": zod.array(zod.strictObject({
   "word": zod.string(),
   "count": zod.number()
-}).strict())
-}).strict().optional().describe('Surface-level style fingerprint (Stylometric_DNA channel).'),
-  "diffSummary": zod.object({
+}))
+}).optional().describe('Surface-level style fingerprint (Stylometric_DNA channel).'),
+  "diffSummary": zod.strictObject({
   "added": zod.number(),
   "removed": zod.number(),
   "unchanged": zod.number(),
   "similarity": zod.number(),
-  "sample": zod.array(zod.object({
+  "sample": zod.array(zod.strictObject({
   "op": zod.enum(['equal', 'add', 'remove']),
   "text": zod.string()
-}).strict()).optional()
-}).strict().optional(),
-  "spatialVariance": zod.object({
+})).optional()
+}).optional(),
+  "spatialVariance": zod.strictObject({
   "totalChars": zod.number(),
   "wrap": zod.number(),
   "carriers": zod.number(),
   "microXVariance": zod.number(),
   "microYVariance": zod.number(),
-  "points": zod.array(zod.object({
+  "points": zod.array(zod.strictObject({
   "index": zod.number(),
   "col": zod.number(),
   "row": zod.number(),
@@ -1995,17 +1995,17 @@ export const GenerateReportBody = zod.object({
   "char": zod.string(),
   "codepoint": zod.string(),
   "carrier": zod.boolean()
-}).strict())
-}).strict().optional(),
+}))
+}).optional(),
   "expertNotes": zod.string().max(generateReportBodyExpertNotesMax).optional(),
   "userId": zod.string().optional(),
   "absoluteBreach": zod.boolean().optional().describe('True when analyze-text returned a single-client honeytoken hit.\nDrives the PDF\'s top-line verdict to \"Güçlü teknik eşleşme\".\n'),
   "multiSuspect": zod.boolean().optional().describe('True when ≥2 clients have decisive trap evidence in the same\nsuspect text. Drives the PDF\'s top-line verdict to \"Birden\nfazla kaynak izi — kesin tek kaynak yok\".\n'),
-  "suspectedClients": zod.array(zod.object({
+  "suspectedClients": zod.array(zod.strictObject({
   "clientId": zod.string(),
   "confidenceScore": zod.number()
-}).strict()).optional().describe('All clients with decisive trap evidence (mirrors analyze-text\'s\nresponse). Required when multiSuspect=true to render the list.\n')
-}).strict()
+})).optional().describe('All clients with decisive trap evidence (mirrors analyze-text\'s\nresponse). Required when multiSuspect=true to render the list.\n')
+})
 
 export const GenerateReport200Response = zod.unknown()
 
@@ -2062,12 +2062,12 @@ export const createForensicNoteBodyConfidenceScoreMax = 32;
 
 
 
-export const CreateForensicNoteBody = zod.object({
+export const CreateForensicNoteBody = zod.strictObject({
   "content": zod.string().min(1).max(createForensicNoteBodyContentMax),
   "author": zod.string().max(createForensicNoteBodyAuthorMax).optional(),
   "suspectedClientId": zod.union([zod.string().min(1).max(createForensicNoteBodySuspectedClientIdOneMax),zod.number().min(createForensicNoteBodySuspectedClientIdTwoMin),zod.null()]).optional().describe('Müşteri kimliği. String (\"client-A\", \"agency-client-001\"),\nnumeric legacy (\"777\" veya 777) veya null kabul edilir.\nServer-side `String(value)` ile string\'e normalize edilir.\n'),
   "confidenceScore": zod.string().max(createForensicNoteBodyConfidenceScoreMax).optional()
-}).strict()
+})
 
 export const CreateForensicNote200Response = zod.object({
   "id": zod.number(),
@@ -2206,9 +2206,9 @@ export const AuditStats401Response = zod.object({
  * olarak uygulanır.
  * @summary Görsel üzerinde 8 saldırı senaryosunu sırayla koşan iş başlatır
  */
-export const VisualLabCreateJobBody = zod.object({
+export const VisualLabCreateJobBody = zod.strictObject({
   "image": zod.string().describe('Binary file content (multipart upload — JPEG\/PNG\/WebP)')
-}).strict()
+})
 
 export const VisualLabCreateJob202Response = zod.object({
   "jobId": zod.string(),
@@ -2263,11 +2263,11 @@ export const VisualLabGetJob404Response = zod.object({
  * video (lossless FFV1 zorunlu — MP4 desteklemez).
  * @summary Bir video buffer'ına 32-byte ID mührünü gömer (L1 ring, MKV/FFV1)
  */
-export const VideoLabEncodeBody = zod.object({
+export const VideoLabEncodeBody = zod.strictObject({
   "video": zod.string().describe('Binary video content (multipart upload)'),
   "id": zod.string().optional().describe('32 byte (64 hex char) ID — opsiyonel, verilmezse rastgele UUID kullanılır'),
   "stampCount": zod.string().optional().describe('Mühürlenecek frame sayısı (default \"8\")')
-}).strict()
+})
 
 export const VideoLabEncode200Response = zod.unknown()
 
@@ -2289,10 +2289,10 @@ export const VideoLabEncode401Response = zod.object({
  * tüm okunan frame byte'ları beklenen ID byte'ına karşı sayılır).
  * @summary Bir video'dan L1 mühür payload'ını okur (A1→A5 ladder)
  */
-export const VideoLabDecodeBody = zod.object({
+export const VideoLabDecodeBody = zod.strictObject({
   "video": zod.string().describe('Binary video content (multipart upload)'),
   "id": zod.string().describe('32 byte (64 hex char) veya string ID — bit-exact karşılaştırma için zorunlu')
-}).strict()
+})
 
 export const VideoLabDecode200Response = zod.object({
   "verdict": zod.enum(['VAULT', 'WEAK_SIGNAL', 'NOT_FOUND']),
@@ -2439,15 +2439,15 @@ export const applyCanonicalDnaProposalBodyApprovalOneNonceMax = 180;
 
 
 
-export const ApplyCanonicalDnaProposalBody = zod.object({
+export const ApplyCanonicalDnaProposalBody = zod.strictObject({
   "tenantScope": zod.string().min(1).max(applyCanonicalDnaProposalBodyTenantScopeMax),
-  "operations": zod.array(zod.object({
+  "operations": zod.array(zod.strictObject({
   "operationId": zod.string(),
   "type": zod.enum(['record_advisory', 'update_read_only_label', 'patch_docs_external_executor', 'patch_helper_external_executor']),
   "description": zod.string().max(applyCanonicalDnaProposalBodyOperationsItemDescriptionMax),
   "rollback": zod.string().max(applyCanonicalDnaProposalBodyOperationsItemRollbackMax)
-}).strict()).max(applyCanonicalDnaProposalBodyOperationsMax),
-  "approval": zod.union([zod.object({
+})).max(applyCanonicalDnaProposalBodyOperationsMax),
+  "approval": zod.union([zod.strictObject({
   "approvalPhrase": zod.enum(['APPROVE_CHIEF_BRAIN_SAFE_ACTION']),
   "approvalVersion": zod.enum(['tancmark-controlled-apply-v1']),
   "proposalId": zod.string().min(1).max(applyCanonicalDnaProposalBodyApprovalOneProposalIdMax),
@@ -2460,9 +2460,9 @@ export const ApplyCanonicalDnaProposalBody = zod.object({
   "expiresAt": zod.coerce.date(),
   "nonce": zod.string().min(applyCanonicalDnaProposalBodyApprovalOneNonceMin).max(applyCanonicalDnaProposalBodyApprovalOneNonceMax),
   "approvedByRole": zod.enum(['OWNER_ADEM_KURSAT_TANC'])
-}).strict(),zod.null()]),
+}),zod.null()]),
   "dryRun": zod.boolean()
-}).strict()
+})
 
 export const ApplyCanonicalDnaProposal200Response = zod.record(zod.string(), zod.unknown()).describe('Ozel icerik veya exact kimlik tasimayan salt-okunur DNA yonetim cevabi.')
 
@@ -2480,9 +2480,9 @@ export const ApplyCanonicalDnaProposal403Response = zod.unknown()
 export const inspectC2paBodyAssetNameRegExp = new RegExp('^[A-Za-z0-9][A-Za-z0-9._-]{0,179}$');
 
 
-export const InspectC2paBody = zod.object({
+export const InspectC2paBody = zod.strictObject({
   "assetName": zod.string().regex(inspectC2paBodyAssetNameRegExp)
-}).strict()
+})
 
 export const inspectC2pa200ResponseC2paIngredientsCountMin = 0;
 
@@ -2517,7 +2517,7 @@ export const InspectC2pa200Response = zod.object({
   "recordVersion": zod.string(),
   "algorithmVersion": zod.string(),
   "createdAt": zod.coerce.date(),
-  "publicVerificationUrl": zod.string().url().optional(),
+  "publicVerificationUrl": zod.url().optional(),
   "supportOnly": zod.literal(true)
 })]),
   "provenanceAvailable": zod.boolean(),
@@ -2561,9 +2561,9 @@ export const InspectC2pa404Response = zod.unknown()
 export const verifyC2paBodyAssetNameRegExp = new RegExp('^[A-Za-z0-9][A-Za-z0-9._-]{0,179}$');
 
 
-export const VerifyC2paBody = zod.object({
+export const VerifyC2paBody = zod.strictObject({
   "assetName": zod.string().regex(verifyC2paBodyAssetNameRegExp)
-}).strict()
+})
 
 export const verifyC2pa200ResponseC2paIngredientsCountMin = 0;
 
@@ -2598,7 +2598,7 @@ export const VerifyC2pa200Response = zod.object({
   "recordVersion": zod.string(),
   "algorithmVersion": zod.string(),
   "createdAt": zod.coerce.date(),
-  "publicVerificationUrl": zod.string().url().optional(),
+  "publicVerificationUrl": zod.url().optional(),
   "supportOnly": zod.literal(true)
 })]),
   "provenanceAvailable": zod.boolean(),
@@ -2680,7 +2680,7 @@ export const signAndEmbedC2paBodyThreePublicVerificationUrlMax = 512;
 
 
 
-export const SignAndEmbedC2paBody = zod.union([zod.object({
+export const SignAndEmbedC2paBody = zod.union([zod.strictObject({
   "assetName": zod.string().regex(signAndEmbedC2paBodyOneAssetNameRegExp),
   "outputName": zod.string().regex(signAndEmbedC2paBodyOneOutputNameRegExp),
   "intent": zod.enum(['CREATE']).describe('Explicit Builder CREATE intent.'),
@@ -2689,8 +2689,8 @@ export const SignAndEmbedC2paBody = zod.union([zod.object({
   "recordVersion": zod.string().min(1).max(signAndEmbedC2paBodyOneRecordVersionMax),
   "algorithmVersion": zod.string().min(1).max(signAndEmbedC2paBodyOneAlgorithmVersionMax),
   "createdAt": zod.string().max(signAndEmbedC2paBodyOneCreatedAtMax).regex(signAndEmbedC2paBodyOneCreatedAtRegExp),
-  "publicVerificationUrl": zod.string().url().max(signAndEmbedC2paBodyOnePublicVerificationUrlMax).optional()
-}).strict(),zod.object({
+  "publicVerificationUrl": zod.url().max(signAndEmbedC2paBodyOnePublicVerificationUrlMax).optional()
+}),zod.strictObject({
   "assetName": zod.string().regex(signAndEmbedC2paBodyTwoAssetNameRegExp),
   "outputName": zod.string().regex(signAndEmbedC2paBodyTwoOutputNameRegExp),
   "intent": zod.enum(['EDIT']).describe('Explicit Builder EDIT intent.'),
@@ -2698,8 +2698,8 @@ export const SignAndEmbedC2paBody = zod.union([zod.object({
   "recordVersion": zod.string().min(1).max(signAndEmbedC2paBodyTwoRecordVersionMax),
   "algorithmVersion": zod.string().min(1).max(signAndEmbedC2paBodyTwoAlgorithmVersionMax),
   "createdAt": zod.string().max(signAndEmbedC2paBodyTwoCreatedAtMax).regex(signAndEmbedC2paBodyTwoCreatedAtRegExp),
-  "publicVerificationUrl": zod.string().url().max(signAndEmbedC2paBodyTwoPublicVerificationUrlMax).optional()
-}).strict(),zod.object({
+  "publicVerificationUrl": zod.url().max(signAndEmbedC2paBodyTwoPublicVerificationUrlMax).optional()
+}),zod.strictObject({
   "assetName": zod.string().regex(signAndEmbedC2paBodyThreeAssetNameRegExp),
   "outputName": zod.string().regex(signAndEmbedC2paBodyThreeOutputNameRegExp),
   "intent": zod.enum(['UPDATE']).describe('Explicit Builder UPDATE intent.'),
@@ -2707,8 +2707,8 @@ export const SignAndEmbedC2paBody = zod.union([zod.object({
   "recordVersion": zod.string().min(1).max(signAndEmbedC2paBodyThreeRecordVersionMax),
   "algorithmVersion": zod.string().min(1).max(signAndEmbedC2paBodyThreeAlgorithmVersionMax),
   "createdAt": zod.string().max(signAndEmbedC2paBodyThreeCreatedAtMax).regex(signAndEmbedC2paBodyThreeCreatedAtRegExp),
-  "publicVerificationUrl": zod.string().url().max(signAndEmbedC2paBodyThreePublicVerificationUrlMax).optional()
-}).strict()]).describe('Explicit discriminated intent contract. CREATE requires digitalSourceType; EDIT and UPDATE forbid it.')
+  "publicVerificationUrl": zod.url().max(signAndEmbedC2paBodyThreePublicVerificationUrlMax).optional()
+})]).describe('Explicit discriminated intent contract. CREATE requires digitalSourceType; EDIT and UPDATE forbid it.')
 
 export const signAndEmbedC2pa201ResponseC2paIngredientsCountMin = 0;
 
@@ -2744,7 +2744,7 @@ export const SignAndEmbedC2pa201Response = zod.object({
   "recordVersion": zod.string(),
   "algorithmVersion": zod.string(),
   "createdAt": zod.coerce.date(),
-  "publicVerificationUrl": zod.string().url().optional(),
+  "publicVerificationUrl": zod.url().optional(),
   "supportOnly": zod.literal(true)
 })]),
   "provenanceAvailable": zod.boolean(),

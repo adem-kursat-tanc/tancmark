@@ -1,0 +1,17 @@
+
+> @workspace/api-spec@0.0.0 codegen <repository>\lib\api-spec
+> orval --config ./orval.config.ts && pnpm -w run typecheck:libs
+
+­şı╗ orval v8.22.0 - A swagger client generator for typescript
+api-client-react Cleaning output folder
+Running afterAllFilesWrite hook...
+­şÄë api-client-react - Your OpenAPI spec has been converted into ready to use orval!
+zod Cleaning output folder
+Running afterAllFilesWrite hook...
+­şÄë zod - Your OpenAPI spec has been converted into ready to use orval!
+
+> tancmark@0.1.0-rc.1 typecheck:libs <repository>
+> tsc --build
+
+
+PASS: second generation byte-identical for all 186 generated files.

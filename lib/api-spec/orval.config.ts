@@ -105,7 +105,7 @@ export default defineConfig({
       prettier: true,
       override: {
         zod: {
-          version: 3,
+          version: 4,
           generateEachHttpStatus: true,
           strict: {
             body: true,

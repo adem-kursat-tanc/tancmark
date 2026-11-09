@@ -12,8 +12,12 @@ Before production deployment:
 4. Keep C2PA remote manifest retrieval disabled. If a future owner-approved implementation adds it, require HTTPS allowlists, DNS rebinding and private-address blocking, redirect/time/size/MIME limits, SSRF tests, and redacted audit logs.
 5. Restrict tenant media roots, reject reparse points and multiple-link files, create outputs atomically, and verify cleanup after interruption.
 6. Run typecheck, both builds, public tests, media smokes, Live exact verification, C2PA negative tests, SBOM/license scans, source/privacy scans, documentation freshness, immutable workflow pinning, and archive checksum verification.
-7. Install with the pinned pnpm version and frozen lockfile, then run `pnpm audit --audit-level=low` against current advisories. This revision resolves Multer 2.3.0, adm-zip 0.6.1, and js-yaml 4.3.2; verify those versions before deployment rather than relying on an earlier clean scan.
+7. Install with the pinned pnpm version and frozen lockfile, then run `pnpm audit --audit-level=low` against current advisories. The November maintenance resolves the 33 advisory findings recorded in the baseline scan across 15 packages. Verify the committed patched versions and the current scan rather than relying on a historical zero-open result.
 
 Production C2PA needs a suitable certificate and private-key lifecycle, possible KMS/HSM integration, revocation handling, and optional Trust List/conformance work. The repository does not claim those operator steps are complete.
 
 Rollback must restore only the reviewed release files. Preserve unrelated work and evidence. Never roll back by lowering thresholds, permitting wrong tenants, trusting body-supplied identity, enabling raw keys, or allowing C2PA to grant ownership.
+
+## November 2026 verification
+
+The maintenance receipt binds exact baseline and patched dependency-file hashes, actual successful build/security test outputs, and the current zero-advisory npm scan. Historical reports and protected product-engine hashes remain unchanged. Targeted regressions cover proxy trust subnets, malformed URI schemes, cross-family IP checks, query serialization and bounded Zod collection validation. Review deployment proxy topology separately: the application still uses its existing single-hop trust configuration.
