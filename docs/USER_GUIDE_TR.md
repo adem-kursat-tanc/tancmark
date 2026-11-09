@@ -279,7 +279,7 @@ Belirti ve çözüm denetimleri için [Sorun Giderme](TROUBLESHOOTING_TR.md) bel
 
 - Deponun gerçek sentetik-fixture demosu yalnız operatör denetimli deneysel yerel/Docker demo olarak kullanılabilir; GitHub üzerinde barındırılan Codespaces başlatması şu anda kullanılamaz ve ürün yayın kapısı değildir.
 - Masaüstü, mobil, tarayıcı veya WebAssembly ürünü yoktur.
-- Yamalı main Linux CI kontrolünden geçti; bu yeni yerel rc.2 adayının Linux doğrulaması ayrıca yapılmalıdır. macOS test edilmedi.
+- Tam kaynak commitinin Linux public-ci ve CodeQL sonuçlarını [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions) üzerinden doğrulayın. CI üretim ortamını veya dış sağlayıcıların çalışmasını kapsamaz. macOS test edilmedi.
 - Dondurulmuş ileri Video matrisinin iki hücresi güvenli biçimde başarısızdır.
 - Dış sağlayıcı teslimi ve üretim kurulumu operatör işidir.
 - Kamu görsel/ses dayanıklılık iddiaları tarihsel özel araştırma kümesinden daha dardır.

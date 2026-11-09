@@ -3,7 +3,7 @@
   "generatedAtUtc": "2026-08-28T00:00:00Z",
   "status": "PASSED",
   "fileCount": 1211,
-  "totalBytes": 29337811,
+  "totalBytes": 29338036,
   "symlinkCount": 0,
   "orderingAlgorithm": "UTF8_BYTEWISE_PATH_ORDER_V2",
   "excludedGeneratedDirectories": [
@@ -14,7 +14,7 @@
     "dist-product",
     "node_modules"
   ],
-  "sha256SumsSha256": "3ece1699415638d6aaf97f025eab2a3342f93352b7c0540f819181755f658ff3",
+  "sha256SumsSha256": "e5ad43dbc26c95dfcc66ab69c83cd9d02a9c9188fac1d18b1b35522b6e76176f",
   "entries": [
     {
       "mode": "100644",
@@ -4201,14 +4201,14 @@
     {
       "mode": "100644",
       "path": "docs/USER_GUIDE.md",
-      "bytes": 17723,
-      "sha256": "ce911fb3e80a7248cc2ea49533c252b0ba2960883b78159e27c47ce852a60770"
+      "bytes": 17829,
+      "sha256": "3dab979da6f312d407fd29c79c180ec50b2957648008265d50be431e1bf7c1d1"
     },
     {
       "mode": "100644",
       "path": "docs/USER_GUIDE_TR.md",
-      "bytes": 18512,
-      "sha256": "212700edbe5163cce56eee27e4be295de30a549c30b056f25794b0532f5f949a"
+      "bytes": 18631,
+      "sha256": "ad5d5fb7f762e499c50ff471275283f95e65fc6d4df91a51e9ca9ecfdcd1209e"
     },
     {
       "mode": "100644",

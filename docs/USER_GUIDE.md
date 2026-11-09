@@ -279,7 +279,7 @@ See [Troubleshooting](TROUBLESHOOTING.md) for symptoms and checks.
 
 - The repository's real synthetic-fixture demo is available only as an operator-controlled experimental local/Docker demo; GitHub-hosted Codespaces launch is currently unavailable and is not a product release gate.
 - No desktop, mobile, browser, or WebAssembly product is included.
-- Patched main passed Linux CI; this new local rc.2 candidate still needs its own Linux verification. macOS is not tested.
+- Verify Linux public-ci and CodeQL results for the exact source commit in [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions). CI does not cover production or external-provider operation. macOS is not tested.
 - Two frozen advanced Video cells fail closed.
 - External provider delivery and production deployment are operator work.
 - Public image/audio robustness claims are narrower than the historical private research corpus.
