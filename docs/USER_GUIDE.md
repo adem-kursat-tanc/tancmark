@@ -33,7 +33,7 @@ YouTube, Twitch, external RTMP, OAuth, webhooks, CDN, DRM, billing, production T
 - Video's frozen advanced physical matrix passed 14 of 16 cells. The two remaining cases fail closed and remain limits.
 - Local protected Live passed its frozen Windows real-media and final exact-verification gates.
 - C2PA PNG, JPEG, MP4, and MOV paths were tested locally. PDF and WAV C2PA product support are `NOT_MEASURED` and are rejected.
-- Windows has real local test evidence. Patched `main` commit `471274f1ead335cb8dce900cf03b722507e4b6ce` passed [Linux public-ci](https://github.com/adem-kursat-tanc/tancmark/actions/runs/42661322375) and [CodeQL](https://github.com/adem-kursat-tanc/tancmark/actions/runs/42661322379) on 9 November 2026, within the workflow scope; external-provider checks were skipped. This local rc.2 preparation is not a new remote CI run. macOS is not tested.
+- Windows has real local test evidence with its recorded source scope. Check [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions) for Linux public-ci and CodeQL results on the exact source commit. These workflows cover the repository build and validation checks; external-provider checks are skipped and successful CI does not establish production operation. macOS is not tested.
 
 See [Feature Status](FEATURE_STATUS.md) and the module-specific [robustness evidence](DOCUMENTATION_INDEX.md#robustness-evidence) for the exact boundaries.
 
@@ -87,7 +87,7 @@ Use one of these source paths:
 1. Clone the owner-published GitHub repository from `https://github.com/adem-kursat-tanc/tancmark`.
 2. Download GitHub's source ZIP for the selected commit, extract it into a short, empty directory, and validate the included checksums.
 
-This source prepares `v0.1.0-rc.2` with the November security fixes; no rc.2 release or download URL is published by this preparation. The historical [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1) archive predates these fixes and should not be used as the patched download. Use the verified patched source commit or a locally supplied rc.2 source archive after checking its SHA-256 file and included source checksums. After owner publication, compare the new release tag with the owner-designated commit. Never invent or trust an unofficial download URL.
+This is the `v0.1.0-rc.2` source/security prerelease with the November security fixes. Use the owner-published [GitHub Releases](https://github.com/adem-kursat-tanc/tancmark/releases), compare the selected release tag with its designated source commit, and verify the attached archive SHA-256 and included source checksums. The historical [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1) archive remains unchanged, predates these fixes and should not be used as the patched download. A source checkout must be verified against its exact commit. Never invent or trust an unofficial download URL.
 
 ### Verify a clone
 

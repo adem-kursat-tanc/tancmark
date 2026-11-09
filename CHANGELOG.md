@@ -1,10 +1,10 @@
 # Changelog
 
-## v0.1.0-rc.2 - local preparation, not published
+## v0.1.0-rc.2 - source/security prerelease
 
-- Packages the November dependency security fixes and demo sharp manifest alignment in a new source prerelease candidate; the published rc.1 archive remains historical and unchanged.
+- Packages the November dependency security fixes and demo sharp manifest alignment in a source/security prerelease; the published rc.1 archive remains historical and unchanged.
 - Updates root version and SBOM identity together. A separate single-field transition receipt preserves the exact November maintenance evidence and its immutable baseline.
-- Does not change product engines, dependencies, the frozen lockfile, watermark algorithms or ownership decisions. Windows clean-archive checks are recorded separately; historical Linux evidence is not a new rc.2 Linux run.
+- Does not change product engines, the frozen lockfile, watermark algorithms or ownership decisions. Windows evidence has its recorded source scope; check [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions) for public-ci and CodeQL results on the exact release commit. Historical evidence does not validate a different commit.
 
 ## Demo sharp manifest alignment - 2026-11-09
 

@@ -2,7 +2,7 @@
 
 ## rc.2 source version continuity
 
-The local rc.2 source preparation changes release identity only on top of the November patched graph. Its separate version transition accepts exactly one root package version-field change and binds both byte hashes and Git blobs to the verified patched base. Missing receipts, unrelated changes and mismatched versions fail closed. Historical security receipts remain unchanged. This is not publication, deployment, new Linux validation or a guarantee against undisclosed vulnerabilities.
+The rc.2 source/security prerelease changes release identity on top of the November patched graph without changing product engines or dependencies. Its separate version transition accepts exactly one root package version-field change and binds both byte hashes and Git blobs to the verified patched base. Missing receipts, unrelated changes and mismatched versions fail closed. Historical security receipts remain unchanged as dated evidence. Review public-ci and CodeQL for the exact source commit in [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions); previous runs are not evidence for a different commit. Source publication and successful CI do not establish production deployment or guarantee against undisclosed vulnerabilities.
 
 The public source is fail closed. Exact media evidence still requires the unique registry record, tenant/account boundary, and a valid record signature. C2PA, short locators, similarity, maps, DNA, ECC, and transport receipts remain support evidence.
 

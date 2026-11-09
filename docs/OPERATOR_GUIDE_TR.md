@@ -1,8 +1,8 @@
 # TancMark Operatör Kılavuzu
 
-## rc.2 kaynak hazırlığı
+## rc.2 kaynak/güvenlik ön sürümü
 
-Bu kaynak adayı `0.1.0-rc.2` sürümüdür; bu hazırlıkla yayımlanmamıştır. Frozen kurulumdan önce verilen arşivin SHA-256 değerini ve içindeki tüm kaynak checksumlarını doğrulayın. Kasım yamalı bağımlılık grafiği ve pnpm 10.34.5 değişmemiştir. Ayrı kök sürüm geçişi, mevcut bağımlılık bakım kanıtlarını korur. Eski rc.1 indirmesi yamalı aday değildir.
+Bu kaynak `0.1.0-rc.2` sürümüdür. Sahibin yayımladığı [GitHub Releases](https://github.com/adem-kursat-tanc/tancmark/releases) sayfasını kullanın, seçilen sürüm commitini ve arşivin SHA-256 değerini doğrulayın; frozen kurulumdan önce içindeki tüm kaynak checksumlarını kontrol edin. Tam commitin public-ci ve CodeQL sonuçlarını [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions) üzerinden inceleyin. Kasım yamalı bağımlılık grafiği ve pnpm 10.34.5 değişmemiştir. Ayrı kök sürüm geçişi, mevcut bağımlılık bakım kanıtlarını korur. Eski rc.1 indirmesi bu yamalardan öncedir.
 
 ## Kasım 2026 güvenlik bakımı
 
@@ -79,7 +79,7 @@ pnpm install --frozen-lockfile
 
 Başka paket yöneticisi sürümü kullanmayın. Kurulum npm paketleri ve sabit C2PA native arşivi için ağ erişimi isteyebilir.
 
-Bu sürüm Multer 2.3.0'ı sabitler ve dolaylı adm-zip ile js-yaml bağımlılıklarını 0.6.1 ve 4.3.2 sürümlerine çözer. Kurulumdan sonra güncel npm güvenlik duyurularını denetlemek için `pnpm audit --audit-level=low` çalıştırın. Önceki temiz denetim, dağıtımdan önce yeniden kontrol etmenin yerine geçmez.
+Bu sürüm Multer 2.5.0'ı sabitler ve dolaylı adm-zip ile js-yaml bağımlılıklarını 0.6.1 ve 4.3.2 sürümlerine çözer. Kurulumdan sonra güncel npm güvenlik duyurularını denetlemek için `pnpm audit --audit-level=low` çalıştırın. Önceki temiz denetim, dağıtımdan önce yeniden kontrol etmenin yerine geçmez.
 
 Doğrulanmış C2PA native installer ile çevrim dışı kurulum için bağlı hazırlık makinesinde tam resmî arşivi indirin ve `reports/C2PA_NATIVE_RELEASE_ASSET_CHECKSUMS.json` ile doğrulayın. Yalnız doğrulanmış arşivi hedefe taşıyın. `pnpm install --frozen-lockfile` öncesinde mutlak yolu ayarlayın.
 
