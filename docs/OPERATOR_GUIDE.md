@@ -4,6 +4,8 @@
 
 Use the committed frozen lockfile and pnpm 10.34.5. The November maintenance receipt in `reports/DEPENDENCY_SECURITY_MAINTENANCE_20261109.json` records the clean dependency inventory and verification outputs. It supersedes the September dependency versions, without rewriting historical product evidence. Run `pnpm run test:dependency-security` and `pnpm run test:zod-api-compatibility` alongside the full public validation suite. A newer npm latest tag does not invalidate this pinned toolchain; its integrity and current advisories must still pass.
 
+The demo's direct sharp declaration is now 0.35.5, matching the workspace override and frozen lockfile that already selected that version. This manifest alignment does not change the installed dependency graph or SBOM. Its separate receipt entry binds the one-field transition, frozen installation, zero-vulnerability audit and image smoke test while retaining the original seven-file maintenance baseline and historical reports.
+
 This guide covers source verification, installation, local product startup, secrets, PostgreSQL, media and C2PA runtimes, validation, backup, and shutdown. It does not turn laboratory routes into public product APIs and does not configure external streaming providers for you.
 
 ## Deployment boundary

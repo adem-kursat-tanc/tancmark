@@ -1,0 +1,1 @@
+PASS sharp: direct declaration and active workspace resolution are 0.35.5; PNG encode/decode, resize and RGB pixel preservation passed

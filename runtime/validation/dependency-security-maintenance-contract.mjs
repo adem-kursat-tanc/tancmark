@@ -32,6 +32,21 @@ try {
   const auditBytes = JSON.stringify({ metadata: { vulnerabilities: { info: 0, low: 0, moderate: 0, high: 0, critical: 0 } } });
   write(auditPath, auditBytes);
   const receipt = { schemaVersion: "tancmark-dependency-security-maintenance-v2", scope: "DEPENDENCY_AND_GENERATOR_SECURITY_MAINTENANCE", baseCommit: "aeb2ec8367a569c53672b20390168391157da9c7", inventory: { ...HISTORICAL_INVENTORY }, files, evidence, audit: { path: auditPath, sha256: hash(auditBytes) } };
+  const alignedPath = "artifacts/tancmark-demo/package.json";
+  const alignedAuditPath = "reports/security-maintenance-20261109/fixture-aligned-audit.json";
+  write(alignedAuditPath, auditBytes);
+  copy(alignedPath);
+  const alignedBytes = fs.readFileSync(path.join(temp, alignedPath));
+  receipt.manifestAlignment = {
+    schemaVersion: "tancmark-sharp-manifest-alignment-v1",
+    baseCommit: "2a61a7d9f36979e606b226f71415056d24cc7466",
+    file: { path: alignedPath, beforeSha256: "e91b62a31d6cd0c4b26d118af632113394b16141d8ceaf9ab208a26037ae87f4", beforeGitBlob: "c8927d42234ffad42ad2b10a85c81279f39ae179", afterSha256: hash(alignedBytes), afterGitBlob: gitBlob(alignedBytes) },
+    evidence: [
+      { command: "pnpm install --frozen-lockfile", exitCode: 0, outputPath, outputSha256: hash(output) },
+      { command: "pnpm audit --json", exitCode: 0, outputPath: alignedAuditPath, outputSha256: hash(auditBytes) },
+      { command: "node runtime/validation/public_sharp_manifest_alignment_smoke.mjs", exitCode: 0, outputPath, outputSha256: hash(output) },
+    ],
+  };
   validateDependencyMaintenance(temp, receipt);
   const reject = (mutate, pattern) => { const changed = structuredClone(receipt); mutate(changed); assert.throws(() => validateDependencyMaintenance(temp, changed), pattern); rejected++; };
   reject((r) => { r.baseCommit = "0".repeat(40); });
@@ -49,6 +64,42 @@ try {
   reject((r) => { r.evidence[0].exitCode = 1; }, /test_failed/);
   reject((r) => { r.evidence[0].outputSha256 = "0".repeat(64); }, /evidence_hash_mismatch/);
   reject((r) => { r.evidence[0].outputPath = "../fixture.txt"; }, /path_invalid/);
+  reject((r) => { delete r.manifestAlignment; }, /manifest_alignment_missing/);
+  reject((r) => { r.manifestAlignment.baseCommit = "0".repeat(40); });
+  reject((r) => { r.manifestAlignment.file.path = "package.json"; }, /alignment_path_invalid/);
+  reject((r) => { r.manifestAlignment.file.beforeSha256 = "0".repeat(64); }, /alignment_base_hash_mismatch/);
+  reject((r) => { r.manifestAlignment.file.beforeGitBlob = "0".repeat(40); }, /alignment_base_blob_mismatch/);
+  reject((r) => { r.manifestAlignment.file.afterSha256 = "0".repeat(64); }, /alignment_current_hash_mismatch/);
+  reject((r) => { r.manifestAlignment.file.afterGitBlob = "0".repeat(40); }, /alignment_current_blob_mismatch/);
+  reject((r) => { r.manifestAlignment.evidence.pop(); }, /alignment_required_test_missing/);
+  reject((r) => { r.manifestAlignment.evidence[0].exitCode = 1; }, /alignment_test_failed/);
+  reject((r) => { r.manifestAlignment.evidence[0].outputSha256 = "0".repeat(64); }, /evidence_hash_mismatch/);
+  reject((r) => { r.manifestAlignment.evidence[0].outputPath = "../fixture.txt"; }, /path_invalid/);
+  reject((r) => { r.manifestAlignment.evidence.push(r.manifestAlignment.evidence[0]); }, /alignment_duplicate_command/);
+  const alignedVulnerable = JSON.stringify({ metadata: { vulnerabilities: { info: 0, low: 1, moderate: 0, high: 0, critical: 0 } } });
+  write(alignedAuditPath, alignedVulnerable);
+  reject((r) => { r.manifestAlignment.evidence.find((entry) => entry.command === "pnpm audit --json").outputSha256 = hash(alignedVulnerable); }, /alignment_audit_nonzero:low/);
+  write(alignedAuditPath, auditBytes);
+  const rejectAlignedContent = (change, pattern) => {
+    const altered = Buffer.from(change(alignedBytes.toString("utf8")));
+    write(alignedPath, altered);
+    reject((r) => { r.manifestAlignment.file.afterSha256 = hash(altered); r.manifestAlignment.file.afterGitBlob = gitBlob(altered); }, pattern);
+    write(alignedPath, alignedBytes);
+  };
+  rejectAlignedContent((text) => text.replace('"sharp": "0.35.5"', '"sharp": "0.35.4"'), /alignment_sharp_version_mismatch/);
+  rejectAlignedContent((text) => text.replace('"hls.js": "1.7.1"', '"hls.js": "1.7.2"'), /alignment_unexpected_file_delta/);
+  rejectAlignedContent((text) => `${text}\n`, /alignment_unexpected_file_delta/);
+  for (const [relative, change, pattern] of [
+    ["pnpm-workspace.yaml", (text) => text.replace("  sharp: 0.35.5", "  sharp: 0.35.4"), /alignment_override_mismatch/],
+    ["pnpm-lock.yaml", (text) => text.replaceAll("version: 0.35.5(@types/node@25.3.5)", "version: 0.35.4(@types/node@25.3.5)"), /alignment_lock_mismatch/],
+  ]) {
+    const original = fs.readFileSync(path.join(temp, relative));
+    const altered = Buffer.from(change(original.toString("utf8")));
+    assert.notDeepEqual(altered, original);
+    write(relative, altered);
+    reject((r) => { const record = r.files.find((file) => file.path === relative); record.afterSha256 = hash(altered); record.afterGitBlob = gitBlob(altered); }, pattern);
+    write(relative, original);
+  }
   const vulnerable = JSON.stringify({ metadata: { vulnerabilities: { info: 0, low: 1, moderate: 0, high: 0, critical: 0 } } });
   write(auditPath, vulnerable);
   reject((r) => { r.audit.sha256 = hash(vulnerable); }, /audit_nonzero:low/);

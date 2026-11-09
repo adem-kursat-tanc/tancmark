@@ -4,6 +4,8 @@ The public source is fail closed. Exact media evidence still requires the unique
 
 The repository demo is an operator-controlled `EXPERIMENTAL_LOCAL_DEMO` using repository-generated synthetic fixtures. GitHub-hosted Codespaces launch is currently unavailable, no paid prebuild is enabled, and hosted demo availability is not a product release or security gate.
 
+The demo sharp declaration now matches the already-installed 0.35.5 security patch. The November receipt verifies this exact one-field manifest transition against its historical hash and Git blob, separately from the unchanged seven-file baseline. It rejects unrelated edits, missing evidence and disagreement with the frozen lockfile or workspace override; the historical V13 report and product integrity digest remain unchanged. The dependency regression suite also checks active sharp resolution and image encode/decode/resize behavior.
+
 Before production deployment:
 
 1. Put TancMark, registry, Live, provider, and C2PA secrets in an operator-controlled secret manager; never in Git, environment templates, request bodies, logs, or database rows. TancMark core secrets; some environment-variable names retain the legacy AEGIS_ prefix for compatibility.

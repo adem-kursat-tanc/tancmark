@@ -2,8 +2,8 @@
   "schemaVersion": "tancmark-public-source-manifest-v2",
   "generatedAtUtc": "2026-08-28T00:00:00Z",
   "status": "PASSED",
-  "fileCount": 1204,
-  "totalBytes": 29311139,
+  "fileCount": 1208,
+  "totalBytes": 29325017,
   "symlinkCount": 0,
   "orderingAlgorithm": "UTF8_BYTEWISE_PATH_ORDER_V2",
   "excludedGeneratedDirectories": [
@@ -14,7 +14,7 @@
     "dist-product",
     "node_modules"
   ],
-  "sha256SumsSha256": "997b9a9719c7692517555fc54810ba29fd426c0cbcc7d94d6107b84bc1bdd093",
+  "sha256SumsSha256": "3921a033725ae0c640618c3ccfe3ffbbf3206a81d3d5e04762b2846e893a31a9",
   "entries": [
     {
       "mode": "100644",
@@ -121,8 +121,8 @@
     {
       "mode": "100644",
       "path": "CHANGELOG.md",
-      "bytes": 9740,
-      "sha256": "4ec350ce3f53f2d3d1cf9f375ed940322f99ccb712dfb31893aadca1210a5da9"
+      "bytes": 10434,
+      "sha256": "8cd2472e2e5089fb68d97ed3c56b21b091b0c980d3d57a38c690b6b6314f97ac"
     },
     {
       "mode": "100644",
@@ -3956,7 +3956,7 @@
       "mode": "100644",
       "path": "artifacts/tancmark-demo/package.json",
       "bytes": 766,
-      "sha256": "e91b62a31d6cd0c4b26d118af632113394b16141d8ceaf9ab208a26037ae87f4"
+      "sha256": "300f42c14d18676a222fd25e83623b09802e56078026cc12ebbcdbbe5eed7b56"
     },
     {
       "mode": "100644",
@@ -4135,8 +4135,8 @@
     {
       "mode": "100644",
       "path": "docs/OPERATOR_GUIDE.md",
-      "bytes": 16036,
-      "sha256": "ed71e5459505c1d4862019bf3e84da1f461bd537fc332b4d07e28f464cfb94f4"
+      "bytes": 16467,
+      "sha256": "f5abb48476f0f08bf8a9e974aad4a316707a2ad2d2255c1352e3be971163cb42"
     },
     {
       "mode": "100644",
@@ -4165,8 +4165,8 @@
     {
       "mode": "100644",
       "path": "docs/SECURITY_DEPLOYMENT_GUIDE.md",
-      "bytes": 3289,
-      "sha256": "680e0f4c358116d0bcef65b90d9443f810494f90c3d0a9773c66bf6369946fc5"
+      "bytes": 3830,
+      "sha256": "09e6e140bd51bedcd5a1d48fdbf7b66f57ee811949906385403bfef3b327ea70"
     },
     {
       "mode": "100644",
@@ -6283,8 +6283,8 @@
     {
       "mode": "100644",
       "path": "reports/DEPENDENCY_SECURITY_MAINTENANCE_20261109.json",
-      "bytes": 6343,
-      "sha256": "47ba06b27db1e3a164fc3bdc7e13ba99e6cb804dabd6267f62497d65269369b6"
+      "bytes": 7795,
+      "sha256": "3a4bbecb4b3b2204f5684806a8edf03494c9df22400f9f5f420db5e9f663c700"
     },
     {
       "mode": "100644",
@@ -6744,6 +6744,24 @@
     },
     {
       "mode": "100644",
+      "path": "reports/security-maintenance-20261109/sharp-manifest-audit.json",
+      "bytes": 310,
+      "sha256": "78414a089afe0bb7c8f8fca02edfe5639b905cdd6ef3b374b891f1f063981ebf"
+    },
+    {
+      "mode": "100644",
+      "path": "reports/security-maintenance-20261109/sharp-manifest-install.txt",
+      "bytes": 1265,
+      "sha256": "b100e64ca2a2415128fe4d2b92d397184db0f93a1042b0eae419d3d01fb69f26"
+    },
+    {
+      "mode": "100644",
+      "path": "reports/security-maintenance-20261109/sharp-manifest-smoke.txt",
+      "bytes": 135,
+      "sha256": "397f2d6f620aef1e46884fe2b3d84fdbb1f68948b532a0f7f4bf01afe2a3aee1"
+    },
+    {
+      "mode": "100644",
       "path": "reports/security-maintenance-20261109/test-c2pa-rsa-policy.txt",
       "bytes": 454,
       "sha256": "3bfa8a7757f4d0a2761cca493f63629311d56f3451575b83c595f357d3c58dde"
@@ -6865,14 +6883,14 @@
     {
       "mode": "100644",
       "path": "runtime/validation/dependency-security-maintenance-contract.mjs",
-      "bytes": 4875,
-      "sha256": "caf34e4b2540528ebfe91afe86cbdd4559198855abd07d4e3069e3f215efb145"
+      "bytes": 8981,
+      "sha256": "eae54f4969b92a052a409301e06cc036206bc115ad5805441bc449e47218bad7"
     },
     {
       "mode": "100644",
       "path": "runtime/validation/dependency-security-maintenance.mjs",
-      "bytes": 7665,
-      "sha256": "3e86acb4cdd91b3fbfdeb3c909729181001a89a04251310856f59b76c711d541"
+      "bytes": 10768,
+      "sha256": "4563da566e747c22dc0d52333a417a127babf424b729587dc5235ac0dca26775"
     },
     {
       "mode": "100644",
@@ -6883,8 +6901,8 @@
     {
       "mode": "100644",
       "path": "runtime/validation/final_audit_evidence_consistency_gate.mjs",
-      "bytes": 24408,
-      "sha256": "f17c3e0634498a496a5a56b1f9d98f548ae597ecc45e736b8321f66fa5e17618"
+      "bytes": 24843,
+      "sha256": "b2decde578c9961dddd647af2d4e478488fcdfcf40ca86265e1a33f95f2b4857"
     },
     {
       "mode": "100644",
@@ -7051,8 +7069,8 @@
     {
       "mode": "100644",
       "path": "runtime/validation/public_dependency_security_regression_contract.mjs",
-      "bytes": 4008,
-      "sha256": "a57719f125e0619838c68db71a39567d4a8ba9c1913bc1dddc85ccc88ff90539"
+      "bytes": 4070,
+      "sha256": "7cac53595eebed874a90dc8f5c1bf6c708dcf7d4d8e4a0783ce7902c93f57bcc"
     },
     {
       "mode": "100644",
@@ -7167,6 +7185,12 @@
       "path": "runtime/validation/public_release_state_consistency_gate.mjs",
       "bytes": 20597,
       "sha256": "f27570b4f56c2cc73c892397126dd5c54b3882e277c4a58fe12dc08612aeafb4"
+    },
+    {
+      "mode": "100644",
+      "path": "runtime/validation/public_sharp_manifest_alignment_smoke.mjs",
+      "bytes": 1344,
+      "sha256": "31dbb59fe87ac10872f865db21f06f56708fe7fec78139a5252280fb4df29019"
     },
     {
       "mode": "100644",
