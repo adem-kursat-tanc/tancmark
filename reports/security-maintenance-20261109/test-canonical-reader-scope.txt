@@ -1,0 +1,14 @@
+
+> tancmark@0.1.0-rc.1 test:canonical-reader-scope <repository>
+> tsx runtime/validation/public_canonical_reader_live_scope_contract.ts
+
+{
+  "contract": "public_canonical_reader_live_scope_contract",
+  "status": "passed",
+  "directInternalInvocationRejected": true,
+  "signedLiveScopeAllowed": true,
+  "decodeVideoGuarded": true,
+  "ffmpegExecutionGuarded": true,
+  "advancedRecoveryProbeGuarded": true,
+  "externalNetworkCalls": 0
+}

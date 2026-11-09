@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "tancmark-dependency-security-maintenance-v2",
+  "scope": "DEPENDENCY_AND_GENERATOR_SECURITY_MAINTENANCE",
+  "baseCommit": "aeb2ec8367a569c53672b20390168391157da9c7",
+  "measuredAtUtc": "2026-11-09T14:12:41.588Z",
+  "inventory": {
+    "dependencyPackageCount": 1110,
+    "javascriptDependencyPackageCount": 599,
+    "nativeRustDependencyPackageCount": 511,
+    "declaredLicensePackageCount": 1110,
+    "documentedSourceLicenseResolutionCount": 0,
+    "unresolvedLicenseCount": 0
+  },
+  "files": [
+    {
+      "path": "package.json",
+      "beforeSha256": "6bd192477df4d9fe8ad7e44b0aaf8ff2ef0e67db7a0db25f06a74a15fff816f9",
+      "afterSha256": "d5f7818b4e9dba43e9a773df9ee75bb323ca50944131fa47a650dcbf604f0102",
+      "beforeGitBlob": "45f32a3fe0ee17e7ab8afd63095b5f5557582517",
+      "afterGitBlob": "9e6f31940e949452c5d24210eeee098f70452dfa"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "beforeSha256": "c2495930a28813d16e2ba2c07c581e8a69d3e6a4b2b2f52319ae30101e3a216a",
+      "afterSha256": "b4820e529e2dc66b9ed3b7e9acd31d434424f23bfde1969f39b0868f49d669e5",
+      "beforeGitBlob": "9224e8ac70162281f455fd691032c80fb8b888cf",
+      "afterGitBlob": "89e6d34bc9f7c91777e11133581ace72dc8e7f68"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "beforeSha256": "b21b41e95f592ead493e2833536895403537adbc06a4d7cbcfa5737415eb8e02",
+      "afterSha256": "c660ca54b61e3513e7bb884d4fda752b16ac952c62e437b7fd875f22cddad322",
+      "beforeGitBlob": "43be1e3b60c977d1dcdbb9ec5787fffa4cf567a7",
+      "afterGitBlob": "df2020817c864820082a9d1b6baf4059667cfdd7"
+    },
+    {
+      "path": "artifacts/api-server/package.json",
+      "beforeSha256": "988641a0b237025ad5ad09cd9b6362b1050a4a6c187391998baad4e4df107548",
+      "afterSha256": "a616eeee405bd3a47ba6b3d3119aed799eea679e014555aaaeb32512c0a3c5af",
+      "beforeGitBlob": "2b9a6c4dd9544a772eec281fe78e3ef24b8daa55",
+      "afterGitBlob": "6eaf06ca600ca9ee7935fffac8e95620b913bbac"
+    },
+    {
+      "path": "artifacts/dashboard-ui/package.json",
+      "beforeSha256": "94b2f9b8ea65c2a0de32fc3ef0f0d656a4dc73af2b55010e1fc28ab0bdd90389",
+      "afterSha256": "74941d005e2584b9c324aa77aa44bcb11d17f3b76f4fd34fc8bd09295eb78af6",
+      "beforeGitBlob": "0409f6ba97bfca4548bc8d1ed4e5b13a13f435f9",
+      "afterGitBlob": "4970158e234a1af22f24b98c9149f8c233b6e115"
+    },
+    {
+      "path": "lib/api-spec/orval.config.ts",
+      "beforeSha256": "50213489a70434ef7b16229b84aba46c6a695a6f2cc3f48b1c835372b59bb662",
+      "afterSha256": "fc2d6a797b00d8bfabaa062093c7945768022d932d5fec81f57337539ba5ddb0",
+      "beforeGitBlob": "b4643d3ab3fe5dc76636a696eb6ab995b6a764b0",
+      "afterGitBlob": "e2f557158a6181c11e4b4feaf958ede92e72c35a"
+    },
+    {
+      "path": "lib/api-zod/src/generated/api.ts",
+      "beforeSha256": "88be6259169c9d4475f87e07821620d75f28e7edd5aefde5a24a87e3e134e5d3",
+      "afterSha256": "2b73976c64ec62f417027f7cc764f567676ca6c01effcf39d81e7f8ba5c77098",
+      "beforeGitBlob": "ae2d12d7dfbfda41f090c82cf5d793db4c4b361b",
+      "afterGitBlob": "054a94d4840964854134055c5edb824cda01f77d"
+    }
+  ],
+  "evidence": [
+    {
+      "command": "pnpm run typecheck",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/typecheck.txt",
+      "outputSha256": "1369ae8883018df01f5bce3ccac067a3ff690524cde2ea4f943d4d7ea98657fc"
+    },
+    {
+      "command": "pnpm run build",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/build.txt",
+      "outputSha256": "a6af9366af481036162362a5b569dbd2a1ee5a8052a51e714a71f08bba0d3b91"
+    },
+    {
+      "command": "pnpm run build:product",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/build-product.txt",
+      "outputSha256": "0cb230f60b3131963bacc97901194b2f7c97d0b9caa3d3f37e624d6c5f1760e3"
+    },
+    {
+      "command": "pnpm run test:canonical-reader-scope",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/test-canonical-reader-scope.txt",
+      "outputSha256": "2f3bbc28bfe6edcf85e01fa63ab234712781e3e582d33446b91da80c9bec8506"
+    },
+    {
+      "command": "pnpm run test:seal-security",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/test-seal-security.txt",
+      "outputSha256": "cfbfdb31cdb84a987222d1f4c78d309b974da8e79bacf28177939245f45da069"
+    },
+    {
+      "command": "pnpm run test:c2pa-rsa-policy",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/test-c2pa-rsa-policy.txt",
+      "outputSha256": "3bfa8a7757f4d0a2761cca493f63629311d56f3451575b83c595f357d3c58dde"
+    },
+    {
+      "command": "pnpm --filter @workspace/api-spec codegen",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/codegen.txt",
+      "outputSha256": "aa7d9608003282e65614f92d227c80077a0b94b858dc892f7f4bd9ecdbdf8dd8"
+    },
+    {
+      "command": "pnpm run test:zod-api-compatibility",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/zod-compatibility.txt",
+      "outputSha256": "78d8d905cc089ee8c804eea2fd00d221b4f22b42145d567461397550e9c891f6"
+    },
+    {
+      "command": "pnpm run test:dependency-security",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/dependency-regressions.txt",
+      "outputSha256": "155bab2b95403ce1d745b9662a3fe734d0b457a3e8e51a11e3434c2d96840259"
+    },
+    {
+      "command": "pnpm run test:normal-built",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/test-normal-built.txt",
+      "outputSha256": "822fc8cd04efc90041ea03ea89896ce1a8c0fd39ef2de87bb25fa3c4789d9905"
+    },
+    {
+      "command": "pnpm run test:product-built",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/test-product-built.txt",
+      "outputSha256": "aba2ccb6beb659afdba308f8b6ef8a766a5bac7282104998306145266a9064c6"
+    },
+    {
+      "command": "pnpm run test:toolchain-supply-chain",
+      "exitCode": 0,
+      "outputPath": "reports/security-maintenance-20261109/test-toolchain-supply-chain.txt",
+      "outputSha256": "c65a699f22886a126927b0904f5038b83adea4c8c3d05bea135665ee0030bb23"
+    }
+  ],
+  "audit": {
+    "path": "reports/security-maintenance-20261109/audit-after.json",
+    "sha256": "78414a089afe0bb7c8f8fca02edfe5639b905cdd6ef3b374b891f1f063981ebf"
+  }
+}

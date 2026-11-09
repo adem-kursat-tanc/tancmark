@@ -5,7 +5,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PNPM_VERSION = "10.34.5";
@@ -149,13 +149,13 @@ function inspectActiveVersionReferences(files) {
   return { currentReferenceCount, staleReferenceCount: stale.length };
 }
 
-async function verifyNpmPackage(name, version, expected) {
-  const metadata = await get(`https://registry.npmjs.org/${encodeURIComponent(name)}/${version}`);
+export async function verifyNpmPackage(name, version, expected, getSource = get) {
+  const metadata = await getSource(`https://registry.npmjs.org/${encodeURIComponent(name)}/${version}`);
   assert.equal(metadata.version, version);
   assert.equal(metadata.license, "MIT");
   assert.equal(metadata.dist.integrity, expected.integrity);
   assert.equal(metadata.dist.shasum, expected.shasum);
-  const tarball = await get(metadata.dist.tarball, "bytes");
+  const tarball = await getSource(metadata.dist.tarball, "bytes");
   assert.equal(`sha512-${sha(tarball, "sha512", "base64")}`, expected.integrity);
   assert.equal(sha(tarball, "sha1"), expected.shasum);
   assert(Array.isArray(metadata.dist.signatures) && metadata.dist.signatures.length > 0, `${name}_npm_signature_missing`);
@@ -171,8 +171,8 @@ async function main() {
   const versionReferences = inspectActiveVersionReferences(files);
   const configuration = inspectProjectConfiguration(files);
 
-  const pnpmRegistry = await get("https://registry.npmjs.org/pnpm");
-  assert.equal(pnpmRegistry["dist-tags"]["latest-10"], PNPM_VERSION);
+  // Mutable npm dist-tags are update hints, not authority for this pinned release.
+  // Verify its exact published bytes, source tag, and current advisories below.
   const pnpmPackage = await verifyNpmPackage("pnpm", PNPM_VERSION, { integrity: PNPM_INTEGRITY, shasum: PNPM_SHASUM });
   assert.equal(pnpmPackage.metadata.engines.node, ">=18.12");
   const pnpmTag = await get(`https://api.github.com/repos/pnpm/pnpm/git/ref/tags/v${PNPM_VERSION}`);
@@ -250,7 +250,7 @@ async function main() {
   }, null, 2)}\n`);
 }
 
-main().catch((error) => {
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) main().catch((error) => {
   const message = error instanceof Error ? error.message : String(error);
   if (message === "PACKAGE_MANAGER_ADVISORY_CHECK_NOT_RUN_NETWORK_UNAVAILABLE") {
     process.stderr.write(`${JSON.stringify({ gate: "PUBLIC_PACKAGE_MANAGER_SECURITY_GATE", status: message })}\n`);

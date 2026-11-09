@@ -7,6 +7,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { loadDependencyMaintenance } from "./dependency-security-maintenance.mjs";
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const evidenceRoot = path.resolve(process.env.TANCMARK_FINAL_AUDIT_EVIDENCE_ROOT || path.join(root, "reports/final-audit-v4"));
 const readRootJson = (name) => JSON.parse(fs.readFileSync(path.join(root, name), "utf8"));
@@ -114,6 +116,7 @@ assert.equal(currentFinal.c2pa.coreContract, "18/18 PASSED");
 assert.equal(currentFinal.c2pa.archiveNegativeTests, "33/33 PASSED");
 assert.equal(currentFinal.c2pa.c2paCanOpenVault, false);
 
+const novemberMaintenance = loadDependencyMaintenance(root);
 const expectedInventory = {
   dependencyPackageCount: 1115,
   javascriptDependencyPackageCount: 604,
@@ -124,7 +127,7 @@ const expectedInventory = {
 };
 for (const [field, expected] of Object.entries(expectedInventory)) {
   assert.equal(currentFinal.currentInventory[field], expected, `current_final_inventory_mismatch:${field}`);
-  assert.equal(currentLicense[field], expected, `current_license_inventory_mismatch:${field}`);
+  assert.equal(currentLicense[field], novemberMaintenance.inventory[field], `current_license_inventory_mismatch:${field}`);
 }
 assert.equal(currentFinal.currentInventory.packageManager, "pnpm@10.34.5");
 assert.equal(currentFinal.currentInventory.unzipper, "0.12.5");
@@ -240,7 +243,7 @@ assert.deepEqual([...dependencyMaintenanceByPath.keys()].sort(), [
 ]);
 for (const [relative, record] of dependencyMaintenanceByPath) {
   assert.equal(record.historicalSha256, v13ChangedFileByPath.get(relative)?.sha256, `dependency_historical_hash_mismatch:${relative}`);
-  assert.equal(sha256(path.join(root, relative)), record.currentSha256, `dependency_current_hash_mismatch:${relative}`);
+  assert.equal(sha256(path.join(root, relative)), novemberMaintenance.filesByPath.get(relative).afterSha256, `dependency_current_hash_mismatch:${relative}`);
 }
 for (const record of demoPlatformClosure.changedFiles) {
   const actualSha256 = sha256(path.join(root, record.path));
@@ -248,14 +251,14 @@ for (const record of demoPlatformClosure.changedFiles) {
   const continuity = v13HashContinuityByPath.get(record.path);
   assert.ok(continuity, `v12_demo_file_changed_without_v13_continuity:${record.path}`);
   assert.equal(continuity.v12Sha256, record.afterSha256, `v13_continuity_base_mismatch:${record.path}`);
-  assert.equal(actualSha256, dependencyMaintenanceByPath.get(record.path)?.currentSha256 ?? continuity.v13Sha256, `v13_remediated_file_sha_mismatch:${record.path}`);
+  assert.equal(actualSha256, novemberMaintenance.filesByPath.get(record.path)?.afterSha256 ?? dependencyMaintenanceByPath.get(record.path)?.currentSha256 ?? continuity.v13Sha256, `v13_remediated_file_sha_mismatch:${record.path}`);
   assert.equal(continuity.changeClassification, "CODEQL_FALSE_POSITIVE_RATIONALE_COMMENT_ONLY", `v13_continuity_classification_mismatch:${record.path}`);
 }
 for (const record of securityRemediation.realSourceFixes) {
   assert.equal(sha256(path.join(root, record.path)), record.afterSha256, `v13_real_fix_sha_mismatch:${record.path}`);
 }
 for (const record of securityRemediation.currentChangedFiles) {
-  assert.equal(sha256(path.join(root, record.path)), dependencyMaintenanceByPath.get(record.path)?.currentSha256 ?? record.sha256, `v13_changed_file_sha_mismatch:${record.path}`);
+  assert.equal(sha256(path.join(root, record.path)), novemberMaintenance.filesByPath.get(record.path)?.afterSha256 ?? dependencyMaintenanceByPath.get(record.path)?.currentSha256 ?? record.sha256, `v13_changed_file_sha_mismatch:${record.path}`);
 }
 
 // In a checkout, bind current claims to the actual Git tree. A git-archive has no
@@ -317,8 +320,9 @@ process.stdout.write(`${JSON.stringify({
   status: "PASSED",
   productEvidenceAuthority: currentFinal.productEvidenceAuthority,
   toolchainEvidenceAuthority: currentFinal.toolchainEvidenceAuthority,
-  dependencyInventory: "1115_TOTAL_604_JAVASCRIPT_511_NATIVE_RUST",
-  declaredLicensePackageCount: 1115,
+  dependencyInventory: `${novemberMaintenance.inventory.dependencyPackageCount}_TOTAL_${novemberMaintenance.inventory.javascriptDependencyPackageCount}_JAVASCRIPT_511_NATIVE_RUST`,
+  declaredLicensePackageCount: novemberMaintenance.inventory.declaredLicensePackageCount,
+  dependencyMaintenanceEvidence: "reports/DEPENDENCY_SECURITY_MAINTENANCE_20261109.json",
   unresolvedLicense: 0,
   historicalV4DependencyInventoryClassification: "HISTORICAL_PRE_TOOLCHAIN_V6_MEASUREMENT",
   productTreeCheckedAgainstGit: gitTreeChecked,

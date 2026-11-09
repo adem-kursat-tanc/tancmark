@@ -1,0 +1,16 @@
+
+> tancmark@0.1.0-rc.1 build:product <repository>
+> pnpm --filter @workspace/api-server run build:product
+
+
+> @workspace/api-server@0.0.0 build:product <repository>\artifacts\api-server
+> node ./build.mjs --native-product
+
+
+  dist-product\index.mjs                   5.3mb
+  dist-product\pino-worker.mjs           153.5kb
+  dist-product\pino-file.mjs             142.1kb
+  dist-product\pino-pretty.mjs           115.1kb
+  dist-product\thread-stream-worker.mjs    7.3kb
+
+Done in 1333ms

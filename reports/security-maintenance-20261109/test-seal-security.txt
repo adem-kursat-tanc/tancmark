@@ -1,0 +1,16 @@
+
+> tancmark@0.1.0-rc.1 test:seal-security <repository>
+> tsx runtime/validation/public_canonical_seal_principal_contract.ts
+
+{
+  "status": "PASSED",
+  "cases": 15,
+  "anonymousCanonicalSealAccepted": 0,
+  "callerSelectedIdentityAccepted": 0,
+  "nullTenantCanonicalWrites": 0,
+  "crossTenantAnchorOverwrite": 0,
+  "forgedAuditActor": 0,
+  "wrongOwnership": 0,
+  "deniedRequestsReachedDownstreamWrites": 0,
+  "legacyNullTenantPolicy": "LEGACY_NULL_TENANT_QUARANTINED_READ_ONLY"
+}

@@ -1,0 +1,25 @@
+
+> tancmark@0.1.0-rc.1 test:product-built <repository>
+> node runtime/validation/public_product_build_route_smoke.mjs
+
+{
+  "contract": "public_product_build_route_smoke",
+  "status": "passed",
+  "health": 200,
+  "videoLab": 410,
+  "audioLab": 410,
+  "directCanonicalReaderRoute": 410,
+  "directCanonicalReaderOwnership": false,
+  "liveLocalV1": 200,
+  "wrongTenant": 404,
+  "bundle": "dist-product/index.mjs",
+  "canonicalExactReaderAvailable": true,
+  "c2paBuiltBundle": {
+    "signEmbedReadVerify": "PASSED",
+    "missingIntent": 400,
+    "missingDigitalSourceType": 400,
+    "remotePlaintext": 403,
+    "remoteCredentialsEvaluated": false,
+    "c2paCanOpenVault": false
+  }
+}

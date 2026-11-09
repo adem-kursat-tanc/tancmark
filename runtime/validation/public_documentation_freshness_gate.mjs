@@ -13,6 +13,8 @@ import {
 } from "./deterministic-utf8-order.mjs";
 import { inspectPublicRepositoryRemotePolicy } from "./public-repository-remote-policy.mjs";
 
+import { loadDependencyMaintenance, inventorySentence } from "./dependency-security-maintenance.mjs";
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const docs = {
   user: "docs/USER_GUIDE.md",
@@ -62,7 +64,7 @@ export function documentationRequirements(changedFiles) {
 export function evaluateCurrentReleaseDocumentation(documents) {
   const failures = [];
   for (const [name, text] of Object.entries(documents.docs)) {
-    if (!text.includes(CURRENT_INVENTORY_SENTENCE)) failures.push(`CURRENT_V13_INVENTORY_SENTENCE_MISSING:${name}`);
+    if (!text.includes(inventorySentence(documents.dependencyMaintenance.inventory))) failures.push(`CURRENT_V13_INVENTORY_SENTENCE_MISSING:${name}`);
   }
   const finalInventory = documents.finalRelease?.currentInventory ?? {};
   const expected = {
@@ -75,7 +77,7 @@ export function evaluateCurrentReleaseDocumentation(documents) {
   };
   for (const [field, value] of Object.entries(expected)) {
     if (finalInventory[field] !== value) failures.push(`FINAL_RELEASE_INVENTORY_MISMATCH:${field}`);
-    if (documents.license[field] !== value) failures.push(`LICENSE_INVENTORY_MISMATCH:${field}`);
+    if (documents.license[field] !== documents.dependencyMaintenance.inventory[field]) failures.push(`LICENSE_INVENTORY_MISMATCH:${field}`);
   }
   if (documents.finalRelease?.currentReleaseAuthority !== true) failures.push("FINAL_RELEASE_NOT_CURRENT_AUTHORITY");
   if (documents.toolchain?.currentReleaseAuthority !== true) failures.push("TOOLCHAIN_NOT_CURRENT_AUTHORITY");
@@ -459,7 +461,7 @@ export function evaluateDetailedPublicDocumentation(checkRoot = root) {
     "pnpm install --frozen-lockfile", "pnpm --filter @workspace/db run push",
     "pnpm --filter @workspace/api-server run start:product", "TANCMARK_C2PA_NATIVE_ARCHIVE",
     "TANCMARK_LIVE_STORAGE_ROOT", "C2PA_REMOTE_MANIFEST_FETCH=false", "AEGIS_SECRET", "HTTP `410`",
-    CURRENT_INVENTORY_SENTENCE,
+    inventorySentence(loadDependencyMaintenance(checkRoot).inventory),
   ], "OPERATOR_GUIDE", failures);
   requiredText(operatorTr, [
     "pnpm install --frozen-lockfile", "pnpm --filter @workspace/db run push",
@@ -535,6 +537,7 @@ export function evaluateDetailedPublicDocumentation(checkRoot = root) {
 
 export function loadCurrentReleaseDocumentation(checkRoot = root) {
   return {
+    dependencyMaintenance: loadDependencyMaintenance(checkRoot),
     docs: {
       changelog: readFileSync(path.join(checkRoot, docs.changelog), "utf8"),
       featureStatus: readFileSync(path.join(checkRoot, docs.feature), "utf8"),
@@ -558,7 +561,7 @@ export function assertDocumentationFreshness(changedFiles) {
   const detailedFailures = evaluateDetailedPublicDocumentation();
   assert.deepEqual(detailedFailures, [], `PUBLIC_DETAILED_DOCUMENTATION_GATE:${detailedFailures.join(",")}`);
   result.currentReleaseMetadata = "V13_SECURITY_REMEDIATION_CURRENT";
-  result.currentDependencyPackageCount = 1115;
+  result.currentDependencyPackageCount = loadDependencyMaintenance(root).inventory.dependencyPackageCount;
   result.detailedDocumentation = "PASSED";
   const sourceDigests = calculatePublicSourceClassDigests();
   result.productSourceBlobManifestSha256 = sourceDigests.productEngineDigest;

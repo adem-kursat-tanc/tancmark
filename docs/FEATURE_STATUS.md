@@ -25,7 +25,7 @@
 
 The accepted Live closure does not reopen or change the canonical Live watermark algorithm, thresholds, identities, registry, signature, ownership, or VAULT decisions.
 
-Current clean-install inventory covers 1,115 dependencies: 604 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.
+Current clean-install inventory covers 1,110 dependencies: 599 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.
 
 V8 closes V7-SEC-001 and V7-SEC-002 without changing watermark algorithms,
 thresholds, exact-ID, registry/signature, ownership, VAULT, Live, DNA, or Chief

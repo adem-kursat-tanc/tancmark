@@ -1,5 +1,13 @@
 # Changelog
 
+## Dependency and CI security maintenance - 2026-11-09
+
+- Updated 15 vulnerable dependency packages to reviewed patched versions, including proxy-addr 2.0.8, Multer 2.5.0, sharp 0.35.5, Vite 7.3.7 and Zod 4.6.6. Consolidated conflicting legacy overrides so the frozen lockfile uses the patched versions.
+- Migrated generated API validators to Zod 4 and the form resolver to 5.2.2. Added normal-input, strict-body, coercion, approval-boundary and oversized-collection regressions; repeated generation is byte-stable.
+- Fixed the package-manager gate to verify pinned pnpm 10.34.5 without treating a moving npm latest tag as a security failure. Tarball integrity, source provenance and live advisory checks remain required.
+- Preserved historical security reports and all product-engine integrity checks. A separate maintenance receipt binds the baseline commit, changed dependency files, current inventory and actual verification outputs.
+- Current npm audit found zero known vulnerabilities after a clean frozen install; this is a point-in-time scan, not a guarantee against undisclosed flaws. Watermark and ownership algorithms are unchanged.
+
 ## Dependency security maintenance — 2026-09-23
 
 - Updated Multer from 2.2.0 to 2.3.0 for the reported multipart upload denial-of-service issues.
@@ -48,7 +56,7 @@
 ## V6 current release metadata reconciliation — 2026-08-31
 
 - Bound the unchanged V4 product evidence to the current V6 package-manager, archive-reader, SBOM and declared-license evidence without changing product behavior.
-- Current clean-install inventory covers 1,115 dependencies: 604 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim. The previous 1,188 count included 73 stale JavaScript package directories left by earlier local installs.
+- Current clean-install inventory covers 1,110 dependencies: 599 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim. The previous 1,188 count included 73 stale JavaScript package directories left by earlier local installs.
 - Reclassified the pre-toolchain-V6 dependency counts as historical and added fail-closed V6 evidence-consistency checks.
 
 ## V4 final evidence reconciliation — 2026-08-30

@@ -22,8 +22,14 @@ jobs:
       - run: corepack enable
       - run: corepack prepare pnpm@10.34.5 --activate
       - run: pnpm install --frozen-lockfile
+      - name: Pinned package manager verification contract
+        run: node runtime/validation/public_package_manager_security_contract.mjs
+      - name: Dependency maintenance evidence contract
+        run: node runtime/validation/dependency-security-maintenance-contract.mjs
       - run: pnpm run test:package-manager-security
       - run: pnpm run test:c2pa-archive-security
+      - name: Dependency vulnerability audit
+        run: pnpm audit --audit-level=low
       - run: pnpm run typecheck
       - run: pnpm run test:canonical-reader-scope
       - run: pnpm run build

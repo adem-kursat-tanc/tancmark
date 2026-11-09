@@ -1,5 +1,9 @@
 # TancMark Operator Guide
 
+## November 2026 security maintenance
+
+Use the committed frozen lockfile and pnpm 10.34.5. The November maintenance receipt in `reports/DEPENDENCY_SECURITY_MAINTENANCE_20261109.json` records the clean dependency inventory and verification outputs. It supersedes the September dependency versions, without rewriting historical product evidence. Run `pnpm run test:dependency-security` and `pnpm run test:zod-api-compatibility` alongside the full public validation suite. A newer npm latest tag does not invalidate this pinned toolchain; its integrity and current advisories must still pass.
+
 This guide covers source verification, installation, local product startup, secrets, PostgreSQL, media and C2PA runtimes, validation, backup, and shutdown. It does not turn laboratory routes into public product APIs and does not configure external streaming providers for you.
 
 ## Deployment boundary
@@ -290,6 +294,6 @@ Before any production deployment or owner-approved GitHub publication:
 5. Configure real TLS, backup, monitoring, key rotation, retention, rate limits, and incident response.
 6. Confirm the repository URL remains `https://github.com/adem-kursat-tanc/tancmark` and rerun `pnpm run test:documentation`.
 
-Current clean-install inventory covers 1,115 dependencies: 604 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.
+Current clean-install inventory covers 1,110 dependencies: 599 JavaScript packages and 511 native Rust packages. Unresolved license count is zero. This is not a legal-approval claim.
 
 For security deployment details, use [Security and Deployment Guide](SECURITY_DEPLOYMENT_GUIDE.md). For all documentation, use the [Documentation Index](DOCUMENTATION_INDEX.md).

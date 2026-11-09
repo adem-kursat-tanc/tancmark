@@ -1,0 +1,17 @@
+
+> tancmark@0.1.0-rc.1 typecheck <repository>
+> pnpm run typecheck:libs && pnpm -r --filter "./artifacts/**" --filter "./scripts" --if-present run typecheck
+
+
+> tancmark@0.1.0-rc.1 typecheck:libs <repository>
+> tsc --build
+
+Scope: 4 of 10 workspace projects
+artifacts/api-server typecheck$ tsc -p tsconfig.json --noEmit
+artifacts/tancmark-demo typecheck$ tsc -p tsconfig.json --noEmit
+artifacts/dashboard-ui typecheck$ tsc -p tsconfig.json --noEmit
+scripts typecheck$ tsc -p tsconfig.json --noEmit
+artifacts/tancmark-demo typecheck: Done
+scripts typecheck: Done
+artifacts/dashboard-ui typecheck: Done
+artifacts/api-server typecheck: Done

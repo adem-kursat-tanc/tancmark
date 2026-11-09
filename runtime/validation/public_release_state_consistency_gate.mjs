@@ -5,6 +5,8 @@ import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { loadDependencyMaintenance } from "./dependency-security-maintenance.mjs";
+
 const DEFAULT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const READY = "TANCMARK_GITHUB_PUBLIC_RELEASE_READY_WITH_EXPERIMENTAL_LOCAL_DEMO_20260903";
 const STALE_HOSTED_DEMO_STATUS = "TANCMARK_GITHUB_PUBLIC_RELEASE_WITH_FULL_SECURE_DEMO_V12";
@@ -30,6 +32,7 @@ function sha256(root, relativePath) {
 
 export function loadReleaseStateDocuments(root = DEFAULT_ROOT, privateLedgerPath = process.env.TANCMARK_PRIVATE_SECURITY_RECONCILIATION) {
   const documents = {
+    dependencyMaintenance: loadDependencyMaintenance(root),
     readme: readText(root, "README.md"),
     featureStatus: readText(root, "docs/FEATURE_STATUS.md"),
     changelog: readText(root, "CHANGELOG.md"),
@@ -137,7 +140,7 @@ export function evaluateReleaseStateDocuments(documents) {
   };
   for (const [field, expected] of Object.entries(expectedInventory)) {
     if (documents.finalRelease?.currentInventory?.[field] !== expected) fail(`FINAL_CURRENT_INVENTORY_MISMATCH_${field.toUpperCase()}`);
-    if (documents.currentLicense?.[field] !== expected) fail(`LICENSE_CURRENT_INVENTORY_MISMATCH_${field.toUpperCase()}`);
+    if (documents.currentLicense?.[field] !== documents.dependencyMaintenance.inventory[field]) fail(`LICENSE_CURRENT_INVENTORY_MISMATCH_${field.toUpperCase()}`);
   }
   if (documents.finalRelease?.currentInventory?.packageManager !== "pnpm@10.34.5") fail("FINAL_PACKAGE_MANAGER_VERSION_MISMATCH");
   if (documents.finalRelease?.currentInventory?.unzipper !== "0.12.5") fail("FINAL_UNZIPPER_VERSION_MISMATCH");

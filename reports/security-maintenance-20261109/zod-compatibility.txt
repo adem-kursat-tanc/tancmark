@@ -1,0 +1,6 @@
+
+> tancmark@0.1.0-rc.1 test:zod-api-compatibility <repository>
+> tsx runtime/validation/public_zod_api_compatibility_contract.ts
+
+PASS GHSA-mrhx-c7xc-m3w5: 10,000-entry array/set rejected with zero child transforms/refinements; valid inputs preserved
+PASS Zod API validation compatibility contract

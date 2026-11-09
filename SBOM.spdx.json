@@ -3,7 +3,7 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "TancMark-0.1.0-rc.1",
-  "documentNamespace": "https://spdx.org/spdxdocs/tancmark-0.1.0-rc.1-904f50f7e83ccfd433cb5de08567058b6d6f35392b95b86fe67140e967f83d23",
+  "documentNamespace": "https://spdx.org/spdxdocs/tancmark-0.1.0-rc.1-4454c8c9b20b22250a7476e92d3a7d9b3cd402d13cb86c8c05e8a2b8804c1a57",
   "creationInfo": {
     "created": "2026-08-31T00:00:00Z",
     "creators": [
@@ -652,9 +652,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-743d078c8d8cdc579e4a",
+      "SPDXID": "SPDXRef-Package-8eff287d41ec20fe54b7",
       "name": "@hookform/resolvers",
-      "versionInfo": "3.10.0",
+      "versionInfo": "5.2.2",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -665,7 +665,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40hookform/resolvers@3.10.0"
+          "referenceLocator": "pkg:npm/%40hookform/resolvers@5.2.2"
         }
       ]
     },
@@ -742,9 +742,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-82d7fdc1166f6151fe70",
+      "SPDXID": "SPDXRef-Package-f800dba086bfa701a86f",
       "name": "@img/sharp-libvips-linux-x64",
-      "versionInfo": "1.3.3",
+      "versionInfo": "1.3.4",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -755,14 +755,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40img/sharp-libvips-linux-x64@1.3.3"
+          "referenceLocator": "pkg:npm/%40img/sharp-libvips-linux-x64@1.3.4"
         }
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-a3988ea03dc8108e3a78",
+      "SPDXID": "SPDXRef-Package-35d758b0abf67682c28d",
       "name": "@img/sharp-libvips-linuxmusl-x64",
-      "versionInfo": "1.3.3",
+      "versionInfo": "1.3.4",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -773,14 +773,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40img/sharp-libvips-linuxmusl-x64@1.3.3"
+          "referenceLocator": "pkg:npm/%40img/sharp-libvips-linuxmusl-x64@1.3.4"
         }
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-e6be625b5dc5404ab4cc",
+      "SPDXID": "SPDXRef-Package-b1745f9b983652d63565",
       "name": "@img/sharp-linux-x64",
-      "versionInfo": "0.35.4",
+      "versionInfo": "0.35.5",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -791,14 +791,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40img/sharp-linux-x64@0.35.4"
+          "referenceLocator": "pkg:npm/%40img/sharp-linux-x64@0.35.5"
         }
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-266e750e65af7710b991",
+      "SPDXID": "SPDXRef-Package-7b9c568d776a54153d08",
       "name": "@img/sharp-linuxmusl-x64",
-      "versionInfo": "0.35.4",
+      "versionInfo": "0.35.5",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -809,14 +809,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40img/sharp-linuxmusl-x64@0.35.4"
+          "referenceLocator": "pkg:npm/%40img/sharp-linuxmusl-x64@0.35.5"
         }
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-9565db563cc213bd82c1",
+      "SPDXID": "SPDXRef-Package-4f2c878b971a093fb9c4",
       "name": "@img/sharp-win32-x64",
-      "versionInfo": "0.35.4",
+      "versionInfo": "0.35.5",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -827,7 +827,24 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40img/sharp-win32-x64@0.35.4"
+          "referenceLocator": "pkg:npm/%40img/sharp-win32-x64@0.35.5"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-148b23d9b678e141a303",
+      "name": "@isaacs/nonrecursive-glob-match",
+      "versionInfo": "1.1.0",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "BlueOak-1.0.0",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40isaacs/nonrecursive-glob-match@1.1.0"
         }
       ]
     },
@@ -2740,6 +2757,24 @@
       ]
     },
     {
+      "SPDXID": "SPDXRef-Package-35790b7100f69b875bfe",
+      "name": "@standard-schema/utils",
+      "versionInfo": "0.3.0",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "homepage": "https://github.com/standard-schema/standard-schema",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40standard-schema/utils@0.3.0"
+        }
+      ]
+    },
+    {
       "SPDXID": "SPDXRef-Package-b99e683b8d2534478522",
       "name": "@swc/helpers",
       "versionInfo": "0.5.21",
@@ -3873,9 +3908,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-253140cfe429361c727f",
+      "SPDXID": "SPDXRef-Package-7a0002a2b6f3e70a09cd",
       "name": "body-parser",
-      "versionInfo": "2.3.0",
+      "versionInfo": "2.4.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -3886,7 +3921,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/body-parser@2.3.0"
+          "referenceLocator": "pkg:npm/body-parser@2.4.0"
         }
       ]
     },
@@ -3909,9 +3944,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-8d760e4ad257be5ff72b",
+      "SPDXID": "SPDXRef-Package-8678db7ff88f0a720564",
       "name": "brace-expansion",
-      "versionInfo": "5.0.9",
+      "versionInfo": "5.0.12",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -3922,7 +3957,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/brace-expansion@5.0.9"
+          "referenceLocator": "pkg:npm/brace-expansion@5.0.12"
         }
       ]
     },
@@ -3977,24 +4012,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/browserslist@4.28.8"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-d08b5e69ef91add4f03d",
-      "name": "buffer-from",
-      "versionInfo": "1.1.2",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "MIT",
-      "copyrightText": "NOASSERTION",
-      "homepage": "LinusU/buffer-from",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/buffer-from@1.1.2"
         }
       ]
     },
@@ -4265,24 +4282,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/compare-versions@6.1.1"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-0c81b11a9415455cb574",
-      "name": "concat-stream",
-      "versionInfo": "2.0.0",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "MIT",
-      "copyrightText": "NOASSERTION",
-      "homepage": "http://github.com/maxogden/concat-stream.git",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/concat-stream@2.0.0"
         }
       ]
     },
@@ -5564,9 +5563,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-450ce19955ab7c06f941",
+      "SPDXID": "SPDXRef-Package-d1ed5192777e758d691b",
       "name": "fast-copy",
-      "versionInfo": "4.0.2",
+      "versionInfo": "4.1.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -5577,7 +5576,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/fast-copy@4.0.2"
+          "referenceLocator": "pkg:npm/fast-copy@4.1.0"
         }
       ]
     },
@@ -5636,9 +5635,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-3ce47a40da0d54964823",
+      "SPDXID": "SPDXRef-Package-39881bd30d1f61f75962",
       "name": "fast-uri",
-      "versionInfo": "4.1.3",
+      "versionInfo": "4.2.3",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -5649,7 +5648,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/fast-uri@4.1.3"
+          "referenceLocator": "pkg:npm/fast-uri@4.2.3"
         }
       ]
     },
@@ -6284,9 +6283,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-13b102cc17ed6cc490ef",
+      "SPDXID": "SPDXRef-Package-76dc46c7125d24015248",
       "name": "iconv-lite",
-      "versionInfo": "0.7.2",
+      "versionInfo": "0.7.3",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -6297,7 +6296,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/iconv-lite@0.7.2"
+          "referenceLocator": "pkg:npm/iconv-lite@0.7.3"
         }
       ]
     },
@@ -6392,9 +6391,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-35c11e6aabfe847f97e7",
+      "SPDXID": "SPDXRef-Package-921899813d3c49cf69f5",
       "name": "ip-address",
-      "versionInfo": "10.7.0",
+      "versionInfo": "10.7.4",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -6405,7 +6404,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/ip-address@10.7.0"
+          "referenceLocator": "pkg:npm/ip-address@10.7.4"
         }
       ]
     },
@@ -7040,9 +7039,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-bdb2575bb83fd57a6871",
+      "SPDXID": "SPDXRef-Package-84059362f7759abe9875",
       "name": "markdown-it",
-      "versionInfo": "14.3.1",
+      "versionInfo": "14.3.3",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -7053,7 +7052,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/markdown-it@14.3.1"
+          "referenceLocator": "pkg:npm/markdown-it@14.3.3"
         }
       ]
     },
@@ -7238,9 +7237,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-7dfd90b95b048a79ebe8",
+      "SPDXID": "SPDXRef-Package-40e123d5da6d4a825ec9",
       "name": "minimatch",
-      "versionInfo": "10.2.6",
+      "versionInfo": "11.0.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -7251,7 +7250,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/minimatch@10.2.6"
+          "referenceLocator": "pkg:npm/minimatch@11.0.1"
         }
       ]
     },
@@ -7364,9 +7363,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-f4bef1f2d72f4420d773",
+      "SPDXID": "SPDXRef-Package-1163956a420868eaa1fc",
       "name": "multer",
-      "versionInfo": "2.3.0",
+      "versionInfo": "2.5.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -7377,7 +7376,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/multer@2.3.0"
+          "referenceLocator": "pkg:npm/multer@2.5.0"
         }
       ]
     },
@@ -8390,9 +8389,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-e2c40c5c3551a342de70",
+      "SPDXID": "SPDXRef-Package-ed3ea16788e2731c8382",
       "name": "postcss-selector-parser",
-      "versionInfo": "6.0.10",
+      "versionInfo": "6.1.5",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -8403,7 +8402,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/postcss-selector-parser@6.0.10"
+          "referenceLocator": "pkg:npm/postcss-selector-parser@6.1.5"
         }
       ]
     },
@@ -8624,9 +8623,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-7b128e3d41d39ecb1a40",
+      "SPDXID": "SPDXRef-Package-b94cf93d9a9b565b4570",
       "name": "proxy-addr",
-      "versionInfo": "2.0.7",
+      "versionInfo": "2.0.8",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -8637,7 +8636,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/proxy-addr@2.0.7"
+          "referenceLocator": "pkg:npm/proxy-addr@2.0.8"
         }
       ]
     },
@@ -8678,9 +8677,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-0d1be5d42fb47208b18c",
+      "SPDXID": "SPDXRef-Package-415d3b31f709d0004de7",
       "name": "qs",
-      "versionInfo": "6.16.0",
+      "versionInfo": "6.16.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -8691,7 +8690,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/qs@6.16.0"
+          "referenceLocator": "pkg:npm/qs@6.16.1"
         }
       ]
     },
@@ -9020,24 +9019,6 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-fc0849dcbb2c65cee81c",
-      "name": "readable-stream",
-      "versionInfo": "3.6.2",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "MIT",
-      "copyrightText": "NOASSERTION",
-      "homepage": "git://github.com/nodejs/readable-stream",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/readable-stream@3.6.2"
-        }
-      ]
-    },
-    {
       "SPDXID": "SPDXRef-Package-2f0af10e1fe9a7d5c9fa",
       "name": "readdirp",
       "versionInfo": "5.0.0",
@@ -9290,24 +9271,6 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-952cf236ee56e7de5ea7",
-      "name": "safe-buffer",
-      "versionInfo": "5.2.1",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "MIT",
-      "copyrightText": "NOASSERTION",
-      "homepage": "https://github.com/feross/safe-buffer",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/safe-buffer@5.2.1"
-        }
-      ]
-    },
-    {
       "SPDXID": "SPDXRef-Package-280202ea3426f791307d",
       "name": "safe-stable-stringify",
       "versionInfo": "2.5.0",
@@ -9488,9 +9451,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-37255652fe6bf83a4a54",
+      "SPDXID": "SPDXRef-Package-939087f848623246bd15",
       "name": "sharp",
-      "versionInfo": "0.35.4",
+      "versionInfo": "0.35.5",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -9501,7 +9464,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/sharp@0.35.4"
+          "referenceLocator": "pkg:npm/sharp@0.35.5"
         }
       ]
     },
@@ -9668,9 +9631,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-43b6dddbe93e9eda8497",
+      "SPDXID": "SPDXRef-Package-d8639530bc0e83b1486d",
       "name": "source-map-js",
-      "versionInfo": "1.2.1",
+      "versionInfo": "1.2.2",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -9681,7 +9644,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/source-map-js@1.2.1"
+          "referenceLocator": "pkg:npm/source-map-js@1.2.2"
         }
       ]
     },
@@ -9808,24 +9771,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/string_decoder@1.1.1"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-b7999058a36380603fb6",
-      "name": "string_decoder",
-      "versionInfo": "1.3.0",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "MIT",
-      "copyrightText": "NOASSERTION",
-      "homepage": "https://github.com/nodejs/string_decoder",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/string_decoder@1.3.0"
         }
       ]
     },
@@ -10024,24 +9969,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/tiny-invariant@1.3.3"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-a7570102135ef342ef2c",
-      "name": "tinyglobby",
-      "versionInfo": "0.2.15",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "MIT",
-      "copyrightText": "NOASSERTION",
-      "homepage": "https://superchupu.dev/tinyglobby",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/tinyglobby@0.2.15"
         }
       ]
     },
@@ -10258,24 +10185,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/type-is@2.1.0"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-581fa15593be91b2f5e1",
-      "name": "typedarray",
-      "versionInfo": "0.0.6",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "MIT",
-      "copyrightText": "NOASSERTION",
-      "homepage": "https://github.com/substack/typedarray",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/typedarray@0.0.6"
         }
       ]
     },
@@ -10640,9 +10549,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-f5a3ca7768f1426b4b69",
+      "SPDXID": "SPDXRef-Package-a36ecc3d844cd38db641",
       "name": "vite",
-      "versionInfo": "7.3.6",
+      "versionInfo": "7.3.7",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -10653,7 +10562,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/vite@7.3.6"
+          "referenceLocator": "pkg:npm/vite@7.3.7"
         }
       ]
     },
@@ -10874,9 +10783,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-01aaa7ce197e0507c530",
+      "SPDXID": "SPDXRef-Package-924ff20fc2135421a33c",
       "name": "zod",
-      "versionInfo": "3.25.76",
+      "versionInfo": "4.6.6",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "NOASSERTION",
@@ -10887,7 +10796,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/zod@3.25.76"
+          "referenceLocator": "pkg:npm/zod@4.6.6"
         }
       ]
     },
@@ -19757,7 +19666,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-743d078c8d8cdc579e4a"
+      "relatedSpdxElement": "SPDXRef-Package-8eff287d41ec20fe54b7"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -19782,27 +19691,32 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-82d7fdc1166f6151fe70"
+      "relatedSpdxElement": "SPDXRef-Package-f800dba086bfa701a86f"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-a3988ea03dc8108e3a78"
+      "relatedSpdxElement": "SPDXRef-Package-35d758b0abf67682c28d"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-e6be625b5dc5404ab4cc"
+      "relatedSpdxElement": "SPDXRef-Package-b1745f9b983652d63565"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-266e750e65af7710b991"
+      "relatedSpdxElement": "SPDXRef-Package-7b9c568d776a54153d08"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-9565db563cc213bd82c1"
+      "relatedSpdxElement": "SPDXRef-Package-4f2c878b971a093fb9c4"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-TancMark",
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-148b23d9b678e141a303"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -20337,6 +20251,11 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-35790b7100f69b875bfe"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-TancMark",
+      "relationshipType": "DEPENDS_ON",
       "relatedSpdxElement": "SPDXRef-Package-b99e683b8d2534478522"
     },
     {
@@ -20652,7 +20571,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-253140cfe429361c727f"
+      "relatedSpdxElement": "SPDXRef-Package-7a0002a2b6f3e70a09cd"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -20662,7 +20581,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-8d760e4ad257be5ff72b"
+      "relatedSpdxElement": "SPDXRef-Package-8678db7ff88f0a720564"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -20678,11 +20597,6 @@
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
       "relatedSpdxElement": "SPDXRef-Package-3a679ad65ccac1e9fae6"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-TancMark",
-      "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-d08b5e69ef91add4f03d"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -20758,11 +20672,6 @@
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
       "relatedSpdxElement": "SPDXRef-Package-ad5139b396df86d9d62f"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-TancMark",
-      "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-0c81b11a9415455cb574"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -21122,7 +21031,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-450ce19955ab7c06f941"
+      "relatedSpdxElement": "SPDXRef-Package-d1ed5192777e758d691b"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -21142,7 +21051,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-3ce47a40da0d54964823"
+      "relatedSpdxElement": "SPDXRef-Package-39881bd30d1f61f75962"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -21322,7 +21231,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-13b102cc17ed6cc490ef"
+      "relatedSpdxElement": "SPDXRef-Package-76dc46c7125d24015248"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -21352,7 +21261,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-35c11e6aabfe847f97e7"
+      "relatedSpdxElement": "SPDXRef-Package-921899813d3c49cf69f5"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -21532,7 +21441,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-bdb2575bb83fd57a6871"
+      "relatedSpdxElement": "SPDXRef-Package-84059362f7759abe9875"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -21587,7 +21496,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-7dfd90b95b048a79ebe8"
+      "relatedSpdxElement": "SPDXRef-Package-40e123d5da6d4a825ec9"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -21622,7 +21531,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-f4bef1f2d72f4420d773"
+      "relatedSpdxElement": "SPDXRef-Package-1163956a420868eaa1fc"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -21907,7 +21816,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-e2c40c5c3551a342de70"
+      "relatedSpdxElement": "SPDXRef-Package-ed3ea16788e2731c8382"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -21972,7 +21881,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-7b128e3d41d39ecb1a40"
+      "relatedSpdxElement": "SPDXRef-Package-b94cf93d9a9b565b4570"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -21987,7 +21896,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-0d1be5d42fb47208b18c"
+      "relatedSpdxElement": "SPDXRef-Package-415d3b31f709d0004de7"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -22082,11 +21991,6 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-fc0849dcbb2c65cee81c"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-TancMark",
-      "relationshipType": "DEPENDS_ON",
       "relatedSpdxElement": "SPDXRef-Package-2f0af10e1fe9a7d5c9fa"
     },
     {
@@ -22157,11 +22061,6 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-952cf236ee56e7de5ea7"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-TancMark",
-      "relationshipType": "DEPENDS_ON",
       "relatedSpdxElement": "SPDXRef-Package-280202ea3426f791307d"
     },
     {
@@ -22212,7 +22111,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-37255652fe6bf83a4a54"
+      "relatedSpdxElement": "SPDXRef-Package-939087f848623246bd15"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -22262,7 +22161,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-43b6dddbe93e9eda8497"
+      "relatedSpdxElement": "SPDXRef-Package-d8639530bc0e83b1486d"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -22298,11 +22197,6 @@
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
       "relatedSpdxElement": "SPDXRef-Package-758690f50e15a10fdc53"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-TancMark",
-      "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-b7999058a36380603fb6"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -22358,11 +22252,6 @@
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
       "relatedSpdxElement": "SPDXRef-Package-dae5146503a72aa198cf"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-TancMark",
-      "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-a7570102135ef342ef2c"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -22423,11 +22312,6 @@
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
       "relatedSpdxElement": "SPDXRef-Package-1fd87d3dab5d902c5df7"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-TancMark",
-      "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-581fa15593be91b2f5e1"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -22532,7 +22416,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-f5a3ca7768f1426b4b69"
+      "relatedSpdxElement": "SPDXRef-Package-a36ecc3d844cd38db641"
     },
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
@@ -22597,7 +22481,7 @@
     {
       "spdxElementId": "SPDXRef-Package-TancMark",
       "relationshipType": "DEPENDS_ON",
-      "relatedSpdxElement": "SPDXRef-Package-01aaa7ce197e0507c530"
+      "relatedSpdxElement": "SPDXRef-Package-924ff20fc2135421a33c"
     },
     {
       "spdxElementId": "SPDXRef-Package-2f1356b49c2e6870d49d",

@@ -1,0 +1,100 @@
+
+> tancmark@0.1.0-rc.1 test:toolchain-supply-chain <repository>
+> pnpm run test:package-manager-security && pnpm run test:c2pa-archive-security
+
+
+> tancmark@0.1.0-rc.1 test:package-manager-security <repository>
+> node runtime/validation/public_package_manager_security_gate.mjs
+
+{
+  "gate": "PUBLIC_PACKAGE_MANAGER_SECURITY_GATE",
+  "status": "PASSED",
+  "nodeVersion": "24.22.1",
+  "pnpm": {
+    "version": "10.34.5",
+    "npmIntegrity": "sha512-pO4F8vc2WCVb1qiYWcBlpFwopX2u+uLIk6Fo7itzFow3uR6D5X6mdlStA/AwMXRkMOi84442LgQmBfuKvIAZLg==",
+    "npmShasum": "6a91127a7f2ca72fe53bb9ff54883e0c75b22f17",
+    "npmSignaturePresent": true,
+    "tarballBytes": 4862438,
+    "officialTagCommit": "702ad5f860ffd50d64a3a711d9f8a3da16fc796e",
+    "currentAdvisoryCount": 0,
+    "currentCriticalHighCount": 0,
+    "oldVersionAdvisoryControlCount": 26
+  },
+  "unzipper": {
+    "version": "0.12.5",
+    "npmIntegrity": "sha512-tXYOi9R57Uj/2Z25SOs5RRSzq886MBQj2gY8dPL+xl/kv6s6SvByoKfAtvfVeEuhntWDgjd2o9p2lb4TVPAz0A==",
+    "npmShasum": "7fc6b4862f3832202d1f5cc3adbee2679deaaf6c",
+    "npmSignaturePresent": true,
+    "npmProvenancePresent": true,
+    "tarballBytes": 16280,
+    "sourceCommit": "aaf77f0c7b4d29af500b0aa9c0e2aa2ade0a2618",
+    "fixCommit": "dd164d828787396d3b657ec08291dac885c11c87",
+    "fixCommitIsAncestor": true,
+    "currentAdvisoryCount": 0,
+    "currentCriticalHighCount": 0
+  },
+  "versionReferences": {
+    "currentReferenceCount": 19,
+    "staleReferenceCount": 0
+  },
+  "configuration": {
+    "configFileCount": 13,
+    "resolutionCount": 630,
+    "integrityCount": 630,
+    "findings": [],
+    "nonRegistryDependencies": []
+  },
+  "reachableToolchainCritical": 0,
+  "reachableToolchainHigh": 0
+}
+
+> tancmark@0.1.0-rc.1 test:c2pa-archive-security <repository>
+> node runtime/validation/public_c2pa_archive_security_contract.mjs
+
+{
+  "gate": "TANCMARK_C2PA_ARCHIVE_SINGLE_ENTRY_SECURITY_GATE",
+  "status": "PASSED",
+  "positiveSingleEntry": "PASSED",
+  "negativeCases": [
+    "zero_entries",
+    "multiple_entries",
+    "duplicate_entries",
+    "parent_traversal",
+    "backslash_traversal",
+    "sibling_prefix_traversal",
+    "unix_absolute",
+    "windows_drive_absolute",
+    "windows_unc_absolute",
+    "nested_path",
+    "unexpected_entry",
+    "local_central_name_mismatch",
+    "directory_metadata",
+    "symlink_metadata",
+    "hardlink_metadata",
+    "encrypted_entry",
+    "compression_bomb",
+    "declared_size_mismatch",
+    "huge_declared_size",
+    "bad_crc",
+    "binary_hash_mismatch",
+    "binary_size_mismatch",
+    "archive_hash_mismatch",
+    "archive_size_mismatch",
+    "truncated_archive",
+    "bad_central_directory",
+    "bad_end_record",
+    "corrupt_compressed_payload",
+    "oversized_entry",
+    "process_interruption",
+    "half_write",
+    "overwrite_race",
+    "post_commit_interruption"
+  ],
+  "negativeCaseCount": 33,
+  "outsideWriteCount": 0,
+  "unexpectedEntryAcceptedCount": 0,
+  "unboundedExtractionApiUsed": false,
+  "binaryHashMismatchAcceptedCount": 0,
+  "remainingTemporaryDirectoryCount": 0
+}
