@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 import { compareUtf8By, DETERMINISTIC_ORDER_ALGORITHM, sortUtf8Bytewise } from "./deterministic-utf8-order.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
+const packageVersion = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version;
+assert.match(packageVersion, /^\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?$/);
 const pnpmCli = process.env.npm_execpath;
 assert(pnpmCli, "run with pnpm run sbom");
 
@@ -100,7 +102,7 @@ const packages = [
   {
     SPDXID: rootId,
     name: "tancmark",
-    versionInfo: "0.1.0-rc.1",
+    versionInfo: packageVersion,
     downloadLocation: "NOASSERTION",
     filesAnalyzed: false,
     licenseConcluded: "AGPL-3.0-only",
@@ -134,8 +136,8 @@ const sbom = {
   spdxVersion: "SPDX-2.3",
   dataLicense: "CC0-1.0",
   SPDXID: documentId,
-  name: "TancMark-0.1.0-rc.1",
-  documentNamespace: `https://spdx.org/spdxdocs/tancmark-0.1.0-rc.1-${inventorySha}`,
+  name: `TancMark-${packageVersion}`,
+  documentNamespace: `https://spdx.org/spdxdocs/tancmark-${packageVersion}-${inventorySha}`,
   creationInfo: {
     created: "2026-08-31T00:00:00Z",
     creators: ["Tool: TancMark deterministic pnpm license inventory"],

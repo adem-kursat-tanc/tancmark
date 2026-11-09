@@ -7,6 +7,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { validateDependencyMaintenance, HISTORICAL_INVENTORY, gitBlob } from "./dependency-security-maintenance.mjs";
+import { RELEASE_TRANSITION_PATH, loadReleaseVersionTransition } from "./release-version-transition.mjs";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const temp = fs.mkdtempSync(path.join(os.tmpdir(), "tancmark-maintenance-contract-"));
 const hash = (value) => createHash("sha256").update(value).digest("hex");
@@ -19,9 +20,11 @@ try {
   const baselinePath = "reports/security-maintenance-20261109/BASE_FILE_HASHES.json";
   copy(baselinePath);
   const baseline = JSON.parse(fs.readFileSync(path.join(root, baselinePath)));
+  copy(RELEASE_TRANSITION_PATH);
   const files = baseline.map((record) => {
     copy(record.path);
-    const bytes = fs.readFileSync(path.join(temp, record.path));
+    const current = fs.readFileSync(path.join(temp, record.path));
+    const bytes = record.path === "package.json" ? loadReleaseVersionTransition(temp, current).before : current;
     return { path: record.path, beforeSha256: record.sha256, afterSha256: hash(bytes), beforeGitBlob: record.gitBlob, afterGitBlob: gitBlob(bytes) };
   });
   const outputPath = "reports/security-maintenance-20261109/fixture.txt";
@@ -111,3 +114,5 @@ try {
   // Only the exact mkdtemp directory created above is removed.
   fs.rmSync(temp, { recursive: true, force: true });
 }
+
+await import("./release-version-transition-contract.mjs");

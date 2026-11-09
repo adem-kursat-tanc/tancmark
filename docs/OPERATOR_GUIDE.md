@@ -1,5 +1,9 @@
 # TancMark Operator Guide
 
+## rc.2 source preparation
+
+This source candidate identifies itself as `0.1.0-rc.2`; it has not been published by this preparation. Verify the supplied archive SHA-256 and every included source checksum before the frozen install. The November patched dependency graph and pnpm 10.34.5 are unchanged. A separate root-version transition preserves the existing dependency maintenance evidence. The old rc.1 download is not the patched candidate.
+
 ## November 2026 security maintenance
 
 Use the committed frozen lockfile and pnpm 10.34.5. The November maintenance receipt in `reports/DEPENDENCY_SECURITY_MAINTENANCE_20261109.json` records the clean dependency inventory and verification outputs. It supersedes the September dependency versions, without rewriting historical product evidence. Run `pnpm run test:dependency-security` and `pnpm run test:zod-api-compatibility` alongside the full public validation suite. A newer npm latest tag does not invalidate this pinned toolchain; its integrity and current advisories must still pass.

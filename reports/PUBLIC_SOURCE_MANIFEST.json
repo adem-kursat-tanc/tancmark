@@ -2,8 +2,8 @@
   "schemaVersion": "tancmark-public-source-manifest-v2",
   "generatedAtUtc": "2026-08-28T00:00:00Z",
   "status": "PASSED",
-  "fileCount": 1208,
-  "totalBytes": 29325017,
+  "fileCount": 1211,
+  "totalBytes": 29336721,
   "symlinkCount": 0,
   "orderingAlgorithm": "UTF8_BYTEWISE_PATH_ORDER_V2",
   "excludedGeneratedDirectories": [
@@ -14,7 +14,7 @@
     "dist-product",
     "node_modules"
   ],
-  "sha256SumsSha256": "3921a033725ae0c640618c3ccfe3ffbbf3206a81d3d5e04762b2846e893a31a9",
+  "sha256SumsSha256": "e06348351a6973c241e0af1c058f189ef706a8a9650b8aec112f2a31d1c5d359",
   "entries": [
     {
       "mode": "100644",
@@ -121,8 +121,8 @@
     {
       "mode": "100644",
       "path": "CHANGELOG.md",
-      "bytes": 10434,
-      "sha256": "8cd2472e2e5089fb68d97ed3c56b21b091b0c980d3d57a38c690b6b6314f97ac"
+      "bytes": 11065,
+      "sha256": "0eba6b85ffa9dc6619b8bbdf6f04015ce5447a338e74396accbb333e44f6ee5c"
     },
     {
       "mode": "100644",
@@ -235,8 +235,8 @@
     {
       "mode": "100644",
       "path": "README.md",
-      "bytes": 8649,
-      "sha256": "0c03c52b5411709c92af54d1bb4e6c35ca169110a3db0e3fe35962e896e477ac"
+      "bytes": 9400,
+      "sha256": "59f8bd87ee69ecfa644d297330f2a15d7ed2184187ea2e1b839bd5aa96fd8218"
     },
     {
       "mode": "100644",
@@ -248,7 +248,7 @@
       "mode": "100644",
       "path": "SBOM.spdx.json",
       "bytes": 812874,
-      "sha256": "efbc72bd1300250e11f7239c743d2ce115fd3879b061db32bff5b42edebfb3ee"
+      "sha256": "847f2a9e90e581e3babe6f3f14cf2502cf2f83151441d729869f1efd3db79b67"
     },
     {
       "mode": "100644",
@@ -4135,14 +4135,14 @@
     {
       "mode": "100644",
       "path": "docs/OPERATOR_GUIDE.md",
-      "bytes": 16467,
-      "sha256": "f5abb48476f0f08bf8a9e974aad4a316707a2ad2d2255c1352e3be971163cb42"
+      "bytes": 16911,
+      "sha256": "87c3f74c6713f79e8d7f125110798a01ff3accd4aaba55326ade901a5660300f"
     },
     {
       "mode": "100644",
       "path": "docs/OPERATOR_GUIDE_TR.md",
-      "bytes": 16190,
-      "sha256": "243b918830b23fe3fa32843f3871395ba128dec523021115af5fa9d867ac0dda"
+      "bytes": 16616,
+      "sha256": "271ee1674e934052e58e32f5c93477070c60453a15162c1e9269ac9c0c6d9e77"
     },
     {
       "mode": "100644",
@@ -4165,8 +4165,8 @@
     {
       "mode": "100644",
       "path": "docs/SECURITY_DEPLOYMENT_GUIDE.md",
-      "bytes": 3830,
-      "sha256": "09e6e140bd51bedcd5a1d48fdbf7b66f57ee811949906385403bfef3b327ea70"
+      "bytes": 4355,
+      "sha256": "a3b852108720c8774316287ecff8bb1c54eab1f7fa1022dbd769f0096075870b"
     },
     {
       "mode": "100644",
@@ -4201,14 +4201,14 @@
     {
       "mode": "100644",
       "path": "docs/USER_GUIDE.md",
-      "bytes": 17117,
-      "sha256": "e8561def5d6564a7b543f075a8ee42e138d792b4ce880b950c3ed7cc6526c139"
+      "bytes": 17735,
+      "sha256": "7ff22e48454c573056ce66ece5ca0c83346fb27b002a17417e99062b0a75591c"
     },
     {
       "mode": "100644",
       "path": "docs/USER_GUIDE_TR.md",
-      "bytes": 17844,
-      "sha256": "d040ef87da48d08428b460f94a723ec980143ada2fc2bd3ac94027767f10c42f"
+      "bytes": 18517,
+      "sha256": "3e81e08e364948b45335cc61e7ace18df4878de9b688c5163ed29f9dc058a455"
     },
     {
       "mode": "100644",
@@ -6218,7 +6218,7 @@
       "mode": "100644",
       "path": "package.json",
       "bytes": 4315,
-      "sha256": "d5f7818b4e9dba43e9a773df9ee75bb323ca50944131fa47a650dcbf604f0102"
+      "sha256": "474bdf2cdd96a73117d77427558730031439f7ccb2c4b03dd976f8ab86f4ff21"
     },
     {
       "mode": "100644",
@@ -6465,6 +6465,12 @@
       "path": "reports/PUBLIC_V7_SECURITY_BOUNDARY_CLOSURE_20260901.json",
       "bytes": 5484,
       "sha256": "d7b7cf6314d33e9577a3bbae3687815671277cf1e693987c2800d4a39afc8b1b"
+    },
+    {
+      "mode": "100644",
+      "path": "reports/RELEASE_VERSION_TRANSITION_RC2.json",
+      "bytes": 653,
+      "sha256": "f2036f84f977708cdb571c83675faa707cdf943df3aa661e848da8acf200eab0"
     },
     {
       "mode": "100644",
@@ -6883,14 +6889,14 @@
     {
       "mode": "100644",
       "path": "runtime/validation/dependency-security-maintenance-contract.mjs",
-      "bytes": 8981,
-      "sha256": "eae54f4969b92a052a409301e06cc036206bc115ad5805441bc449e47218bad7"
+      "bytes": 9295,
+      "sha256": "be141b8e9dd94a370f4897b82d1c9445d27e30605b68f609ae770113d3122f86"
     },
     {
       "mode": "100644",
       "path": "runtime/validation/dependency-security-maintenance.mjs",
-      "bytes": 10768,
-      "sha256": "4563da566e747c22dc0d52333a417a127babf424b729587dc5235ac0dca26775"
+      "bytes": 11490,
+      "sha256": "4211daaf940a3ed78a25e2f880ba61eed81fc8b10252d168853ce06dfe65ebf0"
     },
     {
       "mode": "100644",
@@ -6919,8 +6925,8 @@
     {
       "mode": "100644",
       "path": "runtime/validation/generate-public-sbom.mjs",
-      "bytes": 11253,
-      "sha256": "7af958d87c3f5b2e824b6c16d8a41a8231b7fb8fff5b647c6d98330db862c120"
+      "bytes": 11439,
+      "sha256": "d14fa0a4e9cb0bfcd0d1fb1833886c1f08ec392f1e64fa78bc6c69a0b56b5179"
     },
     {
       "mode": "100644",
@@ -7215,6 +7221,18 @@
       "path": "runtime/validation/public_zod_api_compatibility_contract.ts",
       "bytes": 7556,
       "sha256": "e99a7ec4c75dbb17ccb7ac309725726893d053986004a5ba84f80b3322dfe1a5"
+    },
+    {
+      "mode": "100644",
+      "path": "runtime/validation/release-version-transition-contract.mjs",
+      "bytes": 3248,
+      "sha256": "be5c727eb42f73b61c8a47dde9520cbf07457bb7f008131a153b7d9b420afde5"
+    },
+    {
+      "mode": "100644",
+      "path": "runtime/validation/release-version-transition.mjs",
+      "bytes": 2513,
+      "sha256": "2cc2046ae26c4b61f85db7cfc83fd1462d5c3c593c2b07ae241af3103e31e21f"
     },
     {
       "mode": "100644",

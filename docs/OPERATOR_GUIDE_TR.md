@@ -1,5 +1,9 @@
 # TancMark Operatör Kılavuzu
 
+## rc.2 kaynak hazırlığı
+
+Bu kaynak adayı `0.1.0-rc.2` sürümüdür; bu hazırlıkla yayımlanmamıştır. Frozen kurulumdan önce verilen arşivin SHA-256 değerini ve içindeki tüm kaynak checksumlarını doğrulayın. Kasım yamalı bağımlılık grafiği ve pnpm 10.34.5 değişmemiştir. Ayrı kök sürüm geçişi, mevcut bağımlılık bakım kanıtlarını korur. Eski rc.1 indirmesi yamalı aday değildir.
+
 ## Kasım 2026 güvenlik bakımı
 
 Kurulumda depodaki kilit dosyasını ve pnpm 10.34.5 kullanın. `reports/DEPENDENCY_SECURITY_MAINTENANCE_20261109.json` temiz bağımlılık envanterini ve gerçek test çıktılarını kaydeder. Eylül bağımlılık sürümlerinin yerini alır; tarihî ürün kanıtlarını değiştirmez. Tam doğrulama paketine ek olarak `pnpm run test:dependency-security` ve `pnpm run test:zod-api-compatibility` çalıştırın. npm latest etiketinin ilerlemesi tek başına bu sabit araç sürümünü geçersiz yapmaz; bütünlük ve güncel güvenlik denetimleri yine geçmelidir.

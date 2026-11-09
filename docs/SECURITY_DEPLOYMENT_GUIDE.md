@@ -1,5 +1,9 @@
 # Security and Deployment Guide
 
+## rc.2 source version continuity
+
+The local rc.2 source preparation changes release identity only on top of the November patched graph. Its separate version transition accepts exactly one root package version-field change and binds both byte hashes and Git blobs to the verified patched base. Missing receipts, unrelated changes and mismatched versions fail closed. Historical security receipts remain unchanged. This is not publication, deployment, new Linux validation or a guarantee against undisclosed vulnerabilities.
+
 The public source is fail closed. Exact media evidence still requires the unique registry record, tenant/account boundary, and a valid record signature. C2PA, short locators, similarity, maps, DNA, ECC, and transport receipts remain support evidence.
 
 The repository demo is an operator-controlled `EXPERIMENTAL_LOCAL_DEMO` using repository-generated synthetic fixtures. GitHub-hosted Codespaces launch is currently unavailable, no paid prebuild is enabled, and hosted demo availability is not a product release or security gate.
