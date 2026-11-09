@@ -7,11 +7,11 @@ Verify exact matches against signed registry records.
 
 **No AI models in the watermarking core. No GPU required.**
 
-**Seal it. Recover it blindly. Verify the signed record.**
+**Seal it. Recover the identifier in the module's documented read mode. Verify the signed record.**
 
 ## What is TancMark?
 
-TancMark is an open-source watermarking and provenance toolkit. It embeds deterministic identifiers into text, images, audio, and video.
+TancMark is an open-source watermarking and provenance toolkit. It embeds deterministic identifiers into text, images, audio, and video. Reading requirements vary by module: the current public image demo uses reference patches and is not a fully blind image reader.
 Readers recover physical evidence and keep it separate from ownership authority. An exact physical match becomes authoritative only after registry, tenant, and signature checks. Weak or ambiguous evidence fails closed.
 
 The repository contains the TypeScript core, API server, web dashboard, generated API clients, registry/evidence models, DNA advisory components,
@@ -28,9 +28,9 @@ pnpm run build
 pnpm test
 ```
 
-Node.js 24 or newer and the pinned pnpm 10.34.5 are required. Do not substitute a different package-manager version when reproducing release checks.
+These commands install the source, build it and run local validation. They do not deploy a production service. For the operator-controlled synthetic demo, use the demo guide below; running the full API needs the database and secrets described in the [operator guide](docs/OPERATOR_GUIDE.md). Node.js 24 or newer and the pinned pnpm 10.34.5 are required. Do not substitute a different package-manager version when reproducing release checks.
 Media integration tests also require a locally installed FFmpeg/PyAV runtime.
-Runtime binaries and production secrets are not included. The first owner-published GitHub pre-release is [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1); use its deterministic source archive, verify the attached SHA-256 file, and note that this source release is separate from the experimental local demo and does not claim hosted Codespaces or production deployment.
+Runtime binaries and production secrets are not included. This is the `v0.1.0-rc.2` source/security prerelease with the November security fixes. Use the owner-published [GitHub Releases](https://github.com/adem-kursat-tanc/tancmark/releases) and verify the selected release commit, archive SHA-256 and included source checksums before installation. The earlier [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1) archive remains unchanged, predates these fixes and is not the patched download. Check [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions) for public-ci and CodeQL results on the exact source commit; a previous run does not validate a different commit. This source release remains separate from the experimental local demo and does not claim hosted Codespaces or production deployment.
 
 Build that runtime from [the verified media runtime guide](docs/BUILD_VERIFIED_MEDIA_RUNTIME.md),
 set the explicit absolute environment paths, then run:
@@ -64,9 +64,9 @@ can help find or explain evidence. They cannot open ownership or VAULT by themse
 
 ## What does blind mean?
 
-Blind means the original file is not required. Some modules still use
-a key, registry candidate set or signed placement map; each published
-result states its read mode.
+Blind means the unwatermarked original is not supplied to the reader. Keys, expected identities,
+candidate sets or signed placement maps may still be required. The public image smoke test and demo
+use informed reference-patch reads and are not fully blind; each result states its read mode.
 
 ## Result classes
 

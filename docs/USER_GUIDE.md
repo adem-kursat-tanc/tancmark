@@ -33,7 +33,7 @@ YouTube, Twitch, external RTMP, OAuth, webhooks, CDN, DRM, billing, production T
 - Video's frozen advanced physical matrix passed 14 of 16 cells. The two remaining cases fail closed and remain limits.
 - Local protected Live passed its frozen Windows real-media and final exact-verification gates.
 - C2PA PNG, JPEG, MP4, and MOV paths were tested locally. PDF and WAV C2PA product support are `NOT_MEASURED` and are rejected.
-- Windows has real local test evidence. Linux CI is to be verified after the first owner-approved GitHub push. macOS is not tested.
+- Windows has real local test evidence with its recorded source scope. Check [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions) for Linux public-ci and CodeQL results on the exact source commit. These workflows cover the repository build and validation checks; external-provider checks are skipped and successful CI does not establish production operation. macOS is not tested.
 
 See [Feature Status](FEATURE_STATUS.md) and the module-specific [robustness evidence](DOCUMENTATION_INDEX.md#robustness-evidence) for the exact boundaries.
 
@@ -87,7 +87,7 @@ Use one of these source paths:
 1. Clone the owner-published GitHub repository from `https://github.com/adem-kursat-tanc/tancmark`.
 2. Download GitHub's source ZIP for the selected commit, extract it into a short, empty directory, and validate the included checksums.
 
-The first owner-published GitHub pre-release is [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1). Prefer the deterministic source archive attached to that release, verify its accompanying SHA-256 file, and compare the release tag with the owner-designated commit. Never invent or trust an unofficial download URL.
+This is the `v0.1.0-rc.2` source/security prerelease with the November security fixes. Use the owner-published [GitHub Releases](https://github.com/adem-kursat-tanc/tancmark/releases), compare the selected release tag with its designated source commit, and verify the attached archive SHA-256 and included source checksums. The historical [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1) archive remains unchanged, predates these fixes and should not be used as the patched download. A source checkout must be verified against its exact commit. Never invent or trust an unofficial download URL.
 
 ### Verify a clone
 
@@ -279,7 +279,7 @@ See [Troubleshooting](TROUBLESHOOTING.md) for symptoms and checks.
 
 - The repository's real synthetic-fixture demo is available only as an operator-controlled experimental local/Docker demo; GitHub-hosted Codespaces launch is currently unavailable and is not a product release gate.
 - No desktop, mobile, browser, or WebAssembly product is included.
-- Linux awaits first-push CI verification; macOS is not tested.
+- Verify Linux public-ci and CodeQL results for the exact source commit in [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions). CI does not cover production or external-provider operation. macOS is not tested.
 - Two frozen advanced Video cells fail closed.
 - External provider delivery and production deployment are operator work.
 - Public image/audio robustness claims are narrower than the historical private research corpus.

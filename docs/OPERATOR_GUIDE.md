@@ -1,5 +1,9 @@
 # TancMark Operator Guide
 
+## rc.2 source/security prerelease
+
+This source identifies itself as `0.1.0-rc.2`. Use the owner-published [GitHub Releases](https://github.com/adem-kursat-tanc/tancmark/releases), verify the selected release commit and archive SHA-256, and check every included source checksum before the frozen install. Review public-ci and CodeQL for the exact commit in [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions). The November patched dependency graph and pnpm 10.34.5 are unchanged. A separate root-version transition preserves the existing dependency maintenance evidence. The old rc.1 download predates these patches.
+
 ## November 2026 security maintenance
 
 Use the committed frozen lockfile and pnpm 10.34.5. The November maintenance receipt in `reports/DEPENDENCY_SECURITY_MAINTENANCE_20261109.json` records the clean dependency inventory and verification outputs. It supersedes the September dependency versions, without rewriting historical product evidence. Run `pnpm run test:dependency-security` and `pnpm run test:zod-api-compatibility` alongside the full public validation suite. A newer npm latest tag does not invalidate this pinned toolchain; its integrity and current advisories must still pass.
@@ -77,7 +81,7 @@ pnpm install --frozen-lockfile
 
 Do not substitute another package manager version. The install can need network access for npm packages and the fixed C2PA native archive.
 
-This revision pins Multer 2.3.0 and resolves the transitive adm-zip and js-yaml dependencies to 0.6.1 and 4.3.2. After installation, run `pnpm audit --audit-level=low` to check the current npm advisory database. A past clean audit is not a substitute for checking again before deployment.
+This revision pins Multer 2.5.0 and resolves the transitive adm-zip and js-yaml dependencies to 0.6.1 and 4.3.2. After installation, run `pnpm audit --audit-level=low` to check the current npm advisory database. A past clean audit is not a substitute for checking again before deployment.
 
 For a network-free installation with the verified C2PA native installer, first obtain the exact official archive on a connected staging host and verify it against `reports/C2PA_NATIVE_RELEASE_ASSET_CHECKSUMS.json`. Copy only the verified archive to the target. Then set its absolute path before `pnpm install --frozen-lockfile`.
 

@@ -1,6 +1,6 @@
 {
   "name": "tancmark",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "Deterministic blind watermarking for text, images, audio, and video.",
   "license": "AGPL-3.0-only",
   "packageManager": "pnpm@10.34.5",

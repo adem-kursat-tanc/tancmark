@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "tancmark-release-version-transition-v1",
+  "scope": "ROOT_VERSION_METADATA_ONLY",
+  "baseCommit": "471274f1ead335cb8dce900cf03b722507e4b6ce",
+  "baseTree": "fa7776ce92e62c34344419b368e4eae5bf0e9efd",
+  "fromVersion": "0.1.0-rc.1",
+  "toVersion": "0.1.0-rc.2",
+  "published": false,
+  "file": {
+    "path": "package.json",
+    "beforeSha256": "d5f7818b4e9dba43e9a773df9ee75bb323ca50944131fa47a650dcbf604f0102",
+    "beforeGitBlob": "9e6f31940e949452c5d24210eeee098f70452dfa",
+    "afterSha256": "474bdf2cdd96a73117d77427558730031439f7ccb2c4b03dd976f8ab86f4ff21",
+    "afterGitBlob": "fccc35f70bcd2454716591eff0883b962a6dbd06"
+  }
+}

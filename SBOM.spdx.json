@@ -2,8 +2,8 @@
   "spdxVersion": "SPDX-2.3",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "name": "TancMark-0.1.0-rc.1",
-  "documentNamespace": "https://spdx.org/spdxdocs/tancmark-0.1.0-rc.1-4454c8c9b20b22250a7476e92d3a7d9b3cd402d13cb86c8c05e8a2b8804c1a57",
+  "name": "TancMark-0.1.0-rc.2",
+  "documentNamespace": "https://spdx.org/spdxdocs/tancmark-0.1.0-rc.2-4454c8c9b20b22250a7476e92d3a7d9b3cd402d13cb86c8c05e8a2b8804c1a57",
   "creationInfo": {
     "created": "2026-08-31T00:00:00Z",
     "creators": [
@@ -14,7 +14,7 @@
     {
       "SPDXID": "SPDXRef-Package-TancMark",
       "name": "tancmark",
-      "versionInfo": "0.1.0-rc.1",
+      "versionInfo": "0.1.0-rc.2",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "AGPL-3.0-only",

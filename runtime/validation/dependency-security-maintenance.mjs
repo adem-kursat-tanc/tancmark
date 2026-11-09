@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { loadReleaseVersionTransition } from "./release-version-transition.mjs";
 
 export const MAINTENANCE_PATH = "reports/DEPENDENCY_SECURITY_MAINTENANCE_20261109.json";
 export const HISTORICAL_INVENTORY = Object.freeze({ dependencyPackageCount: 1115, javascriptDependencyPackageCount: 604, nativeRustDependencyPackageCount: 511, declaredLicensePackageCount: 1115, documentedSourceLicenseResolutionCount: 0, unresolvedLicenseCount: 0 });
@@ -56,10 +57,13 @@ export function validateDependencyMaintenance(root, receipt) {
     assert.notEqual(record.beforeSha256, record.afterSha256, `maintenance_unchanged_file:${record.path}`);
     assert.equal(record.beforeSha256, baseline.get(record.path)?.sha256, `maintenance_base_hash_mismatch:${record.path}`);
     assert.equal(record.beforeGitBlob, baseline.get(record.path)?.gitBlob, `maintenance_base_blob_mismatch:${record.path}`);
-    const actual = bytes(record.path);
+    const current = bytes(record.path);
+    const transition = record.path === "package.json" ? loadReleaseVersionTransition(root, current) : null;
+    const actual = transition?.before ?? current;
     assert.equal(sha(actual), record.afterSha256, `maintenance_current_hash_mismatch:${record.path}`);
     assert.equal(gitBlob(actual), record.afterGitBlob, `maintenance_current_blob_mismatch:${record.path}`);
-    files.set(record.path, record);
+    // The receipt stays historical. Consumers receive verified current hashes.
+    files.set(record.path, transition ? { ...record, maintenanceAfterSha256: record.afterSha256, maintenanceAfterGitBlob: record.afterGitBlob, afterSha256: transition.file.afterSha256, afterGitBlob: transition.file.afterGitBlob } : record);
   }
   assert.deepEqual([...files.keys()].sort(), [...baseline.keys()].sort(), "maintenance_base_file_set_mismatch");
   assert(files.has("pnpm-lock.yaml"), "maintenance_lockfile_missing");
@@ -125,5 +129,7 @@ export function validateDependencyMaintenance(root, receipt) {
   return { ...receipt, filesByPath: files };
 }
 export function loadDependencyMaintenance(root) {
-  return validateDependencyMaintenance(root, JSON.parse(fs.readFileSync(path.join(root, MAINTENANCE_PATH), "utf8")));
+  const receiptBytes = fs.readFileSync(path.join(root, MAINTENANCE_PATH));
+  assert.equal(sha(receiptBytes), "3a4bbecb4b3b2204f5684806a8edf03494c9df22400f9f5f420db5e9f663c700", "release_original_maintenance_receipt_changed");
+  return validateDependencyMaintenance(root, JSON.parse(receiptBytes.toString("utf8")));
 }

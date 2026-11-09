@@ -33,7 +33,7 @@ YouTube, Twitch, dış RTMP, OAuth, webhook, CDN, DRM, ödeme, üretim TLS'i, or
 - Videonun dondurulmuş ileri fiziksel matrisi 16 hücrenin 14'ünü geçti. Kalan iki durum güvenli biçimde durur ve sınır olarak kalır.
 - Yerel korumalı Live, Windows'taki dondurulmuş gerçek medya ve nihai tam doğrulama kapılarını geçti.
 - C2PA için PNG, JPEG, MP4 ve MOV yerelde test edildi. PDF ve WAV C2PA ürün desteği `NOT_MEASURED` durumundadır ve reddedilir.
-- Windows gerçek yerel testlerle doğrulandı. Linux CI, sahibin ilk GitHub gönderiminden sonra ayrıca doğrulanacaktır. macOS test edilmedi.
+- Windows için kapsamı kaydedilmiş gerçek yerel test kanıtları vardır. Tam kaynak commitinin Linux public-ci ve CodeQL sonuçlarını [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions) üzerinden kontrol edin. Bu iş akışları depo derleme ve doğrulama kontrollerini kapsar; dış sağlayıcı testleri atlanır ve başarılı CI üretim ortamının çalıştığını kanıtlamaz. macOS test edilmedi.
 
 Kesin sınırlar için [Özellik Durumu](FEATURE_STATUS.md) ile modül bazlı [dayanıklılık kanıtlarına](DOCUMENTATION_INDEX.md#robustness-evidence) bakın.
 
@@ -87,7 +87,7 @@ DNA modül kanıtlarını ve sağlık bilgilerini düzenler. Chief Brain özetle
 1. `https://github.com/adem-kursat-tanc/tancmark` adresindeki sahip-yayınlı GitHub deposunu klonlayın.
 2. Seçilen commit için GitHub source ZIP'ini indirin, kısa ve boş bir klasöre çıkarın, iç checksumları doğrulayın.
 
-Sahibin yayımladığı ilk GitHub ön sürümü [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1) sürümüdür. Bu sürüme eklenen deterministik kaynak arşivini tercih edin, yanındaki SHA-256 dosyasını doğrulayın ve sürüm etiketini sahibin belirlediği commit ile karşılaştırın. Resmî olmayan adres uydurmayın veya kullanmayın.
+Bu kaynak, Kasım güvenlik düzeltmelerini içeren `v0.1.0-rc.2` kaynak/güvenlik ön sürümüdür. Sahibin yayımladığı [GitHub Releases](https://github.com/adem-kursat-tanc/tancmark/releases) sayfasını kullanın, seçilen sürüm etiketini belirtilen kaynak commitiyle karşılaştırın ve ekli arşivin SHA-256 değerini ve iç kaynak checksumlarını doğrulayın. Tarihî [`v0.1.0-rc.1`](https://github.com/adem-kursat-tanc/tancmark/releases/tag/v0.1.0-rc.1) arşivi değişmeden korunur; bu düzeltmelerden öncedir ve yamalı indirme olarak kullanılmamalıdır. Kaynak çalışma kopyasını tam commitine göre doğrulayın. Resmî olmayan adres uydurmayın veya kullanmayın.
 
 ### Klonu doğrulama
 
@@ -279,7 +279,7 @@ Belirti ve çözüm denetimleri için [Sorun Giderme](TROUBLESHOOTING_TR.md) bel
 
 - Deponun gerçek sentetik-fixture demosu yalnız operatör denetimli deneysel yerel/Docker demo olarak kullanılabilir; GitHub üzerinde barındırılan Codespaces başlatması şu anda kullanılamaz ve ürün yayın kapısı değildir.
 - Masaüstü, mobil, tarayıcı veya WebAssembly ürünü yoktur.
-- Linux ilk gönderim CI doğrulamasını bekler; macOS test edilmedi.
+- Tam kaynak commitinin Linux public-ci ve CodeQL sonuçlarını [GitHub Actions](https://github.com/adem-kursat-tanc/tancmark/actions) üzerinden doğrulayın. CI üretim ortamını veya dış sağlayıcıların çalışmasını kapsamaz. macOS test edilmedi.
 - Dondurulmuş ileri Video matrisinin iki hücresi güvenli biçimde başarısızdır.
 - Dış sağlayıcı teslimi ve üretim kurulumu operatör işidir.
 - Kamu görsel/ses dayanıklılık iddiaları tarihsel özel araştırma kümesinden daha dardır.
