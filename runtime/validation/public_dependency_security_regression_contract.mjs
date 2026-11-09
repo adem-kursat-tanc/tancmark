@@ -64,3 +64,5 @@ for (const method of ["isInSubnet", "isHostInSubnet"]) {
 }
 console.log("PASS ip-address: cross-family subnet confusion rejected; same-family checks preserved");
 console.log("PASS dependency security regression contract");
+
+await import("./public_sharp_manifest_alignment_smoke.mjs");

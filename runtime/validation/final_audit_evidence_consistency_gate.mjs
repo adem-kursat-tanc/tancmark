@@ -258,7 +258,13 @@ for (const record of securityRemediation.realSourceFixes) {
   assert.equal(sha256(path.join(root, record.path)), record.afterSha256, `v13_real_fix_sha_mismatch:${record.path}`);
 }
 for (const record of securityRemediation.currentChangedFiles) {
-  assert.equal(sha256(path.join(root, record.path)), novemberMaintenance.filesByPath.get(record.path)?.afterSha256 ?? dependencyMaintenanceByPath.get(record.path)?.currentSha256 ?? record.sha256, `v13_changed_file_sha_mismatch:${record.path}`);
+  const alignment = novemberMaintenance.manifestAlignment.file;
+  if (record.path === alignment.path) {
+    assert.equal(record.sha256, alignment.beforeSha256, "v13_manifest_alignment_hash_continuity_mismatch");
+    assert.equal(record.gitBlob, alignment.beforeGitBlob, "v13_manifest_alignment_blob_continuity_mismatch");
+  }
+  const alignedSha256 = record.path === alignment.path ? alignment.afterSha256 : undefined;
+  assert.equal(sha256(path.join(root, record.path)), alignedSha256 ?? novemberMaintenance.filesByPath.get(record.path)?.afterSha256 ?? dependencyMaintenanceByPath.get(record.path)?.currentSha256 ?? record.sha256, `v13_changed_file_sha_mismatch:${record.path}`);
 }
 
 // In a checkout, bind current claims to the actual Git tree. A git-archive has no

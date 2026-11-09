@@ -87,6 +87,41 @@ export function validateDependencyMaintenance(root, receipt) {
   verifyArtifact(receipt.audit?.path, receipt.audit?.sha256);
   const audit = JSON.parse(bytes(receipt.audit.path));
   for (const severity of ["info", "low", "moderate", "high", "critical"]) assert.equal(audit.metadata?.vulnerabilities?.[severity], 0, `maintenance_audit_nonzero:${severity}`);
+
+  // Keep the original seven-file baseline immutable. This separate transition
+  // only reconciles a stale direct declaration with the already-patched graph.
+  const alignment = receipt.manifestAlignment;
+  assert.equal(alignment?.schemaVersion, "tancmark-sharp-manifest-alignment-v1", "maintenance_manifest_alignment_missing");
+  assert.equal(alignment.baseCommit, "2a61a7d9f36979e606b226f71415056d24cc7466");
+  const aligned = alignment.file;
+  assert.equal(aligned?.path, "artifacts/tancmark-demo/package.json", "maintenance_alignment_path_invalid");
+  assert.equal(aligned.beforeSha256, "e91b62a31d6cd0c4b26d118af632113394b16141d8ceaf9ab208a26037ae87f4", "maintenance_alignment_base_hash_mismatch");
+  assert.equal(aligned.beforeGitBlob, "c8927d42234ffad42ad2b10a85c81279f39ae179", "maintenance_alignment_base_blob_mismatch");
+  const alignedBytes = bytes(aligned.path);
+  assert.equal(sha(alignedBytes), aligned.afterSha256, "maintenance_alignment_current_hash_mismatch");
+  assert.equal(gitBlob(alignedBytes), aligned.afterGitBlob, "maintenance_alignment_current_blob_mismatch");
+  const alignedText = alignedBytes.toString("utf8");
+  assert.equal(JSON.parse(alignedText).dependencies?.sharp, "0.35.5", "maintenance_alignment_sharp_version_mismatch");
+  const beforeText = alignedText.replace('"sharp": "0.35.5"', '"sharp": "0.35.4"');
+  assert.equal(sha(beforeText), aligned.beforeSha256, "maintenance_alignment_unexpected_file_delta");
+  assert.equal(gitBlob(Buffer.from(beforeText)), aligned.beforeGitBlob, "maintenance_alignment_unexpected_blob_delta");
+  assert.match(bytes("pnpm-workspace.yaml").toString("utf8"), /^  sharp: 0\.35\.5$/m, "maintenance_alignment_override_mismatch");
+  const demoImporter = bytes("pnpm-lock.yaml").toString("utf8").match(/^  artifacts\/tancmark-demo:\n([\s\S]*?)(?=^  \S|(?![\s\S]))/m)?.[1];
+  assert.match(demoImporter ?? "", /^      sharp:\n        specifier: 0\.35\.5\n        version: 0\.35\.5(?:\([^\n]*\))?$/m, "maintenance_alignment_lock_mismatch");
+  assert(Array.isArray(alignment.evidence), "maintenance_alignment_evidence_missing");
+  const alignmentCommands = new Set();
+  for (const result of alignment.evidence) {
+    assert(!alignmentCommands.has(result.command), "maintenance_alignment_duplicate_command");
+    alignmentCommands.add(result.command);
+    assert.equal(result.exitCode, 0, `maintenance_alignment_test_failed:${result.command}`);
+    verifyArtifact(result.outputPath, result.outputSha256);
+  }
+  for (const command of ["pnpm install --frozen-lockfile", "pnpm audit --json", "node runtime/validation/public_sharp_manifest_alignment_smoke.mjs"]) {
+    assert(alignmentCommands.has(command), `maintenance_alignment_required_test_missing:${command}`);
+  }
+  const alignedAuditEvidence = alignment.evidence.find((result) => result.command === "pnpm audit --json");
+  const alignedAudit = JSON.parse(bytes(alignedAuditEvidence.outputPath));
+  for (const severity of ["info", "low", "moderate", "high", "critical"]) assert.equal(alignedAudit.metadata?.vulnerabilities?.[severity], 0, `maintenance_alignment_audit_nonzero:${severity}`);
   return { ...receipt, filesByPath: files };
 }
 export function loadDependencyMaintenance(root) {

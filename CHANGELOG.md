@@ -1,5 +1,11 @@
 # Changelog
 
+## Demo sharp manifest alignment - 2026-11-09
+
+- Aligned the demo's direct sharp declaration from 0.35.4 to 0.35.5 for GHSA-wq5f-xc86-pv6w. The existing workspace override and frozen lockfile already resolved 0.35.5; installed versions and the SBOM are unchanged.
+- Added a separately verified, single-field manifest transition to the November maintenance receipt without changing its seven-file baseline or historical reports. Negative controls reject missing evidence, unrelated field changes, mismatched hashes and inconsistent versions.
+- Added an active-resolution and PNG encode/decode/resize regression check. Product engine sources, watermark and ownership decisions remain unchanged.
+
 ## Dependency and CI security maintenance - 2026-11-09
 
 - Updated 15 vulnerable dependency packages to reviewed patched versions, including proxy-addr 2.0.8, Multer 2.5.0, sharp 0.35.5, Vite 7.3.7 and Zod 4.6.6. Consolidated conflicting legacy overrides so the frozen lockfile uses the patched versions.

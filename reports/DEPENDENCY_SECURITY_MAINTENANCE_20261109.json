@@ -139,5 +139,37 @@
   "audit": {
     "path": "reports/security-maintenance-20261109/audit-after.json",
     "sha256": "78414a089afe0bb7c8f8fca02edfe5639b905cdd6ef3b374b891f1f063981ebf"
+  },
+  "manifestAlignment": {
+    "schemaVersion": "tancmark-sharp-manifest-alignment-v1",
+    "baseCommit": "2a61a7d9f36979e606b226f71415056d24cc7466",
+    "measuredAtUtc": "2026-11-09T16:06:25.858Z",
+    "file": {
+      "path": "artifacts/tancmark-demo/package.json",
+      "beforeSha256": "e91b62a31d6cd0c4b26d118af632113394b16141d8ceaf9ab208a26037ae87f4",
+      "afterSha256": "300f42c14d18676a222fd25e83623b09802e56078026cc12ebbcdbbe5eed7b56",
+      "beforeGitBlob": "c8927d42234ffad42ad2b10a85c81279f39ae179",
+      "afterGitBlob": "34e05863a668224e65b5efbc0be6287985975172"
+    },
+    "evidence": [
+      {
+        "command": "pnpm install --frozen-lockfile",
+        "exitCode": 0,
+        "outputPath": "reports/security-maintenance-20261109/sharp-manifest-install.txt",
+        "outputSha256": "b100e64ca2a2415128fe4d2b92d397184db0f93a1042b0eae419d3d01fb69f26"
+      },
+      {
+        "command": "pnpm audit --json",
+        "exitCode": 0,
+        "outputPath": "reports/security-maintenance-20261109/sharp-manifest-audit.json",
+        "outputSha256": "78414a089afe0bb7c8f8fca02edfe5639b905cdd6ef3b374b891f1f063981ebf"
+      },
+      {
+        "command": "node runtime/validation/public_sharp_manifest_alignment_smoke.mjs",
+        "exitCode": 0,
+        "outputPath": "reports/security-maintenance-20261109/sharp-manifest-smoke.txt",
+        "outputSha256": "397f2d6f620aef1e46884fe2b3d84fdbb1f68948b532a0f7f4bf01afe2a3aee1"
+      }
+    ]
   }
 }
